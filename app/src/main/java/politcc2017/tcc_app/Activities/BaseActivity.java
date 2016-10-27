@@ -1,4 +1,4 @@
-package politcc2017.tcc_app;
+package politcc2017.tcc_app.Activities;
 
 /**
  * Created by Jonatas on 25/10/2016.
@@ -14,10 +14,14 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.widget.FrameLayout;
 
+import politcc2017.tcc_app.R;
+import politcc2017.tcc_app.RecyclerView.Adapters.DrawerAdapter;
+import politcc2017.tcc_app.RecyclerView.Data.DrawerData;
+
 public class BaseActivity extends AppCompatActivity {
     Toolbar toolbar;
     RecyclerView drawerRecyclerView;
-    RecyclerView.Adapter mAdapter;
+    DrawerAdapter mAdapter;
     RecyclerView.LayoutManager mLayoutManager;
     DrawerLayout Drawer;
     ActionBarDrawerToggle mDrawerToggle;
@@ -32,6 +36,9 @@ public class BaseActivity extends AppCompatActivity {
 
         drawerRecyclerView = (RecyclerView) findViewById(R.id.base_drawer_recycler_view);
         drawerRecyclerView.setHasFixedSize(true);
+
+        mAdapter = new DrawerAdapter(new DrawerData(getResources().getStringArray(R.array.drawer_items)));
+
         drawerRecyclerView.setAdapter(mAdapter);
         mLayoutManager = new LinearLayoutManager(this);
 

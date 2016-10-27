@@ -1,10 +1,12 @@
-package politcc2017.tcc_app;
+package politcc2017.tcc_app.Activities;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import politcc2017.tcc_app.R;
 
 /**
  * Created by Jonatas on 25/10/2016.
