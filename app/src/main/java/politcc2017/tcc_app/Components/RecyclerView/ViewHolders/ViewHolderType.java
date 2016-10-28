@@ -1,4 +1,4 @@
-package politcc2017.tcc_app.RecyclerView.ViewHolders;
+package politcc2017.tcc_app.Components.RecyclerView.ViewHolders;
 
 /**
  * Created by Jonatas on 26/10/2016.

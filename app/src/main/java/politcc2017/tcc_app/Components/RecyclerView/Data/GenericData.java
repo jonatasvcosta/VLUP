@@ -1,13 +1,7 @@
-package politcc2017.tcc_app.RecyclerView.Data;
-
-import android.view.View;
+package politcc2017.tcc_app.Components.RecyclerView.Data;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.List;
-
-import politcc2017.tcc_app.RecyclerView.ViewHolders.DrawerViewHolder;
-import politcc2017.tcc_app.RecyclerView.ViewHolders.GenericViewHolder;
 
 public class GenericData {
     //Constant ViewHolderTypes
