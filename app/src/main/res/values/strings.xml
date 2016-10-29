@@ -1,30 +1,15 @@
 <resources>
     <string name="app_name">TCC-APP</string>
-    <string-array name="drawer_items">
-        <item>A</item>
-        <item>B</item>
-        <item>C</item>
-        <item>D</item>
-        <item>E</item>
-        <item>A</item>
-        <item>B</item>
-        <item>C</item>
-        <item>D</item>
-        <item>E</item>
-        <item>A</item>
-        <item>B</item>
-        <item>C</item>
-        <item>D</item>
-        <item>E</item>
-        <item>A</item>
-        <item>B</item>
-        <item>C</item>
-        <item>D</item>
-        <item>E</item>
-        <item>A</item>
-        <item>B</item>
-        <item>C</item>
-        <item>D</item>
-        <item>E</item>
+    <string-array name="drawer_items_portuguese">
+        <item>Home</item>
+        <item>Vocabulário</item>
+        <item>Notícias e Textos</item>
+        <item>Navegar</item>
+        <item>Tandem</item>
+        <item>Biblioteca pessoal</item>
+        <item>Dicionário</item>
+        <item>Câmera</item>
+        <item>Produtos para mim</item>
+        <item>Configurações</item>
     </string-array>
 </resources>

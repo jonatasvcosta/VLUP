@@ -4,6 +4,7 @@ package politcc2017.tcc_app.Activities;
  * Created by Jonatas on 25/10/2016.
  */
 
+import android.content.Intent;
 import android.support.annotation.LayoutRes;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -14,15 +15,16 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import politcc2017.tcc_app.Components.Listeners.CellClickListener;
-import politcc2017.tcc_app.R;
 import politcc2017.tcc_app.Components.RecyclerView.Adapters.GenericAdapter;
 import politcc2017.tcc_app.Components.RecyclerView.Data.GenericData;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.ViewHolderType;
+import politcc2017.tcc_app.R;
+
+import static android.content.Intent.FLAG_ACTIVITY_REORDER_TO_FRONT;
 
 public class BaseActivity extends AppCompatActivity {
     Toolbar toolbar;
@@ -43,7 +45,7 @@ public class BaseActivity extends AppCompatActivity {
         drawerRecyclerView = (RecyclerView) findViewById(R.id.base_drawer_recycler_view);
         GenericData data = new GenericData();
         ArrayList<String> drawerItemTexts = new ArrayList<>();
-        String[] itemTexts = getResources().getStringArray(R.array.drawer_items);
+        String[] itemTexts = getResources().getStringArray(R.array.drawer_items_portuguese);
         for(int i = 0; i < itemTexts.length; i++) drawerItemTexts.add(itemTexts[i]);
         data.addStringsToAllCells(GenericData.DRAWER_ITEM_TEXT_KEY, drawerItemTexts);
         mAdapter = new GenericAdapter(data, ViewHolderType.DRAWER_VIEW_HOLDER, R.layout.drawer_item_cell);
@@ -69,12 +71,30 @@ public class BaseActivity extends AppCompatActivity {
         if(baseActionBar != null) baseActionBar.setTitle(title);
     }
 
+    protected void setActivityToolbarColor(int colorID){
+        toolbar.setBackgroundColor(colorID);
+    }
+
+    protected void startOrResumeActivity(Class <? extends BaseActivity> destinationActivity){
+        Intent intent = new Intent(getBaseContext(), destinationActivity);
+        intent.addFlags(FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(intent);
+    }
+
+    protected void startOrResumeActivity(Class <? extends BaseActivity> destinationActivity, boolean closeAllPreviousActivities){
+        Intent intent = new Intent(getBaseContext(), destinationActivity);
+        if(closeAllPreviousActivities) intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        else intent.addFlags(FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(intent);
+    }
+
     protected void HandleDrawerClicks(){
         mAdapter.RegisterClickListener(new CellClickListener() {
             @Override
             public void onClick(View v, int position) {
                 mDrawerLayout.closeDrawers();
-                
+                if(position == 0) startOrResumeActivity(HomeActivity.class);
+                else startOrResumeActivity(MaintenanceActivity.class, true);
             }
 
             @Override
