@@ -18,6 +18,7 @@ import android.widget.FrameLayout;
 
 import java.util.ArrayList;
 
+import politcc2017.tcc_app.Common.ResourcesHelper;
 import politcc2017.tcc_app.Components.Listeners.CellClickListener;
 import politcc2017.tcc_app.Components.RecyclerView.Adapters.GenericAdapter;
 import politcc2017.tcc_app.Components.RecyclerView.Data.GenericData;
@@ -34,6 +35,7 @@ public class BaseActivity extends AppCompatActivity {
     DrawerLayout mDrawerLayout;
     ActionBarDrawerToggle mDrawerToggle;
     ActionBar baseActionBar;
+    int appLanguage;
 
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
@@ -43,20 +45,13 @@ public class BaseActivity extends AppCompatActivity {
         super.setContentView(fullView);
 
         drawerRecyclerView = (RecyclerView) findViewById(R.id.base_drawer_recycler_view);
-        GenericData data = new GenericData();
-        ArrayList<String> drawerItemTexts = new ArrayList<>();
-        String[] itemTexts = getResources().getStringArray(R.array.drawer_items_portuguese);
-        for(int i = 0; i < itemTexts.length; i++) drawerItemTexts.add(itemTexts[i]);
-        data.addStringsToAllCells(GenericData.DRAWER_ITEM_TEXT_KEY, drawerItemTexts);
-        mAdapter = new GenericAdapter(data, ViewHolderType.DRAWER_VIEW_HOLDER, R.layout.drawer_item_cell);
+        setDrawerData();
         mLayoutManager = new LinearLayoutManager(this);
         drawerRecyclerView.setLayoutManager(mLayoutManager);
-        drawerRecyclerView.setAdapter(mAdapter);
-        HandleDrawerClicks();
         toolbar = (Toolbar) findViewById(R.id.base_toolbar);
         setSupportActionBar(toolbar);
         baseActionBar = getSupportActionBar();
-        baseActionBar.setDisplayHomeAsUpEnabled(true);
+        if(baseActionBar != null) baseActionBar.setDisplayHomeAsUpEnabled(true);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.base_drawer_layout);
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,toolbar,R.string.app_name,R.string.app_name){
             public void onDrawerClosed(View view) {
@@ -65,6 +60,15 @@ public class BaseActivity extends AppCompatActivity {
             }
         };
         mDrawerToggle.syncState();
+    }
+
+    private void setDrawerData(){
+        GenericData data = new GenericData();
+        ArrayList<String> drawerItemTexts = ResourcesHelper.getStringArrayAsArrayList(getBaseContext(), appLanguage, R.array.drawer_items);
+        data.addStringsToAllCells(GenericData.DRAWER_ITEM_TEXT_KEY, drawerItemTexts);
+        mAdapter = new GenericAdapter(data, ViewHolderType.DRAWER_VIEW_HOLDER, R.layout.drawer_item_cell);
+        drawerRecyclerView.setAdapter(mAdapter);
+        HandleDrawerClicks();
     }
 
     protected void setActivityTitle(String title){
@@ -102,6 +106,11 @@ public class BaseActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void setAppLanguage(int appLanguage){
+        this.appLanguage = appLanguage;
+        setDrawerData();
     }
 }
 

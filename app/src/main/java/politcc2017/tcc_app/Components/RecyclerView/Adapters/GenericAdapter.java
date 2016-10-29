@@ -21,11 +21,10 @@ public class GenericAdapter extends RecyclerView.Adapter<GenericViewHolder> {
     private GenericViewHolder mGenericViewHolder;
     private ViewHolderType viewHolderType;
     private CellClickListener mCLickListener;
-    private int mLayout;
+
     public GenericAdapter(GenericData data, ViewHolderType vhType, int layout){
         this.mData = data;
         this.viewHolderType = vhType;
-        this.mLayout = layout;
     }
 
     public void RegisterClickListener(CellClickListener listener){
@@ -34,12 +33,18 @@ public class GenericAdapter extends RecyclerView.Adapter<GenericViewHolder> {
 
 
     @Override
-    public GenericViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        final View itemView = LayoutInflater.from(parent.getContext()).inflate(mLayout, null);
-        if(viewHolderType == ViewHolderType.DRAWER_VIEW_HOLDER) return new DrawerViewHolder(itemView, mCLickListener);
+    public GenericViewHolder onCreateViewHolder(ViewGroup parent, int position) {
+        if(viewHolderType == ViewHolderType.DRAWER_VIEW_HOLDER) {
+            final View itemView = LayoutInflater.from(parent.getContext()).inflate(GenericViewHolder.getLayoutViewByPosition(position, ViewHolderType.DRAWER_VIEW_HOLDER), null);
+            return new DrawerViewHolder(itemView, mCLickListener);
+        }
         return null;
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
     @Override
     public void onBindViewHolder(GenericViewHolder holder, int position) {
         holder.setViewContent(mData.getValue(position));

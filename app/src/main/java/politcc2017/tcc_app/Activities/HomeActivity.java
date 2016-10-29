@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import politcc2017.tcc_app.Common.Languages;
 import politcc2017.tcc_app.R;
 
 /**
@@ -21,11 +22,27 @@ public class HomeActivity extends BaseActivity {
         setActivityTitle("Home Activity");
 
         Button dialogButton = (Button) findViewById(R.id.open_dialog_button);
+        Button englishButton = (Button) findViewById(R.id.english_button);
+        Button portugueseButton = (Button) findViewById(R.id.portuguese_button);
 
         dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "Requisição Enviada", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        englishButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setAppLanguage(Languages.ENGLISH);
+            }
+        });
+
+        portugueseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setAppLanguage(Languages.PORTUGUESE);
             }
         });
     }

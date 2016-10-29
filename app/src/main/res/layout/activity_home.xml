@@ -19,4 +19,18 @@
         android:layout_marginTop="100dp"
         android:text="Enviar Requisição ao Servidor"
         android:background="@color/colorPrimary"/>
+    <Button
+        android:id="@+id/english_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Inglês"
+        android:background="@color/colorPrimary"/>
+    <Button
+        android:id="@+id/portuguese_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Português"
+        android:background="@color/colorPrimary"/>
 </LinearLayout>
