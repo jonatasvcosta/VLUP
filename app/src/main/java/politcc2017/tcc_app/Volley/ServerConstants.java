@@ -1,0 +1,13 @@
+package politcc2017.tcc_app.Volley;
+
+/**
+ * Created by Jonatas on 30/10/2016.
+ */
+
+public class ServerConstants {
+    public static final String STRING_TAG = "STRING_TAG";
+    public static final String JSON_TAG = "JSON_TAG";
+    public static final String JSON_ARRAY_TAG = "JSON_ARRAY_TAG";
+    public static final String IMAGE_TAG = "IMAGE_TAG";
+    public static final String API_URL = "http://androidtutorialpoint.com/api/";
+}
