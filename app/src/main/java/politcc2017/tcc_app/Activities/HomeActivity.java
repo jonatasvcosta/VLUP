@@ -40,7 +40,7 @@ public class HomeActivity extends BaseActivity {
         stringButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ServerRequestHelper.stringRequest(getApplicationContext(), "volleyString", "randomString", new Response.Listener<String>() {
+                ServerRequestHelper.getString(getApplicationContext(), "volleyString", "randomString", new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT).show();
@@ -52,7 +52,7 @@ public class HomeActivity extends BaseActivity {
         jsonButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ServerRequestHelper.jsonRequest(getApplicationContext(), "volleyJsonObject", new Response.Listener<JSONObject>() {
+                ServerRequestHelper.getJson(getApplicationContext(), "volleyJsonObject", new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_SHORT).show();
@@ -64,7 +64,7 @@ public class HomeActivity extends BaseActivity {
         jsonArrayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ServerRequestHelper.jsonArrayRequest(getApplicationContext(), "volleyJsonArray", new Response.Listener<JSONArray>() {
+                ServerRequestHelper.getJsonArray(getApplicationContext(), "volleyJsonArray", new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
                         Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_SHORT).show();
@@ -76,7 +76,7 @@ public class HomeActivity extends BaseActivity {
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ServerRequestHelper.imageRequest(getApplicationContext(), "lg_nexus_5x", new ImageLoader.ImageListener() {
+                ServerRequestHelper.getImage(getApplicationContext(), "lg_nexus_5x", new ImageLoader.ImageListener() {
                     @Override
                     public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
                         img.setImageBitmap(response.getBitmap());
