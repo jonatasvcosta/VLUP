@@ -71,7 +71,7 @@ public class ServerRequestHelper {
         JsonObjectRequest jsonObjectReq = new JsonObjectRequest(method, url, objectSent, responseListener, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                //Use JSON Helper (to be created) to return a JSON object with error code
+                responseListener.onResponse(JSONHelper.CreateErrorMessage(error.getClass().toString(),error.getMessage()));
             }
         });
         // Adding Json request to request queue
@@ -84,7 +84,9 @@ public class ServerRequestHelper {
         JsonArrayRequest jsonArrayReq = new JsonArrayRequest(ServerConstants.GET_REQUEST, url, objectSent, responseListener, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                //Use JSON Helper (to be created) to return a JSON object with error code
+                JSONArray jsonArray= new JSONArray();
+                jsonArray.put(JSONHelper.CreateErrorMessage(error.getClass().toString(), error.getMessage()));
+                responseListener.onResponse(jsonArray);
             }
         });
         // Adding JsonArray request to request queue
