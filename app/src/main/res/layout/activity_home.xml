@@ -9,46 +9,46 @@
         android:orientation="vertical"
         android:padding="@dimen/margin_medium"
         android:gravity="center_horizontal">
-    <TextView
+    <politcc2017.tcc_app.Components.CustomTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tela inicial do App" />
-    <Button
+    <politcc2017.tcc_app.Components.CustomButton
         android:id="@+id/english_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="Inglês"
         android:background="@color/colorPrimary"/>
-    <Button
+    <politcc2017.tcc_app.Components.CustomButton
         android:id="@+id/portuguese_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="Português"
         android:background="@color/colorPrimary"/>
-    <Button
+    <politcc2017.tcc_app.Components.CustomButton
         android:id="@+id/string_request_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="Requisição Servidor - String"
         android:background="@color/colorPrimary"/>
-    <Button
+    <politcc2017.tcc_app.Components.CustomButton
         android:id="@+id/json_request_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="Requisição Servidor - JSON"
         android:background="@color/colorPrimary"/>
-    <Button
+    <politcc2017.tcc_app.Components.CustomButton
         android:id="@+id/json_array_request_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="Requisição Servidor - JSONArray"
         android:background="@color/colorPrimary"/>
-    <Button
+    <politcc2017.tcc_app.Components.CustomButton
         android:id="@+id/image_request_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

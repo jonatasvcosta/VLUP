@@ -19,6 +19,7 @@ import android.widget.FrameLayout;
 import java.util.ArrayList;
 
 import politcc2017.tcc_app.Common.ResourcesHelper;
+import politcc2017.tcc_app.Components.CustomTextView;
 import politcc2017.tcc_app.Components.Listeners.CellClickListener;
 import politcc2017.tcc_app.Components.RecyclerView.Adapters.GenericAdapter;
 import politcc2017.tcc_app.Components.RecyclerView.Data.GenericData;
@@ -29,6 +30,7 @@ import static android.content.Intent.FLAG_ACTIVITY_REORDER_TO_FRONT;
 
 public class BaseActivity extends AppCompatActivity {
     Toolbar toolbar;
+    CustomTextView toolbarTitle;
     RecyclerView drawerRecyclerView;
     GenericAdapter mAdapter;
     RecyclerView.LayoutManager mLayoutManager;
@@ -49,8 +51,10 @@ public class BaseActivity extends AppCompatActivity {
         mLayoutManager = new LinearLayoutManager(this);
         drawerRecyclerView.setLayoutManager(mLayoutManager);
         toolbar = (Toolbar) findViewById(R.id.base_toolbar);
+        toolbarTitle = (CustomTextView) findViewById(R.id.base_toolbar_title);
         setSupportActionBar(toolbar);
         baseActionBar = getSupportActionBar();
+        baseActionBar.setTitle("");
         if(baseActionBar != null) baseActionBar.setDisplayHomeAsUpEnabled(true);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.base_drawer_layout);
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,toolbar,R.string.app_name,R.string.app_name){
@@ -72,7 +76,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     protected void setActivityTitle(String title){
-        if(baseActionBar != null) baseActionBar.setTitle(title);
+        if(baseActionBar != null) toolbarTitle.setText(title);
     }
 
     protected void setActivityToolbarColor(int colorID){
