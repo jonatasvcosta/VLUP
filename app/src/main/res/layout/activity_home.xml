@@ -19,42 +19,42 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="Inglês"
-        android:background="@color/colorPrimary"/>
+        android:background="@color/cyan_darkest"/>
     <politcc2017.tcc_app.Components.CustomButton
         android:id="@+id/portuguese_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="Português"
-        android:background="@color/colorPrimary"/>
+        android:background="@color/cyan_darkest"/>
     <politcc2017.tcc_app.Components.CustomButton
         android:id="@+id/string_request_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="Requisição Servidor - String"
-        android:background="@color/colorPrimary"/>
+        android:background="@color/cyan_darker"/>
     <politcc2017.tcc_app.Components.CustomButton
         android:id="@+id/json_request_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="Requisição Servidor - JSON"
-        android:background="@color/colorPrimary"/>
+        android:background="@color/cyan_dark"/>
     <politcc2017.tcc_app.Components.CustomButton
         android:id="@+id/json_array_request_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="Requisição Servidor - JSONArray"
-        android:background="@color/colorPrimary"/>
+        android:background="@color/cyan_darker"/>
     <politcc2017.tcc_app.Components.CustomButton
         android:id="@+id/image_request_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="Requisição Servidor - Imagem"
-        android:background="@color/colorPrimary"/>
+        android:background="@color/primary_color"/>
     <ImageView
         android:id="@+id/image_response"
         android:layout_width="wrap_content"
