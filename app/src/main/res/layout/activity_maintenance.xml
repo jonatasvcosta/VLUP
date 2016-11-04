@@ -20,9 +20,7 @@
         android:src="@drawable/maintenance_icon"/>
     <politcc2017.tcc_app.Components.CustomButton
         android:id="@+id/maintenance_back_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/FullWidthButton"
         android:layout_marginTop="@dimen/margin_large"
-        android:text="Voltar para a Home"
-        android:background="@color/cyan_darkest"/>
+        android:text="Voltar para a Home"/>
 </LinearLayout>

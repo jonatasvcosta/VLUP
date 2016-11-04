@@ -8,4 +8,9 @@
     <color name="cyan_darker">#0097A7</color>
     <color name="cyan_darkest">#006064 </color>
     <color name="primary_color">@color/cyan</color>
+    <color name="black">#212121</color>
+    <color name="beige">#F9F9EA</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black_mask">@color/cyan_darkest</color>
+
 </resources>

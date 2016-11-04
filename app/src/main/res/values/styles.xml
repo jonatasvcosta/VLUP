@@ -8,4 +8,50 @@
         <item name="colorAccent">@color/cyan_lighter</item>
     </style>
 
+    <style name="TextSmallWhite">
+        <item name="android:textSize">@dimen/font_small</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="TextMediumWhite">
+        <item name="android:textSize">@dimen/font_medium</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="TextLargeWhite">
+        <item name="android:textSize">@dimen/font_large</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="TextSmallBeige">
+        <item name="android:textSize">@dimen/font_small</item>
+        <item name="android:textColor">@color/beige</item>
+    </style>
+    <style name="TextMediumBeige">
+        <item name="android:textSize">@dimen/font_medium</item>
+        <item name="android:textColor">@color/beige</item>
+    </style>
+    <style name="TextLargeBeige">
+        <item name="android:textSize">@dimen/font_large</item>
+        <item name="android:textColor">@color/beige</item>
+    </style>
+    <style name="TextSmallBlack">
+        <item name="android:textSize">@dimen/font_small</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="TextMediumBlack">
+        <item name="android:textSize">@dimen/font_medium</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="TextLargeBlack">
+        <item name="android:textSize">@dimen/font_large</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="PrimaryButton">
+        <item name="android:layout_width">@dimen/primary_button_width</item>
+        <item name="android:layout_height">@dimen/primary_button_height</item>
+        <item name="android:background">@drawable/primary_button_background_selector</item>
+        <item name="android:textColor">@color/beige</item>
+    </style>
+    <style name="FullWidthButton" parent="@style/PrimaryButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/full_width_button_height</item>
+    </style>
 </resources>
