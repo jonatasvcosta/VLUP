@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
@@ -14,7 +15,10 @@ import com.android.volley.toolbox.ImageLoader;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 import politcc2017.tcc_app.Common.Languages;
+import politcc2017.tcc_app.Components.DialogHelper;
 import politcc2017.tcc_app.R;
 import politcc2017.tcc_app.Volley.ServerRequestHelper;
 
@@ -35,7 +39,46 @@ public class HomeActivity extends BaseActivity {
         Button imageButton = (Button) findViewById(R.id.image_request_button);
         Button englishButton = (Button) findViewById(R.id.english_button);
         Button portugueseButton = (Button) findViewById(R.id.portuguese_button);
+        Button defaultDialogButton = (Button) findViewById(R.id.default_dialog_button);
+        Button progressDialogButton = (Button) findViewById(R.id.progress_dialog_button);
+        Button listSingleButton = (Button) findViewById(R.id.list_single_dialog_button);
+        Button listMultiButton = (Button) findViewById(R.id.list_multi_dialog_button);
+
         final ImageView img = (ImageView) findViewById(R.id.image_response);
+
+        final ArrayList<String> list = new ArrayList();
+        list.add("Português");
+        list.add("Alemão");
+        list.add("Holandês");
+
+        listSingleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogHelper.ListSingleChoiceDialog(HomeActivity.this, "Escolha um idioma", list, "OK", "Cancelar", new MaterialDialog.ListCallbackSingleChoice() {
+                    @Override
+                    public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
+                        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+                        return true;
+                    }
+                }).show();
+            }
+        });
+
+        listMultiButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogHelper.ListMultiChoiceDialog(HomeActivity.this, "Escolha idiomas", list, "OK", "Cancelar", new MaterialDialog.ListCallbackMultiChoice() {
+
+                    @Override
+                    public boolean onSelection(MaterialDialog dialog, Integer[] which, CharSequence[] text) {
+                        String a = "";
+                        for (int i = 0; i < text.length; i++) a += String.valueOf(text[i]);
+                        Toast.makeText(getApplicationContext(), a, Toast.LENGTH_SHORT).show();
+                        return false;
+                    }
+                }).show();
+            }
+        });
 
         stringButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +89,20 @@ public class HomeActivity extends BaseActivity {
                         Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT).show();
                     }
                 });
+            }
+        });
+
+        defaultDialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogHelper.CustomDialog(HomeActivity.this, "Título", R.drawable.maintenance_icon,"Texto qualquer explicando esse dialog", "Ok", "Cancelar").show();
+            }
+        });
+
+        progressDialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogHelper.ProgressDialog(HomeActivity.this, "Carregando", "Aguarde").show();
             }
         });
 

@@ -25,6 +25,26 @@
         android:layout_marginTop="40dp"
         android:text="Português"/>
     <politcc2017.tcc_app.Components.CustomButton
+        android:id="@+id/default_dialog_button"
+        style="@style/PrimaryButton"
+        android:layout_marginTop="40dp"
+        android:text="Mostrar Dialog Padrão"/>
+    <politcc2017.tcc_app.Components.CustomButton
+        android:id="@+id/progress_dialog_button"
+        style="@style/PrimaryButton"
+        android:layout_marginTop="40dp"
+        android:text="Mostrar Dialog Loading"/>
+    <politcc2017.tcc_app.Components.CustomButton
+        android:id="@+id/list_single_dialog_button"
+        style="@style/PrimaryButton"
+        android:layout_marginTop="40dp"
+        android:text="Dialog Single Choice"/>
+    <politcc2017.tcc_app.Components.CustomButton
+        android:id="@+id/list_multi_dialog_button"
+        style="@style/PrimaryButton"
+        android:layout_marginTop="40dp"
+        android:text="Dialog Multi Choice"/>
+    <politcc2017.tcc_app.Components.CustomButton
         android:id="@+id/string_request_button"
         style="@style/FullWidthButton"
         android:layout_marginTop="40dp"
