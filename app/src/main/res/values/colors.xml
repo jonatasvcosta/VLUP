@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="cyan_lightest">#E0F7FA</color>
+    <color name="cyan_lighter">#B2EBF2</color>
+    <color name="cyan_light">#4DD0E1</color>
+    <color name="cyan">#00BCD4</color>
+    <color name="cyan_dark">#00B8D4</color>
+    <color name="cyan_darker">#0097A7</color>
+    <color name="cyan_darkest">#006064 </color>
+    <color name="primary_color">@color/cyan</color>
+    <color name="black">#212121</color>
+    <color name="beige">#F9F9EA</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black_mask">@color/cyan_darkest</color>
+
 </resources>
