@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/activity_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/margin_medium"
+        android:gravity="center_horizontal">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tela inicial do App" />
+    <Button
+        android:id="@+id/english_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Inglês"
+        android:background="@color/colorPrimary"/>
+    <Button
+        android:id="@+id/portuguese_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Português"
+        android:background="@color/colorPrimary"/>
+    <Button
+        android:id="@+id/string_request_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Requisição Servidor - String"
+        android:background="@color/colorPrimary"/>
+    <Button
+        android:id="@+id/json_request_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Requisição Servidor - JSON"
+        android:background="@color/colorPrimary"/>
+    <Button
+        android:id="@+id/json_array_request_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Requisição Servidor - JSONArray"
+        android:background="@color/colorPrimary"/>
+    <Button
+        android:id="@+id/image_request_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Requisição Servidor - Imagem"
+        android:background="@color/colorPrimary"/>
+    <ImageView
+        android:id="@+id/image_response"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"/>
+    </LinearLayout>
+</ScrollView>
+

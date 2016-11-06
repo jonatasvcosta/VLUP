@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">TCC-APP</string>
+    <string-array name="drawer_items_portuguese">
+        <item>Home</item>
+        <item>Vocabulário</item>
+        <item>Notícias e Textos</item>
+        <item>Navegar</item>
+        <item>Tandem</item>
+        <item>Biblioteca pessoal</item>
+        <item>Dicionário</item>
+        <item>Câmera</item>
+        <item>Produtos para mim</item>
+        <item>Configurações</item>
+    </string-array>
+    <string-array name="drawer_items_english">
+        <item>Home</item>
+        <item>Vocabulary</item>
+        <item>News and Texts</item>
+        <item>Use the internet</item>
+        <item>Tandem</item>
+        <item>My words and texts</item>
+        <item>Dictionary</item>
+        <item>Camera</item>
+        <item>Products for me</item>
+        <item>Settings</item>
+    </string-array>
+    <array name="drawer_items">
+        <item>@array/drawer_items_portuguese</item>
+        <item>@array/drawer_items_english</item>
+    </array>
+</resources>
