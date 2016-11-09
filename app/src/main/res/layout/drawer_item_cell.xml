@@ -17,6 +17,6 @@
     <politcc2017.tcc_app.Components.CustomTextView
         android:id="@+id/drawer_cell_text_view"
         android:layout_width="@dimen/drawer_width"
-        android:textColor="#212121"
+        android:textColor="@color/black"
         android:layout_height="wrap_content"/>
 </LinearLayout>
