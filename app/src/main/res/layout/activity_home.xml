@@ -72,20 +72,26 @@
             android:layout_marginTop="40dp"/>
         <politcc2017.tcc_app.Components.CustomEditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            app:display_type="single_line"
+            app:hint_text="Single line edit text"/>
         <politcc2017.tcc_app.Components.CustomEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:display_type="fixed_height_multiline"
+            app:hint_text="Regular edit text"/>
+        <politcc2017.tcc_app.Components.CustomEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:hint_text="Password"
             app:validation_type="password"
-            app:left_icon="@drawable/maintenance_icon"
             app:error_message="The password must have at least 6 characters!"/>
         <politcc2017.tcc_app.Components.CustomEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:validation_type="password"
-            app:left_icon="@drawable/md_btn_selected"
-            app:right_icon="@drawable/md_btn_selected"
-            app:error_message="The password must have at least 6 characters!"/>
+            app:hint_text="E-mail"
+            app:validation_type="email"
+            app:error_message="Type a valid e-mail adress!"/>
     </LinearLayout>
 </ScrollView>
 

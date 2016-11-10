@@ -19,6 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_marginRight="@dimen/margin_medium"
+            android:layout_marginBottom="@dimen/margin_medium"
             android:visibility="gone"/>
         <ImageView
             android:id="@+id/custom_edit_text_right_icon"
@@ -26,14 +27,33 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginLeft="@dimen/margin_medium"
-            android:visibility="gone"/>
+            android:layout_marginBottom="@dimen/margin_small"
+            android:visibility="invisible"/>
         <EditText
             android:id="@+id/custom_edit_text_edit_text"
             style="@style/TextMediumBeige"
             android:layout_alignLeft="@id/custom_edit_text_left_icon"
             android:layout_alignRight="@id/custom_edit_text_right_icon"
+            android:paddingRight="@dimen/margin_extra_large"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="visible"/>
+            android:layout_height="wrap_content"/>
     </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/custom_edit_text_error_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:gravity="center_horizontal">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/separator_size"
+            android:background="@color/red"/>
+        <politcc2017.tcc_app.Components.CustomTextView
+            android:id="@+id/custom_edit_text_error_text"
+            style="@style/TextErrorRed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
 </LinearLayout>
