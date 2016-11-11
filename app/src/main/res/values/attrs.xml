@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CustomEditText">
+        <attr name="validation_type" format="enum">
+            <enum name="password" value="0"/>
+            <enum name="email" value="1"/>
+            <enum name="default_mandatory" value="2"/>
+            <enum name="optional" value="3"/>
+        </attr>
+        <attr name="error_message" format="string"/>
+        <attr name="hint_text" format="string"/>
+        <attr name="display_type" format="enum">
+            <enum name="single_line" value = "0"/>
+            <enum name="fixed_height_multiline" value = "1"/>
+        </attr>
+    </declare-styleable>
+</resources>

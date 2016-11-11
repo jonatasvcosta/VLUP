@@ -10,6 +10,7 @@ import java.util.Hashtable;
  */
 public class FontHelper {
     public static final String TTF_FONT = "fonts/Nasalization.ttf";
+    public static final String FONT_NAME = "Nasalization.ttf";
     private static Hashtable<String, Typeface> fontCache = new Hashtable<String, Typeface>();
 
     public static Typeface get(String name, Context context) {

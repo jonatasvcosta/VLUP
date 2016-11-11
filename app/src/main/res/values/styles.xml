@@ -36,6 +36,10 @@
         <item name="android:textSize">@dimen/font_small</item>
         <item name="android:textColor">@color/black</item>
     </style>
+    <style name="TextErrorRed">
+        <item name="android:textSize">@dimen/font_small</item>
+        <item name="android:textColor">@color/red</item>
+    </style>
     <style name="TextMediumBlack">
         <item name="android:textSize">@dimen/font_medium</item>
         <item name="android:textColor">@color/black</item>
@@ -46,12 +50,14 @@
     </style>
     <style name="PrimaryButton">
         <item name="android:layout_width">@dimen/primary_button_width</item>
-        <item name="android:layout_height">@dimen/primary_button_height</item>
+        <item name="android:minHeight">@dimen/primary_button_height</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@drawable/primary_button_background_selector</item>
         <item name="android:textColor">@color/beige</item>
+        <item name="android:padding">@dimen/button_padding</item>
     </style>
     <style name="FullWidthButton" parent="@style/PrimaryButton">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/full_width_button_height</item>
+        <item name="android:minHeight">@dimen/full_width_button_height</item>
     </style>
 </resources>
