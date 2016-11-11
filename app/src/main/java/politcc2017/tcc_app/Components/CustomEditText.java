@@ -8,6 +8,7 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -50,19 +51,36 @@ public class CustomEditText extends LinearLayout {
         ComponentSetup(context, attrs);
     }
 
-    private void ComponentSetup(Context c, AttributeSet attrs){
+    protected void ComponentSetup(Context c, AttributeSet attrs){
         mContext = c;
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.custom_edit_text, this, true);
+        loadViews();
+        setupIconMargins();
+        if(attrs == null) return;
+        getXMLValues(attrs);
+        mEditText.setTypeface(FontHelper.get(FontHelper.TTF_FONT, c));
+
+    }
+
+    protected void setupIconMargins(){
+
+    }
+
+    protected void loadViews(){
         mEditText = (EditText) findViewById(R.id.custom_edit_text_edit_text);
         leftIcon = (ImageView) findViewById(R.id.custom_edit_text_left_icon);
         rightIcon = (ImageView) findViewById(R.id.custom_edit_text_right_icon);
         errorText = (CustomTextView) findViewById(R.id.custom_edit_text_error_text);
         errorLayout = (LinearLayout) findViewById(R.id.custom_edit_text_error_layout);
         pattern = Pattern.compile(EMAIL_PATTERN, Pattern.CASE_INSENSITIVE);
-        if(attrs == null) return;
-        getXMLValues(attrs);
-        mEditText.setTypeface(FontHelper.get(FontHelper.TTF_FONT, c));
+    }
+
+    protected void setupIconMarginProgramatically(ImageView icon,int left, int top, int right, int bottom){
+        ViewGroup.MarginLayoutParams marginLayoutParams =
+                (ViewGroup.MarginLayoutParams) icon.getLayoutParams();
+        marginLayoutParams.setMargins(left , top, right, bottom);
+        icon.setLayoutParams(marginLayoutParams);
     }
 
     private void getXMLValues(AttributeSet attrs){
@@ -92,6 +110,11 @@ public class CustomEditText extends LinearLayout {
         if(a.getInt(R.styleable.CustomEditText_display_type, OPTIONAL_INPUT) == 1) {
             mEditText.setMaxHeight((int)getResources().getDimension(R.dimen.multiline_edit_text_fixed_height));
         }
+        setupListeners();
+        a.recycle();
+    }
+
+    protected void setupListeners(){
         if(fieldType != OPTIONAL_INPUT){
             mEditText.setOnFocusChangeListener(new OnFocusChangeListener() {
                 @Override
@@ -118,7 +141,6 @@ public class CustomEditText extends LinearLayout {
                 }
             });
         }
-        a.recycle();
     }
 
     public void setErrorMessage(String errorMessage){
@@ -159,6 +181,22 @@ public class CustomEditText extends LinearLayout {
             rightIcon.setImageResource(R.drawable.ic_wrong);
             rightIcon.setVisibility(VISIBLE);
         }
+    }
+
+    public String getText(){
+        return mEditText.getText().toString();
+    }
+
+    public void setText(String text){
+        mEditText.setText(text);
+    }
+
+    public String getHint(){
+        return mEditText.getHint().toString();
+    }
+
+    public void setHint(String text){
+        mEditText.setHint(text);
     }
 
 }

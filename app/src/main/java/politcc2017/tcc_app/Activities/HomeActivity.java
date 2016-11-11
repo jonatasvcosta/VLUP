@@ -18,6 +18,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import politcc2017.tcc_app.Common.Languages;
+import politcc2017.tcc_app.Components.CustomPicker;
 import politcc2017.tcc_app.Components.DialogHelper;
 import politcc2017.tcc_app.R;
 import politcc2017.tcc_app.Volley.ServerRequestHelper;
@@ -43,6 +44,8 @@ public class HomeActivity extends BaseActivity {
         Button progressDialogButton = (Button) findViewById(R.id.progress_dialog_button);
         Button listSingleButton = (Button) findViewById(R.id.list_single_dialog_button);
         Button listMultiButton = (Button) findViewById(R.id.list_multi_dialog_button);
+        final CustomPicker picker = (CustomPicker) findViewById(R.id.custom_picker);
+
 
         final ImageView img = (ImageView) findViewById(R.id.image_response);
 
@@ -50,6 +53,11 @@ public class HomeActivity extends BaseActivity {
         list.add("Português");
         list.add("Alemão");
         list.add("Holandês");
+        list.add("Espanhol");
+        list.add("Italiano");
+        list.add("Tcheco");
+        list.add("Russo");
+        list.add("Japonês");
 
         listSingleButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +71,15 @@ public class HomeActivity extends BaseActivity {
                 }).show();
             }
         });
+
+        picker.registerDialog(DialogHelper.ListSingleChoiceDialog(HomeActivity.this, "Escolha um idioma", list, "OK", "Cancelar", new MaterialDialog.ListCallbackSingleChoice() {
+            @Override
+            public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
+                picker.setText(text.toString());
+                return true;
+            }
+        }));
+
 
         listMultiButton.setOnClickListener(new View.OnClickListener() {
             @Override
