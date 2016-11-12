@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TCC-APP</string>
+    <string name="app_name">DAZS</string>
     <string-array name="drawer_items_portuguese">
         <item>Home</item>
         <item>Vocabulário</item>
@@ -28,4 +28,11 @@
         <item>@array/drawer_items_portuguese</item>
         <item>@array/drawer_items_english</item>
     </array>
+
+    <!-- Login Activity!-->
+    <string name="login_activity_email_field">Digite seu e-mail</string>
+    <string name="login_activity_email_field_error">Digite um e-mail válido!</string>
+    <string name="login_activity_password_field">Digite sua senha</string>
+    <string name="login_activity_password_field_error">A senha deve ter ao menos 6 caracteres!</string>
+    <string name="login_activity_login_button_text">Login</string>
 </resources>
