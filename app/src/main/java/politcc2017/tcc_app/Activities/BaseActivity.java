@@ -66,6 +66,10 @@ public class BaseActivity extends AppCompatActivity {
         mDrawerToggle.syncState();
     }
 
+    protected void hideActionBar(){
+        if(baseActionBar != null) baseActionBar.hide();
+    }
+
     private void setDrawerData(){
         GenericData data = new GenericData();
         ArrayList<String> drawerItemTexts = ResourcesHelper.getStringArrayAsArrayList(getBaseContext(), appLanguage, R.array.drawer_items);

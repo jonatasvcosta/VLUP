@@ -32,6 +32,18 @@
         <item name="android:textSize">@dimen/font_large</item>
         <item name="android:textColor">@color/beige</item>
     </style>
+    <style name="TextSmallGray">
+        <item name="android:textSize">@dimen/font_small</item>
+        <item name="android:textColor">@color/gray</item>
+    </style>
+    <style name="TextMediumGray">
+        <item name="android:textSize">@dimen/font_medium</item>
+        <item name="android:textColor">@color/gray</item>
+    </style>
+    <style name="TextLargeGray">
+        <item name="android:textSize">@dimen/font_large</item>
+        <item name="android:textColor">@color/gray</item>
+    </style>
     <style name="TextSmallBlack">
         <item name="android:textSize">@dimen/font_small</item>
         <item name="android:textColor">@color/black</item>

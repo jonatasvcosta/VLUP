@@ -28,7 +28,7 @@
             android:visibility="visible"/>
         <EditText
             android:id="@+id/custom_edit_text_edit_text"
-            style="@style/TextMediumBeige"
+            style="@style/TextMediumGray"
             android:layout_alignLeft="@id/custom_edit_text_left_icon"
             android:layout_alignRight="@id/custom_edit_text_right_icon"
             android:paddingRight="@dimen/margin_extra_large"

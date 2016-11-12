@@ -24,7 +24,7 @@
             <FrameLayout
                 android:id="@+id/activity_content"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="match_parent"/>
         </LinearLayout>
         <android.support.v7.widget.RecyclerView
             android:id="@+id/base_drawer_recycler_view"
