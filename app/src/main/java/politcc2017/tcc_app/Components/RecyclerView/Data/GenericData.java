@@ -8,7 +8,8 @@ public class GenericData {
 
 
     //Constant keys for Generic Data Cells are declared here
-    public static final String DRAWER_ITEM_TEXT_KEY = "drawer_cell_key";
+    public static final String DRAWER_ITEM_TEXT_KEY = "drawer_text_key";
+    public static final String DRAWER_ITEM_ICON_KEY = "drawer_icon_key";
 
     private ArrayList<Hashtable> mData;
 
