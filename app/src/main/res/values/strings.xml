@@ -11,6 +11,7 @@
         <item>Câmera</item>
         <item>Produtos para mim</item>
         <item>Configurações</item>
+        <item>Sobre nós</item>
     </string-array>
     <string-array name="drawer_items_english">
         <item>Home</item>
@@ -23,7 +24,21 @@
         <item>Camera</item>
         <item>Products for me</item>
         <item>Settings</item>
+        <item>About Us</item>
     </string-array>
+    <integer-array name="drawer_items_icons">
+        <item>@drawable/ic_home</item>
+        <item>@drawable/ic_vocabulary</item>
+        <item>@drawable/ic_news</item>
+        <item>@drawable/ic_online</item>
+        <item>@drawable/ic_tandem</item>
+        <item>@drawable/ic_bookshelf</item>
+        <item>@drawable/ic_dictionary</item>
+        <item>@drawable/ic_camera</item>
+        <item>@drawable/ic_products</item>
+        <item>@drawable/ic_settings</item>
+        <item>@drawable/ic_help</item>
+    </integer-array>
     <array name="drawer_items">
         <item>@array/drawer_items_portuguese</item>
         <item>@array/drawer_items_english</item>
