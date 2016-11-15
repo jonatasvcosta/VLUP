@@ -43,4 +43,10 @@
         android:id="@+id/login_activity_login_button"
         style="@style/FullWidthButton"
         android:text="@string/login_activity_login_button_text"/>
+    <politcc2017.tcc_app.Components.CustomButton
+        android:id="@+id/login_activity_signup_button"
+        style="@style/LinkButton"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/margin_small"
+        android:text="@string/login_activity_signup_button_text"/>
 </LinearLayout>

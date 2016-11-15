@@ -72,4 +72,10 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:minHeight">@dimen/full_width_button_height</item>
     </style>
+    <style name="LinkButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textColor">@drawable/link_button_selector</item>
+    </style>
 </resources>

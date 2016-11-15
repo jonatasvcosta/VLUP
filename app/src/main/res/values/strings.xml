@@ -50,4 +50,5 @@
     <string name="login_activity_password_field">Digite sua senha</string>
     <string name="login_activity_password_field_error">A senha deve ter ao menos 6 caracteres!</string>
     <string name="login_activity_login_button_text">Login</string>
+    <string name="login_activity_signup_button_text">Nova conta</string>
 </resources>
