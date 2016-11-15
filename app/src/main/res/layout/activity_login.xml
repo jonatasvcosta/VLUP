@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="@dimen/margin_medium"
-    android:background="@color/cyan_lightest">
+    android:background="@color/cyan_lightest"
+    android:clickable="true">
     <politcc2017.tcc_app.Components.CustomTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,6 +21,7 @@
         android:layout_height="wrap_content"
         style="@style/TextMediumBlack"
         android:layout_marginTop="@dimen/margin_extra_large"
+        android:layout_marginBottom="@dimen/margin_medium"
         android:text="@string/login_activity_email_field" />
     <politcc2017.tcc_app.Components.CustomEditText
         android:id="@+id/login_activity_email"
@@ -32,6 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_large"
+        android:layout_marginBottom="@dimen/margin_medium"
         android:text="@string/login_activity_password_field" />
     <politcc2017.tcc_app.Components.CustomEditText
         android:id="@+id/login_activity_password"
