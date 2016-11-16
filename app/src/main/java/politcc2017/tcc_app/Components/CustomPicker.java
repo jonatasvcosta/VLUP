@@ -33,17 +33,6 @@ public class CustomPicker extends CustomEditText {
         rightIcon.setImageResource(android.R.drawable.arrow_down_float);
         mEditText.setFocusable(false);
         mEditText.setCursorVisible(false);
-        fieldType = MANDATORY_INPUT;
-    }
-
-    @Override
-    public void validate(){
-        if(fieldType != OPTIONAL_INPUT && !hasError() && errorLayout.getVisibility() == VISIBLE){
-            errorLayout.setVisibility(GONE);
-        }
-        if(hasError() && errorLayout.getVisibility() != VISIBLE){
-            errorLayout.setVisibility(VISIBLE);
-        }
     }
 
     @Override

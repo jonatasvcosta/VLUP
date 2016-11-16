@@ -72,6 +72,7 @@
     <string name="signup_activity_neighborhood_field_error">Digite o nome de um bairro</string>
     <string name="signup_activity_password_field">Senha</string>
     <string name="signup_activity_password_field_error">A senha deve ter ao menos 6 caracteres</string>
+    <string name="signup_activity_password_fields_dismatch_error">As senhas não são iguais</string>
     <string name="signup_activity_password_confirmation_field">Confirmação</string>
     <string name="signup_activity_create_account_button_text">Criar conta</string>
 </resources>
