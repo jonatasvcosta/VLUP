@@ -43,6 +43,17 @@
         <item>@array/drawer_items_portuguese</item>
         <item>@array/drawer_items_english</item>
     </array>
+    <string-array name="gender_array">
+        <item>Masculino</item>
+        <item>Feminino</item>
+        <item>Prefiro não responder</item>
+    </string-array>
+
+    <string-array name="languages_array">
+        <item>Português</item>
+        <item>Inglês</item>
+        <item>Alemão</item>
+    </string-array>
 
     <!-- Login Activity -->
     <string name="login_activity_email_field">Digite seu e-mail</string>
@@ -57,6 +68,7 @@
     <string name="signup_activity_name_field">Digite seu nome</string>
     <string name="signup_activity_name_field_error">Digite um nome válido</string>
     <string name="signup_activity_age_field">Idade</string>
+    <string name="signup_activity_gender_field">Gênero</string>
     <string name="signup_activity_age_field_error">Favor digitar sua idade</string>
     <string name="signup_activity_email_field">Digite seu e-mail</string>
     <string name="signup_activity_email_field_error">Digite um e-mail válido</string>
@@ -75,4 +87,8 @@
     <string name="signup_activity_password_fields_dismatch_error">As senhas não são iguais</string>
     <string name="signup_activity_password_confirmation_field">Confirmação</string>
     <string name="signup_activity_create_account_button_text">Criar conta</string>
+
+    <!-- Dialog Items -->
+    <string name="dialog_confirm">OK</string>
+    <string name="dialog_cancel">Cancelar</string>
 </resources>

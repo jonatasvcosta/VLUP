@@ -7,9 +7,13 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+
+import politcc2017.tcc_app.Common.ResourcesHelper;
 import politcc2017.tcc_app.Components.CustomButton;
 import politcc2017.tcc_app.Components.CustomEditText;
 import politcc2017.tcc_app.Components.CustomPicker;
+import politcc2017.tcc_app.Components.DialogHelper;
 import politcc2017.tcc_app.R;
 
 /**
@@ -79,6 +83,32 @@ public class SignupActivity extends AppCompatActivity {
         genderPicker = (CustomPicker) findViewById(R.id.signup_activity_gender);
         otherLanguagesPicker = (CustomPicker) findViewById(R.id.signup_activity_other_languages);
         createAccountButton = (CustomButton) findViewById(R.id.signup_activity_create_account_button);
+
+        genderPicker.registerDialog(DialogHelper.ListSingleChoiceDialog(SignupActivity.this, getResources().getString(R.string.signup_activity_gender_field) , ResourcesHelper.getStringArrayAsArrayList(getBaseContext(), R.array.gender_array), getResources().getString(R.string.dialog_confirm), getResources().getString(R.string.dialog_cancel), new MaterialDialog.ListCallbackSingleChoice() {
+            @Override
+            public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
+                genderPicker.setText((String) text);
+                return true;
+            }
+        }));
+
+        otherLanguagesPicker.registerDialog(DialogHelper.ListMultiChoiceDialog(SignupActivity.this, getResources().getString(R.string.signup_activity_languages_field) , ResourcesHelper.getStringArrayAsArrayList(getBaseContext(), R.array.languages_array), getResources().getString(R.string.dialog_confirm), getResources().getString(R.string.dialog_cancel), new MaterialDialog.ListCallbackMultiChoice() {
+
+            @Override
+            public boolean onSelection(MaterialDialog dialog, Integer[] which, CharSequence[] text) {
+                String textString = "";
+                if(text.length <= 1) textString = (String) text[0];
+                else{
+                    for(int i = 0; i < text.length - 1; i++){
+                        textString+=text[i];
+                        if(i < text.length - 2) textString += ", ";
+                    }
+                    textString += " e " + (String) text[text.length-1];
+                }
+                otherLanguagesPicker.setText(textString);
+                return false;
+            }
+        }));
     }
 
     protected void startHomeActivity(){
