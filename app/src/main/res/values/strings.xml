@@ -91,4 +91,5 @@
     <!-- Dialog Items -->
     <string name="dialog_confirm">OK</string>
     <string name="dialog_cancel">Cancelar</string>
+    <string name="dialog_loading_title">Carregando</string>
 </resources>

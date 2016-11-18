@@ -1,6 +1,8 @@
 package politcc2017.tcc_app.Components;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -48,6 +50,22 @@ public class CustomPicker extends CustomEditText {
             public void onClick(View view) {
                 if(onClickListener != null) onClickListener.onClick(view);
                 if(dialog != null) dialog.show();
+            }
+        });
+        mEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                validate();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
             }
         });
     }
