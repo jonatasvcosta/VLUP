@@ -28,6 +28,13 @@ public class LoginActivity extends AppCompatActivity {
                 if(validateLogin()) startHomeActivity();
             }
         });
+        CustomButton signupButton = (CustomButton) findViewById(R.id.login_activity_signup_button);
+        signupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startSignupActivity();
+            }
+        });
     }
 
     protected boolean validateLogin(){
@@ -37,6 +44,11 @@ public class LoginActivity extends AppCompatActivity {
     protected void startHomeActivity(){
         Intent intent = new Intent(getBaseContext(), HomeActivity.class);
         finishAffinity();
+        startActivity(intent);
+    }
+
+    protected void startSignupActivity(){
+        Intent intent = new Intent(getBaseContext(), SignupActivity.class);
         startActivity(intent);
     }
 }

@@ -43,11 +43,53 @@
         <item>@array/drawer_items_portuguese</item>
         <item>@array/drawer_items_english</item>
     </array>
+    <string-array name="gender_array">
+        <item>Masculino</item>
+        <item>Feminino</item>
+        <item>Prefiro não responder</item>
+    </string-array>
 
-    <!-- Login Activity!-->
+    <string-array name="languages_array">
+        <item>Português</item>
+        <item>Inglês</item>
+        <item>Alemão</item>
+    </string-array>
+
+    <!-- Login Activity -->
     <string name="login_activity_email_field">Digite seu e-mail</string>
-    <string name="login_activity_email_field_error">Digite um e-mail válido!</string>
+    <string name="login_activity_email_field_error">Digite um e-mail válido</string>
     <string name="login_activity_password_field">Digite sua senha</string>
-    <string name="login_activity_password_field_error">A senha deve ter ao menos 6 caracteres!</string>
+    <string name="login_activity_password_field_error">A senha deve ter ao menos 6 caracteres</string>
     <string name="login_activity_login_button_text">Login</string>
+    <string name="login_activity_signup_button_text">Nova conta</string>
+
+    <!-- Signup Activity -->
+    <string name="signup_activity_toolbar_title" >Bem-vindo ao DAZS!</string>
+    <string name="signup_activity_name_field">Digite seu nome</string>
+    <string name="signup_activity_name_field_error">Digite um nome válido</string>
+    <string name="signup_activity_age_field">Idade</string>
+    <string name="signup_activity_gender_field">Gênero</string>
+    <string name="signup_activity_age_field_error">Favor digitar sua idade</string>
+    <string name="signup_activity_email_field">Digite seu e-mail</string>
+    <string name="signup_activity_email_field_error">Digite um e-mail válido</string>
+    <string name="signup_activity_native_language_field">Língua materna</string>
+    <string name="signup_activity_native_language_field_error">Por favor digite a sua língua materna</string>
+    <string name="signup_activity_country_field">País</string>
+    <string name="signup_activity_country_field_error">Favor digitar nome de seu país</string>
+    <string name="signup_activity_languages_field">Quero aprender</string>
+    <string name="signup_activity_languages_field_error">Escolha um ou mais idiomas</string>
+    <string name="signup_activity_city_field">Cidade</string>
+    <string name="signup_activity_city_field_error">Digite o nome de uma cidade</string>
+    <string name="signup_activity_neighborhood_field">Bairro</string>
+    <string name="signup_activity_neighborhood_field_error">Digite o nome de um bairro</string>
+    <string name="signup_activity_password_field">Senha</string>
+    <string name="signup_activity_password_field_error">A senha deve ter ao menos 6 caracteres</string>
+    <string name="signup_activity_password_fields_dismatch_error">As senhas não são iguais</string>
+    <string name="signup_activity_password_confirmation_field">Confirmação</string>
+    <string name="signup_activity_create_account_button_text">Criar conta</string>
+
+    <!-- Dialog Items -->
+    <string name="dialog_confirm">OK</string>
+    <string name="dialog_cancel">Cancelar</string>
+    <string name="dialog_loading_title">Carregando</string>
 </resources>

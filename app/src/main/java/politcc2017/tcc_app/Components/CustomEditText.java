@@ -23,7 +23,8 @@ import politcc2017.tcc_app.R;
 
 public class CustomEditText extends LinearLayout {
     private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"+"[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-    protected final int EMAIL_INPUT = 1, PASSWORD_INPUT = 0, MANDATORY_INPUT = 2, OPTIONAL_INPUT = 3, PASSWORD_MIN_LENGTH = 6;
+    private static final String NUMBERS = "0123456789";
+    protected final int EMAIL_INPUT = 1, PASSWORD_INPUT = 0, MANDATORY_INPUT = 2, OPTIONAL_INPUT = 3, NUMERIC_MANDATORY = 4, NON_NUMERIC_MANDATORY = 5, PASSWORD_MIN_LENGTH = 6;
     protected EditText mEditText;
     protected CustomTextView errorText;
     protected LinearLayout errorLayout;
@@ -35,6 +36,7 @@ public class CustomEditText extends LinearLayout {
     protected OnClickListener onClickListener;
     protected TextWatcher textWatcher;
     protected Pattern pattern;
+    public boolean hasForcedError = false;
 
     public CustomEditText(Context context) {
         super(context);
@@ -103,6 +105,12 @@ public class CustomEditText extends LinearLayout {
         else if(a.getInt(R.styleable.CustomEditText_validation_type, OPTIONAL_INPUT) == 2) {
             fieldType = MANDATORY_INPUT;
         }
+        else if(a.getInt(R.styleable.CustomEditText_validation_type, OPTIONAL_INPUT) == 4) {
+            fieldType = NUMERIC_MANDATORY;
+        }
+        else if(a.getInt(R.styleable.CustomEditText_validation_type, OPTIONAL_INPUT) == 5) {
+            fieldType = NON_NUMERIC_MANDATORY;
+        }
 
         if(a.getInt(R.styleable.CustomEditText_display_type, OPTIONAL_INPUT) == 0) {
             mEditText.setSingleLine();
@@ -163,24 +171,36 @@ public class CustomEditText extends LinearLayout {
         return pattern.matcher(mEditText.getText().toString()).matches();
     }
 
-    protected boolean hasError(){
+    public boolean hasError(){
         if(fieldType != OPTIONAL_INPUT && mEditText.getText().toString().length() == 0) return true;
+        if(fieldType == NUMERIC_MANDATORY){
+            try{
+                Integer.parseInt(getText());
+            } catch(Exception e){ return true; }
+        }
+        if(fieldType == NON_NUMERIC_MANDATORY){
+            for (char ch: getText().toCharArray()) {
+                if(NUMBERS.contains(ch+"")) return true;
+            }
+        }
         else if(fieldType == PASSWORD_INPUT && mEditText.getText().toString().length() < PASSWORD_MIN_LENGTH) return true;
         else if(fieldType == EMAIL_INPUT && !validateEmail()) return true;
-        return false;
+        return hasForcedError;
     }
 
-    public void validate(){
+    public boolean validate(){
         if(fieldType != OPTIONAL_INPUT && !hasError() && errorLayout.getVisibility() == VISIBLE){
             errorLayout.setVisibility(GONE);
             rightIcon.setImageResource(R.drawable.ic_right);
             rightIcon.setVisibility(VISIBLE);
         }
-        if(hasError() && errorLayout.getVisibility() != VISIBLE){
+        if(hasError()){
             errorLayout.setVisibility(VISIBLE);
+            errorText.setText(errorMessage);
             rightIcon.setImageResource(R.drawable.ic_wrong);
             rightIcon.setVisibility(VISIBLE);
         }
+        return hasError();
     }
 
     public String getText(){

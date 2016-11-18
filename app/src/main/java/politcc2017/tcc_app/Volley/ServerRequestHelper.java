@@ -22,7 +22,7 @@ public class ServerRequestHelper {
         stringAbsoluteURLRequest(ServerConstants.GET_REQUEST, c, completeURL, defaultString, responseListener);
     }
 
-    public static void postString (Context c, String url, final String defaultString, final Response.Listener<String> responseListener){
+    public static void postString (Context c, String url, String defaultString, final Response.Listener<String> responseListener){
         String completeURL = ServerConstants.API_URL + url;
         stringAbsoluteURLRequest(ServerConstants.POST_REQUEST, c, completeURL, defaultString, responseListener);
     }

@@ -6,6 +6,8 @@
             <enum name="email" value="1"/>
             <enum name="default_mandatory" value="2"/>
             <enum name="optional" value="3"/>
+            <enum name="numeric_mandatory" value="4"/>
+            <enum name="non_numeric_mandatory" value="5"/>
         </attr>
         <attr name="error_message" format="string"/>
         <attr name="hint_text" format="string"/>

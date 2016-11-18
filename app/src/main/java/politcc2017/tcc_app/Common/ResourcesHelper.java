@@ -22,6 +22,13 @@ public class ResourcesHelper {
         return arrayList;
     }
 
+    public static ArrayList<String> getStringArrayAsArrayList(Context c, int referenceArrayID){
+        ArrayList<String> arrayList = new ArrayList<>();
+        String[] itemTexts = c.getResources().getStringArray(referenceArrayID);
+        for(int i = 0; i < itemTexts.length; i++) arrayList.add(itemTexts[i]);
+        return arrayList;
+    }
+
     public static ArrayList<Integer> getIntArrayAsArrayList(Context c, int referenceArrayID){
         ArrayList<Integer> arrayList = new ArrayList<>();
         TypedArray icons = c.getResources().obtainTypedArray(referenceArrayID);
