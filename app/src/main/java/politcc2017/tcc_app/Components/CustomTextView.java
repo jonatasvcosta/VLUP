@@ -4,6 +4,8 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
+import politcc2017.tcc_app.Components.Helpers.FontHelper;
+
 /**
  * Created by Jonatas on 02/11/2016.
  */

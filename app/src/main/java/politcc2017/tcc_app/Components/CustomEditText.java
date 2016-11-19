@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 
 import java.util.regex.Pattern;
 
+import politcc2017.tcc_app.Components.Helpers.FontHelper;
 import politcc2017.tcc_app.R;
 
 /**

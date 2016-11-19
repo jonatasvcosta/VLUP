@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import politcc2017.tcc_app.Components.CustomButton;
+import politcc2017.tcc_app.Components.CustomEditText;
+import politcc2017.tcc_app.Components.Helpers.SharedPreferencesHelper;
 import politcc2017.tcc_app.R;
 
 /**
@@ -15,6 +17,7 @@ import politcc2017.tcc_app.R;
  */
 
 public class LoginActivity extends AppCompatActivity {
+    private CustomEditText emailEditText, passwordEditText;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +25,9 @@ public class LoginActivity extends AppCompatActivity {
         ActionBar bar = getSupportActionBar();
         if(bar != null) bar.hide();
         CustomButton loginButton = (CustomButton) findViewById(R.id.login_activity_login_button);
+        emailEditText = (CustomEditText) findViewById(R.id.login_activity_email);
+        passwordEditText = (CustomEditText) findViewById(R.id.login_activity_password);
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -35,10 +41,15 @@ public class LoginActivity extends AppCompatActivity {
                 startSignupActivity();
             }
         });
+        SharedPreferencesHelper.Initialize(getApplicationContext());
+        if(SharedPreferencesHelper.getBoolean(SharedPreferencesHelper.AUTOMATIC_AUTHENTICATION_KEY)) startHomeActivity();
     }
 
     protected boolean validateLogin(){
-        return true;
+        if(SharedPreferencesHelper.getString(SharedPreferencesHelper.EMAIL_KEY).toLowerCase().trim().equals(emailEditText.getText().toLowerCase().trim()) &&
+                SharedPreferencesHelper.getString(SharedPreferencesHelper.PASSWORD_KEY).toLowerCase().trim().equals(passwordEditText.getText().toLowerCase().trim())) return true;
+
+        return false;
     }
 
     protected void startHomeActivity(){

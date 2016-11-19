@@ -14,7 +14,8 @@ import politcc2017.tcc_app.Common.ResourcesHelper;
 import politcc2017.tcc_app.Components.CustomButton;
 import politcc2017.tcc_app.Components.CustomEditText;
 import politcc2017.tcc_app.Components.CustomPicker;
-import politcc2017.tcc_app.Components.DialogHelper;
+import politcc2017.tcc_app.Components.Helpers.DialogHelper;
+import politcc2017.tcc_app.Components.Helpers.SharedPreferencesHelper;
 import politcc2017.tcc_app.Entities.User;
 import politcc2017.tcc_app.R;
 import politcc2017.tcc_app.Volley.JSONHelper;
@@ -58,6 +59,7 @@ public class SignupActivity extends AppCompatActivity {
         user.motherLanguage = motherLanguageEditText.getText();
         user.neighborhood = neighborhoodEditText.getText();
         user.password = passwordEditText.getText();
+        SaveUserOnSharedPreferences();
         ServerRequestHelper.postString(getApplicationContext(), ServerConstants.SIGNUP_POST_URL, JSONHelper.objectToJSON(user), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -65,6 +67,19 @@ public class SignupActivity extends AppCompatActivity {
                 startLoginActivity();
             }
         });
+    }
+
+    private void SaveUserOnSharedPreferences(){
+        SharedPreferencesHelper.AddString(SharedPreferencesHelper.NAME_KEY ,user.name);
+        SharedPreferencesHelper.AddString(SharedPreferencesHelper.AGE_KEY ,user.age);
+        SharedPreferencesHelper.AddString(SharedPreferencesHelper.CITY_KEY ,user.city);
+        SharedPreferencesHelper.AddString(SharedPreferencesHelper.COUNTRY_KEY ,user.country);
+        SharedPreferencesHelper.AddString(SharedPreferencesHelper.EMAIL_KEY ,user.email);
+        SharedPreferencesHelper.AddString(SharedPreferencesHelper.GENDER_KEY ,user.gender);
+        SharedPreferencesHelper.AddString(SharedPreferencesHelper.MOTHERLANGUAGE_KEY ,user.motherLanguage);
+        SharedPreferencesHelper.AddString(SharedPreferencesHelper.NEIGHBORHOOD_KEY ,user.neighborhood);
+        SharedPreferencesHelper.AddString(SharedPreferencesHelper.PASSWORD_KEY ,user.password);
+        SharedPreferencesHelper.AddStringArray(SharedPreferencesHelper.LANGUAGES_KEY ,user.languages);
     }
 
     private boolean validateFields(){

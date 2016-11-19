@@ -1,4 +1,4 @@
-package politcc2017.tcc_app.Components;
+package politcc2017.tcc_app.Components.Helpers;
 
 import android.content.Context;
 
