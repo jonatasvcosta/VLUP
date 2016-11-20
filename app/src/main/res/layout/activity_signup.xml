@@ -201,7 +201,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:validation_type="password"
-                        app:display_type="single_line"
                         app:error_message="@string/signup_activity_password_field_error"/>
                 </LinearLayout>
                 <LinearLayout
@@ -219,7 +218,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:validation_type="password"
-                        app:display_type="single_line"
                         app:error_message="@string/signup_activity_password_field_error"/>
                 </LinearLayout>
             </LinearLayout>

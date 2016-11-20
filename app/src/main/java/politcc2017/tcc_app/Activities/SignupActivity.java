@@ -70,16 +70,16 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private void SaveUserOnSharedPreferences(){
-        SharedPreferencesHelper.AddString(SharedPreferencesHelper.NAME_KEY ,user.name);
-        SharedPreferencesHelper.AddString(SharedPreferencesHelper.AGE_KEY ,user.age);
-        SharedPreferencesHelper.AddString(SharedPreferencesHelper.CITY_KEY ,user.city);
-        SharedPreferencesHelper.AddString(SharedPreferencesHelper.COUNTRY_KEY ,user.country);
-        SharedPreferencesHelper.AddString(SharedPreferencesHelper.EMAIL_KEY ,user.email);
-        SharedPreferencesHelper.AddString(SharedPreferencesHelper.GENDER_KEY ,user.gender);
-        SharedPreferencesHelper.AddString(SharedPreferencesHelper.MOTHERLANGUAGE_KEY ,user.motherLanguage);
-        SharedPreferencesHelper.AddString(SharedPreferencesHelper.NEIGHBORHOOD_KEY ,user.neighborhood);
-        SharedPreferencesHelper.AddString(SharedPreferencesHelper.PASSWORD_KEY ,user.password);
-        SharedPreferencesHelper.AddStringArray(SharedPreferencesHelper.LANGUAGES_KEY ,user.languages);
+        SharedPreferencesHelper.addString(SharedPreferencesHelper.NAME_KEY ,user.name);
+        SharedPreferencesHelper.addString(SharedPreferencesHelper.AGE_KEY ,user.age);
+        SharedPreferencesHelper.addString(SharedPreferencesHelper.CITY_KEY ,user.city);
+        SharedPreferencesHelper.addString(SharedPreferencesHelper.COUNTRY_KEY ,user.country);
+        SharedPreferencesHelper.addString(SharedPreferencesHelper.EMAIL_KEY ,user.email);
+        SharedPreferencesHelper.addString(SharedPreferencesHelper.GENDER_KEY ,user.gender);
+        SharedPreferencesHelper.addString(SharedPreferencesHelper.MOTHERLANGUAGE_KEY ,user.motherLanguage);
+        SharedPreferencesHelper.addString(SharedPreferencesHelper.NEIGHBORHOOD_KEY ,user.neighborhood);
+        SharedPreferencesHelper.addString(SharedPreferencesHelper.PASSWORD_KEY ,user.password);
+        SharedPreferencesHelper.addStringArray(SharedPreferencesHelper.LANGUAGES_KEY ,user.languages);
     }
 
     private boolean validateFields(){
@@ -158,7 +158,8 @@ public class SignupActivity extends AppCompatActivity {
 
     protected void startLoginActivity(){
         Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-        //add here email and password so that login is already filled
+        intent.putExtra(SharedPreferencesHelper.EMAIL_KEY, emailEditText.getText());
+        intent.putExtra(SharedPreferencesHelper.PASSWORD_KEY, passwordEditText.getText());
         finishAffinity();
         startActivity(intent);
     }

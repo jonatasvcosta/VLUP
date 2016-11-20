@@ -35,7 +35,7 @@ public class SharedPreferencesHelper {
         mEditor.commit();
     }
 
-    public static void AddString(String key, String value){
+    public static void addString(String key, String value){
         mEditor.putString(key, value);
         mEditor.commit();
     }
@@ -44,7 +44,7 @@ public class SharedPreferencesHelper {
         return mSharedPreferences.getString(key, "");
     }
 
-    public static void AddInt(String key, int value){
+    public static void addInt(String key, int value){
         mEditor.putInt(key, value);
         mEditor.commit();
     }
@@ -53,7 +53,7 @@ public class SharedPreferencesHelper {
         return mSharedPreferences.getInt(key, -1);
     }
 
-    public static void AddStringArray(String key, String[] stringArray){
+    public static void addStringArray(String key, String[] stringArray){
         mEditor.putStringSet(key, new HashSet<String>(Arrays.asList(stringArray)));
         mEditor.commit();
     }
@@ -62,6 +62,11 @@ public class SharedPreferencesHelper {
         HashSet<String> hash = (HashSet<String>) mSharedPreferences.getStringSet(key, null);
         if(hash == null) return null;
         return (new ArrayList<String>(hash));
+    }
+
+    public static void addBoolean(String key, boolean value){
+        mEditor.putBoolean(key, value);
+        mEditor.commit();
     }
 
     public static boolean getBoolean(String key){

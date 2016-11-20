@@ -64,6 +64,11 @@ public class DialogHelper {
         return builder.build();
     }
 
+    public static MaterialDialog ErrorDialog(Context context, int icon, String message, String positiveText){
+        MaterialDialog.Builder builder = CustomDialogBuilder(context, "", icon, message, positiveText, null, null, null);
+        return builder.build();
+    }
+
     public static MaterialDialog.Builder CustomDialogBuilder(Context context, String title, int icon, String body, String positiveText, String negativeText, MaterialDialog.SingleButtonCallback positiveButtonListener, MaterialDialog.SingleButtonCallback negativeButtonListener) {
         MaterialDialog.Builder builder = new MaterialDialog.Builder(context)
                 .title(title)
