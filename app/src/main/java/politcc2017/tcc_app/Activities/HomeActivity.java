@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 import politcc2017.tcc_app.Common.Languages;
 import politcc2017.tcc_app.Components.CustomPicker;
-import politcc2017.tcc_app.Components.DialogHelper;
+import politcc2017.tcc_app.Components.Helpers.DialogHelper;
 import politcc2017.tcc_app.R;
 import politcc2017.tcc_app.Volley.ServerRequestHelper;
 

@@ -1,4 +1,4 @@
-package politcc2017.tcc_app.Components;
+package politcc2017.tcc_app.Components.Helpers;
 
 import android.content.Context;
 
@@ -61,6 +61,11 @@ public class DialogHelper {
     public static MaterialDialog ProgressDialog(Context context, String title, int icon, String body, String positiveText, String negativeText, MaterialDialog.SingleButtonCallback positiveButtonListener, MaterialDialog.SingleButtonCallback negativeButtonListener){
         MaterialDialog.Builder builder =  CustomDialogBuilder(context, title, icon, body, positiveText, negativeText, positiveButtonListener, negativeButtonListener);
         builder.progress(true, 0);
+        return builder.build();
+    }
+
+    public static MaterialDialog ErrorDialog(Context context, int icon, String message, String positiveText){
+        MaterialDialog.Builder builder = CustomDialogBuilder(context, "", icon, message, positiveText, null, null, null);
         return builder.build();
     }
 
