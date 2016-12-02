@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import politcc2017.tcc_app.Common.Languages;
 import politcc2017.tcc_app.Components.CustomPicker;
 import politcc2017.tcc_app.Components.Helpers.DialogHelper;
+import politcc2017.tcc_app.Components.Helpers.EncryptionHelper;
 import politcc2017.tcc_app.R;
 import politcc2017.tcc_app.Volley.ServerRequestHelper;
 
@@ -59,9 +60,11 @@ public class HomeActivity extends BaseActivity {
         list.add("Russo");
         list.add("Japonês");
 
+
         listSingleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(getBaseContext(), (EncryptionHelper.Encrypt("123")), Toast.LENGTH_LONG).show();
                 DialogHelper.ListSingleChoiceDialog(HomeActivity.this, "Escolha um idioma", list, "OK", "Cancelar", new MaterialDialog.ListCallbackSingleChoice() {
                     @Override
                     public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
@@ -84,6 +87,7 @@ public class HomeActivity extends BaseActivity {
         listMultiButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(getBaseContext(), (EncryptionHelper.Decrypt("ntLq4G8tlYITgnJlqCOBzg==\n")), Toast.LENGTH_LONG).show();
                 DialogHelper.ListMultiChoiceDialog(HomeActivity.this, "Escolha idiomas", list, "OK", "Cancelar", new MaterialDialog.ListCallbackMultiChoice() {
 
                     @Override

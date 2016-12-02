@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 import politcc2017.tcc_app.Common.ResourcesHelper;
 import politcc2017.tcc_app.Components.CustomTextView;
+import politcc2017.tcc_app.Components.Helpers.EncryptionHelper;
 import politcc2017.tcc_app.Components.Listeners.CellClickListener;
 import politcc2017.tcc_app.Components.RecyclerView.Adapters.GenericAdapter;
 import politcc2017.tcc_app.Components.RecyclerView.Data.GenericData;
@@ -56,6 +57,7 @@ public class BaseActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         baseActionBar = getSupportActionBar();
         baseActionBar.setTitle("");
+        startConfigs();
         if(baseActionBar != null) baseActionBar.setDisplayHomeAsUpEnabled(true);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.base_drawer_layout);
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,toolbar,R.string.app_name,R.string.app_name){
@@ -65,6 +67,10 @@ public class BaseActivity extends AppCompatActivity {
             }
         };
         mDrawerToggle.syncState();
+    }
+
+    private void startConfigs(){
+        EncryptionHelper.Init();
     }
 
     protected void hideActionBar(){
