@@ -87,7 +87,7 @@ public class HomeActivity extends BaseActivity {
         listMultiButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getBaseContext(), (EncryptionHelper.Decrypt("ntLq4G8tlYITgnJlqCOBzg==\n")), Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), (EncryptionHelper.Decrypt(EncryptionHelper.Encrypt("Test"))), Toast.LENGTH_LONG).show();
                 DialogHelper.ListMultiChoiceDialog(HomeActivity.this, "Escolha idiomas", list, "OK", "Cancelar", new MaterialDialog.ListCallbackMultiChoice() {
 
                     @Override
