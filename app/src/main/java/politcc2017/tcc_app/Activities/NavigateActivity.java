@@ -4,6 +4,8 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.ContextMenu;
 import android.view.View;
 import android.webkit.WebSettings;
@@ -11,6 +13,12 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
+import politcc2017.tcc_app.Common.ResourcesHelper;
+import politcc2017.tcc_app.Components.RecyclerView.Adapters.GenericAdapter;
+import politcc2017.tcc_app.Components.RecyclerView.Data.GenericData;
+import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.ViewHolderType;
 import politcc2017.tcc_app.R;
 
 /**
@@ -19,12 +27,16 @@ import politcc2017.tcc_app.R;
 
 public class NavigateActivity extends BaseActivity {
     private WebView mWebView;
+    private RecyclerView sitesRecyclerView;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_navigate);
         setActivityTitle(getResources().getString(R.string.navigate_activity_title));
+        sitesRecyclerView = (RecyclerView) findViewById(R.id.browse_activity_suggestion_list);
         SetupWebView();
+        SetSuggestionListData();
+        hideActionBar();
     }
 
     private void SetupWebView(){
@@ -60,6 +72,15 @@ public class NavigateActivity extends BaseActivity {
         ClipboardManager clipboard = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
         //Toast.makeText(getBaseContext(), clipboard.getText().toString(), Toast.LENGTH_SHORT).show();
         super.onCreateContextMenu(menu, v, menuInfo);
+    }
+
+    private void SetSuggestionListData(){
+        GenericData data = new GenericData();
+        ArrayList<String> drawerItemTexts = ResourcesHelper.getStringArrayAsArrayList(getBaseContext(), appLanguage, R.array.drawer_items);
+        data.addStringsToAllCells(GenericData.DRAWER_ITEM_TEXT_KEY, drawerItemTexts);
+        mAdapter = new GenericAdapter(data, ViewHolderType.BROSER_SUGGESTION_ITEM_VIEW_HOLDER, R.layout.browser_activity_suggestion_cell);
+        sitesRecyclerView.setAdapter(mAdapter);
+        sitesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
 }

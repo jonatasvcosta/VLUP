@@ -7,8 +7,21 @@
     android:orientation="vertical"
     android:background="@color/beige"
     android:gravity="center_horizontal">
-    <WebView
-        android:id="@+id/navigate_activity_webview"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <WebView
+            android:visibility="gone"
+            android:id="@+id/navigate_activity_webview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/browse_activity_suggestion_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/cyan_lighter"
+            android:paddingBottom="@dimen/margin_medium"/>
+
+    </LinearLayout>
 </LinearLayout>
