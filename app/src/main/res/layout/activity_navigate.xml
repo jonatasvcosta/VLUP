@@ -8,6 +8,7 @@
     android:background="@color/beige"
     android:gravity="center_horizontal">
     <politcc2017.tcc_app.Components.CustomSearchToolbar
+        android:id="@+id/navigate_activity_search_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <LinearLayout
@@ -15,8 +16,8 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <WebView
-            android:visibility="gone"
             android:id="@+id/navigate_activity_webview"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
         <android.support.v7.widget.RecyclerView

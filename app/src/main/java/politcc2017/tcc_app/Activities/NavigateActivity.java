@@ -16,6 +16,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import politcc2017.tcc_app.Common.ResourcesHelper;
+import politcc2017.tcc_app.Components.CustomSearchToolbar;
 import politcc2017.tcc_app.Components.RecyclerView.Adapters.GenericAdapter;
 import politcc2017.tcc_app.Components.RecyclerView.Data.GenericData;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.ViewHolderType;
@@ -25,23 +26,24 @@ import politcc2017.tcc_app.R;
  * Created by Jonatas on 20/11/2016.
  */
 
-public class NavigateActivity extends BaseActivity {
+public class NavigateActivity extends BaseActivity implements View.OnClickListener{
     private WebView mWebView;
     private RecyclerView sitesRecyclerView;
+    private CustomSearchToolbar searchToolbar;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_navigate);
         setActivityTitle(getResources().getString(R.string.navigate_activity_title));
         sitesRecyclerView = (RecyclerView) findViewById(R.id.browse_activity_suggestion_list);
-        SetupWebView();
+        searchToolbar = (CustomSearchToolbar) findViewById(R.id.navigate_activity_search_toolbar);
+        searchToolbar.registerSearchListener(this);
+        mWebView = (WebView) findViewById(R.id.navigate_activity_webview);
         SetSuggestionListData();
-        hideActionBar();
     }
 
-    private void SetupWebView(){
-        mWebView = (WebView) findViewById(R.id.navigate_activity_webview);
-        mWebView.loadUrl("http://www.dw.com/de/themen/s-9077");
+    private void SetupWebView(String url){
+        mWebView.loadUrl(url);
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setLoadWithOverviewMode(true);
@@ -83,4 +85,12 @@ public class NavigateActivity extends BaseActivity {
         sitesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
+    @Override
+    public void onClick(View view) {
+        if(searchToolbar.getSearchUrl() != null && !searchToolbar.getSearchUrl().equals("")) {
+            mWebView.setVisibility(View.VISIBLE);
+            SetupWebView(searchToolbar.getSearchUrl());
+            sitesRecyclerView.setVisibility(View.GONE);
+        }
+    }
 }

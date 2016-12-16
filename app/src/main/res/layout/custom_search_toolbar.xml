@@ -27,7 +27,8 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/margin_medium"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/ic_online"/>
+                android:src="@drawable/ic_search"
+                android:clickable="true"/>
             <EditText
                 android:id="@+id/search_toolbar_edit_text"
                 style="@style/TextMediumGray"
