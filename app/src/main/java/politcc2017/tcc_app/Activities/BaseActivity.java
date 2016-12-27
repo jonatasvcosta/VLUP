@@ -71,6 +71,18 @@ public class BaseActivity extends AppCompatActivity {
         if(baseActionBar != null) baseActionBar.hide();
     }
 
+    protected void showActionBar(){
+        if(baseActionBar != null) baseActionBar.show();
+    }
+
+    protected void setDefaultBaseSupportActionBar(){
+        toolbar = (Toolbar) findViewById(R.id.base_toolbar);
+        toolbarTitle = (CustomTextView) findViewById(R.id.base_toolbar_title);
+        setSupportActionBar(toolbar);
+        baseActionBar = getSupportActionBar();
+        baseActionBar.setTitle("");
+    }
+
     private void setDrawerData(){
         GenericData data = new GenericData();
         ArrayList<String> drawerItemTexts = ResourcesHelper.getStringArrayAsArrayList(getBaseContext(), appLanguage, R.array.drawer_items);

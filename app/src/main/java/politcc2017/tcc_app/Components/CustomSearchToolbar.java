@@ -1,17 +1,24 @@
 package politcc2017.tcc_app.Components;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.os.Build;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import politcc2017.tcc_app.Components.Helpers.AndroidHelper;
 import politcc2017.tcc_app.Components.Helpers.FontHelper;
 import politcc2017.tcc_app.R;
 
@@ -25,6 +32,71 @@ public class CustomSearchToolbar extends LinearLayout {
     private OnClickListener searchListener;
     private ImageView searchIcon;
     private static final String baseAdress = "http://";
+    private static final float TOOLBAR_ELEVATION = 14f;
+    private static final String STATE_RECYCLER_VIEW = "state-recycler-view";
+    private static final String STATE_VERTICAL_OFFSET = "state-vertical-offset";
+    private static final String STATE_SCROLLING_OFFSET = "state-scrolling-direction";
+    private static final String STATE_TOOLBAR_ELEVATION = "state-toolbar-elevation";
+    private static final String STATE_TOOLBAR_TRANSLATION_Y = "state-toolbar-translation-y";
+    // Keeps track of the overall vertical offset in the list
+    private int verticalOffset;
+    // Determines the scroll UP/DOWN offset
+    private int scrollingOffset;
+
+    public void registerRecyclerViewScrollListener(final RecyclerView r){
+            r.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                        if (scrollingOffset > 0) {
+                            if (verticalOffset > mToolbar.getHeight()) {
+                                toolbarAnimateHide();
+                            } else {
+                                toolbarAnimateShow(verticalOffset);
+                            }
+                        } else if (scrollingOffset < 0) {
+                            if (mToolbar.getTranslationY() < mToolbar.getHeight() * -0.6 && verticalOffset > mToolbar.getHeight()) {
+                                toolbarAnimateHide();
+                            } else {
+                                toolbarAnimateShow(verticalOffset);
+                            }
+                        }
+                    }
+                }
+
+                @Override
+                public final void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                    verticalOffset = r.computeVerticalScrollOffset();
+                    scrollingOffset = dy;
+                    int toolbarYOffset = (int) (dy - mToolbar.getTranslationY());
+                    mToolbar.animate().cancel();
+                    if (scrollingOffset > 0) {
+                        if (toolbarYOffset < mToolbar.getHeight()) {
+                            if (verticalOffset > mToolbar.getHeight()) {
+                                toolbarSetElevation(TOOLBAR_ELEVATION);
+                            }
+                            mToolbar.setTranslationY(-toolbarYOffset);
+                        } else {
+                            toolbarSetElevation(0);
+                            mToolbar.setTranslationY(-mToolbar.getHeight());
+                        }
+                    } else if (scrollingOffset < 0) {
+                        if (toolbarYOffset < 0) {
+                            if (verticalOffset <= 0) {
+                                toolbarSetElevation(0);
+                            }
+                            mToolbar.setTranslationY(0);
+                        } else {
+                            if (verticalOffset > mToolbar.getHeight()) {
+                                toolbarSetElevation(TOOLBAR_ELEVATION);
+                            }
+                            mToolbar.setTranslationY(-toolbarYOffset);
+                        }
+                    }
+                }
+            });
+    }
+
 
     public void registerSearchListener(OnClickListener listener){
         searchListener = listener;
@@ -82,5 +154,39 @@ public class CustomSearchToolbar extends LinearLayout {
 
     public void setSearchUrl(String url){
         mEditText.setText(baseAdress+url);
+    }
+
+    private void toolbarAnimateShow(final int verticalOffset) {
+        mToolbar.animate()
+                .translationY(0)
+                .setInterpolator(new LinearInterpolator())
+                .setDuration(180)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        toolbarSetElevation(verticalOffset == 0 ? 0 : TOOLBAR_ELEVATION);
+                    }
+                });
+    }
+
+    private void toolbarAnimateHide() {
+        mToolbar.animate()
+                .translationY(-mToolbar.getHeight())
+                .setInterpolator(new LinearInterpolator())
+                .setDuration(180)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        toolbarSetElevation(0);
+                    }
+                });
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void toolbarSetElevation(float elevation) {
+        // setElevation() only works on Lollipop
+        if (AndroidHelper.isLollipop()) {
+            mToolbar.setElevation(elevation);
+        }
     }
 }

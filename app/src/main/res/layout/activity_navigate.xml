@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/beige"
+    android:background="@color/cyan_lighter"
     android:gravity="center_horizontal">
     <politcc2017.tcc_app.Components.CustomSearchToolbar
         android:id="@+id/navigate_activity_search_toolbar"

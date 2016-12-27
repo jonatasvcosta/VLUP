@@ -30,19 +30,39 @@ public class NavigateActivity extends BaseActivity implements View.OnClickListen
     private WebView mWebView;
     private RecyclerView sitesRecyclerView;
     private CustomSearchToolbar searchToolbar;
+    private float SCROL_DY;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_navigate);
+        SCROL_DY = getResources().getDimension(R.dimen.margin_extra_large);
         setActivityTitle(getResources().getString(R.string.navigate_activity_title));
         sitesRecyclerView = (RecyclerView) findViewById(R.id.browse_activity_suggestion_list);
         searchToolbar = (CustomSearchToolbar) findViewById(R.id.navigate_activity_search_toolbar);
         searchToolbar.registerSearchListener(this);
+        searchToolbar.registerRecyclerViewScrollListener(sitesRecyclerView);
         mWebView = (WebView) findViewById(R.id.navigate_activity_webview);
         SetSuggestionListData();
+        setRecyclerViewScrollListener();
     }
 
-    private void SetupWebView(String url){
+    private void setRecyclerViewScrollListener(){
+        sitesRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if(dy >=  (int) SCROL_DY) searchToolbar.setVisibility(View.GONE);
+                else if(dy <= (int) SCROL_DY*(-1)) searchToolbar.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+    private void setupWebView(String url){
         mWebView.loadUrl(url);
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -89,7 +109,7 @@ public class NavigateActivity extends BaseActivity implements View.OnClickListen
     public void onClick(View view) {
         if(searchToolbar.getSearchUrl() != null && !searchToolbar.getSearchUrl().equals("")) {
             mWebView.setVisibility(View.VISIBLE);
-            SetupWebView(searchToolbar.getSearchUrl());
+            setupWebView(searchToolbar.getSearchUrl());
             sitesRecyclerView.setVisibility(View.GONE);
         }
     }
