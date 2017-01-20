@@ -30,6 +30,7 @@ public class NavigateActivity extends BaseActivity implements View.OnClickListen
     private WebView mWebView;
     private RecyclerView sitesRecyclerView;
     private CustomSearchToolbar searchToolbar;
+    private String baseUrl = "https://www.google.com/search?q=";
     private float SCROL_DY;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,37 +44,25 @@ public class NavigateActivity extends BaseActivity implements View.OnClickListen
         searchToolbar.registerRecyclerViewScrollListener(sitesRecyclerView);
         mWebView = (WebView) findViewById(R.id.navigate_activity_webview);
         SetSuggestionListData();
-        setRecyclerViewScrollListener();
-    }
-
-    private void setRecyclerViewScrollListener(){
-        sitesRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                if(dy >=  (int) SCROL_DY) searchToolbar.setVisibility(View.GONE);
-                else if(dy <= (int) SCROL_DY*(-1)) searchToolbar.setVisibility(View.VISIBLE);
-            }
-        });
     }
 
     private void setupWebView(String url){
         mWebView.loadUrl(url);
+
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setLoadWithOverviewMode(true);
         webSettings.setUseWideViewPort(true);
-        mWebView.setWebViewClient(new WebViewClient());
+        mWebView.setWebViewClient(new WebViewClient() {
+            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+                setupWebView(baseUrl+searchToolbar.getSearchUrl()); //search URL isn´t a complete website
+            }
+        });
         registerForContextMenu(mWebView);
         setupClipboardListener();
     }
 
-    private void setupClipboardListener(){
+    private void setupClipboardListener(){ //insert WordContext here
         final ClipboardManager clipboard = (ClipboardManager) this.getSystemService(Context.CLIPBOARD_SERVICE);
 
         clipboard.addPrimaryClipChangedListener( new ClipboardManager.OnPrimaryClipChangedListener() {
@@ -107,6 +96,10 @@ public class NavigateActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onClick(View view) {
+        loadNewWebsite();
+    }
+
+    private void loadNewWebsite(){
         if(searchToolbar.getSearchUrl() != null && !searchToolbar.getSearchUrl().equals("")) {
             mWebView.setVisibility(View.VISIBLE);
             setupWebView(searchToolbar.getSearchUrl());
