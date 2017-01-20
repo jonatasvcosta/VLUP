@@ -38,6 +38,7 @@ public class NavigateActivity extends BaseActivity implements View.OnClickListen
         super.setContentView(R.layout.activity_navigate);
         SCROL_DY = getResources().getDimension(R.dimen.margin_extra_large);
         setActivityTitle(getResources().getString(R.string.navigate_activity_title));
+        showRightIcons();
         sitesRecyclerView = (RecyclerView) findViewById(R.id.browse_activity_suggestion_list);
         searchToolbar = (CustomSearchToolbar) findViewById(R.id.navigate_activity_search_toolbar);
         searchToolbar.registerSearchListener(this);

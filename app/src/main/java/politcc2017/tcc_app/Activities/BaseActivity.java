@@ -15,6 +15,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 
@@ -39,6 +40,7 @@ public class BaseActivity extends AppCompatActivity {
     ActionBarDrawerToggle mDrawerToggle;
     ActionBar baseActionBar;
     int appLanguage;
+    ImageView rightIcon, rightMostIcon;
 
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
@@ -53,6 +55,8 @@ public class BaseActivity extends AppCompatActivity {
         drawerRecyclerView.setLayoutManager(mLayoutManager);
         toolbar = (Toolbar) findViewById(R.id.base_toolbar);
         toolbarTitle = (CustomTextView) findViewById(R.id.base_toolbar_title);
+        rightIcon = (ImageView) findViewById(R.id.base_toolbar_righ_icon);
+        rightMostIcon = (ImageView) findViewById(R.id.base_toolbar_rightmost_icon);
         setSupportActionBar(toolbar);
         baseActionBar = getSupportActionBar();
         baseActionBar.setTitle("");
@@ -103,6 +107,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     protected void startOrResumeActivity(Class <? extends BaseActivity> destinationActivity){
+        hideRightIcons();
         Intent intent = new Intent(getBaseContext(), destinationActivity);
         intent.addFlags(FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
@@ -113,6 +118,16 @@ public class BaseActivity extends AppCompatActivity {
         if(closeAllPreviousActivities) intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         else intent.addFlags(FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
+    }
+
+    protected void hideRightIcons(){
+        if(rightIcon.getVisibility() != View.GONE) rightIcon.setVisibility(View.GONE);
+        if(rightMostIcon.getVisibility() != View.GONE) rightMostIcon.setVisibility(View.GONE);
+    }
+
+    protected void showRightIcons(){
+        if(rightIcon.getVisibility() != View.VISIBLE) rightIcon.setVisibility(View.VISIBLE);
+        if(rightMostIcon.getVisibility() != View.VISIBLE) rightMostIcon.setVisibility(View.VISIBLE);
     }
 
     protected void HandleDrawerClicks(){
