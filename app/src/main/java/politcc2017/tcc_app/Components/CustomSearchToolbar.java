@@ -32,6 +32,7 @@ public class CustomSearchToolbar extends LinearLayout {
     private OnClickListener searchListener;
     private ImageView searchIcon;
     private static final String baseAdress = "http://";
+    private static final String secureBaseAdress = "https://";
     private static final float TOOLBAR_ELEVATION = 14f;
     private static final String STATE_RECYCLER_VIEW = "state-recycler-view";
     private static final String STATE_VERTICAL_OFFSET = "state-vertical-offset";
@@ -163,7 +164,12 @@ public class CustomSearchToolbar extends LinearLayout {
     }
 
     public void setSearchUrl(String url){
-        mEditText.setText(baseAdress+url);
+        if(url.contains(secureBaseAdress)){
+            url = url.replace(secureBaseAdress, baseAdress);
+            mEditText.setText(url);
+        }
+        else if(!url.contains(baseAdress))mEditText.setText(baseAdress+url);
+        else mEditText.setText(url);
     }
 
     private void toolbarAnimateShow(final int verticalOffset) {

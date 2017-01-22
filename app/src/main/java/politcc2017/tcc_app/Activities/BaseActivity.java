@@ -141,6 +141,11 @@ public class BaseActivity extends AppCompatActivity {
             }
 
             @Override
+            public void onClick(ImageView v, String link) {
+
+            }
+
+            @Override
             public void onLinkClick(String link) {
 
             }

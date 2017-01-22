@@ -17,6 +17,9 @@ import org.json.JSONObject;
  */
 
 public class ServerRequestHelper {
+    private static final String baseAdress = "http://";
+    private static final String secureBaseAdress = "https://";
+
     public static void getString(Context c, String url, final String defaultString, final Response.Listener<String> responseListener){
         String completeURL = ServerConstants.API_URL + url;
         stringAbsoluteURLRequest(ServerConstants.GET_REQUEST, c, completeURL, defaultString, responseListener);
@@ -47,10 +50,11 @@ public class ServerRequestHelper {
         jsonArrayAbsoluteURLRequest(ServerConstants.POST_REQUEST, c, completeURL, objectSent, responseListener);
     }
 
-    public static void getImage(Context c, String url, final ImageLoader.ImageListener responseListener) {
-        String completeURL = ServerConstants.API_URL + url;
+    public static void getImage(Context c, String relativeUrl, final ImageLoader.ImageListener responseListener) {
+        String completeURL = ServerConstants.API_URL + relativeUrl;
         imageAbsoluteURLRequest(c, completeURL, responseListener);
     }
+
 
     public static void stringAbsoluteURLRequest(int method, Context c, String url, final String defaultString, final Response.Listener<String> responseListener){
 
@@ -94,6 +98,7 @@ public class ServerRequestHelper {
     }
 
     public static void imageAbsoluteURLRequest(Context c, String url, final ImageLoader.ImageListener responseListener){
+        if(url.contains(secureBaseAdress)) url = url.replace(secureBaseAdress, baseAdress);
         ImageLoader imageLoader = AppSingleton.getInstance(c.getApplicationContext()).getImageLoader();
         imageLoader.get(url, responseListener);
     }

@@ -22,11 +22,32 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/margin_small"
                 android:minHeight="@dimen/site_suggestion_cell_unfolded_height"
+                android:gravity="center_horizontal"
                 android:orientation="vertical">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="Satmen"/>
+                <politcc2017.tcc_app.Components.CustomTextView
+                    android:id="@+id/suggestion_title_unfolded"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:layout_gravity="center_horizontal"
+                    style="@style/TextMediumCyan"/>
+                <politcc2017.tcc_app.Components.CustomButton
+                    style="@style/LinkButton"
+                    android:id="@+id/suggestion_link_unfolded"
+                    android:layout_gravity="center_horizontal"
+                    android:text=""
+                    android:textSize="@dimen/font_small"/>
+                <politcc2017.tcc_app.Components.CustomTextView
+                    android:id="@+id/suggestion_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    style="@style/TextSmallWhite"
+                    android:layout_marginBottom="@dimen/margin_medium"/>
+                <ImageView
+                    android:id="@+id/suggestion_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
             </LinearLayout>
         </FrameLayout>
         ​
@@ -41,18 +62,17 @@
                 android:minHeight="@dimen/site_suggestion_cell_folded_height"
                 android:orientation="vertical">
                 <politcc2017.tcc_app.Components.CustomTextView
-                    android:id="@+id/sites_suggestion_title"
+                    android:id="@+id/suggestion_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_small"
                     android:layout_gravity="center_horizontal"
-                    style="@style/TextMediumGray"
-                    android:text="App"/>
+                    style="@style/TextMediumGray"/>
                 <politcc2017.tcc_app.Components.CustomButton
                     style="@style/LinkButton"
                     android:id="@+id/suggestion_link"
                     android:layout_gravity="center_horizontal"
-                    android:text="www.google.com.br"
+                    android:text=""
                     android:textSize="@dimen/font_small"/>
             </LinearLayout>
         </FrameLayout>    ​
