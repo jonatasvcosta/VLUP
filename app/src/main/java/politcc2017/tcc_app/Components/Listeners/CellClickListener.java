@@ -8,4 +8,5 @@ import android.view.View;
 
 public interface CellClickListener extends View.OnClickListener {
     public void onClick(View v, int position);
+    public void onLinkClick(String link);
 }

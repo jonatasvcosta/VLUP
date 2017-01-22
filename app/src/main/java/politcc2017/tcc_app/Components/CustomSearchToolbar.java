@@ -49,6 +49,10 @@ public class CustomSearchToolbar extends LinearLayout {
         return ret;
     }
 
+    public String getBaseAdress(){
+        return baseAdress;
+    }
+
     public void registerRecyclerViewScrollListener(final RecyclerView r){
             r.addOnScrollListener(new RecyclerView.OnScrollListener() {
                 @Override

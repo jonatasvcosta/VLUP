@@ -6,6 +6,7 @@ import com.ramotion.foldingcell.FoldingCell;
 
 import java.util.Hashtable;
 
+import politcc2017.tcc_app.Components.CustomButton;
 import politcc2017.tcc_app.Components.Listeners.CellClickListener;
 import politcc2017.tcc_app.R;
 
@@ -14,11 +15,20 @@ import politcc2017.tcc_app.R;
  */
 
 public class SitesSuggestionViewHolder extends GenericViewHolder{
-    FoldingCell foldingCell;
+    private FoldingCell foldingCell;
+    private CustomButton link;
 
-    public SitesSuggestionViewHolder(View itemView, CellClickListener listener) {
+    public SitesSuggestionViewHolder(View itemView, final CellClickListener listener) {
         super(itemView, listener);
         foldingCell = (FoldingCell) itemView.findViewById(R.id.folding_cell_sites_suggestion);
+        link = (CustomButton) itemView.findViewById(R.id.suggestion_link);
+        link.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(listener != null) listener.onLinkClick(link.getText().toString());
+            }
+        });
+
         foldingCell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

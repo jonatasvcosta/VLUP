@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 import politcc2017.tcc_app.Common.ResourcesHelper;
 import politcc2017.tcc_app.Components.CustomSearchToolbar;
+import politcc2017.tcc_app.Components.Listeners.CellClickListener;
 import politcc2017.tcc_app.Components.RecyclerView.Adapters.GenericAdapter;
 import politcc2017.tcc_app.Components.RecyclerView.Data.GenericData;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.ViewHolderType;
@@ -75,6 +76,8 @@ public class NavigateActivity extends BaseActivity implements View.OnClickListen
         webSettings.setUseWideViewPort(true);
         mWebView.setWebViewClient(new WebViewClient() {
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+                String customErrorPageHtml = "<html></html>";
+                mWebView.loadData(customErrorPageHtml, "text/html", null); //prevent from loading error page, because the default behaviour will be to google
                 setupWebView(baseUrl+searchToolbar.getRawURL()); //search URL isn´t a complete website
             }
         });
@@ -112,6 +115,22 @@ public class NavigateActivity extends BaseActivity implements View.OnClickListen
         mAdapter = new GenericAdapter(data, ViewHolderType.BROSER_SUGGESTION_ITEM_VIEW_HOLDER, R.layout.browser_activity_suggestion_cell);
         sitesRecyclerView.setAdapter(mAdapter);
         sitesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mAdapter.RegisterClickListener(new CellClickListener() {
+            @Override
+            public void onClick(View v, int position) {
+            }
+
+            @Override
+            public void onLinkClick(String link) {
+                searchToolbar.setSearchUrl(link);
+                loadNewWebsite();
+            }
+
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     @Override
