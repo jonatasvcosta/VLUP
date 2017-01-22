@@ -125,7 +125,7 @@ public class BaseActivity extends AppCompatActivity {
         if(rightMostIcon.getVisibility() != View.GONE) rightMostIcon.setVisibility(View.GONE);
     }
 
-    protected void showRightIcons(){
+    protected void showToolbarRightIcons(){
         if(rightIcon.getVisibility() != View.VISIBLE) rightIcon.setVisibility(View.VISIBLE);
         if(rightMostIcon.getVisibility() != View.VISIBLE) rightMostIcon.setVisibility(View.VISIBLE);
     }

@@ -11,6 +11,7 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ public class NavigateActivity extends BaseActivity implements View.OnClickListen
     private RecyclerView sitesRecyclerView;
     private CustomSearchToolbar searchToolbar;
     private String baseUrl = "https://www.google.com/search?q=";
+    private ImageView toolbarSearchIcon, toolbarListIcon;
     private float SCROL_DY;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,25 +40,42 @@ public class NavigateActivity extends BaseActivity implements View.OnClickListen
         super.setContentView(R.layout.activity_navigate);
         SCROL_DY = getResources().getDimension(R.dimen.margin_extra_large);
         setActivityTitle(getResources().getString(R.string.navigate_activity_title));
-        showRightIcons();
         sitesRecyclerView = (RecyclerView) findViewById(R.id.browse_activity_suggestion_list);
+        toolbarSearchIcon = (ImageView) findViewById(R.id.base_toolbar_rightmost_icon);
+        toolbarListIcon = (ImageView) findViewById(R.id.base_toolbar_righ_icon);
         searchToolbar = (CustomSearchToolbar) findViewById(R.id.navigate_activity_search_toolbar);
         searchToolbar.registerSearchListener(this);
         searchToolbar.registerRecyclerViewScrollListener(sitesRecyclerView);
         mWebView = (WebView) findViewById(R.id.navigate_activity_webview);
         SetSuggestionListData();
+        toolbarListIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(sitesRecyclerView.getVisibility() != View.VISIBLE){
+                    mWebView.setVisibility(View.GONE);
+                    sitesRecyclerView.setVisibility(View.VISIBLE);
+                    searchToolbar.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        toolbarSearchIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(searchToolbar.getVisibility() != View.VISIBLE) searchToolbar.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     private void setupWebView(String url){
         mWebView.loadUrl(url);
-
         WebSettings webSettings = mWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setLoadWithOverviewMode(true);
         webSettings.setUseWideViewPort(true);
         mWebView.setWebViewClient(new WebViewClient() {
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-                setupWebView(baseUrl+searchToolbar.getSearchUrl()); //search URL isn´t a complete website
+                setupWebView(baseUrl+searchToolbar.getRawURL()); //search URL isn´t a complete website
             }
         });
         registerForContextMenu(mWebView);
@@ -96,6 +115,12 @@ public class NavigateActivity extends BaseActivity implements View.OnClickListen
     }
 
     @Override
+    protected void onResume() {
+        if(mWebView.getVisibility() == View.VISIBLE) showToolbarRightIcons();
+        super.onResume();
+    }
+
+    @Override
     public void onClick(View view) {
         loadNewWebsite();
     }
@@ -105,6 +130,8 @@ public class NavigateActivity extends BaseActivity implements View.OnClickListen
             mWebView.setVisibility(View.VISIBLE);
             setupWebView(searchToolbar.getSearchUrl());
             sitesRecyclerView.setVisibility(View.GONE);
+            showToolbarRightIcons();
+            searchToolbar.setVisibility(View.GONE);
         }
     }
 }

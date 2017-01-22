@@ -27,6 +27,7 @@
                         android:visibility="gone"
                         android:layout_marginRight="@dimen/margin_small"
                         android:layout_gravity="end"
+                        android:clickable="true"
                         android:src="@drawable/ic_list"/>
                     <ImageView
                         android:id="@+id/base_toolbar_rightmost_icon"
@@ -35,6 +36,7 @@
                         android:visibility="gone"
                         android:layout_marginRight="@dimen/margin_small"
                         android:layout_gravity="end"
+                        android:clickable="true"
                         android:src="@drawable/ic_search"/>
                 </android.support.v7.widget.Toolbar>
             <FrameLayout

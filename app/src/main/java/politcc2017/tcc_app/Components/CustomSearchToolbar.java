@@ -43,6 +43,12 @@ public class CustomSearchToolbar extends LinearLayout {
     // Determines the scroll UP/DOWN offset
     private int scrollingOffset;
 
+    public String getRawURL(){
+        String ret = mEditText.getText().toString();
+        if(ret != null && ret.length() > 0 && ret.contains(baseAdress)) return ret.substring(baseAdress.length());
+        return ret;
+    }
+
     public void registerRecyclerViewScrollListener(final RecyclerView r){
             r.addOnScrollListener(new RecyclerView.OnScrollListener() {
                 @Override
