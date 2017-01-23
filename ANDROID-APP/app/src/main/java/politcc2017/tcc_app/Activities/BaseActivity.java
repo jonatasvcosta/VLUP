@@ -30,7 +30,7 @@ import politcc2017.tcc_app.R;
 import static android.content.Intent.FLAG_ACTIVITY_REORDER_TO_FRONT;
 
 public class BaseActivity extends AppCompatActivity {
-    public static final int POS_HOME = 0, POS_NAVIGATE = 3;
+    public static final int POS_HOME = 0, POS_NAVIGATE = 3, POS_BOOKSHELF = 5;
     Toolbar toolbar;
     CustomTextView toolbarTitle;
     RecyclerView drawerRecyclerView;
@@ -137,6 +137,7 @@ public class BaseActivity extends AppCompatActivity {
                 mDrawerLayout.closeDrawers();
                 if(position == POS_HOME) startOrResumeActivity(HomeActivity.class);
                 else if(position == POS_NAVIGATE) startOrResumeActivity(NavigateActivity.class);
+                else if(position == POS_BOOKSHELF) startOrResumeActivity(BookshelfActivity.class);
                 else startOrResumeActivity(MaintenanceActivity.class, true);
             }
 

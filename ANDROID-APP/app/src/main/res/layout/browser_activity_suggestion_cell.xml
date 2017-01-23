@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.ramotion.foldingcell.FoldingCell android:id="@+id/folding_cell_sites_suggestion"
     android:layout_width="match_parent"
+    android:clipChildren="false"
+    android:clipToPadding="false"
     android:layout_height="wrap_content"
-    android:padding="@dimen/margin_medium">
-    <com.ramotion.foldingcell.FoldingCell
-        android:id="@+id/folding_cell_sites_suggestion"
-        android:layout_width="match_parent"
-        android:clipChildren="false"
-        android:clipToPadding="false"
-        android:layout_height="wrap_content">
-        ​
+    android:padding="@dimen/margin_medium"
+    xmlns:android="http://schemas.android.com/apk/res/android">        ​
         <FrameLayout
             android:id="@+id/cell_content_view"
             android:layout_width="match_parent"
@@ -73,8 +68,8 @@
                     android:id="@+id/suggestion_link"
                     android:layout_gravity="center_horizontal"
                     android:text=""
+                    android:layout_marginBottom="@dimen/margin_large"
                     android:textSize="@dimen/font_small"/>
             </LinearLayout>
         </FrameLayout>    ​
-    </com.ramotion.foldingcell.FoldingCell>
-</LinearLayout>
+</com.ramotion.foldingcell.FoldingCell>

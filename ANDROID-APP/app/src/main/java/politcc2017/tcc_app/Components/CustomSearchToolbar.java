@@ -54,7 +54,7 @@ public class CustomSearchToolbar extends LinearLayout {
         return baseAdress;
     }
 
-    public void registerRecyclerViewScrollListener(final RecyclerView r){
+    public void registerRecyclerViewScrollListener(final RecyclerView r, final int screenHeight){
             r.addOnScrollListener(new RecyclerView.OnScrollListener() {
                 @Override
                 public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
