@@ -6,10 +6,13 @@ import java.util.Hashtable;
 public class GenericData {
     //Constant ViewHolderTypes
 
-
     //Constant keys for Generic Data Cells are declared here
     public static final String DRAWER_ITEM_TEXT_KEY = "drawer_text_key";
     public static final String DRAWER_ITEM_ICON_KEY = "drawer_icon_key";
+    public static final String SUGGESTION_ITEM_LINK = "suggestion_link";
+    public static final String SUGGESTION_ITEM_TITLE = "suggestion_title";
+    public static final String SUGGESTION_ITEM_DESCRIPTION = "suggestion_description";
+    public static final String SUGGESTION_ITEM_IMAGE = "suggestion_image";
 
     private ArrayList<Hashtable> mData;
 

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/cyan_lighter"
+    android:gravity="center_horizontal">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <WebView
+            android:id="@+id/navigate_activity_webview"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/browse_activity_suggestion_list"
+            android:layout_width="match_parent"
+            android:clipToPadding="false"
+            android:paddingTop="@dimen/custom_search_toolbar_height"
+            android:layout_height="match_parent"
+            android:background="@color/cyan_lighter"
+            android:paddingBottom="@dimen/margin_medium"/>
+
+    </LinearLayout>
+    <politcc2017.tcc_app.Components.CustomSearchToolbar
+        android:id="@+id/navigate_activity_search_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</FrameLayout>

@@ -20,6 +20,24 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"/>
+                    <ImageView
+                        android:id="@+id/base_toolbar_righ_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:layout_marginRight="@dimen/margin_small"
+                        android:layout_gravity="end"
+                        android:clickable="true"
+                        android:src="@drawable/ic_list"/>
+                    <ImageView
+                        android:id="@+id/base_toolbar_rightmost_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:layout_marginRight="@dimen/margin_small"
+                        android:layout_gravity="end"
+                        android:clickable="true"
+                        android:src="@drawable/ic_search"/>
                 </android.support.v7.widget.Toolbar>
             <FrameLayout
                 android:id="@+id/activity_content"

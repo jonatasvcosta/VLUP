@@ -21,6 +21,7 @@ public abstract class GenericViewHolder extends RecyclerView.ViewHolder {
     }
     public static int getLayoutViewByPosition(int position, ViewHolderType type){
         if(type == ViewHolderType.DRAWER_VIEW_HOLDER) return R.layout.drawer_item_cell;
+        if(type == ViewHolderType.BROSER_SUGGESTION_ITEM_VIEW_HOLDER) return R.layout.browser_activity_suggestion_cell;
         return -1;
     }
     public abstract void setViewContent(Hashtable cellData);

@@ -4,12 +4,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import politcc2017.tcc_app.Components.Listeners.CellClickListener;
 import politcc2017.tcc_app.Components.RecyclerView.Data.GenericData;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.DrawerViewHolder;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.GenericViewHolder;
+import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.SitesSuggestionViewHolder;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.ViewHolderType;
 
 /**
@@ -37,6 +37,10 @@ public class GenericAdapter extends RecyclerView.Adapter<GenericViewHolder> {
         if(viewHolderType == ViewHolderType.DRAWER_VIEW_HOLDER) {
             final View itemView = LayoutInflater.from(parent.getContext()).inflate(GenericViewHolder.getLayoutViewByPosition(position, ViewHolderType.DRAWER_VIEW_HOLDER), null);
             return new DrawerViewHolder(itemView, mCLickListener);
+        }
+        if(viewHolderType == ViewHolderType.BROSER_SUGGESTION_ITEM_VIEW_HOLDER) {
+            final View itemView = LayoutInflater.from(parent.getContext()).inflate(GenericViewHolder.getLayoutViewByPosition(position, ViewHolderType.BROSER_SUGGESTION_ITEM_VIEW_HOLDER), null);
+            return new SitesSuggestionViewHolder(itemView, mCLickListener);
         }
         return null;
     }

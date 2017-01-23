@@ -40,6 +40,10 @@
         <item name="android:textSize">@dimen/font_medium</item>
         <item name="android:textColor">@color/gray</item>
     </style>
+    <style name="TextMediumCyan">
+        <item name="android:textSize">@dimen/font_medium</item>
+        <item name="android:textColor">@color/cyan_lighter</item>
+    </style>
     <style name="TextLargeGray">
         <item name="android:textSize">@dimen/font_large</item>
         <item name="android:textColor">@color/gray</item>
