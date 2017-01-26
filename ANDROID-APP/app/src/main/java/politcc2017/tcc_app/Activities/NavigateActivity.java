@@ -147,7 +147,7 @@ public class NavigateActivity extends BaseActivity implements View.OnClickListen
 
         //end of fake data
 
-        mAdapter = new GenericAdapter(data, ViewHolderType.BROSER_SUGGESTION_ITEM_VIEW_HOLDER, R.layout.browser_activity_suggestion_cell);
+        mAdapter = new GenericAdapter(data, ViewHolderType.BROWSER_SUGGESTION_ITEM_VIEW_HOLDER);
         sitesRecyclerView.setAdapter(mAdapter);
         sitesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter.RegisterClickListener(new CellClickListener() {

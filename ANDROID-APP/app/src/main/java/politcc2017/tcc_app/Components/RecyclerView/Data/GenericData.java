@@ -13,8 +13,10 @@ public class GenericData {
     public static final String SUGGESTION_ITEM_TITLE = "suggestion_title";
     public static final String SUGGESTION_ITEM_DESCRIPTION = "suggestion_description";
     public static final String SUGGESTION_ITEM_IMAGE = "suggestion_image";
+    public static final String BOOKSHELF_ITEM_CATEGORY = "bookshelf_category";
 
     private ArrayList<Hashtable> mData;
+    public ArrayList<Integer> typeData;
 
     public GenericData() {
         mData = new ArrayList<>();

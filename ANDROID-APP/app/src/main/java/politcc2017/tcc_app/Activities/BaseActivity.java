@@ -93,7 +93,7 @@ public class BaseActivity extends AppCompatActivity {
         ArrayList<Integer> drawerItemIcons = ResourcesHelper.getIntArrayAsArrayList(getBaseContext(), R.array.drawer_items_icons);
         data.addStringsToAllCells(GenericData.DRAWER_ITEM_TEXT_KEY, drawerItemTexts);
         data.addIntegersToAllCells(GenericData.DRAWER_ITEM_ICON_KEY, drawerItemIcons);
-        mAdapter = new GenericAdapter(data, ViewHolderType.DRAWER_VIEW_HOLDER, R.layout.drawer_item_cell);
+        mAdapter = new GenericAdapter(data, ViewHolderType.DRAWER_VIEW_HOLDER);
         drawerRecyclerView.setAdapter(mAdapter);
         HandleDrawerClicks();
     }

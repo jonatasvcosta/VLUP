@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.ramotion.foldingcell.FoldingCell android:id="@+id/folding_cell_sites_suggestion"
+    android:layout_width="match_parent"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/margin_medium"
+    xmlns:android="http://schemas.android.com/apk/res/android">        ​
+        <FrameLayout
+            android:id="@+id/cell_content_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/cyan_darkest"
+            android:visibility="gone">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/margin_small"
+                android:minHeight="@dimen/site_suggestion_cell_unfolded_height"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+                <politcc2017.tcc_app.Components.CustomTextView
+                    android:id="@+id/suggestion_title_unfolded"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Satmen"
+                    style="@style/TextMediumCyan"/>
+            </LinearLayout>
+        </FrameLayout>
+        ​
+        <FrameLayout
+            android:id="@+id/cell_title_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bookshelf_category_cell_folded_height"
+            android:background="@color/cyan_lightest">
+                <politcc2017.tcc_app.Components.CustomTextView
+                    android:id="@+id/category_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    style="@style/TextLargeGray"/>
+        </FrameLayout>    ​
+</com.ramotion.foldingcell.FoldingCell>

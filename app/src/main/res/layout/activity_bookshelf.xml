@@ -10,16 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <WebView
-            android:id="@+id/navigate_activity_webview"
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
         <android.support.v7.widget.RecyclerView
             android:id="@+id/bookshelf_activity_categories_list"
             android:layout_width="match_parent"
             android:clipToPadding="false"
-            android:paddingTop="@dimen/custom_search_toolbar_height"
+            android:paddingTop="@dimen/margin_large"
             android:layout_height="match_parent"
             android:background="@color/cyan_lighter"
             android:paddingBottom="@dimen/margin_medium"/>

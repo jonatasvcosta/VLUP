@@ -7,10 +7,13 @@ import android.view.ViewGroup;
 
 import politcc2017.tcc_app.Components.Listeners.CellClickListener;
 import politcc2017.tcc_app.Components.RecyclerView.Data.GenericData;
+import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.BookshelfViewHolder;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.DrawerViewHolder;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.GenericViewHolder;
+import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.LabelViewHolder;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.SitesSuggestionViewHolder;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.ViewHolderType;
+import politcc2017.tcc_app.R;
 
 /**
  * Created by Jonatas on 26/10/2016.
@@ -22,7 +25,7 @@ public class GenericAdapter extends RecyclerView.Adapter<GenericViewHolder> {
     private ViewHolderType viewHolderType;
     private CellClickListener mCLickListener;
 
-    public GenericAdapter(GenericData data, ViewHolderType vhType, int layout){
+    public GenericAdapter(GenericData data, ViewHolderType vhType){
         this.mData = data;
         this.viewHolderType = vhType;
     }
@@ -38,9 +41,20 @@ public class GenericAdapter extends RecyclerView.Adapter<GenericViewHolder> {
             final View itemView = LayoutInflater.from(parent.getContext()).inflate(GenericViewHolder.getLayoutViewByPosition(position, ViewHolderType.DRAWER_VIEW_HOLDER), null);
             return new DrawerViewHolder(itemView, mCLickListener);
         }
-        if(viewHolderType == ViewHolderType.BROSER_SUGGESTION_ITEM_VIEW_HOLDER) {
-            final View itemView = LayoutInflater.from(parent.getContext()).inflate(GenericViewHolder.getLayoutViewByPosition(position, ViewHolderType.BROSER_SUGGESTION_ITEM_VIEW_HOLDER), null);
+        if(viewHolderType == ViewHolderType.BROWSER_SUGGESTION_ITEM_VIEW_HOLDER) {
+            final View itemView = LayoutInflater.from(parent.getContext()).inflate(GenericViewHolder.getLayoutViewByPosition(position, ViewHolderType.BROWSER_SUGGESTION_ITEM_VIEW_HOLDER), null);
             return new SitesSuggestionViewHolder(itemView, mCLickListener);
+        }
+        if(viewHolderType == ViewHolderType.BOOKSHELF_VIEW_HOLDER) {
+            final View itemView;
+            if(mData.typeData.contains(position)){
+                itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.bookshelf_label_cell, null);
+                return new LabelViewHolder(itemView, null);
+            }
+            else{
+                itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.bookshelf_category_cell, null);
+                return new BookshelfViewHolder(itemView, mCLickListener);
+            }
         }
         return null;
     }
