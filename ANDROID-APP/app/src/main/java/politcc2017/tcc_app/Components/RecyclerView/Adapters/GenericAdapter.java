@@ -49,7 +49,7 @@ public class GenericAdapter extends RecyclerView.Adapter<GenericViewHolder> {
             final View itemView;
             if(mData.typeData.contains(position)){
                 itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.bookshelf_label_cell, null);
-                return new LabelViewHolder(itemView, null);
+                return new LabelViewHolder(itemView, mCLickListener);
             }
             else{
                 itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.bookshelf_category_cell, null);

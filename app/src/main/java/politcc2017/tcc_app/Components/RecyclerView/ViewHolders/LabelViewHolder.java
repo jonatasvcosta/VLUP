@@ -1,6 +1,7 @@
 package politcc2017.tcc_app.Components.RecyclerView.ViewHolders;
 
 import android.view.View;
+import android.widget.ImageView;
 
 import java.util.Hashtable;
 
@@ -15,9 +16,17 @@ import politcc2017.tcc_app.R;
 
 public class LabelViewHolder extends GenericViewHolder{
     CustomTextView label;
-    public LabelViewHolder(View itemView, CellClickListener listener) {
+    ImageView addCategoryButton;
+    public LabelViewHolder(View itemView, final CellClickListener listener) {
         super(itemView, listener);
         label = (CustomTextView) itemView.findViewById(R.id.bookshelf_label);
+        addCategoryButton = (ImageView) itemView.findViewById(R.id.btn_add_new_category);
+        addCategoryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(listener != null) listener.onClick(addCategoryButton, getAdapterPosition());
+            }
+        });
     }
 
     @Override

@@ -1,12 +1,19 @@
 package politcc2017.tcc_app.Activities;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ImageView;
+
+import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.ArrayList;
 
+import politcc2017.tcc_app.Components.Helpers.DialogHelper;
+import politcc2017.tcc_app.Components.Listeners.CellClickListener;
 import politcc2017.tcc_app.Components.RecyclerView.Adapters.GenericAdapter;
 import politcc2017.tcc_app.Components.RecyclerView.Data.GenericData;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.ViewHolderType;
@@ -34,6 +41,37 @@ public class BookshelfActivity extends BaseActivity {
         mAdapter = new GenericAdapter(mData, ViewHolderType.BOOKSHELF_VIEW_HOLDER);
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mAdapter.RegisterClickListener(new CellClickListener() {
+            @Override
+            public void onClick(View v, final int position) {
+                DialogHelper.InputDialog(BookshelfActivity.this, "Digite o nome da categoria", new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
+                        if(input != null && input.length() > 0){
+                            mData.addNewCellWithString(GenericData.BOOKSHELF_ITEM_CATEGORY,input.toString(), position+1);
+                            mData.updateTypeData(position+1);
+                            mAdapter.notifyDataSetChanged();
+                        }
+
+                    }
+                }, "OK", "Cancelar").show();
+            }
+
+            @Override
+            public void onClick(ImageView v, String link) {
+
+            }
+
+            @Override
+            public void onLinkClick(String link) {
+
+            }
+
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     private void loadData(){ //refactor this function getting data from app database / server

@@ -22,6 +22,19 @@ public class GenericData {
         mData = new ArrayList<>();
     }
 
+    public void updateTypeData(int position){
+        for(int i = 0; i < typeData.size(); i++){
+            if(typeData.get(i) > position) typeData.set(i, typeData.get(i)+1);
+        }
+    }
+
+    public void addNewCellWithString(Object key, String value, int position){
+        Hashtable cellData;
+        cellData = new Hashtable();
+        cellData.put(key, value);
+        mData.add(position, cellData);
+    }
+
     public void addStringsToAllCells(Object key, ArrayList<String> values) {
         Hashtable cellData;
         for (int i = 0; i < values.size(); i++) {
