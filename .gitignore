@@ -1,4 +1,5 @@
 *.iml
+<<<<<<< HEAD
 .gradle
 /local.properties
 /.idea/workspace.xml
@@ -11,3 +12,13 @@
 *.pyc
 __pycache__
 *.egg-info
+=======
+/ANDROID-APP/.gradle
+/ANDROID-APP/local.properties
+/ANDROID-APP/.idea/workspace.xml
+/ANDROID-APP/.idea/libraries
+/ANDROID-APP/.DS_Store
+/ANDROID-APP/build
+/ANDROID-APP/captures
+.externalNativeBuild
+>>>>>>> 9a4054d... Fixed Repo Structure
