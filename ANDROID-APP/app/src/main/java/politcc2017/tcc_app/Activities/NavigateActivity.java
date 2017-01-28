@@ -173,6 +173,11 @@ public class NavigateActivity extends BaseActivity implements View.OnClickListen
             }
 
             @Override
+            public void onClick(String message, int position) {
+
+            }
+
+            @Override
             public void onLinkClick(String link) {
                 searchToolbar.setSearchUrl(link);
                 loadNewWebsite();

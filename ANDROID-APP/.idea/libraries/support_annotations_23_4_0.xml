@@ -5,11 +5,17 @@
     </CLASSES>
     <JAVADOC />
 <<<<<<< HEAD
+<<<<<<< HEAD
     <SOURCES>
       <root url="jar://$USER_HOME$/AppData/Local/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.4.0/support-annotations-23.4.0-sources.jar!/" />
     </SOURCES>
 =======
     <SOURCES />
 >>>>>>> 9a4054d... Fixed Repo Structure
+=======
+    <SOURCES>
+      <root url="jar://$USER_HOME$/AppData/Local/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.4.0/support-annotations-23.4.0-sources.jar!/" />
+    </SOURCES>
+>>>>>>> 8227df8... Added category edit and delete option
   </library>
 </component>

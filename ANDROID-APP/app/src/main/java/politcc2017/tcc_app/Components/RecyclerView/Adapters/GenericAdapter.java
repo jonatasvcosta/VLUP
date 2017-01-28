@@ -47,7 +47,7 @@ public class GenericAdapter extends RecyclerView.Adapter<GenericViewHolder> {
         }
         if(viewHolderType == ViewHolderType.BOOKSHELF_VIEW_HOLDER) {
             final View itemView;
-            if(mData.typeData.contains(position)){
+            if(mData.getValue(position).get(GenericData.CELL_TYPE).toString().equals(GenericData.CELL_HEADER_TYPE)){
                 itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.bookshelf_label_cell, null);
                 return new LabelViewHolder(itemView, mCLickListener);
             }
@@ -58,6 +58,7 @@ public class GenericAdapter extends RecyclerView.Adapter<GenericViewHolder> {
         }
         return null;
     }
+
 
     @Override
     public int getItemViewType(int position) {

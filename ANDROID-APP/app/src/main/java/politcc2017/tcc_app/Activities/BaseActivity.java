@@ -147,6 +147,11 @@ public class BaseActivity extends AppCompatActivity {
             }
 
             @Override
+            public void onClick(String message, int position) {
+
+            }
+
+            @Override
             public void onLinkClick(String link) {
 
             }

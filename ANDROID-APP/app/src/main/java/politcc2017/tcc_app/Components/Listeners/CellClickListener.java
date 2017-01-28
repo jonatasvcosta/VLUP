@@ -10,5 +10,6 @@ import android.widget.ImageView;
 public interface CellClickListener extends View.OnClickListener {
     public void onClick(View v, int position);
     public void onClick(ImageView v, String link); //used to download image from web
+    public void onClick(String message, int position);
     public void onLinkClick(String link);
 }

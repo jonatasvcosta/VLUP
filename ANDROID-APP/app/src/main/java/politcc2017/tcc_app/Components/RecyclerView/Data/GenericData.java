@@ -14,25 +14,28 @@ public class GenericData {
     public static final String SUGGESTION_ITEM_DESCRIPTION = "suggestion_description";
     public static final String SUGGESTION_ITEM_IMAGE = "suggestion_image";
     public static final String BOOKSHELF_ITEM_CATEGORY = "bookshelf_category";
+    public static final String CELL_TYPE = "cell_type";
+    public static final String CELL_DEFAULT_TYPE = "default";
+    public static final String CELL_HEADER_TYPE = "header";
 
     private ArrayList<Hashtable> mData;
-    public ArrayList<Integer> typeData;
 
     public GenericData() {
         mData = new ArrayList<>();
-    }
-
-    public void updateTypeData(int position){
-        for(int i = 0; i < typeData.size(); i++){
-            if(typeData.get(i) > position) typeData.set(i, typeData.get(i)+1);
-        }
     }
 
     public void addNewCellWithString(Object key, String value, int position){
         Hashtable cellData;
         cellData = new Hashtable();
         cellData.put(key, value);
+        cellData.put(CELL_TYPE, CELL_DEFAULT_TYPE);
         mData.add(position, cellData);
+    }
+
+    public void setSpecialTypeCells(ArrayList<Integer> cells, String type){
+        for(int i = 0; i < cells.size(); i++){
+            if(cells.get(i) >= 0 && cells.get(i) < mData.size()) mData.get(cells.get(i)).put(CELL_TYPE, type);
+        }
     }
 
     public void addStringsToAllCells(Object key, ArrayList<String> values) {
@@ -45,7 +48,12 @@ public class GenericData {
             } else {
                 mData.get(i).put(key, values.get(i));
             }
+            mData.get(i).put(CELL_TYPE, CELL_DEFAULT_TYPE);
         }
+    }
+
+    public void removeCell(int position){
+        mData.remove(position);
     }
 
     public void addIntegersToAllCells(Object key, ArrayList<Integer> values) {
@@ -58,6 +66,7 @@ public class GenericData {
             } else {
                 mData.get(i).put(key, values.get(i));
             }
+            mData.get(i).put(CELL_TYPE, CELL_DEFAULT_TYPE);
         }
     }
 

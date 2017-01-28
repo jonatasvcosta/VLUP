@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.ArrayList;
@@ -48,9 +49,7 @@ public class BookshelfActivity extends BaseActivity {
                     @Override
                     public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
                         if(input != null && input.length() > 0){
-                            mData.addNewCellWithString(GenericData.BOOKSHELF_ITEM_CATEGORY,input.toString(), position+1);
-                            mData.updateTypeData(position+1);
-                            mAdapter.notifyDataSetChanged();
+                            AddNewCategory(input.toString(), position);
                         }
 
                     }
@@ -60,6 +59,29 @@ public class BookshelfActivity extends BaseActivity {
             @Override
             public void onClick(ImageView v, String link) {
 
+            }
+
+            @Override
+            public void onClick(String message, final int position) {
+                if(message.equals("edit")){
+                    DialogHelper.InputDialog(BookshelfActivity.this, "Digite o novo nome da categoria", new MaterialDialog.InputCallback() {
+                        @Override
+                        public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
+                            if(input != null && input.length() > 0){
+                                UpdateCategory(input.toString(), position);
+                            }
+
+                        }
+                    }, "OK", "Cancelar", mData.getValue(position).get(GenericData.BOOKSHELF_ITEM_CATEGORY).toString()).show();
+                }
+                else if(message.equals("remove")){
+                    DialogHelper.CustomDialog(BookshelfActivity.this, "", R.drawable.ic_help,"Tem certeza que deseja deletar essa categoria e seu conteúdo?", "OK", "Cancelar", new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            RemoveCategory(position);
+                        }
+                    }, null).show();
+                }
             }
 
             @Override
@@ -74,7 +96,26 @@ public class BookshelfActivity extends BaseActivity {
         });
     }
 
+    private void AddNewCategory(String input, int position){
+        mData.addNewCellWithString(GenericData.BOOKSHELF_ITEM_CATEGORY,input, position+1);
+        setupRecyclerView();
+        recyclerView.scrollToPosition(position);
+    }
+
+    private void UpdateCategory(String input, int position){
+        mData.getValue(position).put(GenericData.BOOKSHELF_ITEM_CATEGORY, input);
+        mAdapter.notifyDataSetChanged();
+    }
+
+    private void RemoveCategory(int position){
+        mData.removeCell(position);
+        setupRecyclerView();
+        if(position > 0) recyclerView.scrollToPosition(position-1);
+        else recyclerView.scrollToPosition(position);
+    }
+
     private void loadData(){ //refactor this function getting data from app database / server
+        if(mData != null) return;
         mData = new GenericData();
         ArrayList<String> words = new ArrayList<>();
         ArrayList<Integer> labels = new ArrayList<>();
@@ -98,6 +139,6 @@ public class BookshelfActivity extends BaseActivity {
         labels.add(6);
         labels.add(12);
         mData.addStringsToAllCells(GenericData.BOOKSHELF_ITEM_CATEGORY, words);
-        mData.typeData = labels;
+        mData.setSpecialTypeCells(labels, GenericData.CELL_HEADER_TYPE);
     }
 }

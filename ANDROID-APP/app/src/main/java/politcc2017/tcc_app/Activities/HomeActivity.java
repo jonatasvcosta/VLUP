@@ -46,7 +46,6 @@ public class HomeActivity extends BaseActivity {
         Button listMultiButton = (Button) findViewById(R.id.list_multi_dialog_button);
         final CustomPicker picker = (CustomPicker) findViewById(R.id.custom_picker);
 
-
         final ImageView img = (ImageView) findViewById(R.id.image_response);
 
         final ArrayList<String> list = new ArrayList();

@@ -75,7 +75,16 @@ public class DialogHelper {
         return builder.build();
     }
 
+    public static MaterialDialog InputDialog(Context context, String title, MaterialDialog.InputCallback callback, String positiveText, String negativeText, String filledText){
+        MaterialDialog.Builder builder = CustomDialogBuilder(context, title, -1, "" , positiveText, negativeText, null, null, true, callback, filledText);
+        return builder.build();
+    }
+
     public static MaterialDialog.Builder CustomDialogBuilder(Context context, String title, int icon, String body, String positiveText, String negativeText, MaterialDialog.SingleButtonCallback positiveButtonListener, MaterialDialog.SingleButtonCallback negativeButtonListener, boolean inputDialog, MaterialDialog.InputCallback inputCallback) {
+        return CustomDialogBuilder(context, title, icon, body, positiveText, negativeText, positiveButtonListener, negativeButtonListener, inputDialog, inputCallback, null);
+    }
+
+    public static MaterialDialog.Builder CustomDialogBuilder(Context context, String title, int icon, String body, String positiveText, String negativeText, MaterialDialog.SingleButtonCallback positiveButtonListener, MaterialDialog.SingleButtonCallback negativeButtonListener, boolean inputDialog, MaterialDialog.InputCallback inputCallback, String filledText) {
         MaterialDialog.Builder builder = new MaterialDialog.Builder(context)
                 .title(title)
                 .titleColor(context.getResources().getColor(R.color.black))
@@ -95,7 +104,7 @@ public class DialogHelper {
         }
         if(inputDialog){
             builder.inputType(InputType.TYPE_CLASS_TEXT)
-            .input(null, null, inputCallback);
+            .input(null, filledText, inputCallback);
 
         }
         if(icon != -1) builder.iconRes(icon);
