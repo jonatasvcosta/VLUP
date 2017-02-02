@@ -39,7 +39,7 @@ public class BookshelfActivity extends BaseActivity {
 
     private void setupRecyclerView(){
         loadData();
-        mAdapter = new GenericAdapter(mData, ViewHolderType.BOOKSHELF_VIEW_HOLDER);
+        mAdapter = new GenericAdapter(mData, ViewHolderType.BOOKSHELF_VIEW_HOLDER, getApplicationContext());
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter.RegisterClickListener(new CellClickListener() {
@@ -74,6 +74,19 @@ public class BookshelfActivity extends BaseActivity {
                         }
                     }, "OK", "Cancelar", mData.getValue(position).get(GenericData.BOOKSHELF_ITEM_CATEGORY).toString()).show();
                 }
+
+                else if(message.equals("addWord")){
+                    DialogHelper.InputDialog(BookshelfActivity.this, "Digite um novo termo a ser adicionado nessa categoria", new MaterialDialog.InputCallback() {
+                        @Override
+                        public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
+                            if(input != null && input.length() > 0){
+                                AddWordToCategory(input.toString(), position, mData.getValue(position).get(GenericData.BOOKSHELF_ITEM_CATEGORY).toString());
+                            }
+
+                        }
+                    }, "OK", "Cancelar", "").show();
+                }
+
                 else if(message.equals("remove")){
                     DialogHelper.CustomDialog(BookshelfActivity.this, "", R.drawable.ic_help,"Tem certeza que deseja deletar essa categoria e seu conteúdo?", "OK", "Cancelar", new MaterialDialog.SingleButtonCallback() {
                         @Override
@@ -94,6 +107,10 @@ public class BookshelfActivity extends BaseActivity {
 
             }
         });
+    }
+
+    private void AddWordToCategory(String input, int position, String category){
+
     }
 
     private void AddNewCategory(String input, int position){

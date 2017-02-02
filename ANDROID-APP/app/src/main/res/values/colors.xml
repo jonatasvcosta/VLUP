@@ -2,6 +2,7 @@
 <resources>
     <color name="cyan_lightest">#E0F7FA</color>
     <color name="cyan_lighter">#B2EBF2</color>
+    <color name="tag_cyan_lighter">#FFB2EBF2</color>
     <color name="cyan_light">#4DD0E1</color>
     <color name="cyan">#00BCD4</color>
     <color name="cyan_dark">#00B8D4</color>

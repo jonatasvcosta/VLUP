@@ -1,5 +1,6 @@
 package politcc2017.tcc_app.Components.RecyclerView.Adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,16 +25,22 @@ public class GenericAdapter extends RecyclerView.Adapter<GenericViewHolder> {
     private GenericViewHolder mGenericViewHolder;
     private ViewHolderType viewHolderType;
     private CellClickListener mCLickListener;
+    private Context mContext;
 
     public GenericAdapter(GenericData data, ViewHolderType vhType){
         this.mData = data;
         this.viewHolderType = vhType;
     }
 
+    public GenericAdapter(GenericData data, ViewHolderType vhType, Context c){
+        this.mData = data;
+        this.viewHolderType = vhType;
+        this.mContext = c;
+    }
+
     public void RegisterClickListener(CellClickListener listener){
         this.mCLickListener = listener;
     }
-
 
     @Override
     public GenericViewHolder onCreateViewHolder(ViewGroup parent, int position) {
@@ -53,7 +60,7 @@ public class GenericAdapter extends RecyclerView.Adapter<GenericViewHolder> {
             }
             else{
                 itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.bookshelf_category_cell, null);
-                return new BookshelfViewHolder(itemView, mCLickListener);
+                return new BookshelfViewHolder(itemView, mCLickListener, mContext);
             }
         }
         return null;

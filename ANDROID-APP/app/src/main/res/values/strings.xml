@@ -95,5 +95,8 @@
     <string name="dialog_cancel">Cancelar</string>
     <string name="dialog_loading_title">Carregando</string>
 
+    <!-- Bookshelf Activity-->
+    <string name="add_word_button_text">Adicionar</string>
+
     <string name="navigate_activity_title">Browse</string>
 </resources>
