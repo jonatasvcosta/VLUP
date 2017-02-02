@@ -7,12 +7,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.ArrayList;
 
+import co.lujun.androidtagview.TagView;
 import politcc2017.tcc_app.Components.Helpers.DialogHelper;
 import politcc2017.tcc_app.Components.Listeners.CellClickListener;
 import politcc2017.tcc_app.Components.RecyclerView.Adapters.GenericAdapter;
@@ -107,10 +109,32 @@ public class BookshelfActivity extends BaseActivity {
 
             }
         });
+        mAdapter.RegisterTagClickListener(new TagView.OnTagClickListener() {
+            @Override
+            public void onTagClick(int position, String text) {
+                Toast.makeText(getApplicationContext(), "Clicked tag "+text,Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onTagLongClick(int position, String text) {
+                RemoveWordInCategory(Integer.parseInt(text), position);
+            }
+
+            @Override
+            public void onTagCrossClick(int position) {
+
+            }
+        });
     }
 
     private void AddWordToCategory(String input, int position, String category){
+        mData.addStringToCellArrayList(position, input);
+        mAdapter.notifyDataSetChanged();
+    }
 
+    private void RemoveWordInCategory(int adapterPosition, int tagPosition){
+        mData.removeStringInCellArrayList(adapterPosition, tagPosition);
+        mAdapter.notifyDataSetChanged();
     }
 
     private void AddNewCategory(String input, int position){

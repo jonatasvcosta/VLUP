@@ -14,6 +14,7 @@ public class GenericData {
     public static final String SUGGESTION_ITEM_DESCRIPTION = "suggestion_description";
     public static final String SUGGESTION_ITEM_IMAGE = "suggestion_image";
     public static final String BOOKSHELF_ITEM_CATEGORY = "bookshelf_category";
+    public static final String BOOKSHELF_TAGS = "bookshelf_tags";
     public static final String CELL_TYPE = "cell_type";
     public static final String CELL_DEFAULT_TYPE = "default";
     public static final String CELL_HEADER_TYPE = "header";
@@ -49,6 +50,26 @@ public class GenericData {
                 mData.get(i).put(key, values.get(i));
             }
             mData.get(i).put(CELL_TYPE, CELL_DEFAULT_TYPE);
+        }
+    }
+
+    public void addStringToCellArrayList(int position, String text){
+        if(mData.get(position).containsKey(BOOKSHELF_TAGS)){
+            ArrayList<String> tags = (ArrayList<String>) mData.get(position).get(BOOKSHELF_TAGS);
+            tags.add(text);
+            mData.get(position).put(BOOKSHELF_TAGS, tags);
+        } else {
+            ArrayList<String> tags = new ArrayList<>();
+            tags.add(text);
+            mData.get(position).put(BOOKSHELF_TAGS, tags);
+        }
+    }
+
+    public void removeStringInCellArrayList(int adapterPosition, int tagPosition){
+        if(mData.get(adapterPosition).containsKey(BOOKSHELF_TAGS)){
+            ArrayList<String> tags = (ArrayList<String>) mData.get(adapterPosition).get(BOOKSHELF_TAGS);
+            tags.remove(tagPosition);
+            mData.get(adapterPosition).put(BOOKSHELF_TAGS, tags);
         }
     }
 
