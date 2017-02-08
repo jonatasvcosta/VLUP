@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import co.lujun.androidtagview.TagView;
 import politcc2017.tcc_app.Components.Listeners.CellClickListener;
 import politcc2017.tcc_app.Components.RecyclerView.Data.GenericData;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.BookshelfViewHolder;
@@ -26,7 +25,6 @@ public class GenericAdapter extends RecyclerView.Adapter<GenericViewHolder> {
     private GenericViewHolder mGenericViewHolder;
     private ViewHolderType viewHolderType;
     private CellClickListener mCLickListener;
-    private TagView.OnTagClickListener mTagClickListener;
     private Context mContext;
 
     public GenericAdapter(GenericData data, ViewHolderType vhType){
@@ -42,10 +40,6 @@ public class GenericAdapter extends RecyclerView.Adapter<GenericViewHolder> {
 
     public void RegisterClickListener(CellClickListener listener){
         this.mCLickListener = listener;
-    }
-
-    public void RegisterTagClickListener(TagView.OnTagClickListener listener){
-        this.mTagClickListener = listener;
     }
 
     @Override
@@ -66,7 +60,7 @@ public class GenericAdapter extends RecyclerView.Adapter<GenericViewHolder> {
             }
             else{
                 itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.bookshelf_category_cell, null);
-                return new BookshelfViewHolder(itemView, mCLickListener, mTagClickListener, mContext);
+                return new BookshelfViewHolder(itemView, mCLickListener, mContext);
             }
         }
         return null;

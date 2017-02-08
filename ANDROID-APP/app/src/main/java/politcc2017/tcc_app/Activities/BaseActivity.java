@@ -106,14 +106,20 @@ public class BaseActivity extends AppCompatActivity {
         toolbar.setBackgroundColor(colorID);
     }
 
-    protected void startOrResumeActivity(Class <? extends BaseActivity> destinationActivity){
+    protected void startOrResumeActivity(Class <? extends BaseActivity> destinationActivity, String parameter){
         hideRightIcons();
         Intent intent = new Intent(getBaseContext(), destinationActivity);
         intent.addFlags(FLAG_ACTIVITY_REORDER_TO_FRONT);
+        if(parameter != null) intent.putExtra("parameter", parameter);
         startActivity(intent);
     }
 
+    protected void startOrResumeActivity(Class <? extends BaseActivity> destinationActivity){
+        startOrResumeActivity(destinationActivity, null);
+    }
+
     protected void startOrResumeActivity(Class <? extends BaseActivity> destinationActivity, boolean closeAllPreviousActivities){
+        hideRightIcons();
         Intent intent = new Intent(getBaseContext(), destinationActivity);
         if(closeAllPreviousActivities) intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         else intent.addFlags(FLAG_ACTIVITY_REORDER_TO_FRONT);
@@ -135,9 +141,9 @@ public class BaseActivity extends AppCompatActivity {
             @Override
             public void onClick(View v, int position) {
                 mDrawerLayout.closeDrawers();
-                if(position == POS_HOME) startOrResumeActivity(HomeActivity.class);
-                else if(position == POS_NAVIGATE) startOrResumeActivity(NavigateActivity.class);
-                else if(position == POS_BOOKSHELF) startOrResumeActivity(BookshelfActivity.class);
+                if(position == POS_HOME) startOrResumeActivity(HomeActivity.class, true);
+                else if(position == POS_NAVIGATE) startOrResumeActivity(NavigateActivity.class, true);
+                else if(position == POS_BOOKSHELF) startOrResumeActivity(BookshelfActivity.class, true);
                 else startOrResumeActivity(MaintenanceActivity.class, true);
             }
 

@@ -7,14 +7,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.ArrayList;
 
-import co.lujun.androidtagview.TagView;
 import politcc2017.tcc_app.Components.Helpers.DialogHelper;
 import politcc2017.tcc_app.Components.Listeners.CellClickListener;
 import politcc2017.tcc_app.Components.RecyclerView.Adapters.GenericAdapter;
@@ -72,23 +70,9 @@ public class BookshelfActivity extends BaseActivity {
                             if(input != null && input.length() > 0){
                                 UpdateCategory(input.toString(), position);
                             }
-
                         }
                     }, "OK", "Cancelar", mData.getValue(position).get(GenericData.BOOKSHELF_ITEM_CATEGORY).toString()).show();
                 }
-
-                else if(message.equals("addWord")){
-                    DialogHelper.InputDialog(BookshelfActivity.this, "Digite um novo termo a ser adicionado nessa categoria", new MaterialDialog.InputCallback() {
-                        @Override
-                        public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
-                            if(input != null && input.length() > 0){
-                                AddWordToCategory(input.toString(), position, mData.getValue(position).get(GenericData.BOOKSHELF_ITEM_CATEGORY).toString());
-                            }
-
-                        }
-                    }, "OK", "Cancelar", "").show();
-                }
-
                 else if(message.equals("remove")){
                     DialogHelper.CustomDialog(BookshelfActivity.this, "", R.drawable.ic_help,"Tem certeza que deseja deletar essa categoria e seu conteúdo?", "OK", "Cancelar", new MaterialDialog.SingleButtonCallback() {
                         @Override
@@ -97,6 +81,7 @@ public class BookshelfActivity extends BaseActivity {
                         }
                     }, null).show();
                 }
+                else startOrResumeActivity(BookshelfCategoryActivity.class, message);
             }
 
             @Override
@@ -106,22 +91,6 @@ public class BookshelfActivity extends BaseActivity {
 
             @Override
             public void onClick(View view) {
-
-            }
-        });
-        mAdapter.RegisterTagClickListener(new TagView.OnTagClickListener() {
-            @Override
-            public void onTagClick(int position, String text) {
-                Toast.makeText(getApplicationContext(), "Clicked tag "+text,Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onTagLongClick(int position, String text) {
-                RemoveWordInCategory(Integer.parseInt(text), position);
-            }
-
-            @Override
-            public void onTagCrossClick(int position) {
 
             }
         });

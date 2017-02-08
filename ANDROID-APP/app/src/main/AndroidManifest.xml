@@ -20,6 +20,7 @@
         <activity android:name=".Activities.SignupActivity"/>
         <activity android:name=".Activities.NavigateActivity"/>
         <activity android:name=".Activities.BookshelfActivity"/>
+        <activity android:name=".Activities.BookshelfCategoryActivity"/>
     </application>
 
 </manifest>
