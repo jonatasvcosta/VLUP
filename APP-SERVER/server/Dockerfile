@@ -9,5 +9,7 @@ RUN apk --no-cache add musl-dev linux-headers g++ \
     && python setup.py install \
     && apk del musl-dev linux-headers g++
 
+ENV DEPLOYMENT_ENVIRONMENT=prod
+
 
 CMD ["gunicorn", "--paste", "production.ini"]
