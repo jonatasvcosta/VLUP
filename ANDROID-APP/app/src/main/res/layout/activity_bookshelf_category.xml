@@ -11,13 +11,12 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/bookshelf_activity_words_list"
+            android:id="@+id/bookshelf_category_words_recyclerview"
             android:layout_width="match_parent"
             android:clipToPadding="false"
             android:paddingTop="@dimen/margin_large"
             android:layout_height="match_parent"
-            android:background="@color/cyan_lighter"
+            android:background="@color/cyan_lightest"
             android:paddingBottom="@dimen/margin_medium"/>
-
     </LinearLayout>
 </FrameLayout>

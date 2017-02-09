@@ -101,11 +101,6 @@ public class BookshelfActivity extends BaseActivity {
         mAdapter.notifyDataSetChanged();
     }
 
-    private void RemoveWordInCategory(int adapterPosition, int tagPosition){
-        mData.removeStringInCellArrayList(adapterPosition, tagPosition);
-        mAdapter.notifyDataSetChanged();
-    }
-
     private void AddNewCategory(String input, int position){
         mData.addNewCellWithString(GenericData.BOOKSHELF_ITEM_CATEGORY,input, position+1);
         setupRecyclerView();

@@ -14,6 +14,7 @@ public class GenericData {
     public static final String SUGGESTION_ITEM_DESCRIPTION = "suggestion_description";
     public static final String SUGGESTION_ITEM_IMAGE = "suggestion_image";
     public static final String BOOKSHELF_ITEM_CATEGORY = "bookshelf_category";
+    public static final String BOOKSHELF_CATEGORY_WORD = "bookshelf_category_word";
     public static final String BOOKSHELF_TAGS = "bookshelf_tags";
     public static final String CELL_TYPE = "cell_type";
     public static final String CELL_DEFAULT_TYPE = "default";
