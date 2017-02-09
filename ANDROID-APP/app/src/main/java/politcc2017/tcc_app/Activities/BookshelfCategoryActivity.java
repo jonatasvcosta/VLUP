@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -29,12 +30,37 @@ public class BookshelfCategoryActivity extends BaseActivity {
     private GenericData mData;
     private RecyclerView mRecyclerView;
     private GenericAdapter mAdapter;
+    private FloatingActionButton addWordFAB;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_bookshelf_category);
         mRecyclerView = (RecyclerView) findViewById(R.id.bookshelf_category_words_recyclerview);
+        addWordFAB = (FloatingActionButton) findViewById(R.id.add_word_fab);
         setupToolbar();
+        setupListeners();
+    }
+
+    private void setupListeners(){
+        addWordFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogHelper.InputDialog(BookshelfCategoryActivity.this, "Digite o nome da palavra", new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
+                        if(input != null && input.length() > 0){
+                            AddNewWord(input.toString());
+                        }
+
+                    }
+                }, "OK", "Cancelar").show();
+            }
+        });
+    }
+
+    private void AddNewWord(String input){
+        mData.addNewCellWithString(GenericData.BOOKSHELF_CATEGORY_WORD,input, mData.Size());
+        mAdapter.notifyDataSetChanged();
     }
 
     private void setupToolbar(){

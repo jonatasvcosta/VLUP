@@ -89,7 +89,7 @@ public class DialogHelper {
                 .title(title)
                 .titleColor(context.getResources().getColor(R.color.black))
                 .typeface(FontHelper.FONT_NAME, FontHelper.FONT_NAME)
-                .backgroundColor(context.getResources().getColor(R.color.cyan_lighter));
+                .backgroundColor(context.getResources().getColor(R.color.cyan_darkest));
         if(body != null){
             builder.content(body)
                     .contentColor(context.getResources().getColor(R.color.beige));
