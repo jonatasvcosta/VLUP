@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.ContextMenu;
 import android.view.View;
 import android.webkit.WebSettings;
@@ -49,7 +50,9 @@ public class NavigateActivity extends BaseActivity implements View.OnClickListen
         toolbarListIcon = (ImageView) findViewById(R.id.base_toolbar_righ_icon);
         searchToolbar = (CustomSearchToolbar) findViewById(R.id.navigate_activity_search_toolbar);
         searchToolbar.registerSearchListener(this);
-        searchToolbar.registerRecyclerViewScrollListener(sitesRecyclerView);
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        searchToolbar.registerRecyclerViewScrollListener(sitesRecyclerView, displayMetrics.heightPixels);
         mWebView = (WebView) findViewById(R.id.navigate_activity_webview);
         SetSuggestionListData();
         toolbarListIcon.setOnClickListener(new View.OnClickListener() {
@@ -144,7 +147,7 @@ public class NavigateActivity extends BaseActivity implements View.OnClickListen
 
         //end of fake data
 
-        mAdapter = new GenericAdapter(data, ViewHolderType.BROSER_SUGGESTION_ITEM_VIEW_HOLDER, R.layout.browser_activity_suggestion_cell);
+        mAdapter = new GenericAdapter(data, ViewHolderType.BROWSER_SUGGESTION_ITEM_VIEW_HOLDER);
         sitesRecyclerView.setAdapter(mAdapter);
         sitesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter.RegisterClickListener(new CellClickListener() {
@@ -167,6 +170,11 @@ public class NavigateActivity extends BaseActivity implements View.OnClickListen
                         v.setImageBitmap(response.getBitmap());
                     }
                 });
+            }
+
+            @Override
+            public void onClick(String message, int position) {
+
             }
 
             @Override

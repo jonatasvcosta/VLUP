@@ -5,7 +5,7 @@
         <item>Vocabulário</item>
         <item>Notícias e Textos</item>
         <item>Navegar</item>
-        <item>Tandem</item>
+        <item>Você ensina/aprende</item>
         <item>Biblioteca pessoal</item>
         <item>Dicionário</item>
         <item>Câmera</item>
@@ -18,7 +18,7 @@
         <item>Vocabulary</item>
         <item>News and Texts</item>
         <item>Use the internet</item>
-        <item>Tandem</item>
+        <item>Be a Pro</item>
         <item>My words and texts</item>
         <item>Dictionary</item>
         <item>Camera</item>
@@ -31,7 +31,7 @@
         <item>@drawable/ic_vocabulary</item>
         <item>@drawable/ic_news</item>
         <item>@drawable/ic_online</item>
-        <item>@drawable/ic_tandem</item>
+        <item>@drawable/ic_board</item>
         <item>@drawable/ic_bookshelf</item>
         <item>@drawable/ic_dictionary</item>
         <item>@drawable/ic_camera</item>
@@ -94,6 +94,9 @@
     <string name="dialog_confirm">OK</string>
     <string name="dialog_cancel">Cancelar</string>
     <string name="dialog_loading_title">Carregando</string>
+
+    <!-- Bookshelf Activity-->
+    <string name="add_word_button_text">Adicionar</string>
 
     <string name="navigate_activity_title">Browse</string>
 </resources>

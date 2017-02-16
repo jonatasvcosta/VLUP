@@ -30,7 +30,7 @@ import politcc2017.tcc_app.R;
 import static android.content.Intent.FLAG_ACTIVITY_REORDER_TO_FRONT;
 
 public class BaseActivity extends AppCompatActivity {
-    public static final int POS_HOME = 0, POS_NAVIGATE = 3;
+    public static final int POS_HOME = 0, POS_NAVIGATE = 3, POS_BOOKSHELF = 5;
     Toolbar toolbar;
     CustomTextView toolbarTitle;
     RecyclerView drawerRecyclerView;
@@ -93,7 +93,7 @@ public class BaseActivity extends AppCompatActivity {
         ArrayList<Integer> drawerItemIcons = ResourcesHelper.getIntArrayAsArrayList(getBaseContext(), R.array.drawer_items_icons);
         data.addStringsToAllCells(GenericData.DRAWER_ITEM_TEXT_KEY, drawerItemTexts);
         data.addIntegersToAllCells(GenericData.DRAWER_ITEM_ICON_KEY, drawerItemIcons);
-        mAdapter = new GenericAdapter(data, ViewHolderType.DRAWER_VIEW_HOLDER, R.layout.drawer_item_cell);
+        mAdapter = new GenericAdapter(data, ViewHolderType.DRAWER_VIEW_HOLDER);
         drawerRecyclerView.setAdapter(mAdapter);
         HandleDrawerClicks();
     }
@@ -106,14 +106,21 @@ public class BaseActivity extends AppCompatActivity {
         toolbar.setBackgroundColor(colorID);
     }
 
-    protected void startOrResumeActivity(Class <? extends BaseActivity> destinationActivity){
+    protected void startOrResumeActivity(Class <? extends BaseActivity> destinationActivity, String parameter, int id){
         hideRightIcons();
         Intent intent = new Intent(getBaseContext(), destinationActivity);
         intent.addFlags(FLAG_ACTIVITY_REORDER_TO_FRONT);
+        if(parameter != null) intent.putExtra("parameter", parameter);
+        if(id != -1) intent.putExtra("id", id);
         startActivity(intent);
     }
 
+    protected void startOrResumeActivity(Class <? extends BaseActivity> destinationActivity){
+        startOrResumeActivity(destinationActivity, null, -1);
+    }
+
     protected void startOrResumeActivity(Class <? extends BaseActivity> destinationActivity, boolean closeAllPreviousActivities){
+        hideRightIcons();
         Intent intent = new Intent(getBaseContext(), destinationActivity);
         if(closeAllPreviousActivities) intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         else intent.addFlags(FLAG_ACTIVITY_REORDER_TO_FRONT);
@@ -135,13 +142,19 @@ public class BaseActivity extends AppCompatActivity {
             @Override
             public void onClick(View v, int position) {
                 mDrawerLayout.closeDrawers();
-                if(position == POS_HOME) startOrResumeActivity(HomeActivity.class);
-                else if(position == POS_NAVIGATE) startOrResumeActivity(NavigateActivity.class);
+                if(position == POS_HOME) startOrResumeActivity(HomeActivity.class, true);
+                else if(position == POS_NAVIGATE) startOrResumeActivity(NavigateActivity.class, true);
+                else if(position == POS_BOOKSHELF) startOrResumeActivity(BookshelfActivity.class, true);
                 else startOrResumeActivity(MaintenanceActivity.class, true);
             }
 
             @Override
             public void onClick(ImageView v, String link) {
+
+            }
+
+            @Override
+            public void onClick(String message, int position) {
 
             }
 

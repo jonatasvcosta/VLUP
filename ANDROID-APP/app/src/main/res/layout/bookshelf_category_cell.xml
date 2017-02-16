@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.ramotion.foldingcell.FoldingCell android:id="@+id/bookshelf_category_folding_cell"
+    android:layout_width="match_parent"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/margin_medium"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">        ​
+        <FrameLayout
+            android:id="@+id/cell_content_view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/site_suggestion_cell_unfolded_height"
+            android:visibility="gone">
+
+        </FrameLayout>
+        ​
+        <FrameLayout
+            android:id="@+id/cell_title_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/cyan_lightest">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/margin_small"
+                android:minHeight="@dimen/bookshelf_category_cell_folded_height"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/bookshelf_category_remove"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_remove"
+                    android:layout_centerVertical="true"
+                    android:clickable="true"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:layout_alignParentLeft="true"/>
+                <politcc2017.tcc_app.Components.CustomTextView
+                    android:id="@+id/category_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    style="@style/TextLargeGray"/>
+                <ImageView
+                    android:id="@+id/bookshelf_category_edit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_pencil"
+                    android:layout_centerVertical="true"
+                    android:clickable="true"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:layout_alignParentRight="true"/>
+            </RelativeLayout>
+        </FrameLayout>    ​
+</com.ramotion.foldingcell.FoldingCell>

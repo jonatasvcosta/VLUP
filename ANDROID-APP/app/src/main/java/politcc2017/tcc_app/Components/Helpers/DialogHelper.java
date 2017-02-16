@@ -1,6 +1,7 @@
 package politcc2017.tcc_app.Components.Helpers;
 
 import android.content.Context;
+import android.text.InputType;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
@@ -21,7 +22,7 @@ public class DialogHelper {
     }
 
     public static MaterialDialog CustomDialog(Context context, String title, int icon, String body, String positiveText, String negativeText, MaterialDialog.SingleButtonCallback positiveButtonListener, MaterialDialog.SingleButtonCallback negativeButtonListener){
-        return CustomDialogBuilder(context, title, icon, body, positiveText, negativeText, positiveButtonListener, negativeButtonListener).build();
+        return CustomDialogBuilder(context, title, icon, body, positiveText, negativeText, positiveButtonListener, negativeButtonListener, false, null).build();
     }
 
     public static MaterialDialog ProgressDialog(Context context, String title){
@@ -49,7 +50,7 @@ public class DialogHelper {
     }
 
     public static MaterialDialog ListChoiceDialog(Context context, String title, int icon, ArrayList<String> array, String positiveText, String negativeText, MaterialDialog.ListCallbackMultiChoice multiChoiceListener, MaterialDialog.ListCallbackSingleChoice singleChoiceListener){
-        MaterialDialog.Builder builder =  CustomDialogBuilder(context, title, icon, null, positiveText, negativeText, null, null);
+        MaterialDialog.Builder builder =  CustomDialogBuilder(context, title, icon, null, positiveText, negativeText, null, null, false, null);
         if(array != null){
             builder.items(array);
         }
@@ -59,22 +60,36 @@ public class DialogHelper {
     }
 
     public static MaterialDialog ProgressDialog(Context context, String title, int icon, String body, String positiveText, String negativeText, MaterialDialog.SingleButtonCallback positiveButtonListener, MaterialDialog.SingleButtonCallback negativeButtonListener){
-        MaterialDialog.Builder builder =  CustomDialogBuilder(context, title, icon, body, positiveText, negativeText, positiveButtonListener, negativeButtonListener);
+        MaterialDialog.Builder builder =  CustomDialogBuilder(context, title, icon, body, positiveText, negativeText, positiveButtonListener, negativeButtonListener, false, null);
         builder.progress(true, 0);
         return builder.build();
     }
 
     public static MaterialDialog ErrorDialog(Context context, int icon, String message, String positiveText){
-        MaterialDialog.Builder builder = CustomDialogBuilder(context, "", icon, message, positiveText, null, null, null);
+        MaterialDialog.Builder builder = CustomDialogBuilder(context, "", icon, message, positiveText, null, null, null, false, null);
         return builder.build();
     }
 
-    public static MaterialDialog.Builder CustomDialogBuilder(Context context, String title, int icon, String body, String positiveText, String negativeText, MaterialDialog.SingleButtonCallback positiveButtonListener, MaterialDialog.SingleButtonCallback negativeButtonListener) {
+    public static MaterialDialog InputDialog(Context context, String title, MaterialDialog.InputCallback callback, String positiveText, String negativeText){
+        MaterialDialog.Builder builder = CustomDialogBuilder(context, title, -1, "" , positiveText, negativeText, null, null, true, callback);
+        return builder.build();
+    }
+
+    public static MaterialDialog InputDialog(Context context, String title, MaterialDialog.InputCallback callback, String positiveText, String negativeText, String filledText){
+        MaterialDialog.Builder builder = CustomDialogBuilder(context, title, -1, "" , positiveText, negativeText, null, null, true, callback, filledText);
+        return builder.build();
+    }
+
+    public static MaterialDialog.Builder CustomDialogBuilder(Context context, String title, int icon, String body, String positiveText, String negativeText, MaterialDialog.SingleButtonCallback positiveButtonListener, MaterialDialog.SingleButtonCallback negativeButtonListener, boolean inputDialog, MaterialDialog.InputCallback inputCallback) {
+        return CustomDialogBuilder(context, title, icon, body, positiveText, negativeText, positiveButtonListener, negativeButtonListener, inputDialog, inputCallback, null);
+    }
+
+    public static MaterialDialog.Builder CustomDialogBuilder(Context context, String title, int icon, String body, String positiveText, String negativeText, MaterialDialog.SingleButtonCallback positiveButtonListener, MaterialDialog.SingleButtonCallback negativeButtonListener, boolean inputDialog, MaterialDialog.InputCallback inputCallback, String filledText) {
         MaterialDialog.Builder builder = new MaterialDialog.Builder(context)
                 .title(title)
                 .titleColor(context.getResources().getColor(R.color.black))
                 .typeface(FontHelper.FONT_NAME, FontHelper.FONT_NAME)
-                .backgroundColor(context.getResources().getColor(R.color.cyan_lighter));
+                .backgroundColor(context.getResources().getColor(R.color.cyan_darkest));
         if(body != null){
             builder.content(body)
                     .contentColor(context.getResources().getColor(R.color.beige));
@@ -86,6 +101,11 @@ public class DialogHelper {
         if(negativeText != null){
             builder.negativeText(negativeText)
                     .negativeColor(context.getResources().getColor(R.color.black));
+        }
+        if(inputDialog){
+            builder.inputType(InputType.TYPE_CLASS_TEXT)
+            .input(null, filledText, inputCallback);
+
         }
         if(icon != -1) builder.iconRes(icon);
         if(positiveButtonListener != null) builder.onPositive(positiveButtonListener);
