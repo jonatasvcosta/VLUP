@@ -10,11 +10,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.afollestad.inquiry.Inquiry;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.ArrayList;
 
 import politcc2017.tcc_app.Components.Helpers.DialogHelper;
+import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.BookshelfCategoryWords;
+import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.SqlHelper;
 import politcc2017.tcc_app.Components.Listeners.CellClickListener;
 import politcc2017.tcc_app.Components.RecyclerView.Adapters.GenericAdapter;
 import politcc2017.tcc_app.Components.RecyclerView.Data.GenericData;
@@ -27,6 +30,7 @@ import politcc2017.tcc_app.R;
 
 public class BookshelfCategoryActivity extends BaseActivity {
     private String title = "";
+    private int categoryID;
     private GenericData mData;
     private RecyclerView mRecyclerView;
     private GenericAdapter mAdapter;
@@ -35,6 +39,7 @@ public class BookshelfCategoryActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_bookshelf_category);
+        Inquiry.newInstance(this, SqlHelper.DATABASE).build();
         mRecyclerView = (RecyclerView) findViewById(R.id.bookshelf_category_words_recyclerview);
         addWordFAB = (FloatingActionButton) findViewById(R.id.add_word_fab);
         setupToolbar();
@@ -59,6 +64,7 @@ public class BookshelfCategoryActivity extends BaseActivity {
     }
 
     private void AddNewWord(String input){
+        Inquiry.get(this).insert(BookshelfCategoryWords.class).values(new BookshelfCategoryWords[]{new BookshelfCategoryWords(categoryID, input)}).run();
         mData.addNewCellWithString(GenericData.BOOKSHELF_CATEGORY_WORD,input, mData.Size());
         mAdapter.notifyDataSetChanged();
     }
@@ -66,6 +72,7 @@ public class BookshelfCategoryActivity extends BaseActivity {
     private void setupToolbar(){
         Intent intent = getIntent();
         if(intent != null) title = intent.getStringExtra("parameter");
+        categoryID = intent.getIntExtra("id", -1);
         setActivityTitle(title);
         loadData();
         setupRecyclerView();
@@ -116,31 +123,51 @@ public class BookshelfCategoryActivity extends BaseActivity {
     }
 
     private void UpdateWord(String input, int position){
+        String previousInput = mData.getValue(position).get(GenericData.BOOKSHELF_CATEGORY_WORD).toString();
+        Inquiry.get(this).update(BookshelfCategoryWords.class).values(new BookshelfCategoryWords[]{new BookshelfCategoryWords(categoryID, input)}).where("id = ? AND name = ?", categoryID, previousInput).run();
         mData.getValue(position).put(GenericData.BOOKSHELF_CATEGORY_WORD, input);
         mAdapter.notifyDataSetChanged();
     }
 
     private void RemoveWord(int position){
+        String deletedWord = mData.getValue(position).get(GenericData.BOOKSHELF_CATEGORY_WORD).toString();
+        Inquiry.get(this).delete(BookshelfCategoryWords.class).where("id = ? AND name = ?", categoryID, deletedWord).run();
         mData.removeCell(position);
         setupRecyclerView();
     }
 
     private void loadData(){
+        if(mData != null) return;
         mData = new GenericData();
         ArrayList<String> words = new ArrayList<>();
-        words.add("Schneiden");
-        words.add("Schreien");
-        words.add("Scheinen");
-        words.add("Nachdenken");
-        words.add("Füttern");
-        words.add("Hüpfen");
-        words.add("Schlürfen");
-        words.add("Putzen");
+        BookshelfCategoryWords[] categoriesWords = Inquiry.get(this)
+                .select(BookshelfCategoryWords.class).where("id = ?", categoryID)
+                .all();
+        if(categoriesWords != null)
+            for(int i = 0; i < categoriesWords.length; i++){
+                words.add(categoriesWords[i].name);
+            }
         mData.addStringsToAllCells(GenericData.BOOKSHELF_CATEGORY_WORD, words);
     }
 
-    protected void onResume() {
+    @Override
+    public void onResume() {
         setupToolbar();
         super.onResume();
+
+        // Creates an instance specifically for MainActivity
+        Inquiry.newInstance(this, SqlHelper.DATABASE).build();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        // Checking for isFinishing() makes sure the Activity is actually closing.
+        // onPause() can also be called when a Dialog opens, such as a permissions dialog.
+        if (isFinishing()) {
+            // Destroys only MainActivity's instance
+            Inquiry.destroy(this);
+        }
     }
 }

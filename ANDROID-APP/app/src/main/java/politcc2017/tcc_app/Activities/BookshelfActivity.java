@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 import politcc2017.tcc_app.Components.Helpers.DialogHelper;
 import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.BookshelfCategory;
+import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.BookshelfCategoryWords;
 import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.SqlHelper;
 import politcc2017.tcc_app.Components.Listeners.CellClickListener;
 import politcc2017.tcc_app.Components.RecyclerView.Adapters.GenericAdapter;
@@ -129,7 +130,7 @@ public class BookshelfActivity extends BaseActivity {
                         }
                     }, null).show();
                 }
-                else startOrResumeActivity(BookshelfCategoryActivity.class, message);
+                else startOrResumeActivity(BookshelfCategoryActivity.class, message, position);
             }
 
             @Override
@@ -157,8 +158,21 @@ public class BookshelfActivity extends BaseActivity {
 
     private void UpdateCellsPosition(int position, int offset){
         BookshelfCategory[] categories = Inquiry.get(this).select(BookshelfCategory.class).where("id >= ?", position).all();
-        if(categories != null) for(int i = 0; i < categories.length; i++) categories[i].id = categories[i].id+offset;
+        BookshelfCategoryWords[] words = Inquiry.get(this).select(BookshelfCategoryWords.class).where("id >= ?", position).all();
+        if(words != null){
+            for(int i = 0; i < words.length; i++) words[i].id += offset;
+            Inquiry.get(this)
+                    .delete(BookshelfCategoryWords.class)
+                    .where("id >= ?", position)
+                    .run();
+            Inquiry.get(this)
+                    .insert(BookshelfCategoryWords.class)
+                    .values(words)
+                    .run();
+        }
+        if(categories != null) for(int i = 0; i < categories.length; i++) categories[i].id += offset;
         else return;
+
         Inquiry.get(this)
                 .delete(BookshelfCategory.class)
                 .where("id >= ?", position)
@@ -176,6 +190,8 @@ public class BookshelfActivity extends BaseActivity {
     }
 
     private void RemoveCategory(int position){
+        Inquiry.get(this).delete(BookshelfCategory.class).where("id = ?", position).run();
+        Inquiry.get(this).delete(BookshelfCategoryWords.class).where("id = ?", position).run();
         UpdateCellsPosition(position, -1);
         mData.removeCell(position);
         setupRecyclerView();

@@ -106,16 +106,17 @@ public class BaseActivity extends AppCompatActivity {
         toolbar.setBackgroundColor(colorID);
     }
 
-    protected void startOrResumeActivity(Class <? extends BaseActivity> destinationActivity, String parameter){
+    protected void startOrResumeActivity(Class <? extends BaseActivity> destinationActivity, String parameter, int id){
         hideRightIcons();
         Intent intent = new Intent(getBaseContext(), destinationActivity);
         intent.addFlags(FLAG_ACTIVITY_REORDER_TO_FRONT);
         if(parameter != null) intent.putExtra("parameter", parameter);
+        if(id != -1) intent.putExtra("id", id);
         startActivity(intent);
     }
 
     protected void startOrResumeActivity(Class <? extends BaseActivity> destinationActivity){
-        startOrResumeActivity(destinationActivity, null);
+        startOrResumeActivity(destinationActivity, null, -1);
     }
 
     protected void startOrResumeActivity(Class <? extends BaseActivity> destinationActivity, boolean closeAllPreviousActivities){
