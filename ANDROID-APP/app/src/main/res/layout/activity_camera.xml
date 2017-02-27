@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/margin_medium"
+    android:background="@color/cyan_lighter"
+    android:gravity="center_horizontal">
+    <politcc2017.tcc_app.Components.CustomButton
+        android:id="@+id/camera_activity_scan_button"
+        style="@style/FullWidthButton"
+        android:text="@string/camera_activity_scan_text"/>
+    <ScrollView
+        android:layout_marginTop="@dimen/margin_medium"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <politcc2017.tcc_app.Components.CustomTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/camera_activity_scanned_text"
+            style="@style/TextSmallGray"/>
+    </ScrollView>
+</LinearLayout>
