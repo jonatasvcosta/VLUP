@@ -90,6 +90,8 @@
     <string name="signup_activity_password_confirmation_field">Confirmação</string>
     <string name="signup_activity_create_account_button_text">Criar conta</string>
 
+    <string name="camera_activity_scan_text">Tirar foto de texto</string>
+
     <!-- Dialog Items -->
     <string name="dialog_confirm">OK</string>
     <string name="dialog_cancel">Cancelar</string>
