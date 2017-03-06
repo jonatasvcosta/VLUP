@@ -57,6 +57,9 @@ setup(
         'cornice==2.4.0',
         'pyramid==1.8.1',
         'gunicorn==19.6.0',
+        'pymysql==0.7.10',
+        'sqlalchemy==1.1.6',
+        'tenacity==3.7.1',
     ],
 
     # List additional groups of dependencies here (e.g. development
