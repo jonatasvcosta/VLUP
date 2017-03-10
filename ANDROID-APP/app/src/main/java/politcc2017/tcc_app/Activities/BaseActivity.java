@@ -89,7 +89,9 @@ public class BaseActivity extends AppCompatActivity {
 
     private void setDrawerData(){
         GenericData data = new GenericData();
-        ArrayList<String> drawerItemTexts = ResourcesHelper.getStringArrayAsArrayList(getBaseContext(), appLanguage, R.array.drawer_items);
+        String[] texts = getResources().getStringArray(R.array.drawer_items);
+        ArrayList<String> drawerItemTexts = new ArrayList<>();
+        for(int i = 0; i < texts.length; i++) drawerItemTexts.add(i, texts[i]);
         ArrayList<Integer> drawerItemIcons = ResourcesHelper.getIntArrayAsArrayList(getBaseContext(), R.array.drawer_items_icons);
         data.addStringsToAllCells(GenericData.DRAWER_ITEM_TEXT_KEY, drawerItemTexts);
         data.addIntegersToAllCells(GenericData.DRAWER_ITEM_ICON_KEY, drawerItemIcons);
@@ -169,6 +171,10 @@ public class BaseActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public String getResString(int id){
+        return getResources().getString(id);
     }
 
     public void setAppLanguage(int appLanguage){

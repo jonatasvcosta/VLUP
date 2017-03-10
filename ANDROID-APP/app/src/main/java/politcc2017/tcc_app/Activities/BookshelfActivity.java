@@ -46,23 +46,24 @@ public class BookshelfActivity extends BaseActivity {
     private void initialBDSetup(){
         BookshelfCategory[] categories = Inquiry.get(this).select(BookshelfCategory.class).all();
         if(categories != null) return;
+        String [] bookshelfCategories = getResources().getStringArray(R.array.bookshelf_categories_array);
         Inquiry.get(this).insert(BookshelfCategory.class).values(new BookshelfCategory[]{
-                new BookshelfCategory(0 ,"Categorias de palavras", true),
-                new BookshelfCategory(1 , "Verbos"),
-                new BookshelfCategory(2 , "Adjetivos"),
-                new BookshelfCategory(3 , "Substantivos"),
-                new BookshelfCategory(4 , "Objetos"),
-                new BookshelfCategory(5 , "Outros"),
-                new BookshelfCategory(6 , "Categorias de textos", true),
-                new BookshelfCategory(7 , "Turismo"),
-                new BookshelfCategory(8 , "Literatura"),
-                new BookshelfCategory(9 , "Economia"),
-                new BookshelfCategory(10 , "Tecnologia"),
-                new BookshelfCategory(11 , "Outros"),
-                new BookshelfCategory(12, "Expressões idiomáticas", true),
-                new BookshelfCategory(13, "Viagens"),
-                new BookshelfCategory(14, "Dia-a-dia"),
-                new BookshelfCategory(15, "Outros"),
+                new BookshelfCategory(0 ,bookshelfCategories[0], true),
+                new BookshelfCategory(1 , bookshelfCategories[1]),
+                new BookshelfCategory(2 , bookshelfCategories[2]),
+                new BookshelfCategory(3 , bookshelfCategories[3]),
+                new BookshelfCategory(4 , bookshelfCategories[4]),
+                new BookshelfCategory(5 , bookshelfCategories[5]),
+                new BookshelfCategory(6 , bookshelfCategories[6], true),
+                new BookshelfCategory(7 , bookshelfCategories[7]),
+                new BookshelfCategory(8 , bookshelfCategories[8]),
+                new BookshelfCategory(9 , bookshelfCategories[9]),
+                new BookshelfCategory(10 , bookshelfCategories[10]),
+                new BookshelfCategory(11 , bookshelfCategories[11]),
+                new BookshelfCategory(12, bookshelfCategories[12], true),
+                new BookshelfCategory(13, bookshelfCategories[13]),
+                new BookshelfCategory(14, bookshelfCategories[14]),
+                new BookshelfCategory(15, bookshelfCategories[15]),
         }).run();
     }
 
@@ -94,7 +95,7 @@ public class BookshelfActivity extends BaseActivity {
         mAdapter.RegisterClickListener(new CellClickListener() {
             @Override
             public void onClick(View v, final int position) {
-                DialogHelper.InputDialog(BookshelfActivity.this, "Digite o nome da categoria", new MaterialDialog.InputCallback() {
+                DialogHelper.InputDialog(BookshelfActivity.this, getResString(R.string.bookshelf_category_name), new MaterialDialog.InputCallback() {
                     @Override
                     public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
                         if(input != null && input.length() > 0){
@@ -120,10 +121,10 @@ public class BookshelfActivity extends BaseActivity {
                                 UpdateCategory(input.toString(), position);
                             }
                         }
-                    }, "OK", "Cancelar", mData.getValue(position).get(GenericData.BOOKSHELF_ITEM_CATEGORY).toString()).show();
+                    }, getResString(R.string.dialog_confirm), getResString(R.string.dialog_cancel), mData.getValue(position).get(GenericData.BOOKSHELF_ITEM_CATEGORY).toString()).show();
                 }
                 else if(message.equals("remove")){
-                    DialogHelper.CustomDialog(BookshelfActivity.this, "", R.drawable.ic_help,"Tem certeza que deseja deletar essa categoria e seu conteúdo?", "OK", "Cancelar", new MaterialDialog.SingleButtonCallback() {
+                    DialogHelper.CustomDialog(BookshelfActivity.this, "", R.drawable.ic_help,"Tem certeza que deseja deletar essa categoria e seu conteúdo?", getResString(R.string.dialog_confirm), getResString(R.string.dialog_cancel), new MaterialDialog.SingleButtonCallback() {
                         @Override
                         public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                             RemoveCategory(position);
