@@ -37,7 +37,7 @@ public class BookshelfActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_bookshelf);
         Inquiry.newInstance(this, SqlHelper.DATABASE).build();
-        setActivityTitle("Bookshelf");
+        setActivityTitle(getResString(R.string.bookshelf_activity_title));
         initialBDSetup();
         recyclerView = (RecyclerView) findViewById(R.id.bookshelf_activity_categories_list);
         setupRecyclerView();
@@ -46,7 +46,7 @@ public class BookshelfActivity extends BaseActivity {
     private void initialBDSetup(){
         BookshelfCategory[] categories = Inquiry.get(this).select(BookshelfCategory.class).all();
         if(categories != null) return;
-        String [] bookshelfCategories = getResources().getStringArray(R.array.bookshelf_categories_array);
+        String [] bookshelfCategories = getResources().getStringArray(R.array.bookshelf_categories);
         Inquiry.get(this).insert(BookshelfCategory.class).values(new BookshelfCategory[]{
                 new BookshelfCategory(0 ,bookshelfCategories[0], true),
                 new BookshelfCategory(1 , bookshelfCategories[1]),
@@ -103,7 +103,7 @@ public class BookshelfActivity extends BaseActivity {
                         }
 
                     }
-                }, "OK", "Cancelar").show();
+                }, getResString(R.string.dialog_confirm), getResString(R.string.dialog_cancel)).show();
             }
 
             @Override
@@ -114,7 +114,7 @@ public class BookshelfActivity extends BaseActivity {
             @Override
             public void onClick(String message, final int position) {
                 if(message.equals("edit")){
-                    DialogHelper.InputDialog(BookshelfActivity.this, "Digite o novo nome da categoria", new MaterialDialog.InputCallback() {
+                    DialogHelper.InputDialog(BookshelfActivity.this, getResString(R.string.bookshelf_new_category_name), new MaterialDialog.InputCallback() {
                         @Override
                         public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
                             if(input != null && input.length() > 0){
@@ -124,7 +124,7 @@ public class BookshelfActivity extends BaseActivity {
                     }, getResString(R.string.dialog_confirm), getResString(R.string.dialog_cancel), mData.getValue(position).get(GenericData.BOOKSHELF_ITEM_CATEGORY).toString()).show();
                 }
                 else if(message.equals("remove")){
-                    DialogHelper.CustomDialog(BookshelfActivity.this, "", R.drawable.ic_help,"Tem certeza que deseja deletar essa categoria e seu conteúdo?", getResString(R.string.dialog_confirm), getResString(R.string.dialog_cancel), new MaterialDialog.SingleButtonCallback() {
+                    DialogHelper.CustomDialog(BookshelfActivity.this, "", R.drawable.ic_help, getResString(R.string.bookshelf_category_delete_confirmation), getResString(R.string.dialog_confirm), getResString(R.string.dialog_cancel), new MaterialDialog.SingleButtonCallback() {
                         @Override
                         public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                             RemoveCategory(position);

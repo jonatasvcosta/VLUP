@@ -50,7 +50,7 @@ public class BookshelfCategoryActivity extends BaseActivity {
         addWordFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogHelper.InputDialog(BookshelfCategoryActivity.this, "Digite o nome da palavra", new MaterialDialog.InputCallback() {
+                DialogHelper.InputDialog(BookshelfCategoryActivity.this, getResString(R.string.add_word_text), new MaterialDialog.InputCallback() {
                     @Override
                     public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
                         if(input != null && input.length() > 0){
@@ -58,7 +58,7 @@ public class BookshelfCategoryActivity extends BaseActivity {
                         }
 
                     }
-                }, "OK", "Cancelar").show();
+                }, getResString(R.string.dialog_confirm), getResString(R.string.dialog_cancel)).show();
             }
         });
     }
@@ -96,14 +96,14 @@ public class BookshelfCategoryActivity extends BaseActivity {
             @Override
             public void onClick(String message, final int position) {
                 if(message.equals("edit")){
-                    DialogHelper.InputDialog(BookshelfCategoryActivity.this, "Digite o novo nome da categoria", new MaterialDialog.InputCallback() {
+                    DialogHelper.InputDialog(BookshelfCategoryActivity.this, getResString(R.string.bookshelf_new_category_name), new MaterialDialog.InputCallback() {
                         @Override
                         public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
                             if(input != null && input.length() > 0){
                                 UpdateWord(input.toString(), position);
                             }
                         }
-                    }, "OK", "Cancelar", mData.getValue(position).get(GenericData.BOOKSHELF_CATEGORY_WORD).toString()).show();
+                    }, getResString(R.string.dialog_confirm), getResString(R.string.dialog_cancel), mData.getValue(position).get(GenericData.BOOKSHELF_CATEGORY_WORD).toString()).show();
                 }
                 else if(message.equals("remove")){
                     RemoveWord(position);

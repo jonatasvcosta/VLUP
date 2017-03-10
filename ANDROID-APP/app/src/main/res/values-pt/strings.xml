@@ -1,44 +1,5 @@
 <resources>
     <string name="app_name">Vlup</string>
-    <string-array name="drawer_items">
-        <item>Home</item>
-        <item>Vocabulário</item>
-        <item>Notícias e Textos</item>
-        <item>Navegar</item>
-        <item>Você ensina/aprende</item>
-        <item>Biblioteca pessoal</item>
-        <item>Dicionário</item>
-        <item>Câmera</item>
-        <item>Produtos para mim</item>
-        <item>Configurações</item>
-        <item>Sobre nós</item>
-    </string-array>
-
-    <integer-array name="drawer_items_icons">
-        <item>@drawable/ic_home</item>
-        <item>@drawable/ic_vocabulary</item>
-        <item>@drawable/ic_news</item>
-        <item>@drawable/ic_online</item>
-        <item>@drawable/ic_board</item>
-        <item>@drawable/ic_bookshelf</item>
-        <item>@drawable/ic_dictionary</item>
-        <item>@drawable/ic_camera</item>
-        <item>@drawable/ic_products</item>
-        <item>@drawable/ic_settings</item>
-        <item>@drawable/ic_help</item>
-    </integer-array>
-
-    <string-array name="gender_array">
-        <item>Masculino</item>
-        <item>Feminino</item>
-        <item>Prefiro não responder</item>
-    </string-array>
-
-    <string-array name="languages_array">
-        <item>Português</item>
-        <item>Inglês</item>
-        <item>Alemão</item>
-    </string-array>
 
     <!-- Login Activity -->
     <string name="login_activity_email_field">Digite seu e-mail</string>
@@ -81,24 +42,7 @@
     <string name="bookshelf_new_category_name">Digite o novo nome da categoria</string>
     <string name="bookshelf_category_delete_confirmation">Tem certeza que deseja deletar essa categoria e seu conteúdo?</string>
     <string name="add_word_button_text">Adicionar</string>
-    <string-array name="bookshelf_categories_array">
-        <item>Categorias de palavras</item>
-        <item>Verbos</item>
-        <item>Adjetivos</item>
-        <item>Substantivos</item>
-        <item>Objetos</item>
-        <item>Outros</item>
-        <item>Categorias de textos</item>
-        <item>Turismo</item>
-        <item>Literatura</item>
-        <item>Economia</item>
-        <item>Tecnologia</item>
-        <item>Outros</item>
-        <item>Expressões idiomáticas</item>
-        <item>Viagens</item>
-        <item>Dia-a-dia</item>
-        <item>Outros</item>
-    </string-array>
+    <string name="add_word_text">"Digite a palavra"</string>
 
 <string name="camera_activity_scan_text">Tirar foto de texto</string>
 
@@ -107,5 +51,18 @@
     <string name="dialog_cancel">Cancelar</string>
     <string name="dialog_loading_title">Carregando</string>
 
-    <string name="navigate_activity_title">Browse</string>
+    <string name="navigate_activity_title">Navegar</string>
+
+    <!-- Maintenance Activity -->
+    <string name="maintenance_activity_title">Maintenance Activity</string>
+    <string name="maintenance_activity_text">Essa seção do App Ainda não foi feita!</string>
+    <string name="maintenance_activity_back_button_text">Voltar para a Home</string>
+
+    <!-- Camera Activity -->
+    <string name="dialog_camera_title">Câmera - Escanear textos</string>
+    <string name="dialog_camera_body">Tire uma foto do texto que deseja escanear. Preferencialmente aproxime a câmera de forma a tornar o texto claramente identificável</string>
+
+    <!-- Settings Activity -->
+    <string name="settings_native_language">Mudar língua nativa</string>
+    <string name="settings_activity_title">Configurações</string>
 </resources>

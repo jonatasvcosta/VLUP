@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_large"
-        android:text="Essa seção do App Ainda não foi feita!" />
+        android:text="@string/maintenance_activity_text" />
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -22,5 +22,5 @@
         android:id="@+id/maintenance_back_button"
         style="@style/FullWidthButton"
         android:layout_marginTop="@dimen/margin_large"
-        android:text="Voltar para a Home"/>
+        android:text="@string/maintenance_activity_back_button_text"/>
 </LinearLayout>

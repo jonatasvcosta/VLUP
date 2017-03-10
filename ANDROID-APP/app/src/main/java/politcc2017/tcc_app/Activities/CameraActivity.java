@@ -40,7 +40,7 @@ public class CameraActivity extends BaseActivity implements EasyOcrScannerListen
         // Set ocrScannerListener
         mEasyOcrScanner.setOcrScannerListener(this);
         setActivityTitle("Camera");
-        DialogHelper.CustomDialog(CameraActivity.this, "Camera - Escanear textos", "Tire uma foto do texto que deseja escanear. Preferencialmente aproxime a câmera de forma a tornar o texto claramente identificável", "OK", "Cancelar").show();
+        DialogHelper.CustomDialog(CameraActivity.this, getResString(R.string.dialog_camera_title), getResString(R.string.dialog_camera_body), getResString(R.string.dialog_confirm), getResString(R.string.dialog_cancel)).show();
 
         findViewById(R.id.camera_activity_scan_button).setOnClickListener(new View.OnClickListener(){
             @Override
