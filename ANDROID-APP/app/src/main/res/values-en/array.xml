@@ -1,0 +1,66 @@
+<resources>
+    <string-array name="drawer_items">
+        <item>Home</item>
+        <item>Vocabulary</item>
+        <item>News and Texts</item>
+        <item>Use the internet</item>
+        <item>Be a Pro</item>
+        <item>My words and texts</item>
+        <item>Dictionary</item>
+        <item>Camera</item>
+        <item>Products for me</item>
+        <item>Settings</item>
+        <item>About Us</item>
+    </string-array>
+
+    <integer-array name="drawer_items_icons">
+        <item>@drawable/ic_home</item>
+        <item>@drawable/ic_vocabulary</item>
+        <item>@drawable/ic_news</item>
+        <item>@drawable/ic_online</item>
+        <item>@drawable/ic_board</item>
+        <item>@drawable/ic_bookshelf</item>
+        <item>@drawable/ic_dictionary</item>
+        <item>@drawable/ic_camera</item>
+        <item>@drawable/ic_products</item>
+        <item>@drawable/ic_settings</item>
+        <item>@drawable/ic_help</item>
+    </integer-array>
+
+    <string-array name="gender_array">
+        <item>Male</item>
+        <item>Female</item>
+        <item>I would rather not answer</item>
+    </string-array>
+
+    <string-array name="languages_array">
+        <item>Portuguese</item>
+        <item>English</item>
+        <item>German</item>
+    </string-array>
+
+    <string-array name="locale_array">
+        <item>pt</item>
+        <item>en</item>
+        <item>de</item>
+    </string-array>
+
+    <string-array name="bookshelf_categories">
+        <item>Word categories</item>
+        <item>Verbs</item>
+        <item>Adjectives</item>
+        <item>Nouns</item>
+        <item>Objects</item>
+        <item>Others</item>
+        <item>Categories of texts</item>
+        <item>Tourism</item>
+        <item>Literature</item>
+        <item>Economy</item>
+        <item>Technology</item>
+        <item>Others</item>
+        <item>Idiomatic expressions</item>
+        <item>Travels</item>
+        <item>Day-by-day</item>
+        <item>Others</item>
+    </string-array>
+</resources>

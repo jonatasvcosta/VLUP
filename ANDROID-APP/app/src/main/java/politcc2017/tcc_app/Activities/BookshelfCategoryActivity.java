@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import politcc2017.tcc_app.Components.Helpers.DialogHelper;
 import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.BookshelfCategoryWords;
 import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.SqlHelper;
+import politcc2017.tcc_app.Components.Helpers.SharedPreferencesHelper;
 import politcc2017.tcc_app.Components.Listeners.CellClickListener;
 import politcc2017.tcc_app.Components.RecyclerView.Adapters.GenericAdapter;
 import politcc2017.tcc_app.Components.RecyclerView.Data.GenericData;
@@ -50,7 +51,7 @@ public class BookshelfCategoryActivity extends BaseActivity {
         addWordFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogHelper.InputDialog(BookshelfCategoryActivity.this, "Digite o nome da palavra", new MaterialDialog.InputCallback() {
+                DialogHelper.InputDialog(BookshelfCategoryActivity.this, getResString(R.string.add_word_text), new MaterialDialog.InputCallback() {
                     @Override
                     public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
                         if(input != null && input.length() > 0){
@@ -58,12 +59,13 @@ public class BookshelfCategoryActivity extends BaseActivity {
                         }
 
                     }
-                }, "OK", "Cancelar").show();
+                }, getResString(R.string.dialog_confirm), getResString(R.string.dialog_cancel)).show();
             }
         });
     }
 
     private void AddNewWord(String input){
+        if(!SharedPreferencesHelper.getBoolean(SharedPreferencesHelper.BOOKSHELF_BD_CHANGED_KEY, getApplicationContext())) setChangeToBookshelfCategories();
         Inquiry.get(this).insert(BookshelfCategoryWords.class).values(new BookshelfCategoryWords[]{new BookshelfCategoryWords(categoryID, input)}).run();
         mData.addNewCellWithString(GenericData.BOOKSHELF_CATEGORY_WORD,input, mData.Size());
         mAdapter.notifyDataSetChanged();
@@ -96,14 +98,14 @@ public class BookshelfCategoryActivity extends BaseActivity {
             @Override
             public void onClick(String message, final int position) {
                 if(message.equals("edit")){
-                    DialogHelper.InputDialog(BookshelfCategoryActivity.this, "Digite o novo nome da categoria", new MaterialDialog.InputCallback() {
+                    DialogHelper.InputDialog(BookshelfCategoryActivity.this, getResString(R.string.bookshelf_new_category_name), new MaterialDialog.InputCallback() {
                         @Override
                         public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
                             if(input != null && input.length() > 0){
                                 UpdateWord(input.toString(), position);
                             }
                         }
-                    }, "OK", "Cancelar", mData.getValue(position).get(GenericData.BOOKSHELF_CATEGORY_WORD).toString()).show();
+                    }, getResString(R.string.dialog_confirm), getResString(R.string.dialog_cancel), mData.getValue(position).get(GenericData.BOOKSHELF_CATEGORY_WORD).toString()).show();
                 }
                 else if(message.equals("remove")){
                     RemoveWord(position);
@@ -169,5 +171,10 @@ public class BookshelfCategoryActivity extends BaseActivity {
             // Destroys only MainActivity's instance
             Inquiry.destroy(this);
         }
+    }
+
+    private void setChangeToBookshelfCategories(){
+        SharedPreferencesHelper.Initialize(getApplicationContext());
+        SharedPreferencesHelper.addBoolean(SharedPreferencesHelper.BOOKSHELF_BD_CHANGED_KEY, true);
     }
 }

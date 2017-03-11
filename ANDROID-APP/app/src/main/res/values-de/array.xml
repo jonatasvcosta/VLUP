@@ -1,0 +1,66 @@
+<resources>
+    <string-array name="drawer_items">
+        <item>Startseite</item>
+        <item>Wortschatz</item>
+        <item>Nachrichten / Texte</item>
+        <item>Surfen</item>
+        <item>Sie lehren/lernen</item>
+        <item>Bücherschrank</item>
+        <item>Wörterbuch</item>
+        <item>Kamera</item>
+        <item>Produkte für mich</item>
+        <item>Einstellungen</item>
+        <item>Über uns</item>
+    </string-array>
+
+    <integer-array name="drawer_items_icons">
+        <item>@drawable/ic_home</item>
+        <item>@drawable/ic_vocabulary</item>
+        <item>@drawable/ic_news</item>
+        <item>@drawable/ic_online</item>
+        <item>@drawable/ic_board</item>
+        <item>@drawable/ic_bookshelf</item>
+        <item>@drawable/ic_dictionary</item>
+        <item>@drawable/ic_camera</item>
+        <item>@drawable/ic_products</item>
+        <item>@drawable/ic_settings</item>
+        <item>@drawable/ic_help</item>
+    </integer-array>
+
+    <string-array name="gender_array">
+        <item>Männlich</item>
+        <item>Weiblich</item>
+        <item>Ich will nicht antworten</item>
+    </string-array>
+
+    <string-array name="languages_array">
+        <item>Portugiesisch</item>
+        <item>Englisch</item>
+        <item>Deutsch</item>
+    </string-array>
+
+    <string-array name="locale_array">
+        <item>pt</item>
+        <item>en</item>
+        <item>de</item>
+    </string-array>
+
+    <string-array name="bookshelf_categories">
+        <item>Wortkategorien</item>
+        <item>Verben</item>
+        <item>Adjektive</item>
+        <item>Nomen</item>
+        <item>Gegenstand</item>
+        <item>Andere</item>
+        <item>Textkategorien</item>
+        <item>Tourismus</item>
+        <item>Literatur</item>
+        <item>Wirtschaft</item>
+        <item>Technologie</item>
+        <item>Andere</item>
+        <item>Idiomatische Ausdrücke</item>
+        <item>Reisen</item>
+        <item>Alltag</item>
+        <item>Andere</item>
+    </string-array>
+</resources>

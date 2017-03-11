@@ -5,6 +5,7 @@ package politcc2017.tcc_app.Activities;
  */
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.support.annotation.LayoutRes;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -18,9 +19,11 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import politcc2017.tcc_app.Common.ResourcesHelper;
 import politcc2017.tcc_app.Components.CustomTextView;
+import politcc2017.tcc_app.Components.Helpers.SharedPreferencesHelper;
 import politcc2017.tcc_app.Components.Listeners.CellClickListener;
 import politcc2017.tcc_app.Components.RecyclerView.Adapters.GenericAdapter;
 import politcc2017.tcc_app.Components.RecyclerView.Data.GenericData;
@@ -30,7 +33,8 @@ import politcc2017.tcc_app.R;
 import static android.content.Intent.FLAG_ACTIVITY_REORDER_TO_FRONT;
 
 public class BaseActivity extends AppCompatActivity {
-    public static final int POS_HOME = 0, POS_NAVIGATE = 3, POS_BOOKSHELF = 5, POS_CAMERA = 7;
+    public static boolean LANGUAGE_SET = false;
+    public static final int POS_HOME = 0, POS_NAVIGATE = 3, POS_BOOKSHELF = 5, POS_CAMERA = 7, POS_SETTINGS = 9;
     Toolbar toolbar;
     CustomTextView toolbarTitle;
     RecyclerView drawerRecyclerView;
@@ -48,7 +52,6 @@ public class BaseActivity extends AppCompatActivity {
         FrameLayout activityContainer = (FrameLayout) fullView.findViewById(R.id.activity_content);
         getLayoutInflater().inflate(layoutResID, activityContainer, true);
         super.setContentView(fullView);
-
         drawerRecyclerView = (RecyclerView) findViewById(R.id.base_drawer_recycler_view);
         setDrawerData();
         mLayoutManager = new LinearLayoutManager(this);
@@ -89,7 +92,9 @@ public class BaseActivity extends AppCompatActivity {
 
     private void setDrawerData(){
         GenericData data = new GenericData();
-        ArrayList<String> drawerItemTexts = ResourcesHelper.getStringArrayAsArrayList(getBaseContext(), appLanguage, R.array.drawer_items);
+        String[] texts = getResources().getStringArray(R.array.drawer_items);
+        ArrayList<String> drawerItemTexts = new ArrayList<>();
+        for(int i = 0; i < texts.length; i++) drawerItemTexts.add(i, texts[i]);
         ArrayList<Integer> drawerItemIcons = ResourcesHelper.getIntArrayAsArrayList(getBaseContext(), R.array.drawer_items_icons);
         data.addStringsToAllCells(GenericData.DRAWER_ITEM_TEXT_KEY, drawerItemTexts);
         data.addIntegersToAllCells(GenericData.DRAWER_ITEM_ICON_KEY, drawerItemIcons);
@@ -146,6 +151,7 @@ public class BaseActivity extends AppCompatActivity {
                 else if(position == POS_NAVIGATE) startOrResumeActivity(NavigateActivity.class, true);
                 else if(position == POS_BOOKSHELF) startOrResumeActivity(BookshelfActivity.class, true);
                 else if(position == POS_CAMERA) startOrResumeActivity(CameraActivity.class, true);
+                else if(position == POS_SETTINGS) startOrResumeActivity(SettingsActivity.class, true);
                 else startOrResumeActivity(MaintenanceActivity.class, true);
             }
 
@@ -171,9 +177,37 @@ public class BaseActivity extends AppCompatActivity {
         });
     }
 
+    public String getResString(int id){
+        return getResources().getString(id);
+    }
+
     public void setAppLanguage(int appLanguage){
         this.appLanguage = appLanguage;
         setDrawerData();
+    }
+
+    public void changeAppLanguage(String loc){
+        Locale locale = new Locale(loc);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getResources().updateConfiguration(config,getResources().getDisplayMetrics());
+        recreate();
+    }
+
+    public void setLanguage(){
+        String locale = SharedPreferencesHelper.getString(SharedPreferencesHelper.LOCALE_KEY, getBaseContext());
+        if(locale != null && locale.length() > 0){
+            LANGUAGE_SET = true;
+            changeAppLanguage(locale);
+        }
+    }
+
+    //Restarts the activity after changing the languagse
+    private void RestartActivity(){
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
     }
 }
 

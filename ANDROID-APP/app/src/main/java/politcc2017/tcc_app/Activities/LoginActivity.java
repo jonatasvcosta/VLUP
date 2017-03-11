@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         }
         errorDialog = DialogHelper.ErrorDialog(LoginActivity.this, R.drawable.ic_wrong, getResources().getString(R.string.login_activity_invalid_user_error), getResources().getString(R.string.dialog_confirm));
         SharedPreferencesHelper.Initialize(getApplicationContext());
-        if(SharedPreferencesHelper.getBoolean(SharedPreferencesHelper.AUTOMATIC_AUTHENTICATION_KEY)) startHomeActivity();
+        if(SharedPreferencesHelper.getBoolean(SharedPreferencesHelper.AUTOMATIC_AUTHENTICATION_KEY, getApplicationContext())) startHomeActivity();
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

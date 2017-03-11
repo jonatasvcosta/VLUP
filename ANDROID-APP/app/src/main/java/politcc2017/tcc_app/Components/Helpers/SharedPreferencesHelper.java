@@ -26,6 +26,9 @@ public class SharedPreferencesHelper {
     public static final String GENDER_KEY = "GENDER_KEY";
     public static final String LANGUAGES_KEY = "LANGUAGES_KEY";
     public static final String AUTOMATIC_AUTHENTICATION_KEY = "AUTOMATIC_AUTHENTICATION_KEY";
+    public static final String LOCALE_KEY = "LOCALE_KEY";
+    public static final String BOOKSHELF_BD_CHANGED_KEY = "BOOKSHELF_BD_CHANGED_KEY";
+    public static final String BOOKSHELF_BD_LOCALE_KEY = "BOOKSHELF_BD_LOCALE_KEY";
 
 
     public static void Initialize(Context context){
@@ -41,6 +44,11 @@ public class SharedPreferencesHelper {
     }
 
     public static String getString(String key){
+        return mSharedPreferences.getString(key, "");
+    }
+
+    public static String getString(String key, Context c){
+        if(mSharedPreferences == null) mSharedPreferences = c.getSharedPreferences(USER_DATA_PREFERENCES, Context.MODE_PRIVATE);
         return mSharedPreferences.getString(key, "");
     }
 
@@ -69,7 +77,8 @@ public class SharedPreferencesHelper {
         mEditor.commit();
     }
 
-    public static boolean getBoolean(String key){
-        return mSharedPreferences.getBoolean(AUTOMATIC_AUTHENTICATION_KEY, false);
+    public static boolean getBoolean(String key, Context c){
+        if(mSharedPreferences == null) mSharedPreferences = c.getSharedPreferences(USER_DATA_PREFERENCES, Context.MODE_PRIVATE);
+        return mSharedPreferences.getBoolean(key, false);
     }
 }
