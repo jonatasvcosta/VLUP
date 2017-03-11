@@ -176,5 +176,6 @@ public class HomeActivity extends BaseActivity {
                 setAppLanguage(Languages.PORTUGUESE);
             }
         });
+        if(!LANGUAGE_SET) setLanguage();
     }
 }

@@ -23,6 +23,7 @@ import java.util.Locale;
 
 import politcc2017.tcc_app.Common.ResourcesHelper;
 import politcc2017.tcc_app.Components.CustomTextView;
+import politcc2017.tcc_app.Components.Helpers.SharedPreferencesHelper;
 import politcc2017.tcc_app.Components.Listeners.CellClickListener;
 import politcc2017.tcc_app.Components.RecyclerView.Adapters.GenericAdapter;
 import politcc2017.tcc_app.Components.RecyclerView.Data.GenericData;
@@ -32,6 +33,7 @@ import politcc2017.tcc_app.R;
 import static android.content.Intent.FLAG_ACTIVITY_REORDER_TO_FRONT;
 
 public class BaseActivity extends AppCompatActivity {
+    public static boolean LANGUAGE_SET = false;
     public static final int POS_HOME = 0, POS_NAVIGATE = 3, POS_BOOKSHELF = 5, POS_CAMERA = 7, POS_SETTINGS = 9;
     Toolbar toolbar;
     CustomTextView toolbarTitle;
@@ -191,6 +193,14 @@ public class BaseActivity extends AppCompatActivity {
         config.locale = locale;
         getResources().updateConfiguration(config,getResources().getDisplayMetrics());
         recreate();
+    }
+
+    public void setLanguage(){
+        String locale = SharedPreferencesHelper.getString(SharedPreferencesHelper.LOCALE_KEY, getBaseContext());
+        if(locale != null && locale.length() > 0){
+            LANGUAGE_SET = true;
+            changeAppLanguage(locale);
+        }
     }
 
     //Restarts the activity after changing the languagse
