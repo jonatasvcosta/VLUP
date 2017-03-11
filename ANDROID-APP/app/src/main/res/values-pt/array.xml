@@ -45,7 +45,7 @@
         <item>de</item>
     </string-array>
 
-    <string-array name="bookshelf_categories_array">
+    <string-array name="bookshelf_categories">
         <item>Categorias de palavras</item>
         <item>Verbos</item>
         <item>Adjetivos</item>

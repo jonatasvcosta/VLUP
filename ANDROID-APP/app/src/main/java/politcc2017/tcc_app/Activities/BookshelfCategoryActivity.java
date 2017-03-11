@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import politcc2017.tcc_app.Components.Helpers.DialogHelper;
 import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.BookshelfCategoryWords;
 import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.SqlHelper;
+import politcc2017.tcc_app.Components.Helpers.SharedPreferencesHelper;
 import politcc2017.tcc_app.Components.Listeners.CellClickListener;
 import politcc2017.tcc_app.Components.RecyclerView.Adapters.GenericAdapter;
 import politcc2017.tcc_app.Components.RecyclerView.Data.GenericData;
@@ -64,6 +65,7 @@ public class BookshelfCategoryActivity extends BaseActivity {
     }
 
     private void AddNewWord(String input){
+        if(!SharedPreferencesHelper.getBoolean(SharedPreferencesHelper.BOOKSHELF_BD_CHANGED_KEY, getApplicationContext())) setChangeToBookshelfCategories();
         Inquiry.get(this).insert(BookshelfCategoryWords.class).values(new BookshelfCategoryWords[]{new BookshelfCategoryWords(categoryID, input)}).run();
         mData.addNewCellWithString(GenericData.BOOKSHELF_CATEGORY_WORD,input, mData.Size());
         mAdapter.notifyDataSetChanged();
@@ -169,5 +171,10 @@ public class BookshelfCategoryActivity extends BaseActivity {
             // Destroys only MainActivity's instance
             Inquiry.destroy(this);
         }
+    }
+
+    private void setChangeToBookshelfCategories(){
+        SharedPreferencesHelper.Initialize(getApplicationContext());
+        SharedPreferencesHelper.addBoolean(SharedPreferencesHelper.BOOKSHELF_BD_CHANGED_KEY, true);
     }
 }

@@ -18,6 +18,7 @@ import politcc2017.tcc_app.Components.Helpers.DialogHelper;
 import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.BookshelfCategory;
 import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.BookshelfCategoryWords;
 import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.SqlHelper;
+import politcc2017.tcc_app.Components.Helpers.SharedPreferencesHelper;
 import politcc2017.tcc_app.Components.Listeners.CellClickListener;
 import politcc2017.tcc_app.Components.RecyclerView.Adapters.GenericAdapter;
 import politcc2017.tcc_app.Components.RecyclerView.Data.GenericData;
@@ -45,8 +46,13 @@ public class BookshelfActivity extends BaseActivity {
 
     private void initialBDSetup(){
         BookshelfCategory[] categories = Inquiry.get(this).select(BookshelfCategory.class).all();
-        if(categories != null) return;
+        String appLocale = SharedPreferencesHelper.getString(SharedPreferencesHelper.LOCALE_KEY, getApplicationContext());
+        String bdLocale = SharedPreferencesHelper.getString(SharedPreferencesHelper.BOOKSHELF_BD_LOCALE_KEY, getApplicationContext());
+        if((categories != null && appLocale.equals(bdLocale)) || SharedPreferencesHelper.getBoolean(SharedPreferencesHelper.BOOKSHELF_BD_CHANGED_KEY, getApplicationContext())) return; //if DB has changed or is properly set return
+        if(!appLocale.equals(bdLocale)) CleanCategories(); //if DB not changed and language is incorrect, clear and rebuild categories
         String [] bookshelfCategories = getResources().getStringArray(R.array.bookshelf_categories);
+        SharedPreferencesHelper.Initialize(getApplicationContext());
+        SharedPreferencesHelper.addString(SharedPreferencesHelper.BOOKSHELF_BD_LOCALE_KEY, appLocale);
         Inquiry.get(this).insert(BookshelfCategory.class).values(new BookshelfCategory[]{
                 new BookshelfCategory(0 ,bookshelfCategories[0], true),
                 new BookshelfCategory(1 , bookshelfCategories[1]),
@@ -147,6 +153,7 @@ public class BookshelfActivity extends BaseActivity {
     }
 
     private void AddNewCategory(String input, int position){
+        if(!SharedPreferencesHelper.getBoolean(SharedPreferencesHelper.BOOKSHELF_BD_CHANGED_KEY, getApplicationContext())) setChangeToBookshelfCategories();
         UpdateCellsPosition(position+1, 1);
         Inquiry.get(this)
                 .insert(BookshelfCategory.class)
@@ -185,12 +192,21 @@ public class BookshelfActivity extends BaseActivity {
     }
 
     private void UpdateCategory(String input, int position){
+        if(!SharedPreferencesHelper.getBoolean(SharedPreferencesHelper.BOOKSHELF_BD_CHANGED_KEY, getApplicationContext())) setChangeToBookshelfCategories();
         Inquiry.get(this).update(BookshelfCategory.class).values(new BookshelfCategory[]{new BookshelfCategory(position, input)}).where("id = ?", position).run();
         mData.getValue(position).put(GenericData.BOOKSHELF_ITEM_CATEGORY, input);
         mAdapter.notifyDataSetChanged();
     }
 
+    private void CleanCategories(){
+        Inquiry.get(this)
+                .delete(BookshelfCategory.class)
+                .where("id >= ?", 0)
+                .run();
+    }
+
     private void RemoveCategory(int position){
+        if(!SharedPreferencesHelper.getBoolean(SharedPreferencesHelper.BOOKSHELF_BD_CHANGED_KEY, getApplicationContext())) setChangeToBookshelfCategories();
         Inquiry.get(this).delete(BookshelfCategory.class).where("id = ?", position).run();
         Inquiry.get(this).delete(BookshelfCategoryWords.class).where("id = ?", position).run();
         UpdateCellsPosition(position, -1);
@@ -215,5 +231,10 @@ public class BookshelfActivity extends BaseActivity {
             }
         mData.addStringsToAllCells(GenericData.BOOKSHELF_ITEM_CATEGORY, words);
         mData.setSpecialTypeCells(labels, GenericData.CELL_HEADER_TYPE);
+    }
+
+    private void setChangeToBookshelfCategories(){
+        SharedPreferencesHelper.Initialize(getApplicationContext());
+        SharedPreferencesHelper.addBoolean(SharedPreferencesHelper.BOOKSHELF_BD_CHANGED_KEY, true);
     }
 }
