@@ -1,0 +1,67 @@
+<resources>
+    <string name="app_name">Vlup</string>
+
+    <!-- Login Activity -->
+    <string name="login_activity_email_field">Geben sie ihre E-Mail Adresse ein</string>
+    <string name="login_activity_email_field_error">Geben Sie eine gültige E-Mail ein</string>
+    <string name="login_activity_password_field">Geben Sie Ihr Passwort ein</string>
+    <string name="login_activity_remain_conected">Bleiben Sie eingeloggt</string>
+    <string name="login_activity_signup_button_text">Neues Konto</string>
+
+    <!-- Signup Activity -->
+    <string name="signup_activity_toolbar_title" >Willkommen bei Vlup!</string>
+    <string name="signup_activity_name_field">Gib deinen Namen ein</string>
+    <string name="signup_activity_age_field">Alter</string>
+    <string name="signup_activity_gender_field">Geschlecht</string>
+    <string name="signup_activity_age_field_error">Bitte geben sie ihr alter ein</string>
+    <string name="signup_activity_email_field">Geben sie ihre E-Mail Adresse ein</string>
+    <string name="signup_activity_email_field_error">Geben Sie eine gültige E-Mail ein</string>
+    <string name="signup_activity_native_language_field_error">Bitte geben Sie Ihre Muttersprache ein</string>
+    <string name="signup_activity_country_field">Land</string>
+    <string name="signup_activity_country_field_error">Bitte geben Sie den Namen Ihres Landes ein</string>
+    <string name="signup_activity_languages_field_error">Wähle eine oder mehrere Sprachen</string>
+    <string name="signup_activity_city_field">Stadt</string>
+    <string name="signup_activity_city_field_error">Geben Sie den Namen einer Stadt ein</string>
+    <string name="signup_activity_neighborhood_field">Nachbarschaft</string>
+    <string name="signup_activity_neighborhood_field_error">Geben Sie den Namen einer Nachbarschaft ein</string>
+    <string name="signup_activity_password_field">Passwort</string>
+    <string name="signup_activity_password_field_error">Das Passwort muss mindestens 6 Zeichen lang sein</string>
+    <string name="signup_activity_password_fields_dismatch_error">Die Passwörter sind nicht gleich</string>
+    <string name="signup_activity_password_confirmation_field">Bestätigung</string>
+    <string name="signup_activity_create_account_button_text">Benutzerkonto anlegen</string>
+
+    <!-- Bookshelf Activity -->
+    <string name="bookshelf_activity_title">Bücherschrank</string>
+    <string name="bookshelf_category_name">Geben Sie der Kategoriename ein</string>
+    <string name="bookshelf_new_category_name">Geben Sie der neue Kategoriename ein</string>
+    <string name="bookshelf_category_delete_confirmation">Sind Sie sicher, dass Sie diese Kategorie und all ihre Inhalt löschen wollen?</string>
+    <string name="add_word_button_text">Hinzufügen</string>
+    <string name="add_word_text">Geben Sie das Wort ein</string>
+
+<string name="camera_activity_scan_text">Ein foto vom Text machen</string>
+
+    <!-- Dialog Items -->
+    <string name="dialog_confirm">OK</string>
+    <string name="dialog_cancel">Absagen</string>
+    <string name="dialog_loading_title">Wird gerade hochgeladen</string>
+
+    <!-- Maintenance Activity -->
+    <string name="maintenance_activity_title">Wartung Aktivität</string>
+    <string name="maintenance_activity_text">Dieser App-Bereich wurde noch nicht gestaltet</string>
+
+    <!-- Camera Activity -->
+    <string name="dialog_camera_title">Kamera - Texte scannen</string>
+    <string name="dialog_camera_body">Nehmen Sie ein Bild von dem Text, den Sie scannen möchten. Bevorzugt bringen Sie die Kamera näher, um den Text klar identifizierbar zu machen</string>
+
+    <!-- Settings Activity -->
+    <string name="settings_native_language">Muttersprache wechseln</string>
+    <string name="settings_activity_title">Einstellungen</string>
+    <string name="login_activity_invalid_user_error">Benutzer nicht registriert</string>
+    <string name="login_activity_login_button_text">Anmeldung</string>
+    <string name="login_activity_password_field_error">Das Passwort muss mindestens 6 Zeichen lang sein</string>
+    <string name="maintenance_activity_back_button_text">Zurück nach Startseite</string>
+    <string name="navigate_activity_title">Surfen</string>
+    <string name="signup_activity_languages_field">Ich will lernen</string>
+    <string name="signup_activity_name_field_error">Geben Sie einen gültigen Namen ein</string>
+    <string name="signup_activity_native_language_field">Muttersprache</string>
+</resources>

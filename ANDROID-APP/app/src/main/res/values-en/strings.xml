@@ -2,13 +2,11 @@
     <string name="app_name">Vlup</string>
 
     <!-- Login Activity -->
-    <string name="login_activity_email_field">Type your e-mail</string>
-    <string name="login_activity_email_field_error">Type a valid e-mail</string>
+    <string name="login_activity_email_field">Enter your e-mail</string>
+    <string name="login_activity_email_field_error">Enter a valid e-mail</string>
     <string name="login_activity_password_field">Enter your password</string>
     <string name="login_activity_password_field_error">The password must be at least 6 characters long</string>
-    <string name="login_activity_remain_conected">Remain conected</string>
     <string name="login_activity_login_button_text">Login</string>
-    <string name="login_activity_signup_button_text">New account</string>
     <string name="login_activity_invalid_user_error">User not registered</string>
 
     <!-- Signup Activity -->
@@ -53,7 +51,6 @@
 
     <string name="navigate_activity_title">Browse</string>
     <string name="maintenance_activity_back_button_text">Back to home</string>
-    <string name="maintenance_activity_text">This app section wasn\'t designed yet</string>
     <string name="maintenance_activity_title">Maintenance Activity</string>
     <string name="dialog_camera_title">Camera - Scan texts</string>
     <string name="dialog_camera_body">Take a picture of the text you want to scan. Preferably bring the camera closer to make the text clearly identifiable</string>
@@ -61,4 +58,7 @@
     <!-- Settings Activity -->
     <string name="settings_native_language">Change native language</string>
     <string name="settings_activity_title">Settings</string>
+    <string name="login_activity_remain_conected">Remain conected</string>
+    <string name="login_activity_signup_button_text">New account</string>
+    <string name="maintenance_activity_text">This app section wasn\'t designed yet</string>
 </resources>

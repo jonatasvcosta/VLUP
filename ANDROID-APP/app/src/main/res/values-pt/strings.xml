@@ -12,7 +12,7 @@
     <string name="login_activity_invalid_user_error">Usuário não cadastrado</string>
 
     <!-- Signup Activity -->
-    <string name="signup_activity_toolbar_title" >Welcome to Vlup!</string>
+    <string name="signup_activity_toolbar_title" >Bem-vindo ao Vlup!</string>
     <string name="signup_activity_name_field">Digite seu nome</string>
     <string name="signup_activity_name_field_error">Digite um nome válido</string>
     <string name="signup_activity_age_field">Idade</string>
@@ -42,7 +42,7 @@
     <string name="bookshelf_new_category_name">Digite o novo nome da categoria</string>
     <string name="bookshelf_category_delete_confirmation">Tem certeza que deseja deletar essa categoria e seu conteúdo?</string>
     <string name="add_word_button_text">Adicionar</string>
-    <string name="add_word_text">"Digite a palavra"</string>
+    <string name="add_word_text">Digite a palavra</string>
 
 <string name="camera_activity_scan_text">Tirar foto de texto</string>
 
