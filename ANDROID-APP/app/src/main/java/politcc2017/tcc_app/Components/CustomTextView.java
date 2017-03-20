@@ -9,13 +9,15 @@ import android.widget.TextView;
 
 import politcc2017.tcc_app.Components.Helpers.DialogHelper;
 import politcc2017.tcc_app.Components.Helpers.FontHelper;
+import politcc2017.tcc_app.Components.Helpers.SharedPreferencesHelper;
+import politcc2017.tcc_app.Entities.WordContextMenu;
+import politcc2017.tcc_app.Volley.ServerRequestHelper;
 
 /**
  * Created by Jonatas on 02/11/2016.
  */
 
 public class CustomTextView extends TextView {
-
     public CustomTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.setTypeface(FontHelper.get(FontHelper.TTF_FONT, getContext()));
@@ -26,7 +28,9 @@ public class CustomTextView extends TextView {
         setCustomSelectionActionModeCallback(new ActionMode.Callback() {
             @Override
             public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
-                DialogHelper.CustomDialog(getContext(), "Titulo", getText().subSequence(getSelectionStart(), getSelectionEnd()).toString(), "OK", "Cancelar").show();
+                String selectedWord = getText().subSequence(getSelectionStart(), getSelectionEnd()).toString();
+                WordContextMenu wordData = ServerRequestHelper.getWordInformation(getContext(), SharedPreferencesHelper.getString(SharedPreferencesHelper.LOCALE_KEY), selectedWord);
+                DialogHelper.WordContextDialog(getContext(), selectedWord, wordData.translation, "Context phrase of " + selectedWord).show();
                 return true;
             }
 

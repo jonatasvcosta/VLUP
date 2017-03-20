@@ -2,11 +2,14 @@ package politcc2017.tcc_app.Components.Helpers;
 
 import android.content.Context;
 import android.text.InputType;
+import android.view.View;
 
+import com.afollestad.materialdialogs.GravityEnum;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.ArrayList;
 
+import politcc2017.tcc_app.Components.CustomTextView;
 import politcc2017.tcc_app.R;
 
 /**
@@ -76,20 +79,43 @@ public class DialogHelper {
     }
 
     public static MaterialDialog InputDialog(Context context, String title, MaterialDialog.InputCallback callback, String positiveText, String negativeText, String filledText){
-        MaterialDialog.Builder builder = CustomDialogBuilder(context, title, -1, "" , positiveText, negativeText, null, null, true, callback, filledText);
+        MaterialDialog.Builder builder = CustomDialogBuilder(context, title, -1, "" , positiveText, negativeText, null, null, true, callback, filledText, false);
         return builder.build();
     }
 
     public static MaterialDialog.Builder CustomDialogBuilder(Context context, String title, int icon, String body, String positiveText, String negativeText, MaterialDialog.SingleButtonCallback positiveButtonListener, MaterialDialog.SingleButtonCallback negativeButtonListener, boolean inputDialog, MaterialDialog.InputCallback inputCallback) {
-        return CustomDialogBuilder(context, title, icon, body, positiveText, negativeText, positiveButtonListener, negativeButtonListener, inputDialog, inputCallback, null);
+        return CustomDialogBuilder(context, title, icon, body, positiveText, negativeText, positiveButtonListener, negativeButtonListener, inputDialog, inputCallback, null, false);
     }
 
-    public static MaterialDialog.Builder CustomDialogBuilder(Context context, String title, int icon, String body, String positiveText, String negativeText, MaterialDialog.SingleButtonCallback positiveButtonListener, MaterialDialog.SingleButtonCallback negativeButtonListener, boolean inputDialog, MaterialDialog.InputCallback inputCallback, String filledText) {
+    public static MaterialDialog WordContextDialog(Context context, String title, String translationString){
+        return WordContextDialog(context, title, translationString, "");
+    }
+
+    public static MaterialDialog WordContextDialog(Context context, String title, String translationString, String phraseContext){
+        MaterialDialog.Builder builder = CustomDialogBuilder(context, title, -1, null, "", "", null, null, false, null, null, true);
+        MaterialDialog dialog =  builder.build();
+        View view = dialog.getCustomView();
+        CustomTextView translation = (CustomTextView) view.findViewById(R.id.word_context_menu_translation_text);
+        translation.allowWordContextMenu(); //Check if this label should be recursively translatable
+        translation.setText(translationString);
+        if(phraseContext != null && phraseContext.length() > 0) {
+            CustomTextView contextPhrase = (CustomTextView) view.findViewById(R.id.word_context_menu_phrase_context_text);
+            contextPhrase.allowWordContextMenu(); //Check if this label should be recursively translatable
+            contextPhrase.setText(phraseContext);
+        }
+        return dialog;
+    }
+
+    public static MaterialDialog.Builder CustomDialogBuilder(Context context, String title, int icon, String body, String positiveText, String negativeText, MaterialDialog.SingleButtonCallback positiveButtonListener, MaterialDialog.SingleButtonCallback negativeButtonListener, boolean inputDialog, MaterialDialog.InputCallback inputCallback, String filledText, boolean wordContextMenu) {
         MaterialDialog.Builder builder = new MaterialDialog.Builder(context)
                 .title(title)
                 .titleColor(context.getResources().getColor(R.color.black))
                 .typeface(FontHelper.FONT_NAME, FontHelper.FONT_NAME)
                 .backgroundColor(context.getResources().getColor(R.color.cyan_darkest));
+        if(wordContextMenu){
+            builder.titleGravity(GravityEnum.CENTER)
+                    .customView(R.layout.word_context_menu, true);
+        }
         if(body != null){
             builder.content(body)
                     .contentColor(context.getResources().getColor(R.color.beige));

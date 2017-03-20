@@ -12,6 +12,8 @@ import com.android.volley.toolbox.StringRequest;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import politcc2017.tcc_app.Entities.WordContextMenu;
+
 /**
  * Created by Jonatas on 30/10/2016.
  */
@@ -19,6 +21,11 @@ import org.json.JSONObject;
 public class ServerRequestHelper {
     private static final String baseAdress = "http://";
     private static final String secureBaseAdress = "https://";
+
+    public static WordContextMenu getWordInformation(Context c, String locale, String word){
+        //change this after this is implemented on server
+        return new WordContextMenu("Translation of "+word, "Synonym of "+word, "Antonym of "+word, new String[] {"similar word1", "similat word 2"});
+    }
 
     public static void getString(Context c, String url, final String defaultString, final Response.Listener<String> responseListener){
         String completeURL = ServerConstants.API_URL + url;
