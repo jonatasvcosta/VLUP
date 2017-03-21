@@ -26,6 +26,7 @@
         <activity android:name=".Activities.BookshelfActivity"/>
         <activity android:name=".Activities.CameraActivity"/>
         <activity android:name=".Activities.BookshelfCategoryActivity"/>
+        <activity android:name=".Activities.NewsActivity"/>
         <activity android:name=".Activities.SettingsActivity"/>
     </application>
 

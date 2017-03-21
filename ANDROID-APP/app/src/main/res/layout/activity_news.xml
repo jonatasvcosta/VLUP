@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/cyan_lightest"
+    android:gravity="center_horizontal">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:paddingRight="@dimen/margin_medium"
+        android:paddingLeft="@dimen/margin_medium"
+        android:layout_height="match_parent">
+    <politcc2017.tcc_app.Components.CustomTextView
+        android:id="@+id/activity_news_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/TextMediumGray"
+        android:layout_marginTop="@dimen/margin_large"
+        android:layout_marginBottom="@dimen/margin_large"
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas hendrerit dolor in tellus congue, vel semper enim sagittis. Ut efficitur convallis enim sed rhoncus. Donec a libero a metus mattis maximus nec non est. Mauris aliquet facilisis urna non lacinia. Phasellus convallis turpis et est egestas vulputate. Suspendisse rutrum libero justo, in semper lorem ullamcorper nec. Pellentesque consectetur nibh sed quam vulputate pretium. Pellentesque et sem id elit mollis dignissim at in ex. Pellentesque a luctus orci. Curabitur et pretium velit, hendrerit mollis turpis. Proin eu lobortis nulla, sit amet convallis tellus. Sed elementum lacus quis sapien efficitur, in feugiat elit ullamcorper. Aliquam hendrerit diam vel leo consequat ullamcorper. In feugiat urna sed enim tristique accumsan.
+Donec ullamcorper orci sed placerat pharetra. Nunc laoreet velit a eros elementum ultricies. Nulla eleifend accumsan eros nec accumsan. Nam aliquet mi et ex sodales, sed feugiat ligula vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Ut quis nisl ullamcorper, pellentesque urna ac, dignissim ante. Suspendisse facilisis eros metus, eu commodo eros volutpat sed. In tristique ligula et purus pretium ullamcorper. Curabitur a condimentum purus. Sed fermentum, nunc tincidunt volutpat porta, nibh justo tincidunt quam, non auctor mauris eros nec arcu. Duis euismod ut tortor vitae fringilla. Nunc iaculis magna a facilisis pellentesque. In imperdiet cursus neque, quis commodo velit pulvinar sit amet. Aenean at erat ac nisi dapibus mattis vel quis dolor. Maecenas vitae risus pharetra, consectetur nisi sed, elementum urna." />
+    </ScrollView>
+</LinearLayout>

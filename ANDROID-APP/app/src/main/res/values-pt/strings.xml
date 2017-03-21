@@ -65,4 +65,14 @@
     <!-- Settings Activity -->
     <string name="settings_native_language">Mudar língua nativa</string>
     <string name="settings_activity_title">Configurações</string>
+
+    <!-- WordContextMenu -->
+    <string name="word_context_menu_add">Adicionar à biblioteca pessoal</string>
+    <string name="word_context_menu_translate">Traduzir</string>
+    <string name="word_context_menu_pronounce">Pronúncia</string>
+    <string name="word_context_menu_synonym">Sinônimo</string>
+    <string name="word_context_menu_antonym">Antônimo</string>
+    <string name="word_context_menu_similar_words">Palavras semelhantes</string>
+
+
 </resources>

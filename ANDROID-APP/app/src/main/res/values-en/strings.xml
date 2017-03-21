@@ -61,4 +61,10 @@
     <string name="login_activity_remain_conected">Remain conected</string>
     <string name="login_activity_signup_button_text">New account</string>
     <string name="maintenance_activity_text">This app section wasn\'t designed yet</string>
+    <string name="word_context_menu_synonym">Synonym</string>
+    <string name="word_context_menu_add">Add to bookshelf</string>
+    <string name="word_context_menu_antonym">Antonym</string>
+    <string name="word_context_menu_pronounce">Pronounce</string>
+    <string name="word_context_menu_similar_words">Similar words</string>
+    <string name="word_context_menu_translate">Translate</string>
 </resources>

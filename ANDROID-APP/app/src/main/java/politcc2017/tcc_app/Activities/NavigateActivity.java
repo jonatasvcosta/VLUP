@@ -2,6 +2,7 @@ package politcc2017.tcc_app.Activities;
 
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,16 +16,21 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 
 import java.util.ArrayList;
 
 import politcc2017.tcc_app.Components.CustomSearchToolbar;
+import politcc2017.tcc_app.Components.Helpers.DialogHelper;
+import politcc2017.tcc_app.Components.Helpers.SharedPreferencesHelper;
 import politcc2017.tcc_app.Components.Listeners.CellClickListener;
+import politcc2017.tcc_app.Components.Listeners.ContextMenuClickListener;
 import politcc2017.tcc_app.Components.RecyclerView.Adapters.GenericAdapter;
 import politcc2017.tcc_app.Components.RecyclerView.Data.GenericData;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.ViewHolderType;
+import politcc2017.tcc_app.Entities.WordContextMenu;
 import politcc2017.tcc_app.R;
 import politcc2017.tcc_app.Volley.ServerRequestHelper;
 
@@ -39,6 +45,7 @@ public class NavigateActivity extends BaseActivity implements View.OnClickListen
     private String baseUrl = "https://www.google.com/search?q=";
     private ImageView toolbarSearchIcon, toolbarListIcon;
     private float SCROL_DY;
+    private boolean contextWordDialogOpened = false;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,8 +103,29 @@ public class NavigateActivity extends BaseActivity implements View.OnClickListen
 
         clipboard.addPrimaryClipChangedListener( new ClipboardManager.OnPrimaryClipChangedListener() {
             public void onPrimaryClipChanged() {
-                String a = clipboard.getText().toString();
-                Toast.makeText(getBaseContext(),a,Toast.LENGTH_SHORT).show();
+                String selectedWord = clipboard.getText().toString();
+                if(!contextWordDialogOpened) {
+                    contextWordDialogOpened = true;
+                    WordContextMenu wordData = ServerRequestHelper.getWordInformation(getBaseContext(), SharedPreferencesHelper.getString(SharedPreferencesHelper.LOCALE_KEY), selectedWord);
+                    MaterialDialog dialog = DialogHelper.WordContextDialog(NavigateActivity.this, selectedWord, wordData.translation, "", new ContextMenuClickListener() {
+                        @Override
+                        public void onClick(View v, String action) {
+                            Toast.makeText(getBaseContext(), action, Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onClick(View view) {
+
+                        }
+                    });
+                    dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialogInterface) {
+                            contextWordDialogOpened = false;
+                        }
+                    });
+                    dialog.show();
+                }
             }
         });
     }

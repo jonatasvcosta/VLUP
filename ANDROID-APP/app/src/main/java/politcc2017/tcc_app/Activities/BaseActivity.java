@@ -34,7 +34,7 @@ import static android.content.Intent.FLAG_ACTIVITY_REORDER_TO_FRONT;
 
 public class BaseActivity extends AppCompatActivity {
     public static boolean LANGUAGE_SET = false;
-    public static final int POS_HOME = 0, POS_NAVIGATE = 3, POS_BOOKSHELF = 5, POS_CAMERA = 7, POS_SETTINGS = 9;
+    public static final int POS_HOME = 0, POS_NEWS = 2, POS_NAVIGATE = 3, POS_BOOKSHELF = 5, POS_CAMERA = 7, POS_SETTINGS = 9;
     Toolbar toolbar;
     CustomTextView toolbarTitle;
     RecyclerView drawerRecyclerView;
@@ -148,6 +148,7 @@ public class BaseActivity extends AppCompatActivity {
             public void onClick(View v, int position) {
                 mDrawerLayout.closeDrawers();
                 if(position == POS_HOME) startOrResumeActivity(HomeActivity.class, true);
+                else if(position == POS_NEWS) startOrResumeActivity(NewsActivity.class, true);
                 else if(position == POS_NAVIGATE) startOrResumeActivity(NavigateActivity.class, true);
                 else if(position == POS_BOOKSHELF) startOrResumeActivity(BookshelfActivity.class, true);
                 else if(position == POS_CAMERA) startOrResumeActivity(CameraActivity.class, true);

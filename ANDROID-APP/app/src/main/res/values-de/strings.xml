@@ -64,4 +64,10 @@
     <string name="signup_activity_languages_field">Ich will lernen</string>
     <string name="signup_activity_name_field_error">Geben Sie einen gültigen Namen ein</string>
     <string name="signup_activity_native_language_field">Muttersprache</string>
+    <string name="word_context_menu_add">Zum Bücherschrank hinzufügen</string>
+    <string name="word_context_menu_antonym">Antonym</string>
+    <string name="word_context_menu_pronounce">Aussprache</string>
+    <string name="word_context_menu_similar_words">Ähnliche Wörter</string>
+    <string name="word_context_menu_synonym">Synonym</string>
+    <string name="word_context_menu_translate">Übersetzen</string>
 </resources>
