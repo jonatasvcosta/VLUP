@@ -48,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
-                android:text="Adicionar a biblioteca pessoal"/>
+                android:text="@string/word_context_menu_add"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/translate_context_container"
@@ -69,7 +69,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
-                android:text="Traduzir"/>
+                android:text="@string/word_context_menu_translate"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/pronounce_context_container"
@@ -90,7 +90,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
-                android:text="Pronúncia"/>
+                android:text="@string/word_context_menu_pronounce"/>
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
@@ -116,7 +116,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
-                android:text="Sinônimo"/>
+                android:text="@string/word_context_menu_synonym"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/antonym_context_container"
@@ -136,7 +136,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
-                android:text="Antônimo"/>
+                android:text="@string/word_context_menu_antonym"/>
         </LinearLayout>
         <LinearLayout
             android:id="@+id/similar_words_context_container"
@@ -156,7 +156,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
-                android:text="Palavras semelhantes"/>
+                android:text="@string/word_context_menu_similar_words"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
