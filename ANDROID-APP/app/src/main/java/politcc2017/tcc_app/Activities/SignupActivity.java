@@ -1,14 +1,25 @@
 package politcc2017.tcc_app.Activities;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.res.Configuration;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.Response;
+
+import java.util.Locale;
 
 import politcc2017.tcc_app.Common.ResourcesHelper;
 import politcc2017.tcc_app.Components.CustomButton;
@@ -26,9 +37,9 @@ import politcc2017.tcc_app.Volley.ServerRequestHelper;
  * Created by Jonatas on 25/10/2016.
  */
 
-public class SignupActivity extends AppCompatActivity {
-    CustomEditText nameEditText, ageEditText, emailEditText, motherLanguageEditText, countryEditText, cityEditText, neighborhoodEditText, passwordEditText, passwordConfirmationEditText;
-    CustomPicker genderPicker, otherLanguagesPicker;
+public class SignupActivity extends AppCompatActivity implements LocationListener {
+    CustomEditText emailEditText, passwordEditText, passwordConfirmationEditText;
+    CustomPicker nativeLanguagePicker, learningLanguagePicker;
     CustomButton createAccountButton;
     User user;
     String passwordError, passwordDismatchError;
@@ -42,24 +53,16 @@ public class SignupActivity extends AppCompatActivity {
         createAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(validateFields()) processData();
+                if (validateFields()) processData();
             }
         });
     }
 
-    private void processData(){
+    private void processData() {
         final MaterialDialog loadingDialog = DialogHelper.ProgressDialog(SignupActivity.this, getResources().getString(R.string.dialog_loading_title), getResources().getString(R.string.dialog_loading_title));
         loadingDialog.show();
-        user.name = nameEditText.getText();
-        user.age = ageEditText.getText();
-        user.city = cityEditText.getText();
-        user.country = countryEditText.getText();
         user.email = emailEditText.getText();
-        user.gender = genderPicker.getText();
-        user.motherLanguage = motherLanguageEditText.getText();
-        user.neighborhood = neighborhoodEditText.getText();
         user.password = passwordEditText.getText();
-        SaveUserOnSharedPreferences();
         ServerRequestHelper.postString(getApplicationContext(), ServerConstants.SIGNUP_POST_URL, JSONHelper.objectToJSON(user), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -69,21 +72,10 @@ public class SignupActivity extends AppCompatActivity {
         });
     }
 
-    private void SaveUserOnSharedPreferences(){
-        SharedPreferencesHelper.addString(SharedPreferencesHelper.NAME_KEY ,user.name);
-        SharedPreferencesHelper.addString(SharedPreferencesHelper.AGE_KEY ,user.age);
-        SharedPreferencesHelper.addString(SharedPreferencesHelper.CITY_KEY ,user.city);
-        SharedPreferencesHelper.addString(SharedPreferencesHelper.COUNTRY_KEY ,user.country);
-        SharedPreferencesHelper.addString(SharedPreferencesHelper.EMAIL_KEY ,user.email);
-        SharedPreferencesHelper.addString(SharedPreferencesHelper.GENDER_KEY ,user.gender);
-        SharedPreferencesHelper.addString(SharedPreferencesHelper.MOTHERLANGUAGE_KEY ,user.motherLanguage);
-        SharedPreferencesHelper.addString(SharedPreferencesHelper.NEIGHBORHOOD_KEY ,user.neighborhood);
-        SharedPreferencesHelper.addString(SharedPreferencesHelper.PASSWORD_KEY ,user.password);
-        SharedPreferencesHelper.addStringArray(SharedPreferencesHelper.LANGUAGES_KEY ,user.languages);
-    }
-
-    private boolean validateFields(){
-        if(!passwordsMatch()){
+    private boolean validateFields() {
+        learningLanguagePicker.validate();
+        nativeLanguagePicker.validate();
+        if (!passwordsMatch()) {
             passwordConfirmationEditText.setErrorMessage(passwordDismatchError);
             passwordConfirmationEditText.hasForcedError = true;
             passwordConfirmationEditText.validate();
@@ -91,76 +83,106 @@ public class SignupActivity extends AppCompatActivity {
         }
         passwordConfirmationEditText.hasForcedError = false;
         passwordConfirmationEditText.setErrorMessage(passwordError);
-        nameEditText.validate();
-        ageEditText.validate();
         emailEditText.validate();
-        motherLanguageEditText.validate();
-        countryEditText.validate();
-        cityEditText.validate();
-        neighborhoodEditText.validate();
         passwordEditText.validate();
         passwordConfirmationEditText.validate();
-        genderPicker.validate();
-        otherLanguagesPicker.validate();
-        return (!nameEditText.hasError()&& !ageEditText.hasError()&& !emailEditText.hasError()&& !motherLanguageEditText.hasError()&& !countryEditText.hasError()&& !cityEditText.hasError()
-                && !neighborhoodEditText.hasError()&& !passwordEditText.hasError()&& !passwordConfirmationEditText.hasError()&& !genderPicker.hasError()&& !otherLanguagesPicker.hasError());
+        return (!passwordEditText.hasError() && !passwordConfirmationEditText.hasError() && !nativeLanguagePicker.hasError() && !learningLanguagePicker.hasError());
     }
 
-    private boolean passwordsMatch(){
+    private boolean passwordsMatch() {
         return passwordEditText.getText().equals(passwordConfirmationEditText.getText());
     }
 
-    private void loadViews(){
+    private void loadViews() {
         user = new User();
         passwordError = getResources().getString(R.string.signup_activity_password_field_error);
         passwordDismatchError = getResources().getString(R.string.signup_activity_password_fields_dismatch_error);
-        nameEditText = (CustomEditText) findViewById(R.id.signup_activity_name);
-        ageEditText = (CustomEditText) findViewById(R.id.signup_activity_age);
         emailEditText = (CustomEditText) findViewById(R.id.signup_activity_email);
-        motherLanguageEditText = (CustomEditText) findViewById(R.id.signup_activity_mother_language);
-        countryEditText = (CustomEditText) findViewById(R.id.signup_activity_country);
-        cityEditText = (CustomEditText) findViewById(R.id.signup_activity_city);
-        neighborhoodEditText = (CustomEditText) findViewById(R.id.signup_activity_neighborhood);
         passwordEditText = (CustomEditText) findViewById(R.id.signup_activity_password);
         passwordConfirmationEditText = (CustomEditText) findViewById(R.id.signup_activity_password_confirm);
-        genderPicker = (CustomPicker) findViewById(R.id.signup_activity_gender);
-        otherLanguagesPicker = (CustomPicker) findViewById(R.id.signup_activity_other_languages);
+        learningLanguagePicker = (CustomPicker) findViewById(R.id.signup_activity_other_languages);
+        nativeLanguagePicker = (CustomPicker) findViewById(R.id.signup_activity_native_language);
         createAccountButton = (CustomButton) findViewById(R.id.signup_activity_create_account_button);
+        final String[] locales = getResources().getStringArray(R.array.locale_array);
+        learningLanguagePicker.registerDialog(DialogHelper.ListSingleChoiceDialog(SignupActivity.this, getResources().getString(R.string.signup_activity_languages_field), ResourcesHelper.getStringArrayAsArrayList(getBaseContext(), R.array.languages_array), getResources().getString(R.string.dialog_confirm), getResources().getString(R.string.dialog_cancel), new MaterialDialog.ListCallbackSingleChoice() {
 
-        genderPicker.registerDialog(DialogHelper.ListSingleChoiceDialog(SignupActivity.this, getResources().getString(R.string.signup_activity_gender_field) , ResourcesHelper.getStringArrayAsArrayList(getBaseContext(), R.array.gender_array), getResources().getString(R.string.dialog_confirm), getResources().getString(R.string.dialog_cancel), new MaterialDialog.ListCallbackSingleChoice() {
             @Override
             public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
-                genderPicker.setText((String) text);
+                learningLanguagePicker.setText(text.toString());
+                user.learningLanguage = text.toString();
                 return true;
             }
         }));
 
-        otherLanguagesPicker.registerDialog(DialogHelper.ListMultiChoiceDialog(SignupActivity.this, getResources().getString(R.string.signup_activity_languages_field) , ResourcesHelper.getStringArrayAsArrayList(getBaseContext(), R.array.languages_array), getResources().getString(R.string.dialog_confirm), getResources().getString(R.string.dialog_cancel), new MaterialDialog.ListCallbackMultiChoice() {
+        nativeLanguagePicker.registerDialog(DialogHelper.ListSingleChoiceDialog(SignupActivity.this, getResources().getString(R.string.signup_activity_native_language_field), ResourcesHelper.getStringArrayAsArrayList(getBaseContext(), R.array.languages_array), getResources().getString(R.string.dialog_confirm), getResources().getString(R.string.dialog_cancel), new MaterialDialog.ListCallbackSingleChoice() {
 
             @Override
-            public boolean onSelection(MaterialDialog dialog, Integer[] which, CharSequence[] text) {
-                String textString = "";
-                if(text.length > 0) user.languages = new String[text.length];
-                for(int i = 0; i < text.length; i++) user.languages[i] = (String) text[i];
-                if(text.length == 1) textString = (String) text[0];
-                else if(text.length > 1){
-                    for(int i = 0; i < text.length - 1; i++){
-                        textString+=text[i];
-                        if(i < text.length - 2) textString += ", ";
-                    }
-                    textString += " e " + (String) text[text.length-1];
-                }
-                otherLanguagesPicker.setText(textString);
-                return false;
+            public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
+                nativeLanguagePicker.setText(text.toString());
+                user.nativeLanguage = text.toString();
+                if (which >= 0 && which < locales.length) changeAppLanguage(locales[which]);
+                return true;
             }
         }));
+
+        getGPSLocation();
+    }
+
+    private void getGPSLocation() {
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(SignupActivity.this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    1);
+            return;
+        }
+
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
     }
 
     protected void startLoginActivity(){
+        SaveLanguagesChoice();
         Intent intent = new Intent(getBaseContext(), LoginActivity.class);
         intent.putExtra(SharedPreferencesHelper.EMAIL_KEY, emailEditText.getText());
         intent.putExtra(SharedPreferencesHelper.PASSWORD_KEY, passwordEditText.getText());
         finishAffinity();
         startActivity(intent);
+    }
+
+    public void SaveLanguagesChoice(){
+        SharedPreferencesHelper.addString(SharedPreferencesHelper.LEARNING_LANGUAGE_KEY, user.learningLanguage);
+        SharedPreferencesHelper.addString(SharedPreferencesHelper.NATIVE_LANGUAGE_KEY, user.nativeLanguage);
+    }
+
+    public void changeAppLanguage(String loc){
+        Locale locale = new Locale(loc);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getResources().updateConfiguration(config,getResources().getDisplayMetrics());
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        double latitude = (double) (location.getLatitude());
+        double longitude = (double) (location.getLongitude());
+
+        Toast.makeText(getApplicationContext(), Double.toString(latitude) + " - "+Double.toString(longitude), Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onStatusChanged(String s, int i, Bundle bundle) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String s) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String s) {
+
     }
 }

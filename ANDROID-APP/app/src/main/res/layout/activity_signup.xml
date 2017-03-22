@@ -32,55 +32,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/TextMediumBlack"
-                android:text="@string/signup_activity_name_field" />
-            <politcc2017.tcc_app.Components.CustomEditText
-                android:id="@+id/signup_activity_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:validation_type="non_numeric_mandatory"
-                app:error_message="@string/signup_activity_name_field_error"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:orientation="vertical">
-                    <politcc2017.tcc_app.Components.CustomTextView
-                        style="@style/TextMediumBlack"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/signup_activity_age_field" />
-                    <politcc2017.tcc_app.Components.CustomEditText
-                        android:id="@+id/signup_activity_age"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:validation_type="numeric_mandatory"
-                        app:error_message="@string/signup_activity_age_field_error"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="4"
-                    android:orientation="vertical">
-                    <politcc2017.tcc_app.Components.CustomTextView
-                        style="@style/TextMediumBlack"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/signup_activity_gender_field" />
-                    <politcc2017.tcc_app.Components.CustomPicker
-                        android:id="@+id/signup_activity_gender"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:validation_type="optional"/>
-                </LinearLayout>
-            </LinearLayout>
-            <politcc2017.tcc_app.Components.CustomTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/TextMediumBlack"
                 android:text="@string/signup_activity_email_field" />
             <politcc2017.tcc_app.Components.CustomEditText
                 android:id="@+id/signup_activity_email"
@@ -93,43 +44,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:orientation="vertical">
-                    <politcc2017.tcc_app.Components.CustomTextView
-                        style="@style/TextMediumBlack"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/signup_activity_native_language_field" />
-                    <politcc2017.tcc_app.Components.CustomEditText
-                        android:id="@+id/signup_activity_mother_language"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:validation_type="default_mandatory"
-                        app:display_type="single_line"
-                        app:error_message="@string/signup_activity_native_language_field_error"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:orientation="vertical">
-                    <politcc2017.tcc_app.Components.CustomTextView
-                        style="@style/TextMediumBlack"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/signup_activity_country_field" />
-                    <politcc2017.tcc_app.Components.CustomEditText
-                        android:id="@+id/signup_activity_country"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:validation_type="default_mandatory"
-                        app:display_type="single_line"
-                        app:error_message="@string/signup_activity_country_field_error"/>
-                </LinearLayout>
             </LinearLayout>
+            <politcc2017.tcc_app.Components.CustomTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextMediumBlack"
+                android:text="@string/signup_activity_native_language_field" />
+            <politcc2017.tcc_app.Components.CustomPicker
+                android:id="@+id/signup_activity_native_language"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:validation_type="default_mandatory"
+                app:error_message="@string/signup_activity_native_language_field_error"/>
             <politcc2017.tcc_app.Components.CustomTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -141,47 +67,6 @@
                 android:layout_height="wrap_content"
                 app:validation_type="default_mandatory"
                 app:error_message="@string/signup_activity_languages_field_error"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:orientation="vertical">
-                    <politcc2017.tcc_app.Components.CustomTextView
-                        style="@style/TextMediumBlack"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/signup_activity_city_field" />
-                    <politcc2017.tcc_app.Components.CustomEditText
-                        android:id="@+id/signup_activity_city"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:validation_type="default_mandatory"
-                        app:display_type="single_line"
-                        app:error_message="@string/signup_activity_city_field_error"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:orientation="vertical">
-                    <politcc2017.tcc_app.Components.CustomTextView
-                        style="@style/TextMediumBlack"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/signup_activity_neighborhood_field" />
-                    <politcc2017.tcc_app.Components.CustomEditText
-                        android:id="@+id/signup_activity_neighborhood"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:validation_type="default_mandatory"
-                        app:display_type="single_line"
-                        app:error_message="@string/signup_activity_neighborhood_field_error"/>
-                </LinearLayout>
-            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

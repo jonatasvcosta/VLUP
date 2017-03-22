@@ -25,7 +25,7 @@
     <string name="signup_activity_country_field">País</string>
     <string name="signup_activity_country_field_error">Favor digitar nome de seu país</string>
     <string name="signup_activity_languages_field">Quero aprender</string>
-    <string name="signup_activity_languages_field_error">Escolha um ou mais idiomas</string>
+    <string name="signup_activity_languages_field_error">Escolha um idioma</string>
     <string name="signup_activity_city_field">Cidade</string>
     <string name="signup_activity_city_field_error">Digite o nome de uma cidade</string>
     <string name="signup_activity_neighborhood_field">Bairro</string>

@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
@@ -24,6 +25,7 @@ public class LoginActivity extends AppCompatActivity {
     private CustomEditText emailEditText, passwordEditText;
     private MaterialDialog errorDialog;
     private CheckBox mCheckBox;
+    private LinearLayout checkboxContainer;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +36,9 @@ public class LoginActivity extends AppCompatActivity {
         emailEditText = (CustomEditText) findViewById(R.id.login_activity_email);
         passwordEditText = (CustomEditText) findViewById(R.id.login_activity_password);
         mCheckBox = (CheckBox) findViewById(R.id.login_activity_remain_conected_checkbox);
+        checkboxContainer = (LinearLayout) findViewById(R.id.login_activity_checkbox_container);
+
+        if(SharedPreferencesHelper.getBoolean(SharedPreferencesHelper.AUTOMATIC_AUTHENTICATION_KEY, getApplicationContext())) startHomeActivity(); //the user was previously authenticated
 
         Intent intent = getIntent();
         if(intent != null){
@@ -48,9 +53,16 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(validateLogin()){
                     if(mCheckBox.isChecked()) SharedPreferencesHelper.addBoolean(SharedPreferencesHelper.AUTOMATIC_AUTHENTICATION_KEY, true);
+                    else SharedPreferencesHelper.addBoolean(SharedPreferencesHelper.AUTOMATIC_AUTHENTICATION_KEY, false);
                     startHomeActivity();
                 }
                 else errorDialog.show();
+            }
+        });
+        checkboxContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mCheckBox.setChecked(!mCheckBox.isChecked());
             }
         });
         CustomButton signupButton = (CustomButton) findViewById(R.id.login_activity_signup_button);
@@ -63,10 +75,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     protected boolean validateLogin(){
-        if(SharedPreferencesHelper.getString(SharedPreferencesHelper.EMAIL_KEY).toLowerCase().trim().equals(emailEditText.getText().toLowerCase().trim()) &&
-                SharedPreferencesHelper.getString(SharedPreferencesHelper.PASSWORD_KEY).toLowerCase().trim().equals(passwordEditText.getText().toLowerCase().trim())) return true;
+        MaterialDialog dialog = DialogHelper.ProgressDialog(LoginActivity.this, getResources().getString(R.string.dialog_loading_title));
+        dialog.show();
 
-        return false;
+        //Make authentication call here!
+
+        dialog.dismiss();
+        return true;
     }
 
     protected void startHomeActivity(){

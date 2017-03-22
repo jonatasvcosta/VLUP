@@ -43,10 +43,12 @@
         app:validation_type="password"
         app:error_message="@string/login_activity_password_field_error"/>
     <LinearLayout
+        android:id="@+id/login_activity_checkbox_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:layout_marginBottom="@dimen/margin_medium"
+        android:clickable="true"
         android:orientation="horizontal">
         <CheckBox
             android:id="@+id/login_activity_remain_conected_checkbox"

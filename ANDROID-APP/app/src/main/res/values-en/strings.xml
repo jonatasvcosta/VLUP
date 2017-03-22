@@ -23,7 +23,7 @@
     <string name="signup_activity_country_field">Country</string>
     <string name="signup_activity_country_field_error">Please enter the name of your country</string>
     <string name="signup_activity_languages_field">I wan\'t to learn</string>
-    <string name="signup_activity_languages_field_error">Choose one or more languages</string>
+    <string name="signup_activity_languages_field_error">Choose one language</string>
     <string name="signup_activity_city_field">City</string>
     <string name="signup_activity_city_field_error">Enter the name of a city</string>
     <string name="signup_activity_neighborhood_field">Neighborhood</string>

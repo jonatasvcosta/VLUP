@@ -39,7 +39,7 @@
         <item>Alemão</item>
     </string-array>
 
-    <string-array name="locale_array">
+    <string-array name="locale_array"> <!-- Mantain this order compative with languages array!!!! -->
         <item>pt</item>
         <item>en</item>
         <item>de</item>

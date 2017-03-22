@@ -15,16 +15,10 @@ public class SharedPreferencesHelper {
     private static SharedPreferences mSharedPreferences;
     private static SharedPreferences.Editor mEditor;
     private static final String USER_DATA_PREFERENCES = "USER_DATA";
-    public static final String NAME_KEY = "NAME_KEY";
-    public static final String AGE_KEY = "AGE_KEY";
     public static final String EMAIL_KEY = "EMAIL_KEY";
-    public static final String MOTHERLANGUAGE_KEY = "MOTHERLANGUAGE_KEY";
-    public static final String COUNTRY_KEY = "COUNTRY_KEY";
-    public static final String CITY_KEY = "CITY_KEY";
-    public static final String NEIGHBORHOOD_KEY = "NEIGHBORHOOD_KEY";
+    public static final String NATIVE_LANGUAGE_KEY = "NATIVE_LANGUAGE_KEY";
+    public static final String LEARNING_LANGUAGE_KEY = "LEARNING_LANGUAGE_KEY";
     public static final String PASSWORD_KEY = "PASSWORD_KEY";
-    public static final String GENDER_KEY = "GENDER_KEY";
-    public static final String LANGUAGES_KEY = "LANGUAGES_KEY";
     public static final String AUTOMATIC_AUTHENTICATION_KEY = "AUTOMATIC_AUTHENTICATION_KEY";
     public static final String LOCALE_KEY = "LOCALE_KEY";
     public static final String BOOKSHELF_BD_CHANGED_KEY = "BOOKSHELF_BD_CHANGED_KEY";
