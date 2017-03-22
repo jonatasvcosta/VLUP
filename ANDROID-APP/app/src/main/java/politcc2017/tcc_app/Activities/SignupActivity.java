@@ -167,7 +167,8 @@ public class SignupActivity extends AppCompatActivity implements LocationListene
     public void onLocationChanged(Location location) {
         double latitude = (double) (location.getLatitude());
         double longitude = (double) (location.getLongitude());
-
+        user.latitude = latitude;
+        user.longitude = longitude;
         Toast.makeText(getApplicationContext(), Double.toString(latitude) + " - "+Double.toString(longitude), Toast.LENGTH_LONG).show();
     }
 
