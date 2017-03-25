@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="politcc2017.tcc_app">
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="WRITE_INTERNAL_STORAGE"/>
     <uses-permission android:name="READ_INTERNAL_STORAGE"/>
@@ -14,13 +17,13 @@
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity android:name=".Activities.BaseActivity"/>
         <activity android:name=".Activities.MaintenanceActivity"/>
-        <activity android:name=".Activities.HomeActivity">
+        <activity android:name=".Activities.HomeActivity"/>
+        <activity android:name=".Activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.LoginActivity"/>
         <activity android:name=".Activities.SignupActivity"/>
         <activity android:name=".Activities.NavigateActivity"/>
         <activity android:name=".Activities.BookshelfActivity"/>

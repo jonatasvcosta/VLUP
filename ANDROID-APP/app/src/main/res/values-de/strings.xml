@@ -19,7 +19,7 @@
     <string name="signup_activity_native_language_field_error">Bitte geben Sie Ihre Muttersprache ein</string>
     <string name="signup_activity_country_field">Land</string>
     <string name="signup_activity_country_field_error">Bitte geben Sie den Namen Ihres Landes ein</string>
-    <string name="signup_activity_languages_field_error">Wähle eine oder mehrere Sprachen</string>
+    <string name="signup_activity_languages_field_error">Wähle eine Sprache</string>
     <string name="signup_activity_city_field">Stadt</string>
     <string name="signup_activity_city_field_error">Geben Sie den Namen einer Stadt ein</string>
     <string name="signup_activity_neighborhood_field">Nachbarschaft</string>
