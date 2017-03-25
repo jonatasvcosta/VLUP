@@ -21,12 +21,39 @@
     </item>
     <item
         is-multidex="false"
+        jar="C:\Users\Jonatas\Documents\TCC\ANDROID-APP\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-location\10.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="44a694d4095be84c2888764b1f7256b385c030ad">
+        <dex dex="C:\Users\Jonatas\Documents\TCC\ANDROID-APP\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-location-10.0.1_704f9b0ce765285a1cc0683ae316bc0e9f195d7c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Jonatas\Documents\TCC\ANDROID-APP\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.0.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="2f7e6e2dad1bccaf68a8820820adc6c0d5b96d37">
+        <dex dex="C:\Users\Jonatas\Documents\TCC\ANDROID-APP\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-24.0.0_ceaa53bd54ecc558369608b25c63f671f94a70a1.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="C:\Users\Jonatas\Documents\TCC\ANDROID-APP\app\build\intermediates\exploded-aar\com.android.volley\volley\1.0.0\jars\classes.jar"
         jumboMode="false"
         optimize="true"
         revision="23.0.3"
         sha1="2cd4b982617e544728de0782d718a58ce1b06e3f">
         <dex dex="C:\Users\Jonatas\Documents\TCC\ANDROID-APP\app\build\intermediates\pre-dexed\debug\com.android.volley-volley-1.0.0_66453aac2a3aaafdf286ec2ee47c79eef4a9fdb2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Jonatas\Documents\TCC\ANDROID-APP\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-tasks\10.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="6addaba208e21c6da776d0ca75b6b23a6ccd5499">
+        <dex dex="C:\Users\Jonatas\Documents\TCC\ANDROID-APP\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-tasks-10.0.1_4da3f4c787dee84e05f2a16730f649c0a8c1a9e0.jar" />
     </item>
     <item
         is-multidex="false"
@@ -39,6 +66,15 @@
     </item>
     <item
         is-multidex="false"
+        jar="C:\Users\Jonatas\Documents\TCC\ANDROID-APP\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\10.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="756f6297eef79784f5e356dcd4f39865028b2bd0">
+        <dex dex="C:\Users\Jonatas\Documents\TCC\ANDROID-APP\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-basement-10.0.1_c3508795ebd8af2a9beaaf797d387f7951b29d62.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="C:\Users\Jonatas\Documents\TCC\ANDROID-APP\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.4.0\jars\classes.jar"
         jumboMode="false"
         optimize="true"
@@ -48,12 +84,12 @@
     </item>
     <item
         is-multidex="false"
-        jar="C:\Users\Jonatas\Documents\TCC\ANDROID-APP\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.4.0\jars\classes.jar"
+        jar="C:\Users\Jonatas\Documents\TCC\ANDROID-APP\app\build\intermediates\exploded-aar\com.android.support\support-v4\24.0.0\jars\libs\internal_impl-24.0.0.jar"
         jumboMode="false"
         optimize="true"
         revision="23.0.3"
-        sha1="67bd36ee9340ec7c254108936ad16b24bed160cc">
-        <dex dex="C:\Users\Jonatas\Documents\TCC\ANDROID-APP\app\build\intermediates\pre-dexed\debug\com.android.support-support-v4-23.4.0_17929f2c1557dcd7a71347229587e48f5bee9e9c.jar" />
+        sha1="fcaf463e10e69c1923ccf1edeba3b4196d239e00">
+        <dex dex="C:\Users\Jonatas\Documents\TCC\ANDROID-APP\app\build\intermediates\pre-dexed\debug\internal_impl-24.0.0_79cbcd1a5963dd1c4a895b41dd2e08265ab6c8d3.jar" />
     </item>
     <item
         is-multidex="false"
@@ -93,6 +129,15 @@
     </item>
     <item
         is-multidex="false"
+        jar="C:\Users\Jonatas\Documents\TCC\ANDROID-APP\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-iid\10.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="6bb5d347ebc0c6ef3c83a905222a688da5d2f7b4">
+        <dex dex="C:\Users\Jonatas\Documents\TCC\ANDROID-APP\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-iid-10.0.1_0a53d2ca2df829980a936c7c3cd456db36147adb.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="C:\Users\Jonatas\Documents\TCC\ANDROID-APP\app\build\intermediates\exploded-aar\com.afollestad.material-dialogs\core\0.8.5.9\jars\classes.jar"
         jumboMode="false"
         optimize="true"
@@ -111,12 +156,12 @@
     </item>
     <item
         is-multidex="false"
-        jar="C:\Users\Jonatas\Documents\TCC\ANDROID-APP\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.4.0\jars\libs\internal_impl-23.4.0.jar"
+        jar="C:\Users\Jonatas\Documents\TCC\ANDROID-APP\app\build\intermediates\exploded-aar\net.alexandroid.utils\gps\1.6\jars\classes.jar"
         jumboMode="false"
         optimize="true"
         revision="23.0.3"
-        sha1="ea3c07504d2c8f4b13aa17c45c1b68ed9c1c3674">
-        <dex dex="C:\Users\Jonatas\Documents\TCC\ANDROID-APP\app\build\intermediates\pre-dexed\debug\internal_impl-23.4.0_7b86266f6ced243d8dfb8ec25bda5c24c8dba07f.jar" />
+        sha1="d7987ce50317432ee7fca19f2e26c399fe88b92b">
+        <dex dex="C:\Users\Jonatas\Documents\TCC\ANDROID-APP\app\build\intermediates\pre-dexed\debug\net.alexandroid.utils-gps-1.6_e92c9bb7e570368e4d3e346d538e19c3d37cb1e6.jar" />
     </item>
     <item
         is-multidex="false"
@@ -135,6 +180,24 @@
         revision="23.0.3"
         sha1="4a9f97c742d058ca55948643c06f447895a9af76">
         <dex dex="C:\Users\Jonatas\Documents\TCC\ANDROID-APP\app\build\intermediates\pre-dexed\debug\me.zhanghai.android.materialprogressbar-library-1.1.5_a0a047afe4c8a64bdcd32f2f4c711cb98c04610f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Jonatas\Documents\TCC\ANDROID-APP\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\10.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="25438f55fc6d906a0e72f30b21487541430ede43">
+        <dex dex="C:\Users\Jonatas\Documents\TCC\ANDROID-APP\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-base-10.0.1_2a46c50d9af063b6a01ddad7a29a292aca74e427.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Jonatas\Documents\TCC\ANDROID-APP\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\10.0.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="8308ed003522a2ee8958311afcc4cfd0470377cd">
+        <dex dex="C:\Users\Jonatas\Documents\TCC\ANDROID-APP\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-gcm-10.0.1_d6aec7a4ad37f882e1a7bf74cc84b1f441af54d0.jar" />
     </item>
 
 </items>

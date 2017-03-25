@@ -14,10 +14,11 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.Response;
+
+import net.alexandroid.gps.GpsStatusDetector;
 
 import java.util.Locale;
 
@@ -37,12 +38,13 @@ import politcc2017.tcc_app.Volley.ServerRequestHelper;
  * Created by Jonatas on 25/10/2016.
  */
 
-public class SignupActivity extends AppCompatActivity implements LocationListener {
-    CustomEditText emailEditText, passwordEditText, passwordConfirmationEditText;
+public class SignupActivity extends AppCompatActivity implements LocationListener , GpsStatusDetector.GpsStatusDetectorCallBack{
+    CustomEditText nameEditText, emailEditText, passwordEditText, passwordConfirmationEditText;
     CustomPicker nativeLanguagePicker, learningLanguagePicker;
     CustomButton createAccountButton;
     User user;
     String passwordError, passwordDismatchError;
+    private GpsStatusDetector mGpsStatusDetector;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,12 +52,15 @@ public class SignupActivity extends AppCompatActivity implements LocationListene
         super.setContentView(R.layout.activity_signup);
         ActionBar bar = getSupportActionBar();
         loadViews();
+        getGPSLocation();
         createAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (validateFields()) processData();
             }
         });
+        mGpsStatusDetector = new GpsStatusDetector(this);
+        mGpsStatusDetector.checkGpsStatus();
     }
 
     private void processData() {
@@ -63,6 +68,7 @@ public class SignupActivity extends AppCompatActivity implements LocationListene
         loadingDialog.show();
         user.email = emailEditText.getText();
         user.password = passwordEditText.getText();
+        user.name = nameEditText.getText();
         ServerRequestHelper.postString(getApplicationContext(), ServerConstants.SIGNUP_POST_URL, JSONHelper.objectToJSON(user), new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -70,6 +76,12 @@ public class SignupActivity extends AppCompatActivity implements LocationListene
                 startLoginActivity();
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        mGpsStatusDetector.checkOnActivityResult(requestCode, resultCode);
     }
 
     private boolean validateFields() {
@@ -84,9 +96,10 @@ public class SignupActivity extends AppCompatActivity implements LocationListene
         passwordConfirmationEditText.hasForcedError = false;
         passwordConfirmationEditText.setErrorMessage(passwordError);
         emailEditText.validate();
+        nameEditText.validate();
         passwordEditText.validate();
         passwordConfirmationEditText.validate();
-        return (!passwordEditText.hasError() && !passwordConfirmationEditText.hasError() && !nativeLanguagePicker.hasError() && !learningLanguagePicker.hasError());
+        return (!nameEditText.hasError() && !passwordEditText.hasError() && !passwordConfirmationEditText.hasError() && !nativeLanguagePicker.hasError() && !learningLanguagePicker.hasError());
     }
 
     private boolean passwordsMatch() {
@@ -97,6 +110,7 @@ public class SignupActivity extends AppCompatActivity implements LocationListene
         user = new User();
         passwordError = getResources().getString(R.string.signup_activity_password_field_error);
         passwordDismatchError = getResources().getString(R.string.signup_activity_password_fields_dismatch_error);
+        nameEditText = (CustomEditText) findViewById(R.id.signup_activity_name);
         emailEditText = (CustomEditText) findViewById(R.id.signup_activity_email);
         passwordEditText = (CustomEditText) findViewById(R.id.signup_activity_password);
         passwordConfirmationEditText = (CustomEditText) findViewById(R.id.signup_activity_password_confirm);
@@ -124,8 +138,6 @@ public class SignupActivity extends AppCompatActivity implements LocationListene
                 return true;
             }
         }));
-
-        getGPSLocation();
     }
 
     private void getGPSLocation() {
@@ -136,9 +148,11 @@ public class SignupActivity extends AppCompatActivity implements LocationListene
                     1);
             return;
         }
+        if (locationManager.getAllProviders().contains(LocationManager.NETWORK_PROVIDER))
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
 
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+        if (locationManager.getAllProviders().contains(LocationManager.GPS_PROVIDER))
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
     }
 
     protected void startLoginActivity(){
@@ -169,7 +183,6 @@ public class SignupActivity extends AppCompatActivity implements LocationListene
         double longitude = (double) (location.getLongitude());
         user.latitude = latitude;
         user.longitude = longitude;
-        Toast.makeText(getApplicationContext(), Double.toString(latitude) + " - "+Double.toString(longitude), Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -184,6 +197,16 @@ public class SignupActivity extends AppCompatActivity implements LocationListene
 
     @Override
     public void onProviderDisabled(String s) {
+
+    }
+
+    @Override
+    public void onGpsSettingStatus(boolean enabled) {
+
+    }
+
+    @Override
+    public void onGpsAlertCanceledByUser() {
 
     }
 }

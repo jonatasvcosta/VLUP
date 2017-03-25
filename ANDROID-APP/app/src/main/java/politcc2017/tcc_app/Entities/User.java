@@ -5,6 +5,6 @@ package politcc2017.tcc_app.Entities;
  */
 
 public class User {
-    public String email, nativeLanguage, learningLanguage, password;
+    public String name, email, nativeLanguage, learningLanguage, password;
     public double latitude, longitude;
 }
