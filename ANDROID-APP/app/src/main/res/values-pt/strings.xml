@@ -73,6 +73,15 @@
     <string name="word_context_menu_synonym">Sinônimo</string>
     <string name="word_context_menu_antonym">Antônimo</string>
     <string name="word_context_menu_similar_words">Palavras semelhantes</string>
+    <string name="toast_bold">Negrito</string>
+    <string name="toast_bullet">Marcador</string>
+    <string name="toast_format_clear">Limpar formatação</string>
+    <string name="toast_italic">Itálico</string>
+    <string name="toast_quote">Citação</string>
+    <string name="toast_strikethrough">Rasura</string>
+    <string name="toast_underline">Sublinhado</string>
+
+    <!-- KnifeEditText -->
 
 
 </resources>

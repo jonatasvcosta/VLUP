@@ -70,4 +70,11 @@
     <string name="word_context_menu_similar_words">Ähnliche Wörter</string>
     <string name="word_context_menu_synonym">Synonym</string>
     <string name="word_context_menu_translate">Übersetzen</string>
+    <string name="toast_bold">Fett gedruckt</string>
+    <string name="toast_format_clear">Format löschen</string>
+    <string name="toast_italic">Kursiv</string>
+    <string name="toast_quote">Zitat</string>
+    <string name="toast_strikethrough">Durchgestrichen</string>
+    <string name="toast_underline">Unterstreichen</string>
+    <string name="toast_bullet">Marker</string>
 </resources>

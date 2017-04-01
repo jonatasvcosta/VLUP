@@ -67,4 +67,13 @@
     <string name="word_context_menu_pronounce">Pronounce</string>
     <string name="word_context_menu_similar_words">Similar words</string>
     <string name="word_context_menu_translate">Translate</string>
+
+    <!-- KnifeEditText -->
+    <string name="toast_bold">Bold</string>
+    <string name="toast_italic">Italic</string>
+    <string name="toast_underline">Underline</string>
+    <string name="toast_strikethrough">Strikethrough</string>
+    <string name="toast_bullet">Bullet</string>
+    <string name="toast_quote">Quote</string>
+    <string name="toast_format_clear">Format clear</string>
 </resources>
