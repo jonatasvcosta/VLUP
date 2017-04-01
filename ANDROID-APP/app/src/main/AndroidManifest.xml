@@ -27,7 +27,8 @@
         <activity android:name=".Activities.SignupActivity"/>
         <activity android:name=".Activities.NavigateActivity"/>
         <activity android:name=".Activities.BookshelfActivity"/>
-        <activity android:name=".Activities.BeAProCreateClassActivity"/>
+        <activity android:name=".Activities.BeAPro.BeAProCreateClassTextActivity"/>
+        <activity android:name=".Activities.BeAPro.BeAProCreateClassActivity"/>
         <activity android:name=".Activities.CameraActivity"/>
         <activity android:name=".Activities.BookshelfCategoryActivity"/>
         <activity android:name=".Activities.NewsActivity"/>

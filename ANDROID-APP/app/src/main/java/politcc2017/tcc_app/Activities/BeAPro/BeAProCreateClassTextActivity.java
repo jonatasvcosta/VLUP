@@ -1,4 +1,4 @@
-package politcc2017.tcc_app.Activities;
+package politcc2017.tcc_app.Activities.BeAPro;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,6 +7,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import io.github.mthli.knife.KnifeText;
+import politcc2017.tcc_app.Activities.BaseActivity;
 import politcc2017.tcc_app.Components.Helpers.FontHelper;
 import politcc2017.tcc_app.Components.Listeners.ContextMenuClickListener;
 import politcc2017.tcc_app.R;
@@ -15,14 +16,14 @@ import politcc2017.tcc_app.R;
  * Created by Jonatas on 01/04/2017.
  */
 
-public class BeAProCreateClassActivity extends BaseActivity implements ContextMenuClickListener{
+public class BeAProCreateClassTextActivity extends BaseActivity implements ContextMenuClickListener{
 
     private KnifeText classText;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        super.setContentView(R.layout.be_a_pro_create_class);
+        super.setContentView(R.layout.be_a_pro_create_class_text);
         classText = (KnifeText) findViewById(R.id.class_text);
         classText.setTypeface(FontHelper.get(FontHelper.TTF_FONT, getApplicationContext()));
         classText.setSelection(classText.getEditableText().length());
@@ -63,7 +64,7 @@ public class BeAProCreateClassActivity extends BaseActivity implements ContextMe
         bold.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Toast.makeText(BeAProCreateClassActivity.this, R.string.toast_bold, Toast.LENGTH_SHORT).show();
+                Toast.makeText(BeAProCreateClassTextActivity.this, R.string.toast_bold, Toast.LENGTH_SHORT).show();
                 return true;
             }
         });
@@ -82,7 +83,7 @@ public class BeAProCreateClassActivity extends BaseActivity implements ContextMe
         italic.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Toast.makeText(BeAProCreateClassActivity.this, R.string.toast_italic, Toast.LENGTH_SHORT).show();
+                Toast.makeText(BeAProCreateClassTextActivity.this, R.string.toast_italic, Toast.LENGTH_SHORT).show();
                 return true;
             }
         });
@@ -101,7 +102,7 @@ public class BeAProCreateClassActivity extends BaseActivity implements ContextMe
         underline.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Toast.makeText(BeAProCreateClassActivity.this, R.string.toast_underline, Toast.LENGTH_SHORT).show();
+                Toast.makeText(BeAProCreateClassTextActivity.this, R.string.toast_underline, Toast.LENGTH_SHORT).show();
                 return true;
             }
         });
@@ -120,7 +121,7 @@ public class BeAProCreateClassActivity extends BaseActivity implements ContextMe
         strikethrough.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Toast.makeText(BeAProCreateClassActivity.this, R.string.toast_strikethrough, Toast.LENGTH_SHORT).show();
+                Toast.makeText(BeAProCreateClassTextActivity.this, R.string.toast_strikethrough, Toast.LENGTH_SHORT).show();
                 return true;
             }
         });
@@ -140,7 +141,7 @@ public class BeAProCreateClassActivity extends BaseActivity implements ContextMe
         bullet.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Toast.makeText(BeAProCreateClassActivity.this, R.string.toast_bullet, Toast.LENGTH_SHORT).show();
+                Toast.makeText(BeAProCreateClassTextActivity.this, R.string.toast_bullet, Toast.LENGTH_SHORT).show();
                 return true;
             }
         });
@@ -159,7 +160,7 @@ public class BeAProCreateClassActivity extends BaseActivity implements ContextMe
         quote.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Toast.makeText(BeAProCreateClassActivity.this, R.string.toast_quote, Toast.LENGTH_SHORT).show();
+                Toast.makeText(BeAProCreateClassTextActivity.this, R.string.toast_quote, Toast.LENGTH_SHORT).show();
                 return true;
             }
         });
@@ -178,7 +179,7 @@ public class BeAProCreateClassActivity extends BaseActivity implements ContextMe
         clear.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Toast.makeText(BeAProCreateClassActivity.this, R.string.toast_format_clear, Toast.LENGTH_SHORT).show();
+                Toast.makeText(BeAProCreateClassTextActivity.this, R.string.toast_format_clear, Toast.LENGTH_SHORT).show();
                 return true;
             }
         });

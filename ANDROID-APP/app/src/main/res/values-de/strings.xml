@@ -77,4 +77,9 @@
     <string name="toast_strikethrough">Durchgestrichen</string>
     <string name="toast_underline">Unterstreichen</string>
     <string name="toast_bullet">Marker</string>
+    <string name="be_a_pro_language_picker_text">Wähle die Sprache der Lektion</string>
+    <string name="be_a_pro_language_title_text_error">Titel ist erforderlich</string>
+    <string name="be_a_pro_language_title_text">Klasse Titel</string>
+    <string name="be_a_pro_language_tags_text_error">Bitte geben Sie mindestens ein Schlüsselwort ein</string>
+    <string name="be_a_pro_language_tags_text">Schlüsselwörter für Ihre Klasse</string>
 </resources>

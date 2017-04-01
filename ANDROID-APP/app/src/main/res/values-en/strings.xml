@@ -76,4 +76,9 @@
     <string name="toast_bullet">Bullet</string>
     <string name="toast_quote">Quote</string>
     <string name="toast_format_clear">Format clear</string>
+    <string name="be_a_pro_language_picker_text">Choose the language of the lesson</string>
+    <string name="be_a_pro_language_tags_text">Keywords for your class</string>
+    <string name="be_a_pro_language_tags_text_error">Please enter at least one keyword</string>
+    <string name="be_a_pro_language_title_text">Class Title</string>
+    <string name="be_a_pro_language_title_text_error">Title is required</string>
 </resources>
