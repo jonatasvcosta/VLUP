@@ -89,5 +89,10 @@
     <string name="be_a_pro_language_title_text_error">O título é obrigatório</string>
     <string name="be_a_pro_language_tags_text">Palavras-chave para sua aula</string>
     <string name="be_a_pro_language_tags_text_error">Insira ao menos uma palavra chave</string>
+    <string name="be_a_pro_class_content_text">Conteúdo da aula</string>
+    <string name="continue_class_button">Continuar</string>
+    <string name="save_class_button">Salvar aula</string>
+    <string name="be_a_pro_activity_title">Você ensina/aprende</string>
+    <string name="be_a_pro_translation_language_picker_text">Informar caso utilize outro idioma para explicar a aula</string>
 
 </resources>

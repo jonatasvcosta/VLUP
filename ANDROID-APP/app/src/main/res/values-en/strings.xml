@@ -77,8 +77,13 @@
     <string name="toast_quote">Quote</string>
     <string name="toast_format_clear">Format clear</string>
     <string name="be_a_pro_language_picker_text">Choose the language of the lesson</string>
-    <string name="be_a_pro_language_tags_text">Keywords for your class</string>
+    <string name="be_a_pro_language_tags_text">Keywords for your lesson</string>
     <string name="be_a_pro_language_tags_text_error">Please enter at least one keyword</string>
-    <string name="be_a_pro_language_title_text">Class Title</string>
+    <string name="be_a_pro_language_title_text">Lesson Title</string>
     <string name="be_a_pro_language_title_text_error">Title is required</string>
+    <string name="be_a_pro_class_content_text">Class content</string>
+    <string name="continue_class_button">Next</string>
+    <string name="save_class_button">Save lesson</string>
+    <string name="be_a_pro_activity_title">Be a Pro</string>
+    <string name="be_a_pro_translation_language_picker_text">Inform if you use another language to explain the lesson</string>
 </resources>

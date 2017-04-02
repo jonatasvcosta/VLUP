@@ -97,6 +97,7 @@
         android:paddingEnd="16dp"
         android:gravity="top|start"
         android:textColor="@color/gray"
+        android:textSize="@dimen/font_medium"
         android:scrollbars="vertical"
         android:background="@android:color/transparent"
         app:bulletColor="@color/cyan"

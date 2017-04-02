@@ -1,5 +1,7 @@
 package politcc2017.tcc_app.Activities.BeAPro;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -27,6 +29,10 @@ public class BeAProCreateClassTextActivity extends BaseActivity implements Conte
         classText = (KnifeText) findViewById(R.id.class_text);
         classText.setTypeface(FontHelper.get(FontHelper.TTF_FONT, getApplicationContext()));
         classText.setSelection(classText.getEditableText().length());
+        Intent i = getIntent();
+        String content = null;
+        if(i != null) content = i.getStringExtra("content");
+        if(content != null && content.length() > 0) classText.fromHtml(content);
         setupComponent();
         setupEditorToolbarRightIcons(this);
     }
@@ -34,11 +40,13 @@ public class BeAProCreateClassTextActivity extends BaseActivity implements Conte
     @Override
     public void onBackPressed() {
         SaveText();
-        super.onBackPressed();
     }
 
     private void SaveText(){
-
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("content", classText.toHtml());
+        setResult(Activity.RESULT_OK,returnIntent);
+        finish();
     }
 
     private void setupComponent(){

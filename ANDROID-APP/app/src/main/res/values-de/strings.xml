@@ -79,7 +79,12 @@
     <string name="toast_bullet">Marker</string>
     <string name="be_a_pro_language_picker_text">Wähle die Sprache der Lektion</string>
     <string name="be_a_pro_language_title_text_error">Titel ist erforderlich</string>
-    <string name="be_a_pro_language_title_text">Klasse Titel</string>
+    <string name="be_a_pro_language_title_text">Lektion Titel</string>
     <string name="be_a_pro_language_tags_text_error">Bitte geben Sie mindestens ein Schlüsselwort ein</string>
-    <string name="be_a_pro_language_tags_text">Schlüsselwörter für Ihre Klasse</string>
+    <string name="be_a_pro_language_tags_text">Schlüsselwörter für Ihre Lektion</string>
+    <string name="be_a_pro_class_content_text">Klasseninhalt</string>
+    <string name="continue_class_button">Weiter</string>
+    <string name="save_class_button">Lektion speichern</string>
+    <string name="be_a_pro_activity_title">Sie lehren/lernen</string>
+    <string name="be_a_pro_translation_language_picker_text">Informieren, wenn Sie eine andere Sprache verwenden, um die Lektion zu erklären</string>
 </resources>
