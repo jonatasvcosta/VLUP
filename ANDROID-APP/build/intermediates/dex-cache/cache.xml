@@ -84,6 +84,15 @@
     </item>
     <item
         is-multidex="false"
+        jar="C:\Users\Jonatas\Documents\TCC\ANDROID-APP\app\build\intermediates\exploded-aar\com.github.mabbas007\TagsEditText\v1.0.4\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="3830765afa2c330367733bf4a3ab62d6bd4dbef8">
+        <dex dex="C:\Users\Jonatas\Documents\TCC\ANDROID-APP\app\build\intermediates\pre-dexed\debug\com.github.mabbas007-TagsEditText-v1.0.4_30e1002cc980333092d0f9c84c4eddaf569a5af1.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="C:\Users\Jonatas\Documents\TCC\ANDROID-APP\app\build\intermediates\exploded-aar\com.afollestad.material-dialogs\core\0.8.5.9\jars\classes.jar"
         jumboMode="false"
         optimize="true"

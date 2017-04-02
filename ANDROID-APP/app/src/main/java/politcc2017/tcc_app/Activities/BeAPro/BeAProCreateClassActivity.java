@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import io.github.mthli.knife.KnifeText;
+import mabbas007.tagsedittext.TagsEditText;
 import politcc2017.tcc_app.Activities.BaseActivity;
 import politcc2017.tcc_app.Common.ResourcesHelper;
 import politcc2017.tcc_app.Components.CustomButton;
@@ -27,6 +28,7 @@ public class BeAProCreateClassActivity extends BaseActivity {
     private CustomButton continueOrSaveClassButton;
     private LinearLayout contentContainer;
     private KnifeText content;
+    private TagsEditText tags;
     private CustomEditText classTitle;
     private CustomPicker classLanguage;
     private CustomPicker translationLanguage;
@@ -40,10 +42,12 @@ public class BeAProCreateClassActivity extends BaseActivity {
         continueOrSaveClassButton = (CustomButton) findViewById(R.id.class_continue_or_save_button);
         contentContainer = (LinearLayout) findViewById(R.id.class_content_container);
         content = (KnifeText) findViewById(R.id.class_text_content);
+        tags = (TagsEditText) findViewById(R.id.be_a_pro_class_tags);
         classTitle = (CustomEditText) findViewById(R.id.be_a_pro_class_title_text);
         classLanguage = (CustomPicker) findViewById(R.id.be_a_pro_class_language_picker);
         translationLanguage = (CustomPicker) findViewById(R.id.be_a_pro_translation_language_picker);
         content.setTypeface(FontHelper.get(FontHelper.TTF_FONT, getApplicationContext()));
+        tags.setTypeface(FontHelper.get(FontHelper.TTF_FONT, getApplicationContext()));
         continueOrSaveClassButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

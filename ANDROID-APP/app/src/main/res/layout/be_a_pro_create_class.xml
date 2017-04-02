@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    xmlns:TagsEditText="http://schemas.android.com/tools"
     android:background="@color/cyan_lightest"
     android:layout_height="match_parent">
     <LinearLayout
@@ -47,6 +48,19 @@
             android:layout_height="wrap_content"
             style="@style/TextMediumBlack"
             android:text="@string/be_a_pro_language_tags_text" />
+        <mabbas007.tagsedittext.TagsEditText
+            android:id="@+id/be_a_pro_class_tags"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            TagsEditText:allowSpaceInTag="true"
+            TagsEditText:textSize="@dimen/font_medium"
+            android:textSize="@dimen/font_medium"
+            app:tagsTextColor="@color/gray"
+            app:tagsBackground="@drawable/primary_button_background"
+            app:tagsPaddingLeft="@dimen/margin_extra_small"
+            app:tagsPaddingRight="@dimen/margin_extra_small"
+            app:tagsPaddingBottom="@dimen/margin_extra_small"
+            app:tagsCloseImagePadding="@dimen/margin_extra_small"/>
         <LinearLayout
             android:id="@+id/class_content_container"
             android:visibility="gone"
