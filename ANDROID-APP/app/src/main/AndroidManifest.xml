@@ -29,6 +29,7 @@
         <activity android:name=".Activities.BookshelfActivity"/>
         <activity android:name=".Activities.BeAPro.BeAProCreateClassTextActivity"/>
         <activity android:name=".Activities.BeAPro.BeAProCreateClassActivity"/>
+        <activity android:name=".Activities.BeAPro.BeAProListClassesActivity"/>
         <activity android:name=".Activities.CameraActivity"/>
         <activity android:name=".Activities.BookshelfCategoryActivity"/>
         <activity android:name=".Activities.NewsActivity"/>

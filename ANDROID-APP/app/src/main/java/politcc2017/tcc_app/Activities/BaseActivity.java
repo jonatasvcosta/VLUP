@@ -21,7 +21,7 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import politcc2017.tcc_app.Activities.BeAPro.BeAProCreateClassActivity;
+import politcc2017.tcc_app.Activities.BeAPro.BeAProListClassesActivity;
 import politcc2017.tcc_app.Common.ResourcesHelper;
 import politcc2017.tcc_app.Components.CustomTextView;
 import politcc2017.tcc_app.Components.Helpers.SharedPreferencesHelper;
@@ -186,7 +186,7 @@ public class BaseActivity extends AppCompatActivity {
                 if(position == POS_HOME) startOrResumeActivity(HomeActivity.class, true);
                 else if(position == POS_NEWS) startOrResumeActivity(NewsActivity.class, true);
                 else if(position == POS_NAVIGATE) startOrResumeActivity(NavigateActivity.class, true);
-                else if(position == POS_BE_A_PRO) startOrResumeActivity(BeAProCreateClassActivity.class, true);
+                else if(position == POS_BE_A_PRO) startOrResumeActivity(BeAProListClassesActivity.class, true);
                 else if(position == POS_BOOKSHELF) startOrResumeActivity(BookshelfActivity.class, true);
                 else if(position == POS_CAMERA) startOrResumeActivity(CameraActivity.class, true);
                 else if(position == POS_SETTINGS) startOrResumeActivity(SettingsActivity.class, true);
