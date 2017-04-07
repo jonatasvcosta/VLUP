@@ -46,9 +46,9 @@ public class BeAProListClassesActivity extends BaseActivity{
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new BeAProFragment(), "News");
-        adapter.addFragment(new BeAProFragment(), "Favorites");
-        adapter.addFragment(new BeAProFragment(), "My Classes");
+        adapter.addFragment(new BeAProFragment(), getResString(R.string.be_a_pro_new_tab));
+        adapter.addFragment(new BeAProFragment(), getResString(R.string.be_a_pro_favorites_tab));
+        adapter.addFragment(new BeAProFragment(), getResString(R.string.be_a_pro_myclasses_tab));
         viewPager.setAdapter(adapter);
     }
 

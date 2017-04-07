@@ -26,6 +26,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/TextMediumBlack"
+            android:text="@string/be_a_pro_translation_language_picker_text" />
+        <politcc2017.tcc_app.Components.CustomPicker
+            android:id="@+id/be_a_pro_translation_language_picker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <politcc2017.tcc_app.Components.CustomTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/TextMediumBlack"
             android:text="@string/be_a_pro_language_title_text" />
         <politcc2017.tcc_app.Components.CustomEditText
             android:id="@+id/be_a_pro_class_title_text"
@@ -34,15 +43,6 @@
             app:validation_type="non_numeric_mandatory"
             app:display_type="single_line"
             app:error_message="@string/be_a_pro_language_title_text_error"/>
-        <politcc2017.tcc_app.Components.CustomTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/TextMediumBlack"
-            android:text="@string/be_a_pro_translation_language_picker_text" />
-        <politcc2017.tcc_app.Components.CustomPicker
-            android:id="@+id/be_a_pro_translation_language_picker"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
         <politcc2017.tcc_app.Components.CustomTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

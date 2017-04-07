@@ -93,6 +93,9 @@
     <string name="continue_class_button">Continuar</string>
     <string name="save_class_button">Salvar aula</string>
     <string name="be_a_pro_activity_title">Você ensina/aprende</string>
-    <string name="be_a_pro_translation_language_picker_text">Informar caso utilize outro idioma para explicar a aula</string>
+    <string name="be_a_pro_translation_language_picker_text">Idioma para traduções (se necessário)</string>
+    <string name="be_a_pro_favorites_tab">Favoritas</string>
+    <string name="be_a_pro_myclasses_tab">Minhas aulas</string>
+    <string name="be_a_pro_new_tab">Novidades</string>
 
 </resources>

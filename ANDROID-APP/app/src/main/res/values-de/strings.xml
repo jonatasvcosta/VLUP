@@ -86,5 +86,8 @@
     <string name="continue_class_button">Weiter</string>
     <string name="save_class_button">Lektion speichern</string>
     <string name="be_a_pro_activity_title">Sie lehren/lernen</string>
-    <string name="be_a_pro_translation_language_picker_text">Informieren, wenn Sie eine andere Sprache verwenden, um die Lektion zu erklären</string>
+    <string name="be_a_pro_translation_language_picker_text">Sprache für Übersetzungen (wenn erforderlich)</string>
+    <string name="be_a_pro_favorites_tab">Lieblings</string>
+    <string name="be_a_pro_new_tab">Neu</string>
+    <string name="be_a_pro_myclasses_tab">Meine Lektionen</string>
 </resources>

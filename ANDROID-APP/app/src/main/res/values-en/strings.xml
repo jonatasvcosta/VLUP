@@ -85,5 +85,8 @@
     <string name="continue_class_button">Next</string>
     <string name="save_class_button">Save lesson</string>
     <string name="be_a_pro_activity_title">Be a Pro</string>
-    <string name="be_a_pro_translation_language_picker_text">Inform if you use another language to explain the lesson</string>
+    <string name="be_a_pro_translation_language_picker_text">Language for translations (if needed)</string>
+    <string name="be_a_pro_new_tab">New</string>
+    <string name="be_a_pro_favorites_tab">Favorites</string>
+    <string name="be_a_pro_myclasses_tab">My Classes</string>
 </resources>
