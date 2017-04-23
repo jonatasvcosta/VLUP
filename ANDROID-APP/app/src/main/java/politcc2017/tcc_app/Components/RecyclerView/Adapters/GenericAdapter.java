@@ -10,6 +10,7 @@ import politcc2017.tcc_app.Components.Listeners.CellClickListener;
 import politcc2017.tcc_app.Components.RecyclerView.Data.GenericData;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.BookshelfViewHolder;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.BookshelfWordViewHolder;
+import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.CustomCardViewHolder;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.DrawerViewHolder;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.GenericViewHolder;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.LabelViewHolder;
@@ -67,6 +68,10 @@ public class GenericAdapter extends RecyclerView.Adapter<GenericViewHolder> {
         if(viewHolderType == ViewHolderType.BOOKSHELF_WORD_VIEW_HOLDER) {
             final View itemView = LayoutInflater.from(parent.getContext()).inflate(GenericViewHolder.getLayoutViewByPosition(position, ViewHolderType.BOOKSHELF_WORD_VIEW_HOLDER), null);
             return new BookshelfWordViewHolder(itemView, mCLickListener);
+        }
+        if(viewHolderType == ViewHolderType.CUSTOM_CARD_VIEW_HOLDER) {
+            final View itemView = LayoutInflater.from(parent.getContext()).inflate(GenericViewHolder.getLayoutViewByPosition(position, ViewHolderType.CUSTOM_CARD_VIEW_HOLDER), null);
+            return new CustomCardViewHolder(itemView, mCLickListener, mContext);
         }
         return null;
     }

@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import io.github.mthli.knife.KnifeText;
-import politcc2017.tcc_app.Components.Listeners.ContextMenuClickListener;
+import politcc2017.tcc_app.Components.Listeners.CellClickListener;
 import politcc2017.tcc_app.R;
 
 /**
@@ -70,39 +70,39 @@ public class CustomCard extends LinearLayout {
         this.categories.setText(categories);
     }
 
-    public void setEditIconClickListener(final ContextMenuClickListener listener){
+    public void setEditIconClickListener(final CellClickListener listener){
         edit.setVisibility(VISIBLE);
         edit.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(listener != null) listener.onClick(view, "edit");
+                if(listener != null) listener.onClick("edit", 0);
             }
         });
     }
 
-    public void setFavoriteIconClickListener(final ContextMenuClickListener listener){
+    public void setFavoriteIconClickListener(final CellClickListener listener){
         favorite.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(listener != null) listener.onClick(view, "favorite");
+                if(listener != null) listener.onClick("favorite", 0);
             }
         });
     }
 
-    public void setUpvoteIconClickListener(final ContextMenuClickListener listener){
+    public void setUpvoteIconClickListener(final CellClickListener listener){
         upvote.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(listener != null) listener.onClick(view, "favorite");
+                if(listener != null) listener.onClick("upvote", 0);
             }
         });
     }
 
-    public void setDownvoteIconClickListener(final ContextMenuClickListener listener){
+    public void setDownvoteIconClickListener(final CellClickListener listener){
         downvote.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(listener != null) listener.onClick(view, "favorite");
+                if(listener != null) listener.onClick("downvote", 0);
             }
         });
     }
