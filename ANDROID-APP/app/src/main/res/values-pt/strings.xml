@@ -74,5 +74,28 @@
     <string name="word_context_menu_antonym">Antônimo</string>
     <string name="word_context_menu_similar_words">Palavras semelhantes</string>
 
+    <!-- KnifeEditText -->
+    <string name="toast_bold">Negrito</string>
+    <string name="toast_bullet">Marcador</string>
+    <string name="toast_format_clear">Limpar formatação</string>
+    <string name="toast_italic">Itálico</string>
+    <string name="toast_quote">Citação</string>
+    <string name="toast_strikethrough">Rasura</string>
+    <string name="toast_underline">Sublinhado</string>
+
+    <!-- BeAPro -->
+    <string name="be_a_pro_language_picker_text">Escolha o idioma da aula</string>
+    <string name="be_a_pro_language_title_text">Título da aula</string>
+    <string name="be_a_pro_language_title_text_error">O título é obrigatório</string>
+    <string name="be_a_pro_language_tags_text">Palavras-chave para sua aula</string>
+    <string name="be_a_pro_language_tags_text_error">Insira ao menos uma palavra chave</string>
+    <string name="be_a_pro_class_content_text">Conteúdo da aula</string>
+    <string name="continue_class_button">Continuar</string>
+    <string name="save_class_button">Salvar aula</string>
+    <string name="be_a_pro_activity_title">Você ensina/aprende</string>
+    <string name="be_a_pro_translation_language_picker_text">Idioma para traduções (se necessário)</string>
+    <string name="be_a_pro_favorites_tab">Favoritas</string>
+    <string name="be_a_pro_myclasses_tab">Minhas aulas</string>
+    <string name="be_a_pro_new_tab">Novidades</string>
 
 </resources>

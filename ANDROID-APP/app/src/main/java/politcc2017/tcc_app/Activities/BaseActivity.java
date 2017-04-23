@@ -21,10 +21,12 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import politcc2017.tcc_app.Activities.BeAPro.BeAProListClassesActivity;
 import politcc2017.tcc_app.Common.ResourcesHelper;
 import politcc2017.tcc_app.Components.CustomTextView;
 import politcc2017.tcc_app.Components.Helpers.SharedPreferencesHelper;
 import politcc2017.tcc_app.Components.Listeners.CellClickListener;
+import politcc2017.tcc_app.Components.Listeners.ContextMenuClickListener;
 import politcc2017.tcc_app.Components.RecyclerView.Adapters.GenericAdapter;
 import politcc2017.tcc_app.Components.RecyclerView.Data.GenericData;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.ViewHolderType;
@@ -34,7 +36,7 @@ import static android.content.Intent.FLAG_ACTIVITY_REORDER_TO_FRONT;
 
 public class BaseActivity extends AppCompatActivity {
     public static boolean LANGUAGE_SET = false;
-    public static final int POS_HOME = 0, POS_NEWS = 2, POS_NAVIGATE = 3, POS_BOOKSHELF = 5, POS_CAMERA = 7, POS_SETTINGS = 9;
+    public static final int POS_HOME = 0, POS_NEWS = 2, POS_NAVIGATE = 3, POS_BE_A_PRO = 4, POS_BOOKSHELF = 5, POS_CAMERA = 7, POS_SETTINGS = 9;
     Toolbar toolbar;
     CustomTextView toolbarTitle;
     RecyclerView drawerRecyclerView;
@@ -44,7 +46,7 @@ public class BaseActivity extends AppCompatActivity {
     ActionBarDrawerToggle mDrawerToggle;
     ActionBar baseActionBar;
     int appLanguage;
-    ImageView rightIcon, rightMostIcon;
+    ImageView rightIcon, rightMostIcon, leftMostIcon;
 
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
@@ -60,6 +62,7 @@ public class BaseActivity extends AppCompatActivity {
         toolbarTitle = (CustomTextView) findViewById(R.id.base_toolbar_title);
         rightIcon = (ImageView) findViewById(R.id.base_toolbar_righ_icon);
         rightMostIcon = (ImageView) findViewById(R.id.base_toolbar_rightmost_icon);
+        leftMostIcon = (ImageView) findViewById(R.id.base_toolbar_leftmost_icon);
         setSupportActionBar(toolbar);
         baseActionBar = getSupportActionBar();
         baseActionBar.setTitle("");
@@ -135,11 +138,44 @@ public class BaseActivity extends AppCompatActivity {
     protected void hideRightIcons(){
         if(rightIcon.getVisibility() != View.GONE) rightIcon.setVisibility(View.GONE);
         if(rightMostIcon.getVisibility() != View.GONE) rightMostIcon.setVisibility(View.GONE);
+        if(leftMostIcon.getVisibility() != View.GONE) leftMostIcon.setVisibility(View.GONE);
     }
 
     protected void showToolbarRightIcons(){
         if(rightIcon.getVisibility() != View.VISIBLE) rightIcon.setVisibility(View.VISIBLE);
         if(rightMostIcon.getVisibility() != View.VISIBLE) rightMostIcon.setVisibility(View.VISIBLE);
+    }
+
+    protected void setupEditorToolbarRightIcons(final ContextMenuClickListener listener){
+        if(rightIcon.getVisibility() != View.VISIBLE) {
+            rightIcon.setImageResource(R.drawable.ic_action_undo);
+            rightIcon.setVisibility(View.VISIBLE);
+        }
+        if(rightMostIcon.getVisibility() != View.VISIBLE){
+            rightMostIcon.setImageResource(R.drawable.ic_action_redo);
+            rightMostIcon.setVisibility(View.VISIBLE);
+        }
+        leftMostIcon.setVisibility(View.VISIBLE);
+        if(listener != null){
+            rightIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.onClick(view, "undo");
+                }
+            });
+            rightMostIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.onClick(view, "redo");
+                }
+            });
+            leftMostIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    listener.onClick(view, "save");
+                }
+            });
+        }
     }
 
     protected void HandleDrawerClicks(){
@@ -150,6 +186,7 @@ public class BaseActivity extends AppCompatActivity {
                 if(position == POS_HOME) startOrResumeActivity(HomeActivity.class, true);
                 else if(position == POS_NEWS) startOrResumeActivity(NewsActivity.class, true);
                 else if(position == POS_NAVIGATE) startOrResumeActivity(NavigateActivity.class, true);
+                else if(position == POS_BE_A_PRO) startOrResumeActivity(BeAProListClassesActivity.class, true);
                 else if(position == POS_BOOKSHELF) startOrResumeActivity(BookshelfActivity.class, true);
                 else if(position == POS_CAMERA) startOrResumeActivity(CameraActivity.class, true);
                 else if(position == POS_SETTINGS) startOrResumeActivity(SettingsActivity.class, true);

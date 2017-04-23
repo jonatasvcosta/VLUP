@@ -48,6 +48,15 @@
     </item>
     <item
         is-multidex="false"
+        jar="C:\Users\Jonatas\Documents\TCC\ANDROID-APP\app\build\intermediates\exploded-aar\com.github.mabbas007\TagsEditText\v1.0.4\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="3830765afa2c330367733bf4a3ab62d6bd4dbef8">
+        <dex dex="C:\Users\Jonatas\Documents\TCC\ANDROID-APP\app\build\intermediates\pre-dexed\debug\com.github.mabbas007-TagsEditText-v1.0.4_30e1002cc980333092d0f9c84c4eddaf569a5af1.jar" />
+    </item>
+    <item
+        is-multidex="false"
         jar="C:\Users\Jonatas\Documents\TCC\ANDROID-APP\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-tasks\10.0.1\jars\classes.jar"
         jumboMode="false"
         optimize="true"
@@ -99,6 +108,15 @@
         revision="23.0.3"
         sha1="f0001e71cea6ae432a00021c6f727f5ef0f3d27e">
         <dex dex="C:\Users\Jonatas\Documents\TCC\ANDROID-APP\app\build\intermediates\pre-dexed\debug\com.android.support-design-23.3.0_1913b22175d75b458e40e7bfec7b74dbd0729e24.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Jonatas\Documents\TCC\ANDROID-APP\app\build\intermediates\exploded-aar\com.github.mthli\Knife\v1.1\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="37ca756004128e1b554dd52aad9a179fcea18925">
+        <dex dex="C:\Users\Jonatas\Documents\TCC\ANDROID-APP\app\build\intermediates\pre-dexed\debug\com.github.mthli-Knife-v1.1_bea6d229f8d695453e8b73f5677382261caa2911.jar" />
     </item>
     <item
         is-multidex="false"
@@ -189,6 +207,15 @@
         revision="23.0.3"
         sha1="25438f55fc6d906a0e72f30b21487541430ede43">
         <dex dex="C:\Users\Jonatas\Documents\TCC\ANDROID-APP\app\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-base-10.0.1_2a46c50d9af063b6a01ddad7a29a292aca74e427.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Jonatas\Documents\TCC\ANDROID-APP\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\23.3.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="23.0.3"
+        sha1="82ce13fd19cdfde0e392f03c27edeba8d4333648">
+        <dex dex="C:\Users\Jonatas\Documents\TCC\ANDROID-APP\app\build\intermediates\pre-dexed\debug\com.android.support-cardview-v7-23.3.0_4afdf74c2233598e0692df308064d4cf207872c2.jar" />
     </item>
     <item
         is-multidex="false"

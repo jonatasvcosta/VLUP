@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/margin_extra_large"
+    android:background="@color/cyan_lightest"
+    android:gravity="center_horizontal">
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/be_a_pro_new_list"
+        android:layout_width="match_parent"
+        android:clipToPadding="false"
+        android:layout_height="match_parent"
+        android:background="@color/cyan_lightest"
+        android:paddingBottom="@dimen/margin_medium"/>
+</LinearLayout>

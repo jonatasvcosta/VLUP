@@ -20,4 +20,8 @@
     <dimen name="site_suggestion_cell_unfolded_height">250dp</dimen>
     <dimen name="custom_search_toolbar_height">80dp</dimen>
     <dimen name="search_toolbar_edit_text_radius">10dp</dimen>
+    <dimen name="bullet_radius">2dp</dimen>
+    <dimen name="bullet_gap_width">8dp</dimen>
+    <dimen name="quote_stripe_width">8dp</dimen>
+    <dimen name="quote_gap_width">2dp</dimen>
 </resources>

@@ -67,4 +67,26 @@
     <string name="word_context_menu_pronounce">Pronounce</string>
     <string name="word_context_menu_similar_words">Similar words</string>
     <string name="word_context_menu_translate">Translate</string>
+
+    <!-- KnifeEditText -->
+    <string name="toast_bold">Bold</string>
+    <string name="toast_italic">Italic</string>
+    <string name="toast_underline">Underline</string>
+    <string name="toast_strikethrough">Strikethrough</string>
+    <string name="toast_bullet">Bullet</string>
+    <string name="toast_quote">Quote</string>
+    <string name="toast_format_clear">Format clear</string>
+    <string name="be_a_pro_language_picker_text">Choose the language of the lesson</string>
+    <string name="be_a_pro_language_tags_text">Keywords for your lesson</string>
+    <string name="be_a_pro_language_tags_text_error">Please enter at least one keyword</string>
+    <string name="be_a_pro_language_title_text">Lesson Title</string>
+    <string name="be_a_pro_language_title_text_error">Title is required</string>
+    <string name="be_a_pro_class_content_text">Class content</string>
+    <string name="continue_class_button">Next</string>
+    <string name="save_class_button">Save lesson</string>
+    <string name="be_a_pro_activity_title">Be a Pro</string>
+    <string name="be_a_pro_translation_language_picker_text">Language for translations (if needed)</string>
+    <string name="be_a_pro_new_tab">New</string>
+    <string name="be_a_pro_favorites_tab">Favorites</string>
+    <string name="be_a_pro_myclasses_tab">My Classes</string>
 </resources>

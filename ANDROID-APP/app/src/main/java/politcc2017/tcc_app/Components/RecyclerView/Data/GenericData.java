@@ -19,6 +19,11 @@ public class GenericData {
     public static final String CELL_TYPE = "cell_type";
     public static final String CELL_DEFAULT_TYPE = "default";
     public static final String CELL_HEADER_TYPE = "header";
+    public static final String CUSTOM_CARD_TITLE = "ctitle";
+    public static final String CUSTOM_CARD_CATEGORIES = "ccategories";
+    public static final String CUSTOM_CARD_VOTES = "cvotes";
+    public static final String CUSTOM_CARD_CONTENT = "ccontent";
+
 
     private ArrayList<Hashtable> mData;
 
