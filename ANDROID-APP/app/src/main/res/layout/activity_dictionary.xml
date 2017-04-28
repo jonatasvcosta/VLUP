@@ -17,9 +17,7 @@
             android:clipToPadding="false"
             android:paddingTop="@dimen/custom_search_toolbar_height"
             android:layout_height="match_parent"
-            android:background="@color/cyan_lighter"
-            android:paddingBottom="@dimen/margin_medium"/>
-
+            android:background="@color/cyan_lighter"/>
     </LinearLayout>
     <politcc2017.tcc_app.Components.CustomSearchToolbar
         android:id="@+id/dictionary_activity_search_toolbar"
