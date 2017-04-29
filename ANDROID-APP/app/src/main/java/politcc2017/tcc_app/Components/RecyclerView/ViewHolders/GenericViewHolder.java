@@ -25,6 +25,7 @@ public abstract class GenericViewHolder extends RecyclerView.ViewHolder {
         if(type == ViewHolderType.BROWSER_SUGGESTION_ITEM_VIEW_HOLDER) return R.layout.browser_activity_suggestion_cell;
         if(type == ViewHolderType.BOOKSHELF_WORD_VIEW_HOLDER) return R.layout.bookshelf_word_cell;
         if(type == ViewHolderType.CUSTOM_CARD_VIEW_HOLDER) return R.layout.custom_card_item_cell;
+        if(type == ViewHolderType.DICTIONARY_CELL_VIEW_HOLDER) return R.layout.dictionary_cell;
         return -1;
     }
     public abstract void setViewContent(Hashtable cellData);

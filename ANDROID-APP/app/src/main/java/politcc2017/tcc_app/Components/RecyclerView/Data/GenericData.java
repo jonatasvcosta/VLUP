@@ -23,6 +23,8 @@ public class GenericData {
     public static final String CUSTOM_CARD_CATEGORIES = "ccategories";
     public static final String CUSTOM_CARD_VOTES = "cvotes";
     public static final String CUSTOM_CARD_CONTENT = "ccontent";
+    public static final String DICTIONARY_CELL_CONTENT = "dccontent";
+    public static final String DICTIONARY_CELL_SOURCE = "dcsource";
 
 
     private ArrayList<Hashtable> mData;
