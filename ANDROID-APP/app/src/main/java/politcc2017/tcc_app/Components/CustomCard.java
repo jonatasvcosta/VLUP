@@ -1,6 +1,7 @@
 package politcc2017.tcc_app.Components;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import politcc2017.tcc_app.R;
 
 public class CustomCard extends LinearLayout {
     private Context mContext;
+    private CardView cardLayout;
     private CustomTextView votes, title, categories;
     private CustomHTMLTextView content;
     private ImageView upvote, downvote, edit, favorite;
@@ -47,6 +49,7 @@ public class CustomCard extends LinearLayout {
         title = (CustomTextView) findViewById(R.id.custom_card_title);
         categories = (CustomTextView) findViewById(R.id.custom_card_categories);
         content = (CustomHTMLTextView) findViewById(R.id.custom_card_class_content);
+        cardLayout = (CardView) findViewById(R.id.custom_card_card_layout);
         edit.setVisibility(View.GONE);
         categories.setVisibility(View.GONE);
         title.setVisibility(View.GONE);
@@ -56,6 +59,11 @@ public class CustomCard extends LinearLayout {
         this.title.setVisibility(VISIBLE);
         this.title.setText(title);
     }
+
+    public void setUnlimitedLines(){
+        content.setMaxLines(Integer.MAX_VALUE);
+    }
+
 
     public void setContent(String content){
         this.content.setHtml(content);
@@ -107,6 +115,13 @@ public class CustomCard extends LinearLayout {
         });
     }
 
-
+    public void setCardClickListener(final CellClickListener listener){
+        cardLayout.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(listener != null) listener.onClick("cardlayout", 0);
+            }
+        });
+    }
 
 }

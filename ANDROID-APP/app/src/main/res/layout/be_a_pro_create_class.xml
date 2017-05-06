@@ -66,6 +66,7 @@
             android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clickable="true"
             android:orientation="vertical">
             <politcc2017.tcc_app.Components.CustomTextView
                 android:layout_width="wrap_content"
@@ -88,11 +89,7 @@
                 android:paddingEnd="16dp"
                 android:gravity="top|start"
                 android:textColor="@color/gray"
-                android:scrollbars="vertical"
-                android:focusable="false"
-                android:focusableInTouchMode="false"
-                android:clickable="true"
-                />
+                android:scrollbars="vertical"/>
         </LinearLayout>
         <politcc2017.tcc_app.Components.CustomButton
             android:layout_margin="@dimen/margin_medium"

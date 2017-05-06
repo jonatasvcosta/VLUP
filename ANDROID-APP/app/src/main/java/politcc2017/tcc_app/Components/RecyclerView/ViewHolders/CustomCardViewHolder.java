@@ -104,6 +104,32 @@ public class CustomCardViewHolder extends GenericViewHolder{
 
                 }
             });
+            card.setCardClickListener(new CellClickListener() {
+                @Override
+                public void onClick(View v, int position) {
+
+                }
+
+                @Override
+                public void onClick(ImageView v, String link) {
+
+                }
+
+                @Override
+                public void onClick(String message, int position) {
+                    listener.onClick(message, getAdapterPosition());
+                }
+
+                @Override
+                public void onLinkClick(String link) {
+
+                }
+
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
         }
     }
 

@@ -9,9 +9,11 @@
     android:background="@color/cyan_lightest"
     android:gravity="center_horizontal">
     <android.support.v7.widget.CardView
+        android:id="@+id/custom_card_card_layout"
         android:layout_width="match_parent"
         android:layout_margin="@dimen/margin_medium"
         android:layout_height="wrap_content"
+        android:clickable="true"
         app:cardBackgroundColor="@color/white">
         <RelativeLayout
             android:layout_width="match_parent"
@@ -85,8 +87,8 @@
                 android:paddingLeft="16dp"
                 android:textColorHint="@color/gray"
                 android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. In tincidunt odio vitae eros fringilla laoreet. Curabitur mollis lorem ac ipsum ultricies, sed luctus felis tincidunt. Sed aliquam commodo massa et luctus. Integer id cursus sapien. Suspendisse tristique nisi est, at ornare eros dapibus id. Mauris vehicula tincidunt gravida. Etiam rhoncus cursus sollicitudin. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec blandit odio nibh, quis tristique quam dignissim non. Proin a dolor vitae magna pulvinar viverra. Vivamus ultrices metus sit amet ex consequat, blandit viverra erat ullamcorper. Pellentesque sed ante non risus fringilla mattis."
-                android:ellipsize="end"
                 android:maxLines="9"
+                android:ellipsize="end"
                 android:textSize="@dimen/font_medium"
                 android:paddingStart="16dp"
                 android:paddingRight="16dp"

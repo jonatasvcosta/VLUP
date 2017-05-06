@@ -34,12 +34,14 @@ public class BeAProCreateClassActivity extends BaseActivity {
     private CustomPicker classLanguage;
     private CustomPicker translationLanguage;
     private int btnType = CONTINUE_BTN;
+    private String HTMLContentText;
     private static int GET_CLASS_CONTENT = 5, CONTINUE_BTN = 0, SAVE_BTN = 1;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.be_a_pro_create_class);
         setActivityTitle(getResString(R.string.be_a_pro_activity_title));
+        HTMLContentText = "";
         continueOrSaveClassButton = (CustomButton) findViewById(R.id.class_continue_or_save_button);
         contentContainer = (LinearLayout) findViewById(R.id.class_content_container);
         content = (CustomHTMLTextView) findViewById(R.id.class_text_content);
@@ -55,7 +57,7 @@ public class BeAProCreateClassActivity extends BaseActivity {
                 validateFields();
             }
         });
-        content.setOnClickListener(new View.OnClickListener() {
+        contentContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startGetContentActivity();
@@ -89,7 +91,7 @@ public class BeAProCreateClassActivity extends BaseActivity {
 
     private void startGetContentActivity(){
         Intent i = new Intent(this, BeAProCreateClassTextActivity.class);
-        if(content.getText() != null && content.getText().length() > 0) i.putExtra("content", content.getText());
+        if(HTMLContentText != null && HTMLContentText.length() > 0) i.putExtra("content", HTMLContentText);
         startActivityForResult(i, GET_CLASS_CONTENT);
     }
 
@@ -101,6 +103,7 @@ public class BeAProCreateClassActivity extends BaseActivity {
             if(resultCode == Activity.RESULT_OK){
                 String classContent = data.getStringExtra("content");
                 classContent = "<p>"+classContent+"</p>";
+                HTMLContentText = classContent;
                 content.setHtml(classContent);
                 contentContainer.setVisibility(View.VISIBLE);
             }

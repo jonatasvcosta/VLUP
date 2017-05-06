@@ -94,14 +94,38 @@ public class BeAProFragment extends Fragment{
                 "<li>Badernar&nbsp;- fazer bagun&ccedil;a</li>\n" +
                 "<li>Encher a cara - embriagar-se</li>\n" +
                 "<li>Ir para o&nbsp;olho da rua - ser demitido</li>\n" +
+                "<li>Enfiar o p&eacute; na jaca - exagerar</li>\n" +
+                "<li>Botar pra quebrar&nbsp;- exagerar</li>\n" +
+                "<li>Badernar&nbsp;- fazer bagun&ccedil;a</li>\n" +
+                "<li>Encher a cara - embriagar-se</li>\n" +
+                "<li>Ir para o&nbsp;olho da rua - ser demitido</li>\n" +
+                "<li>Enfiar o p&eacute; na jaca - exagerar</li>\n" +
+                "<li>Botar pra quebrar&nbsp;- exagerar</li>\n" +
+                "<li>Badernar&nbsp;- fazer bagun&ccedil;a</li>\n" +
+                "<li>Encher a cara - embriagar-se</li>\n" +
+                "<li>Ir para o&nbsp;olho da rua - ser demitido</li>\n" +
+                "<li>Enfiar o p&eacute; na jaca - exagerar</li>\n" +
+                "<li>Botar pra quebrar&nbsp;- exagerar</li>\n" +
+                "<li>Badernar&nbsp;- fazer bagun&ccedil;a</li>\n" +
+                "<li>Encher a cara - embriagar-se</li>\n" +
+                "<li>Ir para o&nbsp;olho da rua - ser demitido</li>\n"+
                 "</ul>");
         descriptions.add("<ul>\n" +
                 "<li>Star wars</li>\n" +
                 "<li>Senhor dos aneis</li>\n" +
                 "<li>Matrix</li>\n" +
+                "<li>Star wars</li>\n" +
+                "<li>Senhor dos aneis</li>\n" +
+                "<li>Matrix</li>\n" +
+                "<li>Star wars</li>\n" +
+                "<li>Senhor dos aneis</li>\n" +
+                "<li>Matrix</li>\n" +
+                "<li>Star wars</li>\n" +
+                "<li>Senhor dos aneis</li>\n" +
+                "<li>Matrix</li>\n" +
                 "</ul>");
         ArrayList<String> categories = new ArrayList<>();
-        categories.add("expressões, linguagem popualar");
+        categories.add("expressões, linguagem popular");
         categories.add("filmes");
         ArrayList<String> votes = new ArrayList<>();
         votes.add("#1221");
