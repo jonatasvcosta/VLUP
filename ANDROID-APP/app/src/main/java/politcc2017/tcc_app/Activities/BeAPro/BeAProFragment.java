@@ -4,6 +4,7 @@ package politcc2017.tcc_app.Activities.BeAPro;
  * Created by Jonatas on 06/04/2017.
  */
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,6 +25,8 @@ import politcc2017.tcc_app.R;
 
 public class BeAProFragment extends Fragment{
     private RecyclerView mRecyclerView;
+    private GenericData data;
+
     public BeAProFragment() {
         // Required empty public constructor
     }
@@ -78,10 +81,22 @@ public class BeAProFragment extends Fragment{
 
     private void HandleCellClicks(String message, int position){
         Toast.makeText(getContext(), message+" : "+Integer.toString(position), Toast.LENGTH_SHORT).show(); //replace with proper actions
+        if(message.equals("cardlayout")){
+            startClassDetailActivity(position);
+        }
+    }
+
+    private void startClassDetailActivity(int position){
+        Intent i = new Intent(getContext(), BeAProClassDetailActivity.class);
+        i.putExtra(GenericData.CUSTOM_CARD_TITLE, data.getValue(position).get(GenericData.CUSTOM_CARD_TITLE).toString());
+        i.putExtra(GenericData.CUSTOM_CARD_CATEGORIES, data.getValue(position).get(GenericData.CUSTOM_CARD_CATEGORIES).toString());
+        i.putExtra(GenericData.CUSTOM_CARD_CONTENT, data.getValue(position).get(GenericData.CUSTOM_CARD_CONTENT).toString());
+        i.putExtra(GenericData.CUSTOM_CARD_VOTES, data.getValue(position).get(GenericData.CUSTOM_CARD_VOTES).toString());
+        startActivity(i);
     }
 
     private GenericData getDataFromServer(){
-        GenericData data = new GenericData(); //replace with proper call to server
+        data = new GenericData(); //replace with proper call to server
         ArrayList<String> titles = new ArrayList<>();
         titles.add("Expressões Linguísticas");
         titles.add("Lista de filmes legais");
@@ -89,6 +104,26 @@ public class BeAProFragment extends Fragment{
         descriptions.add("<p>Express&otilde;es&nbsp;Lingu&iacute;sticas:</p>\n" +
                 "<p>&nbsp;</p>\n" +
                 "<ul>\n" +
+                "<li>Enfiar o p&eacute; na jaca - exagerar</li>\n" +
+                "<li>Botar pra quebrar&nbsp;- exagerar</li>\n" +
+                "<li>Badernar&nbsp;- fazer bagun&ccedil;a</li>\n" +
+                "<li>Encher a cara - embriagar-se</li>\n" +
+                "<li>Ir para o&nbsp;olho da rua - ser demitido</li>\n" +
+                "<li>Enfiar o p&eacute; na jaca - exagerar</li>\n" +
+                "<li>Botar pra quebrar&nbsp;- exagerar</li>\n" +
+                "<li>Badernar&nbsp;- fazer bagun&ccedil;a</li>\n" +
+                "<li>Encher a cara - embriagar-se</li>\n" +
+                "<li>Ir para o&nbsp;olho da rua - ser demitido</li>\n" +
+                "<li>Enfiar o p&eacute; na jaca - exagerar</li>\n" +
+                "<li>Botar pra quebrar&nbsp;- exagerar</li>\n" +
+                "<li>Badernar&nbsp;- fazer bagun&ccedil;a</li>\n" +
+                "<li>Encher a cara - embriagar-se</li>\n" +
+                "<li>Ir para o&nbsp;olho da rua - ser demitido</li>\n" +
+                "<li>Enfiar o p&eacute; na jaca - exagerar</li>\n" +
+                "<li>Botar pra quebrar&nbsp;- exagerar</li>\n" +
+                "<li>Badernar&nbsp;- fazer bagun&ccedil;a</li>\n" +
+                "<li>Encher a cara - embriagar-se</li>\n" +
+                "<li>Ir para o&nbsp;olho da rua - ser demitido</li>\n"+
                 "<li>Enfiar o p&eacute; na jaca - exagerar</li>\n" +
                 "<li>Botar pra quebrar&nbsp;- exagerar</li>\n" +
                 "<li>Badernar&nbsp;- fazer bagun&ccedil;a</li>\n" +

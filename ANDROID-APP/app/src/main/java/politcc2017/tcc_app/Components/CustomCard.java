@@ -78,6 +78,10 @@ public class CustomCard extends LinearLayout {
         this.categories.setText(categories);
     }
 
+    public void setContentMarkable(){
+        content.allowWordContextMenu();
+    }
+
     public void setEditIconClickListener(final CellClickListener listener){
         edit.setVisibility(VISIBLE);
         edit.setOnClickListener(new OnClickListener() {

@@ -36,7 +36,7 @@ public class BeAProClassDetailActivity extends BaseActivity{
 
         Class = (CustomCard) findViewById(R.id.be_a_pro_class_detail);
         Class.setUnlimitedLines();
-
+        Class.setContentMarkable();
         Intent i = getIntent();
         if(i != null){
             classContent = i.getStringExtra(GenericData.CUSTOM_CARD_CONTENT);

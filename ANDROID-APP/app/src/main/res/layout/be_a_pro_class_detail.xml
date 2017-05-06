@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingTop="@dimen/margin_extra_large"
     android:background="@color/cyan_lightest"
+    android:paddingBottom="@dimen/margin_medium"
     android:gravity="center_horizontal">
     <politcc2017.tcc_app.Components.CustomCard
         android:id="@+id/be_a_pro_class_detail"
