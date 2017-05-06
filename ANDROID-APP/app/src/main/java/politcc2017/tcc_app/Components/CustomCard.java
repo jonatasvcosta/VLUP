@@ -18,7 +18,7 @@ import politcc2017.tcc_app.R;
 public class CustomCard extends LinearLayout {
     private Context mContext;
     private CustomTextView votes, title, categories;
-    private KnifeText content;
+    private CustomHTMLTextView content;
     private ImageView upvote, downvote, edit, favorite;
     public CustomCard(Context context) {
         super(context);
@@ -46,7 +46,7 @@ public class CustomCard extends LinearLayout {
         votes = (CustomTextView) findViewById(R.id.custom_card_votes);
         title = (CustomTextView) findViewById(R.id.custom_card_title);
         categories = (CustomTextView) findViewById(R.id.custom_card_categories);
-        content = (KnifeText) findViewById(R.id.custom_card_class_content);
+        content = (CustomHTMLTextView) findViewById(R.id.custom_card_class_content);
         edit.setVisibility(View.GONE);
         categories.setVisibility(View.GONE);
         title.setVisibility(View.GONE);
@@ -58,7 +58,7 @@ public class CustomCard extends LinearLayout {
     }
 
     public void setContent(String content){
-        this.content.fromHtml(content);
+        this.content.setHtml(content);
     }
 
     public void setVotes(String votes){

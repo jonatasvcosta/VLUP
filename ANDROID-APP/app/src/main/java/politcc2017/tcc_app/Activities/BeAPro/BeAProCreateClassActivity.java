@@ -15,6 +15,7 @@ import politcc2017.tcc_app.Activities.BaseActivity;
 import politcc2017.tcc_app.Common.ResourcesHelper;
 import politcc2017.tcc_app.Components.CustomButton;
 import politcc2017.tcc_app.Components.CustomEditText;
+import politcc2017.tcc_app.Components.CustomHTMLTextView;
 import politcc2017.tcc_app.Components.CustomPicker;
 import politcc2017.tcc_app.Components.Helpers.DialogHelper;
 import politcc2017.tcc_app.Components.Helpers.FontHelper;
@@ -27,7 +28,7 @@ import politcc2017.tcc_app.R;
 public class BeAProCreateClassActivity extends BaseActivity {
     private CustomButton continueOrSaveClassButton;
     private LinearLayout contentContainer;
-    private KnifeText content;
+    private CustomHTMLTextView content;
     private TagsEditText tags;
     private CustomEditText classTitle;
     private CustomPicker classLanguage;
@@ -41,7 +42,7 @@ public class BeAProCreateClassActivity extends BaseActivity {
         setActivityTitle(getResString(R.string.be_a_pro_activity_title));
         continueOrSaveClassButton = (CustomButton) findViewById(R.id.class_continue_or_save_button);
         contentContainer = (LinearLayout) findViewById(R.id.class_content_container);
-        content = (KnifeText) findViewById(R.id.class_text_content);
+        content = (CustomHTMLTextView) findViewById(R.id.class_text_content);
         tags = (TagsEditText) findViewById(R.id.be_a_pro_class_tags);
         classTitle = (CustomEditText) findViewById(R.id.be_a_pro_class_title_text);
         classLanguage = (CustomPicker) findViewById(R.id.be_a_pro_class_language_picker);
@@ -88,7 +89,7 @@ public class BeAProCreateClassActivity extends BaseActivity {
 
     private void startGetContentActivity(){
         Intent i = new Intent(this, BeAProCreateClassTextActivity.class);
-        if(content.toHtml() != null && content.toHtml().length() > 0) i.putExtra("content", content.toHtml());
+        if(content.getText() != null && content.getText().length() > 0) i.putExtra("content", content.getText());
         startActivityForResult(i, GET_CLASS_CONTENT);
     }
 
@@ -99,7 +100,8 @@ public class BeAProCreateClassActivity extends BaseActivity {
             continueOrSaveClassButton.setText(getResString(R.string.save_class_button));
             if(resultCode == Activity.RESULT_OK){
                 String classContent = data.getStringExtra("content");
-                content.fromHtml(classContent);
+                classContent = "<p>"+classContent+"</p>";
+                content.setHtml(classContent);
                 contentContainer.setVisibility(View.VISIBLE);
             }
         }
