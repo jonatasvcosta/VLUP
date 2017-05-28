@@ -2,17 +2,15 @@ package politcc2017.tcc_app.Components;
 
 import android.content.Context;
 import android.support.v7.widget.CardView;
-import android.text.InputType;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.afollestad.materialdialogs.util.TypefaceHelper;
+import com.pierfrancescosoffritti.youtubeplayer.AbstractYouTubeListener;
+import com.pierfrancescosoffritti.youtubeplayer.YouTubePlayerView;
 
-import io.github.mthli.knife.KnifeText;
-import politcc2017.tcc_app.Components.Helpers.FontHelper;
 import politcc2017.tcc_app.Components.Listeners.CellClickListener;
 import politcc2017.tcc_app.R;
 
@@ -71,6 +69,20 @@ public class CustomCard extends LinearLayout {
 
     public void setContent(String content){
         this.content.fromHtml(content);
+    }
+
+    public void setMovieUrl(final String url){
+        LinearLayout movieContainer = (LinearLayout) findViewById(R.id.card_class_movie_container);
+        final YouTubePlayerView moviePlayer = (YouTubePlayerView) findViewById(R.id.card_class_movie_view);
+
+        movieContainer.setVisibility(View.VISIBLE);
+        moviePlayer.initialize(new AbstractYouTubeListener() {
+            @Override
+            public void onReady() {
+                moviePlayer.loadVideo(url, 0);
+                moviePlayer.pauseVideo();
+            }
+        }, true);
     }
 
     public void setVotes(String votes){

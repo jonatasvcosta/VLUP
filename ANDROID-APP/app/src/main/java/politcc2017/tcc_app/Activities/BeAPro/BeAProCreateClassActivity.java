@@ -3,11 +3,15 @@ package politcc2017.tcc_app.Activities.BeAPro;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.melnykov.fab.FloatingActionButton;
+import com.pierfrancescosoffritti.youtubeplayer.AbstractYouTubeListener;
+import com.pierfrancescosoffritti.youtubeplayer.YouTubePlayerView;
 
 import mabbas007.tagsedittext.TagsEditText;
 import politcc2017.tcc_app.Activities.BaseActivity;
@@ -26,15 +30,20 @@ import politcc2017.tcc_app.R;
 
 public class BeAProCreateClassActivity extends BaseActivity {
     private CustomButton continueOrSaveClassButton;
-    private LinearLayout contentContainer;
+    private LinearLayout contentContainer, movieContainer;
     private CustomHTMLEditText content;
     private TagsEditText tags;
     private CustomEditText classTitle;
     private CustomPicker classLanguage;
     private CustomPicker translationLanguage;
+    private FloatingActionButton addMovieFAB;
     private int btnType = CONTINUE_BTN;
     private String HTMLContentText;
+    private String movieUrl;
+    private YouTubePlayerView moviePlayer;
+
     private static int GET_CLASS_CONTENT = 5, CONTINUE_BTN = 0, SAVE_BTN = 1;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,13 +52,34 @@ public class BeAProCreateClassActivity extends BaseActivity {
         HTMLContentText = "";
         continueOrSaveClassButton = (CustomButton) findViewById(R.id.class_continue_or_save_button);
         contentContainer = (LinearLayout) findViewById(R.id.class_content_container);
+        movieContainer = (LinearLayout) findViewById(R.id.create_class_movie_container);
         content = (CustomHTMLEditText) findViewById(R.id.class_text_content);
         tags = (TagsEditText) findViewById(R.id.be_a_pro_class_tags);
         classTitle = (CustomEditText) findViewById(R.id.be_a_pro_class_title_text);
         classLanguage = (CustomPicker) findViewById(R.id.be_a_pro_class_language_picker);
         translationLanguage = (CustomPicker) findViewById(R.id.be_a_pro_translation_language_picker);
+        addMovieFAB = (FloatingActionButton) findViewById(R.id.add_movie_fab);
+        moviePlayer = (YouTubePlayerView) findViewById(R.id.create_class_movie_view);
+
         content.setTypeface(FontHelper.get(FontHelper.TTF_FONT, getApplicationContext()));
         tags.setTypeface(FontHelper.get(FontHelper.TTF_FONT, getApplicationContext()));
+
+        final MaterialDialog inputVideoURlDialog = DialogHelper.InputDialog(BeAProCreateClassActivity.this, "Enter a youtube movie URL:", new MaterialDialog.InputCallback() {
+            @Override
+            public void onInput(@NonNull MaterialDialog dialog, final CharSequence input) {
+                movieUrl = input.toString();
+                movieContainer.setVisibility(View.VISIBLE);
+                moviePlayer.initialize(new AbstractYouTubeListener() {
+                    @Override
+                    public void onReady() {
+                        String url = getValidatedInput(input.toString());
+                        moviePlayer.loadVideo(url, 0);
+                        moviePlayer.pauseVideo();
+                    }
+                }, true);
+            }
+        }, getResString(R.string.dialog_confirm), getResString(R.string.dialog_cancel));
+
         continueOrSaveClassButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,6 +108,28 @@ public class BeAProCreateClassActivity extends BaseActivity {
                 return true;
             }
         }));
+        addMovieFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                inputVideoURlDialog.show();
+            }
+        });
+    }
+
+    private String getValidatedInput(final String input){
+        int end = input.length();
+        int ini = input.indexOf("?");
+        if(ini == -1){
+            ini = end-1;
+            while(ini > 0 && input.charAt(ini) != '/') ini--;
+            if(ini == '/') ini++;
+            return input.substring(ini, end);
+        }
+        while(ini < input.length() && input.charAt(ini) != '=') ini++;
+        ini++;
+        end = input.indexOf("&", ini);
+        if(end == -1) end = input.length();
+        return input.substring(ini, end);
     }
 
     private void validateFields(){

@@ -6,10 +6,7 @@ import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import org.sufficientlysecure.htmltextview.HtmlTextView;
 
 import io.github.mthli.knife.KnifeText;
 import politcc2017.tcc_app.Components.Helpers.DialogHelper;

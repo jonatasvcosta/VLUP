@@ -135,6 +135,7 @@ public class CustomCardViewHolder extends GenericViewHolder{
 
     @Override
     public void setViewContent(Hashtable cellData) {
+        String content = null;
         if (cellData.containsKey(GenericData.CUSTOM_CARD_TITLE)) {
             card.setTitle(cellData.get(GenericData.CUSTOM_CARD_TITLE).toString());
         }
@@ -142,10 +143,14 @@ public class CustomCardViewHolder extends GenericViewHolder{
             card.setCategory(cellData.get(GenericData.CUSTOM_CARD_CATEGORIES).toString());
         }
         if (cellData.containsKey(GenericData.CUSTOM_CARD_CONTENT)) {
-            card.setContent(cellData.get(GenericData.CUSTOM_CARD_CONTENT).toString());
+            content = cellData.get(GenericData.CUSTOM_CARD_CONTENT).toString();
+            card.setContent(content);
         }
         if (cellData.containsKey(GenericData.CUSTOM_CARD_VOTES)) {
             card.setVotes(cellData.get(GenericData.CUSTOM_CARD_VOTES).toString());
+        }
+        if(cellData.containsKey(GenericData.CUSTOM_CARD_URL)){
+            if(content == null || content.length() == 0)card.setMovieUrl(cellData.get(GenericData.CUSTOM_CARD_URL).toString());
         }
     }
 }

@@ -114,7 +114,7 @@ public class BaseActivity extends AppCompatActivity {
         toolbar.setBackgroundColor(colorID);
     }
 
-    protected void startOrResumeActivity(Class <? extends BaseActivity> destinationActivity, String parameter, int id){
+    public void startOrResumeActivity(Class <? extends BaseActivity> destinationActivity, String parameter, int id){
         hideRightIcons();
         Intent intent = new Intent(getBaseContext(), destinationActivity);
         intent.addFlags(FLAG_ACTIVITY_REORDER_TO_FRONT);
@@ -123,11 +123,11 @@ public class BaseActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    protected void startOrResumeActivity(Class <? extends BaseActivity> destinationActivity){
+    public void startOrResumeActivity(Class <? extends BaseActivity> destinationActivity){
         startOrResumeActivity(destinationActivity, null, -1);
     }
 
-    protected void startOrResumeActivity(Class <? extends BaseActivity> destinationActivity, boolean closeAllPreviousActivities){
+    public void startOrResumeActivity(Class <? extends BaseActivity> destinationActivity, boolean closeAllPreviousActivities){
         hideRightIcons();
         Intent intent = new Intent(getBaseContext(), destinationActivity);
         if(closeAllPreviousActivities) intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

@@ -28,7 +28,7 @@ import politcc2017.tcc_app.R;
 
 public class BeAProClassDetailActivity extends BaseActivity{
     private CustomCard Class;
-    private String classContent;
+    private String classContent, movieUrl;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +40,8 @@ public class BeAProClassDetailActivity extends BaseActivity{
         Intent i = getIntent();
         if(i != null){
             classContent = i.getStringExtra(GenericData.CUSTOM_CARD_CONTENT);
+            movieUrl = i.getStringExtra(GenericData.CUSTOM_CARD_URL);
+            if(movieUrl != null && movieUrl.length() > 0) Class.setMovieUrl(movieUrl);
             Class.setTitle(i.getStringExtra(GenericData.CUSTOM_CARD_TITLE));
             Class.setVotes(i.getStringExtra(GenericData.CUSTOM_CARD_VOTES));
             Class.setCategory(i.getStringExtra(GenericData.CUSTOM_CARD_CATEGORIES));
