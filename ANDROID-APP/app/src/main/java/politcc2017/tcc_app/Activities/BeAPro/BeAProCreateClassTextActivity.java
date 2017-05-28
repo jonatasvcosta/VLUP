@@ -44,6 +44,7 @@ public class BeAProCreateClassTextActivity extends BaseActivity implements Conte
 
     private void SaveText(){
         Intent returnIntent = new Intent();
+        String a = classText.toHtml();
         returnIntent.putExtra("content", classText.toHtml());
         setResult(Activity.RESULT_OK,returnIntent);
         finish();

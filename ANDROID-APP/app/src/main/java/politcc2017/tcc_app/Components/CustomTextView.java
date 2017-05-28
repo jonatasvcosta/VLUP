@@ -55,11 +55,15 @@ public class CustomTextView extends TextView {
                 int begin = 0, index = 0, end = getSelectionEnd();
                 while (index != -1 && index <= getSelectionStart()){
                     begin = index;
-                    if(begin + 1 < text.length()) index = text.indexOf('.', begin+1);
+                    if(begin + 1 < text.length()){
+                        index = text.indexOf('.', begin+1);
+                        if(index == -1) index = text.indexOf(',', begin+1);
+                        if(index == -1) index = text.indexOf('\n', begin+1);
+                    }
                 }
-                if(text.charAt(begin) == '.') begin++;
+                if(text.charAt(begin) == '.' || text.charAt(begin) == ',') begin++;
                 end = text.indexOf('.', getSelectionEnd());
-                if(end == -1) end = text.length();
+                if(end == -1) end = begin + MAX_CONTEXT_PHRASE_TEXT_LENGTH;
                 if((begin - end) < MAX_CONTEXT_PHRASE_TEXT_LENGTH) return text.substring(begin, end);
                 else if((begin - getSelectionStart()) < MAX_CONTEXT_PHRASE_TEXT_LENGTH/2) return (text.substring(begin, calculateFinalIndex(begin))+"...");
                 else if((end - getSelectionEnd()) < MAX_CONTEXT_PHRASE_TEXT_LENGTH/2) return ("..."+text.substring(calculateInitialIndex(end), end));

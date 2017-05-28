@@ -101,64 +101,8 @@ public class BeAProFragment extends Fragment{
         titles.add("Expressões Linguísticas");
         titles.add("Lista de filmes legais");
         ArrayList<String> descriptions = new ArrayList<>();
-        descriptions.add("<p>Express&otilde;es&nbsp;Lingu&iacute;sticas:</p>\n" +
-                "<p>&nbsp;</p>\n" +
-                "<ul>\n" +
-                "<li>Enfiar o p&eacute; na jaca - exagerar</li>\n" +
-                "<li>Botar pra quebrar&nbsp;- exagerar</li>\n" +
-                "<li>Badernar&nbsp;- fazer bagun&ccedil;a</li>\n" +
-                "<li>Encher a cara - embriagar-se</li>\n" +
-                "<li>Ir para o&nbsp;olho da rua - ser demitido</li>\n" +
-                "<li>Enfiar o p&eacute; na jaca - exagerar</li>\n" +
-                "<li>Botar pra quebrar&nbsp;- exagerar</li>\n" +
-                "<li>Badernar&nbsp;- fazer bagun&ccedil;a</li>\n" +
-                "<li>Encher a cara - embriagar-se</li>\n" +
-                "<li>Ir para o&nbsp;olho da rua - ser demitido</li>\n" +
-                "<li>Enfiar o p&eacute; na jaca - exagerar</li>\n" +
-                "<li>Botar pra quebrar&nbsp;- exagerar</li>\n" +
-                "<li>Badernar&nbsp;- fazer bagun&ccedil;a</li>\n" +
-                "<li>Encher a cara - embriagar-se</li>\n" +
-                "<li>Ir para o&nbsp;olho da rua - ser demitido</li>\n" +
-                "<li>Enfiar o p&eacute; na jaca - exagerar</li>\n" +
-                "<li>Botar pra quebrar&nbsp;- exagerar</li>\n" +
-                "<li>Badernar&nbsp;- fazer bagun&ccedil;a</li>\n" +
-                "<li>Encher a cara - embriagar-se</li>\n" +
-                "<li>Ir para o&nbsp;olho da rua - ser demitido</li>\n"+
-                "<li>Enfiar o p&eacute; na jaca - exagerar</li>\n" +
-                "<li>Botar pra quebrar&nbsp;- exagerar</li>\n" +
-                "<li>Badernar&nbsp;- fazer bagun&ccedil;a</li>\n" +
-                "<li>Encher a cara - embriagar-se</li>\n" +
-                "<li>Ir para o&nbsp;olho da rua - ser demitido</li>\n" +
-                "<li>Enfiar o p&eacute; na jaca - exagerar</li>\n" +
-                "<li>Botar pra quebrar&nbsp;- exagerar</li>\n" +
-                "<li>Badernar&nbsp;- fazer bagun&ccedil;a</li>\n" +
-                "<li>Encher a cara - embriagar-se</li>\n" +
-                "<li>Ir para o&nbsp;olho da rua - ser demitido</li>\n" +
-                "<li>Enfiar o p&eacute; na jaca - exagerar</li>\n" +
-                "<li>Botar pra quebrar&nbsp;- exagerar</li>\n" +
-                "<li>Badernar&nbsp;- fazer bagun&ccedil;a</li>\n" +
-                "<li>Encher a cara - embriagar-se</li>\n" +
-                "<li>Ir para o&nbsp;olho da rua - ser demitido</li>\n" +
-                "<li>Enfiar o p&eacute; na jaca - exagerar</li>\n" +
-                "<li>Botar pra quebrar&nbsp;- exagerar</li>\n" +
-                "<li>Badernar&nbsp;- fazer bagun&ccedil;a</li>\n" +
-                "<li>Encher a cara - embriagar-se</li>\n" +
-                "<li>Ir para o&nbsp;olho da rua - ser demitido</li>\n"+
-                "</ul>");
-        descriptions.add("<ul>\n" +
-                "<li>Star wars</li>\n" +
-                "<li>Senhor dos aneis</li>\n" +
-                "<li>Matrix</li>\n" +
-                "<li>Star wars</li>\n" +
-                "<li>Senhor dos aneis</li>\n" +
-                "<li>Matrix</li>\n" +
-                "<li>Star wars</li>\n" +
-                "<li>Senhor dos aneis</li>\n" +
-                "<li>Matrix</li>\n" +
-                "<li>Star wars</li>\n" +
-                "<li>Senhor dos aneis</li>\n" +
-                "<li>Matrix</li>\n" +
-                "</ul>");
+        descriptions.add("<blockquote>Express&otilde;es&nbsp;Lingu&iacute;sticas:</blockquote></p><ul><li>Enfiar o p&eacute; na jaca - exagerar</li></ul><ul><li>Botar pra quebrar&nbsp;- exagerar</li></ul><ul><li>Badernar&nbsp;- fazer bagun&ccedil;a</li></ul><ul><li>Encher a cara - embriagar-se</li></ul><ul><li>Ir para o&nbsp;olho da rua - ser demitido</li></ul><ul><li>Enfiar o p&eacute; na jaca - exagerar</li></ul><ul><li>Botar pra quebrar&nbsp;- exagerar</li></ul><ul><li>Badernar&nbsp;- fazer bagun&ccedil;a</li></ul><ul><li>Encher a cara - embriagar-se</li></ul><ul><li>Ir para o&nbsp;olho da rua - ser demitido</li></ul><ul><li>Enfiar o p&eacute; na jaca - exagerar</li></ul><ul><li>Botar pra quebrar&nbsp;- exagerar</li></ul><ul><li>Badernar&nbsp;- fazer bagun&ccedil;a</li></ul><ul><li>Encher a cara - embriagar-se</li></ul><ul><li>Ir para o&nbsp;olho da rua - ser demitido</li></ul><ul><li>Enfiar o p&eacute; na jaca - exagerar</li></ul><ul><li>Botar pra quebrar&nbsp;- exagerar</li></ul><ul><li>Badernar&nbsp;- fazer bagun&ccedil;a</li></ul><ul><li>Encher a cara - embriagar-se</li></ul><ul><li>Ir para o&nbsp;olho da rua - ser demitido</li></ul><ul><li>Enfiar o p&eacute; na jaca - exagerar</li></ul><ul><li>Botar pra quebrar&nbsp;- exagerar</li></ul><ul><li>Badernar&nbsp;- fazer bagun&ccedil;a</li></ul><ul><li>Encher a cara - embriagar-se</li></ul><ul><li>Ir para o&nbsp;olho da rua - ser demitido</li></ul><ul><li>Enfiar o p&eacute; na jaca - exagerar</li></ul><ul><li>Botar pra quebrar&nbsp;- exagerar</li></ul><ul><li>Badernar&nbsp;- fazer bagun&ccedil;a</li></ul><ul><li>Encher a cara - embriagar-se</li></ul><ul><li>Ir para o&nbsp;olho da rua - ser demitido</li></ul><ul><li>Enfiar o p&eacute; na jaca - exagerar</li></ul><ul><li>Botar pra quebrar&nbsp;- exagerar</li></ul><ul><li>Badernar&nbsp;- fazer bagun&ccedil;a</li></ul><ul><li>Encher a cara - embriagar-se</li></ul><ul><li>Ir para o&nbsp;olho da rua - ser demitido</li></ul><ul><li>Enfiar o p&eacute; na jaca - exagerar</li></ul><ul><li>Botar pra quebrar&nbsp;- exagerar</li></ul><ul><li>Badernar&nbsp;- fazer bagun&ccedil;a</li></ul><ul><li>Encher a cara - embriagar-se</li></ul><ul><li>Ir para o&nbsp;olho da rua - ser demitido</li></ul>");
+        descriptions.add("<blockquote>Blah b</blockquote><u>List</u>:<br><br><ul><li>a</li></ul><ul><li>b</li></ul><ul><li>c</li></ul><ul><li>d</li></ul>");
         ArrayList<String> categories = new ArrayList<>();
         categories.add("expressões, linguagem popular");
         categories.add("filmes");

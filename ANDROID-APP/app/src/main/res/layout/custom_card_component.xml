@@ -76,7 +76,7 @@
                     android:layout_height="@dimen/separator_size"
                     android:background="@color/md_divider_black"/>
             </RelativeLayout>
-            <politcc2017.tcc_app.Components.CustomHTMLTextView
+            <politcc2017.tcc_app.Components.CustomHTMLEditText
                 android:id="@+id/custom_card_class_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -96,7 +96,10 @@
                 android:gravity="top|start"
                 android:textColor="@color/gray"
                 android:scrollbars="vertical"
-                android:clickable="false"
+                android:inputType="none"
+                android:editable="false"
+                android:clickable="true"
+                android:focusableInTouchMode="false"
                 android:background="@android:color/transparent"
                 />
             <RelativeLayout

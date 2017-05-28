@@ -74,7 +74,7 @@
                 android:layout_marginBottom="@dimen/margin_small"
                 style="@style/TextMediumBlack"
                 android:text="@string/be_a_pro_class_content_text" />
-            <politcc2017.tcc_app.Components.CustomHTMLTextView
+            <politcc2017.tcc_app.Components.CustomHTMLEditText
                 android:id="@+id/class_text_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -2,13 +2,17 @@ package politcc2017.tcc_app.Components;
 
 import android.content.Context;
 import android.support.v7.widget.CardView;
+import android.text.InputType;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.afollestad.materialdialogs.util.TypefaceHelper;
+
 import io.github.mthli.knife.KnifeText;
+import politcc2017.tcc_app.Components.Helpers.FontHelper;
 import politcc2017.tcc_app.Components.Listeners.CellClickListener;
 import politcc2017.tcc_app.R;
 
@@ -20,7 +24,7 @@ public class CustomCard extends LinearLayout {
     private Context mContext;
     private CardView cardLayout;
     private CustomTextView votes, title, categories;
-    private CustomHTMLTextView content;
+    private CustomHTMLEditText content;
     private ImageView upvote, downvote, edit, favorite;
     public CustomCard(Context context) {
         super(context);
@@ -48,7 +52,7 @@ public class CustomCard extends LinearLayout {
         votes = (CustomTextView) findViewById(R.id.custom_card_votes);
         title = (CustomTextView) findViewById(R.id.custom_card_title);
         categories = (CustomTextView) findViewById(R.id.custom_card_categories);
-        content = (CustomHTMLTextView) findViewById(R.id.custom_card_class_content);
+        content = (CustomHTMLEditText) findViewById(R.id.custom_card_class_content);
         cardLayout = (CardView) findViewById(R.id.custom_card_card_layout);
         edit.setVisibility(View.GONE);
         categories.setVisibility(View.GONE);
@@ -66,7 +70,7 @@ public class CustomCard extends LinearLayout {
 
 
     public void setContent(String content){
-        this.content.setHtml(content);
+        this.content.fromHtml(content);
     }
 
     public void setVotes(String votes){
@@ -120,6 +124,12 @@ public class CustomCard extends LinearLayout {
     }
 
     public void setCardClickListener(final CellClickListener listener){
+        content.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(listener != null) listener.onClick("cardlayout", 0);
+            }
+        });
         cardLayout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {

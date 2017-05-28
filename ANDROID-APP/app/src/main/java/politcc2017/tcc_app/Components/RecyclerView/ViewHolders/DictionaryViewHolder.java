@@ -7,7 +7,7 @@ import android.widget.LinearLayout;
 
 import java.util.Hashtable;
 
-import politcc2017.tcc_app.Components.CustomHTMLTextView;
+import politcc2017.tcc_app.Components.CustomHTMLEditText;
 import politcc2017.tcc_app.Components.Listeners.CellClickListener;
 import politcc2017.tcc_app.Components.RecyclerView.Data.GenericData;
 import politcc2017.tcc_app.R;
@@ -17,11 +17,11 @@ import politcc2017.tcc_app.R;
  */
 
 public class DictionaryViewHolder extends GenericViewHolder{
-    CustomHTMLTextView textView;
+    CustomHTMLEditText textView;
     LinearLayout container;
     public DictionaryViewHolder(View itemView, final CellClickListener listener, Context c) {
         super(itemView, listener);
-        textView = (CustomHTMLTextView) itemView.findViewById(R.id.dictionary_cell_text);
+        textView = (CustomHTMLEditText) itemView.findViewById(R.id.dictionary_cell_text);
         textView.allowWordContextMenu();
         container = (LinearLayout) itemView.findViewById(R.id.dictionary_cell_container);
     }
@@ -29,7 +29,7 @@ public class DictionaryViewHolder extends GenericViewHolder{
     @Override
     public void setViewContent(Hashtable cellData) {
         if(cellData.containsKey(GenericData.DICTIONARY_CELL_CONTENT))
-            textView.setHtml(cellData.get(GenericData.DICTIONARY_CELL_CONTENT).toString());
+            textView.fromHtml(cellData.get(GenericData.DICTIONARY_CELL_CONTENT).toString());
         if(getAdapterPosition() == 0)
                 container.setBackgroundColor(Color.parseColor("#00BCD4"));
     }

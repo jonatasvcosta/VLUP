@@ -9,13 +9,12 @@ import android.widget.LinearLayout;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
-import io.github.mthli.knife.KnifeText;
 import mabbas007.tagsedittext.TagsEditText;
 import politcc2017.tcc_app.Activities.BaseActivity;
 import politcc2017.tcc_app.Common.ResourcesHelper;
 import politcc2017.tcc_app.Components.CustomButton;
 import politcc2017.tcc_app.Components.CustomEditText;
-import politcc2017.tcc_app.Components.CustomHTMLTextView;
+import politcc2017.tcc_app.Components.CustomHTMLEditText;
 import politcc2017.tcc_app.Components.CustomPicker;
 import politcc2017.tcc_app.Components.Helpers.DialogHelper;
 import politcc2017.tcc_app.Components.Helpers.FontHelper;
@@ -28,7 +27,7 @@ import politcc2017.tcc_app.R;
 public class BeAProCreateClassActivity extends BaseActivity {
     private CustomButton continueOrSaveClassButton;
     private LinearLayout contentContainer;
-    private CustomHTMLTextView content;
+    private CustomHTMLEditText content;
     private TagsEditText tags;
     private CustomEditText classTitle;
     private CustomPicker classLanguage;
@@ -44,7 +43,7 @@ public class BeAProCreateClassActivity extends BaseActivity {
         HTMLContentText = "";
         continueOrSaveClassButton = (CustomButton) findViewById(R.id.class_continue_or_save_button);
         contentContainer = (LinearLayout) findViewById(R.id.class_content_container);
-        content = (CustomHTMLTextView) findViewById(R.id.class_text_content);
+        content = (CustomHTMLEditText) findViewById(R.id.class_text_content);
         tags = (TagsEditText) findViewById(R.id.be_a_pro_class_tags);
         classTitle = (CustomEditText) findViewById(R.id.be_a_pro_class_title_text);
         classLanguage = (CustomPicker) findViewById(R.id.be_a_pro_class_language_picker);
@@ -104,7 +103,7 @@ public class BeAProCreateClassActivity extends BaseActivity {
                 String classContent = data.getStringExtra("content");
                 classContent = "<p>"+classContent+"</p>";
                 HTMLContentText = classContent;
-                content.setHtml(classContent);
+                content.fromHtml(classContent);
                 contentContainer.setVisibility(View.VISIBLE);
             }
         }
