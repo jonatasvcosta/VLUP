@@ -12,16 +12,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"  />
-    <android.support.design.widget.FloatingActionButton
+    <com.melnykov.fab.FloatingActionButton
         android:id="@+id/create_class_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right|bottom"
-        android:layout_margin="@dimen/margin_medium"
-        android:clickable="true"
+        android:layout_gravity="bottom|right"
         android:src="@drawable/ic_fab_add"
+        android:layout_marginRight="@dimen/margin_small"
+        android:layout_marginBottom="@dimen/margin_small"
         app:fabSize="normal"
-        app:backgroundTint="@color/primary_color"/>
+        android:clickable="true"
+        app:fab_colorNormal="@color/cyan_dark"
+        app:fab_colorPressed="@color/cyan_darker"/>
     <android.support.design.widget.TabLayout
         android:id="@+id/be_a_pro_tabs"
         android:layout_width="match_parent"
@@ -29,4 +31,5 @@
         android:background="@color/cyan_darkest"
         app:tabMode="fixed"
         app:tabGravity="fill"/>
+
 </FrameLayout>

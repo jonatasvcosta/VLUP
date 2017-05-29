@@ -21,7 +21,6 @@ import politcc2017.tcc_app.R;
  */
 
 public class BeAProListClassesActivity extends BaseActivity{
-    FloatingActionButton createClassFAB;
     private TabLayout tabLayout;
     private ViewPager viewPager;
 
@@ -30,13 +29,7 @@ public class BeAProListClassesActivity extends BaseActivity{
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.be_a_pro_list_classes);
         setActivityTitle(getResString(R.string.be_a_pro_activity_title));
-        createClassFAB = (FloatingActionButton) findViewById(R.id.create_class_fab);
-        createClassFAB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startOrResumeActivity(BeAProCreateClassActivity.class);
-            }
-        });
+
         viewPager = (ViewPager) findViewById(R.id.be_a_pro_viewpager);
         setupViewPager(viewPager);
 
