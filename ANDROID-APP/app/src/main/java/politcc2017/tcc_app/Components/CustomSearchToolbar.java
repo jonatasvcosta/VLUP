@@ -28,6 +28,7 @@ import politcc2017.tcc_app.R;
 
 public class CustomSearchToolbar extends LinearLayout {
     private EditText mEditText;
+    private AutoCompleteEditText mAutoCompleteEditText;
     private Toolbar mToolbar;
     private OnClickListener searchListener;
     private ImageView searchIcon;
@@ -132,6 +133,9 @@ public class CustomSearchToolbar extends LinearLayout {
         LayoutInflater inflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.custom_search_toolbar, this, true);
         mEditText = (EditText) findViewById(R.id.search_toolbar_edit_text);
+        mAutoCompleteEditText = (AutoCompleteEditText) findViewById(R.id.search_toolbar_edit_text_autocomplete);
+        mEditText.setVisibility(VISIBLE);
+        mAutoCompleteEditText.setVisibility(GONE);
         searchIcon = (ImageView) findViewById(R.id.search_toolbar_search_icon);
         mToolbar = (Toolbar) findViewById(R.id.search_toolbar);
         mEditText.setTypeface(FontHelper.get(FontHelper.TTF_FONT, c));
@@ -151,6 +155,15 @@ public class CustomSearchToolbar extends LinearLayout {
                 if(searchListener != null) searchListener.onClick(searchIcon);
             }
         });
+    }
+
+    public void setAutoCompleteSearchBar(){
+        mEditText.setVisibility(GONE);
+        mAutoCompleteEditText.setVisibility(VISIBLE);
+    }
+
+    public void setAutoCompleteSuggestionList(String[] suggestions){
+        mAutoCompleteEditText.setAutoCompleteList(suggestions);
     }
 
     public Toolbar getToolbar(){

@@ -63,17 +63,20 @@ public class CustomHTMLEditText extends KnifeText {
                 }
                 if(text.charAt(begin) == '.' || text.charAt(begin) == ',') begin++;
                 end = text.indexOf('.', getSelectionEnd());
-                if(end == -1) end = begin + MAX_CONTEXT_PHRASE_TEXT_LENGTH;
+                if(end == -1){
+                    end = begin + MAX_CONTEXT_PHRASE_TEXT_LENGTH;
+                    if(end > text.length()) end = text.length();
+                }
                 if((begin - end) < MAX_CONTEXT_PHRASE_TEXT_LENGTH) return text.substring(begin, end);
-                else if((begin - getSelectionStart()) < MAX_CONTEXT_PHRASE_TEXT_LENGTH/2) return (text.substring(begin, calculateFinalIndex(begin))+"...");
+                else if((begin - getSelectionStart()) < MAX_CONTEXT_PHRASE_TEXT_LENGTH/2) return (text.substring(begin, calculateFinalIndex(begin, text.length()))+"...");
                 else if((end - getSelectionEnd()) < MAX_CONTEXT_PHRASE_TEXT_LENGTH/2) return ("..."+text.substring(calculateInitialIndex(end), end));
                 else return ("..."+text.substring(getSelectionStart() - calculateMiddleIndex(), getSelectionEnd() + calculateMiddleIndex())+"...");
             }
 
-            private int calculateFinalIndex(int begin){
+            private int calculateFinalIndex(int begin, int maxLength){
                 int ret = MAX_CONTEXT_PHRASE_TEXT_LENGTH - (begin + getSelectionEnd());
-                if(ret > 0) return ret;
-                return 0;
+                if(ret < maxLength) return ret;
+                else return maxLength;
             }
 
             private int calculateInitialIndex(int end){
