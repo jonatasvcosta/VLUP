@@ -74,7 +74,7 @@ public class GenericAdapter extends RecyclerView.Adapter<GenericViewHolder> {
 
         if(viewHolderType == ViewHolderType.VOCABULARY_WORD_VIEW_HOLDER) {
             final View itemView = LayoutInflater.from(parent.getContext()).inflate(GenericViewHolder.getLayoutViewByPosition(position, ViewHolderType.VOCABULARY_WORD_VIEW_HOLDER), null);
-            return new VocabularyWordViewHolder(itemView);
+            return new VocabularyWordViewHolder(itemView, mCLickListener);
         }
 
         if(viewHolderType == ViewHolderType.CUSTOM_CARD_VIEW_HOLDER) {

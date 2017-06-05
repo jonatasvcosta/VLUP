@@ -5,16 +5,20 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 
 import politcc2017.tcc_app.Components.AutoCompleteEditText;
 import politcc2017.tcc_app.Components.CustomSearchToolbar;
 import politcc2017.tcc_app.Components.CustomTextView;
+import politcc2017.tcc_app.Components.Helpers.DialogHelper;
+import politcc2017.tcc_app.Components.Listeners.CellClickListener;
 import politcc2017.tcc_app.Components.RecyclerView.Adapters.GenericAdapter;
 import politcc2017.tcc_app.Components.RecyclerView.Data.GenericData;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.GenericViewHolder;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.ViewHolderType;
+import politcc2017.tcc_app.Entities.WordContextMenu;
 import politcc2017.tcc_app.R;
 
 /**
@@ -37,8 +41,34 @@ public class VocabularyActivity extends BaseActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mData = new GenericData();
         mAdapter = new GenericAdapter(mData, ViewHolderType.VOCABULARY_WORD_VIEW_HOLDER,getApplicationContext());
-        mRecyclerView.setAdapter(mAdapter);
+        mAdapter.RegisterClickListener(new CellClickListener() {
+            @Override
+            public void onClick(View v, int position) {
 
+            }
+
+            @Override
+            public void onClick(ImageView v, String link) {
+
+            }
+
+            @Override
+            public void onClick(String message, int position) {
+                DialogHelper.WordContextDialog(VocabularyActivity.this, message, "Translation of "+message).show();
+            }
+
+            @Override
+            public void onLinkClick(String link) {
+
+            }
+
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        mRecyclerView.setAdapter(mAdapter);
+        setActivityTitle(getResString(R.string.be_a_pro_activity_title));
         SetSuggestionList();
 
         mSearchToolbar.registerSearchListener(new View.OnClickListener() {

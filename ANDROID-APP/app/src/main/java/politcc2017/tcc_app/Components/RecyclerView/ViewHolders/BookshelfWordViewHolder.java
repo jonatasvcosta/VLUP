@@ -2,6 +2,7 @@ package politcc2017.tcc_app.Components.RecyclerView.ViewHolders;
 
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import java.util.Hashtable;
 
@@ -17,12 +18,15 @@ import politcc2017.tcc_app.R;
 public class BookshelfWordViewHolder extends GenericViewHolder{
     CustomTextView word;
     ImageView edit, remove;
+    RelativeLayout wordContainer;
 
     public BookshelfWordViewHolder(View itemView, final CellClickListener listener) {
         super(itemView, listener);
         word = (CustomTextView) itemView.findViewById(R.id.bookshelf_word);
         edit = (ImageView) itemView.findViewById(R.id.bookshelf_word_edit);
         remove = (ImageView) itemView.findViewById(R.id.bookshelf_word_remove);
+        wordContainer = (RelativeLayout) itemView.findViewById(R.id.bookshelf_word_container);
+
         setListeners();
     }
 
@@ -37,6 +41,12 @@ public class BookshelfWordViewHolder extends GenericViewHolder{
             @Override
             public void onClick(View view) {
                 if(mClickListener != null) mClickListener.onClick("remove", getAdapterPosition());
+            }
+        });
+        wordContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(mClickListener != null) mClickListener.onClick("word", getAdapterPosition());
             }
         });
     }

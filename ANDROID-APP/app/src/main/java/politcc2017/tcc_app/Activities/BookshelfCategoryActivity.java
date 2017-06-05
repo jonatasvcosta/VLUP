@@ -110,6 +110,9 @@ public class BookshelfCategoryActivity extends BaseActivity {
                 else if(message.equals("remove")){
                     RemoveWord(position);
                 }
+                else if(message.equals("word")){
+                    DialogHelper.WordContextDialog(BookshelfCategoryActivity.this, mData.getValue(position).get(GenericData.BOOKSHELF_CATEGORY_WORD).toString(), "Translation of "+mData.getValue(position).get(GenericData.BOOKSHELF_CATEGORY_WORD).toString()).show();
+                }
             }
 
             @Override
