@@ -176,6 +176,10 @@ public class CustomSearchToolbar extends LinearLayout {
         return (baseAdress+ret);
     }
 
+    public String getSuggestionText(){
+        return mAutoCompleteEditText.getText().toString();
+    }
+
     public void setSearchUrl(String url){
         if(url.contains(secureBaseAdress)){
             url = url.replace(secureBaseAdress, baseAdress);

@@ -17,6 +17,7 @@ import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.GenericViewHolder
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.LabelViewHolder;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.SitesSuggestionViewHolder;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.ViewHolderType;
+import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.VocabularyWordViewHolder;
 import politcc2017.tcc_app.R;
 
 /**
@@ -70,6 +71,12 @@ public class GenericAdapter extends RecyclerView.Adapter<GenericViewHolder> {
             final View itemView = LayoutInflater.from(parent.getContext()).inflate(GenericViewHolder.getLayoutViewByPosition(position, ViewHolderType.BOOKSHELF_WORD_VIEW_HOLDER), null);
             return new BookshelfWordViewHolder(itemView, mCLickListener);
         }
+
+        if(viewHolderType == ViewHolderType.VOCABULARY_WORD_VIEW_HOLDER) {
+            final View itemView = LayoutInflater.from(parent.getContext()).inflate(GenericViewHolder.getLayoutViewByPosition(position, ViewHolderType.VOCABULARY_WORD_VIEW_HOLDER), null);
+            return new VocabularyWordViewHolder(itemView);
+        }
+
         if(viewHolderType == ViewHolderType.CUSTOM_CARD_VIEW_HOLDER) {
             final View itemView = LayoutInflater.from(parent.getContext()).inflate(GenericViewHolder.getLayoutViewByPosition(position, ViewHolderType.CUSTOM_CARD_VIEW_HOLDER), null);
             return new CustomCardViewHolder(itemView, mCLickListener, mContext);

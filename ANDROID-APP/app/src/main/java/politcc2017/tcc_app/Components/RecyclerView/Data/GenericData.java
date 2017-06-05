@@ -26,6 +26,8 @@ public class GenericData {
     public static final String CUSTOM_CARD_CONTENT = "ccontent";
     public static final String DICTIONARY_CELL_CONTENT = "dccontent";
     public static final String DICTIONARY_CELL_SOURCE = "dcsource";
+    public static final String VOCABULARY_WORD = "vword";
+    public static final String VOCABULARY_COUNT = "vcount";
 
 
     private ArrayList<Hashtable> mData;
