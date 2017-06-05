@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="right|bottom"
         android:orientation="vertical">
-        <android.support.design.widget.FloatingActionButton
+        <com.melnykov.fab.FloatingActionButton
             android:id="@+id/add_word_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -33,8 +33,9 @@
             android:clickable="true"
             android:src="@drawable/ic_fab_add"
             app:fabSize="normal"
-            app:backgroundTint="@color/primary_color"/>
-        <android.support.design.widget.FloatingActionButton
+            app:fab_colorNormal="@color/primary_color"
+            app:fab_colorPressed="@color/cyan_dark"/>
+        <com.melnykov.fab.FloatingActionButton
             android:id="@+id/random_word_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -44,6 +45,7 @@
             android:src="@drawable/ic_fab_random"
             android:clickable="true"
             app:fabSize="normal"
-            app:backgroundTint="@color/primary_color"/>
+            app:fab_colorNormal="@color/primary_color"
+            app:fab_colorPressed="@color/cyan_dark"/>
     </LinearLayout>
 </FrameLayout>

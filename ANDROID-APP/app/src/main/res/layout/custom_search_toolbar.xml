@@ -30,7 +30,23 @@
                 android:src="@drawable/ic_search"
                 android:clickable="true"/>
             <EditText
+                android:visibility="visible"
                 android:id="@+id/search_toolbar_edit_text"
+                style="@style/TextMediumGray"
+                android:layout_alignParentLeft="true"
+                android:layout_alignRight="@id/search_toolbar_search_icon"
+                android:layout_marginRight="@dimen/margin_extra_large"
+                android:paddingTop="@dimen/margin_extra_small"
+                android:paddingBottom="@dimen/margin_extra_small"
+                android:paddingRight="@dimen/margin_small"
+                android:paddingLeft="@dimen/margin_small"
+                android:layout_centerVertical="true"
+                android:layout_width="match_parent"
+                android:background="@drawable/search_edit_text_background"
+                android:layout_height="wrap_content"/>
+            <politcc2017.tcc_app.Components.AutoCompleteEditText
+                android:visibility="gone"
+                android:id="@+id/search_toolbar_edit_text_autocomplete"
                 style="@style/TextMediumGray"
                 android:layout_alignParentLeft="true"
                 android:layout_alignRight="@id/search_toolbar_search_icon"

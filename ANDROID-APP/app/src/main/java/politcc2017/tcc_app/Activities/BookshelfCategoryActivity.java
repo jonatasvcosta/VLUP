@@ -35,14 +35,14 @@ public class BookshelfCategoryActivity extends BaseActivity {
     private GenericData mData;
     private RecyclerView mRecyclerView;
     private GenericAdapter mAdapter;
-    private FloatingActionButton addWordFAB;
+    private com.melnykov.fab.FloatingActionButton addWordFAB;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_bookshelf_category);
         Inquiry.newInstance(this, SqlHelper.DATABASE).build();
         mRecyclerView = (RecyclerView) findViewById(R.id.bookshelf_category_words_recyclerview);
-        addWordFAB = (FloatingActionButton) findViewById(R.id.add_word_fab);
+        addWordFAB = (com.melnykov.fab.FloatingActionButton) findViewById(R.id.add_word_fab);
         setupToolbar();
         setupListeners();
     }
@@ -109,6 +109,9 @@ public class BookshelfCategoryActivity extends BaseActivity {
                 }
                 else if(message.equals("remove")){
                     RemoveWord(position);
+                }
+                else if(message.equals("word")){
+                    DialogHelper.WordContextDialog(BookshelfCategoryActivity.this, mData.getValue(position).get(GenericData.BOOKSHELF_CATEGORY_WORD).toString(), "Translation of "+mData.getValue(position).get(GenericData.BOOKSHELF_CATEGORY_WORD).toString()).show();
                 }
             }
 
