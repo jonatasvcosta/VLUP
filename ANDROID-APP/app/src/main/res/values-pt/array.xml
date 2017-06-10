@@ -27,6 +27,12 @@
         <item>@drawable/ic_help</item>
     </integer-array>
 
+    <integer-array name="languages_icons">
+        <item>@drawable/flag_pt</item>
+        <item>@drawable/flag_en</item>
+        <item>@drawable/flag_de</item>
+    </integer-array>
+
     <string-array name="gender_array">
         <item>Masculino</item>
         <item>Feminino</item>

@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -68,7 +69,7 @@ public class VocabularyActivity extends BaseActivity {
             }
         });
         mRecyclerView.setAdapter(mAdapter);
-        setActivityTitle(getResString(R.string.be_a_pro_activity_title));
+        setActivityTitle(getResString(R.string.vocabulary_activity_title));
         SetSuggestionList();
 
         mSearchToolbar.registerSearchListener(new View.OnClickListener() {
@@ -77,6 +78,11 @@ public class VocabularyActivity extends BaseActivity {
                 loadWords(mSearchToolbar.getSuggestionText());
             }
         });
+    }
+
+    @Override
+    public void handleLearningLanguageChange(){
+        Toast.makeText(getBaseContext(), "Language was changed, VocabularyActivity must reload all the content", Toast.LENGTH_SHORT).show();
     }
 
     private void loadWords(String category){

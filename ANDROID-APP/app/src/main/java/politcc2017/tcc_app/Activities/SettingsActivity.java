@@ -1,5 +1,6 @@
 package politcc2017.tcc_app.Activities;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -23,16 +24,19 @@ public class SettingsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_settings);
         setActivityTitle(getResString(R.string.settings_activity_title));
-        Button mButton = (Button) findViewById(R.id.settings_native_language_btn);
+        Button nativeLanguageBtn = (Button) findViewById(R.id.settings_native_language_btn);
+        Button learningLanguageBtn = (Button) findViewById(R.id.settings_learning_language_btn);
+
         final String[] locales = getResources().getStringArray(R.array.locale_array);
-        String[] languages = getResources().getStringArray(R.array.languages_array);
+        final String[] languages = getResources().getStringArray(R.array.languages_array);
         final ArrayList<String> languagesList = new ArrayList<>();
         for(int i = 0; i < languages.length; i++) languagesList.add(i, languages[i]);
+
         SharedPreferencesHelper.Initialize(getApplicationContext());
-        mButton.setOnClickListener(new View.OnClickListener() {
+        nativeLanguageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogHelper.ListSingleChoiceDialog(SettingsActivity.this, "Escolha um idioma", languagesList, getResString(R.string.dialog_confirm), getResString(R.string.dialog_cancel), new MaterialDialog.ListCallbackSingleChoice() {
+                DialogHelper.ListSingleChoiceDialog(SettingsActivity.this, getResString(R.string.signup_activity_native_language_field), languagesList, getResString(R.string.dialog_confirm), getResString(R.string.dialog_cancel), new MaterialDialog.ListCallbackSingleChoice() {
                     @Override
                     public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
                         SharedPreferencesHelper.addString(SharedPreferencesHelper.LOCALE_KEY, locales[which]);
@@ -42,5 +46,13 @@ public class SettingsActivity extends BaseActivity {
                 }).show();
             }
         });
+
+        learningLanguageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                handleLearningLanguageChoice(SettingsActivity.this);
+            }
+        });
+
     }
 }

@@ -4,6 +4,7 @@ package politcc2017.tcc_app.Activities;
  * Created by Jonatas on 25/10/2016.
  */
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.annotation.LayoutRes;
@@ -18,12 +19,15 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+
 import java.util.ArrayList;
 import java.util.Locale;
 
 import politcc2017.tcc_app.Activities.BeAPro.BeAProListClassesActivity;
 import politcc2017.tcc_app.Common.ResourcesHelper;
 import politcc2017.tcc_app.Components.CustomTextView;
+import politcc2017.tcc_app.Components.Helpers.DialogHelper;
 import politcc2017.tcc_app.Components.Helpers.SharedPreferencesHelper;
 import politcc2017.tcc_app.Components.Listeners.CellClickListener;
 import politcc2017.tcc_app.Components.Listeners.ContextMenuClickListener;
@@ -45,8 +49,9 @@ public class BaseActivity extends AppCompatActivity {
     DrawerLayout mDrawerLayout;
     ActionBarDrawerToggle mDrawerToggle;
     ActionBar baseActionBar;
-    int appLanguage;
-    ImageView rightIcon, rightMostIcon, leftMostIcon;
+    private int appLanguage;
+    private int learningLanguage;
+    ImageView rightIcon, rightMostIcon, leftMostIcon, flagIcon;
 
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
@@ -63,6 +68,7 @@ public class BaseActivity extends AppCompatActivity {
         rightIcon = (ImageView) findViewById(R.id.base_toolbar_righ_icon);
         rightMostIcon = (ImageView) findViewById(R.id.base_toolbar_rightmost_icon);
         leftMostIcon = (ImageView) findViewById(R.id.base_toolbar_leftmost_icon);
+        flagIcon = (ImageView) findViewById(R.id.base_toolbar_language_icon);
         setSupportActionBar(toolbar);
         baseActionBar = getSupportActionBar();
         baseActionBar.setTitle("");
@@ -75,6 +81,13 @@ public class BaseActivity extends AppCompatActivity {
             }
         };
         mDrawerToggle.syncState();
+        setLearningLanguage();
+        flagIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                handleLearningLanguageChoice(BaseActivity.this);
+            }
+        });
     }
 
     protected void hideActionBar(){
@@ -92,6 +105,8 @@ public class BaseActivity extends AppCompatActivity {
         baseActionBar = getSupportActionBar();
         baseActionBar.setTitle("");
     }
+
+    protected void handleLearningLanguageChange(){} //each activity must handle this method
 
     private void setDrawerData(){
         GenericData data = new GenericData();
@@ -217,6 +232,20 @@ public class BaseActivity extends AppCompatActivity {
         });
     }
 
+    protected void handleLearningLanguageChoice(Context c){
+        final String[] languages = getResources().getStringArray(R.array.languages_array);
+        final ArrayList<String> languagesList = new ArrayList<>();
+        for(int i = 0; i < languages.length; i++) languagesList.add(i, languages[i]);
+        DialogHelper.ListSingleChoiceDialog(c, getResString(R.string.signup_activity_languages_field), languagesList, getResString(R.string.dialog_confirm), getResString(R.string.dialog_cancel), new MaterialDialog.ListCallbackSingleChoice() {
+            @Override
+            public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
+                SharedPreferencesHelper.addInt(SharedPreferencesHelper.LEARNING_LANGUAGE_KEY, which);
+                changeLearningLanguage(which);
+                return true;
+            }
+        }).show();
+    }
+
     public String getResString(int id){
         return getResources().getString(id);
     }
@@ -233,6 +262,19 @@ public class BaseActivity extends AppCompatActivity {
         config.locale = locale;
         getResources().updateConfiguration(config,getResources().getDisplayMetrics());
         recreate();
+    }
+
+    public void changeLearningLanguage(int languageIndex){
+        if(languageIndex == this.learningLanguage) return;
+        ArrayList<Integer> flagIcons = ResourcesHelper.getIntArrayAsArrayList(getBaseContext(), R.array.languages_icons);
+        flagIcon.setImageResource(flagIcons.get(languageIndex));
+        this.learningLanguage = languageIndex;
+        handleLearningLanguageChange();
+    }
+
+    public void setLearningLanguage(){
+        int language = SharedPreferencesHelper.getInt(SharedPreferencesHelper.LEARNING_LANGUAGE_KEY, getBaseContext());
+        changeLearningLanguage(language);
     }
 
     public void setLanguage(){

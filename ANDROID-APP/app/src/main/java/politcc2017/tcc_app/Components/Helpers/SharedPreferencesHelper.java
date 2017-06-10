@@ -55,6 +55,12 @@ public class SharedPreferencesHelper {
         return mSharedPreferences.getInt(key, -1);
     }
 
+    public static int getInt(String key, Context c)
+    {
+        if(mSharedPreferences == null) mSharedPreferences = c.getSharedPreferences(USER_DATA_PREFERENCES, Context.MODE_PRIVATE);
+        return mSharedPreferences.getInt(key, -1);
+    }
+
     public static void addStringArray(String key, String[] stringArray){
         mEditor.putStringSet(key, new HashSet<String>(Arrays.asList(stringArray)));
         mEditor.commit();
