@@ -123,7 +123,7 @@ public class SignupActivity extends AppCompatActivity implements LocationListene
             @Override
             public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
                 learningLanguagePicker.setText(text.toString());
-                user.learningLanguage = text.toString();
+                user.learningLanguage = which;
                 return true;
             }
         }));
@@ -133,7 +133,7 @@ public class SignupActivity extends AppCompatActivity implements LocationListene
             @Override
             public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
                 nativeLanguagePicker.setText(text.toString());
-                user.nativeLanguage = text.toString();
+                user.nativeLanguage = which;
                 if (which >= 0 && which < locales.length) changeAppLanguage(locales[which]);
                 return true;
             }
@@ -165,8 +165,8 @@ public class SignupActivity extends AppCompatActivity implements LocationListene
     }
 
     public void SaveLanguagesChoice(){
-        SharedPreferencesHelper.addString(SharedPreferencesHelper.LEARNING_LANGUAGE_KEY, user.learningLanguage);
-        SharedPreferencesHelper.addString(SharedPreferencesHelper.NATIVE_LANGUAGE_KEY, user.nativeLanguage);
+        SharedPreferencesHelper.addInt(SharedPreferencesHelper.LEARNING_LANGUAGE_KEY, user.learningLanguage);
+        SharedPreferencesHelper.addInt(SharedPreferencesHelper.NATIVE_LANGUAGE_KEY, user.nativeLanguage);
     }
 
     public void changeAppLanguage(String loc){

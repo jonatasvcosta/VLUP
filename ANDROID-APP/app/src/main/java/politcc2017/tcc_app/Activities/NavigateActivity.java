@@ -229,6 +229,11 @@ public class NavigateActivity extends BaseActivity implements View.OnClickListen
         loadNewWebsite();
     }
 
+    @Override
+    public void handleLearningLanguageChange(){
+        Toast.makeText(getBaseContext(), "Language was changed, NavigateActivity must reload all the content", Toast.LENGTH_SHORT).show();
+    }
+
     private void loadNewWebsite(){
         if(searchToolbar.getSearchUrl() != null && !searchToolbar.getSearchUrl().equals("")) {
             mWebView.setVisibility(View.VISIBLE);
