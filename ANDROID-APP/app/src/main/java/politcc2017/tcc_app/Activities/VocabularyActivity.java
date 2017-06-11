@@ -19,6 +19,7 @@ import politcc2017.tcc_app.Components.RecyclerView.Adapters.GenericAdapter;
 import politcc2017.tcc_app.Components.RecyclerView.Data.GenericData;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.GenericViewHolder;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.ViewHolderType;
+import politcc2017.tcc_app.Components.WordContextDialog;
 import politcc2017.tcc_app.Entities.WordContextMenu;
 import politcc2017.tcc_app.R;
 
@@ -55,7 +56,7 @@ public class VocabularyActivity extends BaseActivity {
 
             @Override
             public void onClick(String message, int position) {
-                DialogHelper.WordContextDialog(VocabularyActivity.this, message, "Translation of "+message).show();
+                WordContextDialog.launchDialog(VocabularyActivity.this, message);
             }
 
             @Override

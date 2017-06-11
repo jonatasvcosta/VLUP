@@ -23,6 +23,7 @@ import politcc2017.tcc_app.Components.Listeners.CellClickListener;
 import politcc2017.tcc_app.Components.RecyclerView.Adapters.GenericAdapter;
 import politcc2017.tcc_app.Components.RecyclerView.Data.GenericData;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.ViewHolderType;
+import politcc2017.tcc_app.Components.WordContextDialog;
 import politcc2017.tcc_app.R;
 
 /**
@@ -111,7 +112,7 @@ public class BookshelfCategoryActivity extends BaseActivity {
                     RemoveWord(position);
                 }
                 else if(message.equals("word")){
-                    DialogHelper.WordContextDialog(BookshelfCategoryActivity.this, mData.getValue(position).get(GenericData.BOOKSHELF_CATEGORY_WORD).toString(), "Translation of "+mData.getValue(position).get(GenericData.BOOKSHELF_CATEGORY_WORD).toString()).show();
+                    WordContextDialog.launchDialog(BookshelfCategoryActivity.this, mData.getValue(position).get(GenericData.BOOKSHELF_CATEGORY_WORD).toString());
                 }
             }
 

@@ -36,7 +36,7 @@ public class CustomTextView extends TextView {
                 String selectedWord = getText().subSequence(getSelectionStart(), getSelectionEnd()).toString();
                 if(!selectedWord.matches(".*[a-zA-Z]+.*")) return false;
                 WordContextMenu wordData = ServerRequestHelper.getWordInformation(getContext(), SharedPreferencesHelper.getString(SharedPreferencesHelper.LOCALE_KEY), selectedWord);
-                DialogHelper.WordContextDialog(getContext(), selectedWord, wordData.translation, getContextPhrase(), new ContextMenuClickListener() {
+                WordContextDialog.launchDialog(getContext(), selectedWord, wordData.translation, getContextPhrase(), new ContextMenuClickListener() {
                     @Override
                     public void onClick(View v, String action) {
                         Toast.makeText(getContext(), action, Toast.LENGTH_SHORT).show();
@@ -46,7 +46,7 @@ public class CustomTextView extends TextView {
                     public void onClick(View view) {
 
                     }
-                }).show();
+                });
                 return true;
             }
 

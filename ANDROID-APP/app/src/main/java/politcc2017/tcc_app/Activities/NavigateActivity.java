@@ -30,6 +30,7 @@ import politcc2017.tcc_app.Components.Listeners.ContextMenuClickListener;
 import politcc2017.tcc_app.Components.RecyclerView.Adapters.GenericAdapter;
 import politcc2017.tcc_app.Components.RecyclerView.Data.GenericData;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.ViewHolderType;
+import politcc2017.tcc_app.Components.WordContextDialog;
 import politcc2017.tcc_app.Entities.WordContextMenu;
 import politcc2017.tcc_app.R;
 import politcc2017.tcc_app.Volley.ServerRequestHelper;
@@ -107,7 +108,7 @@ public class NavigateActivity extends BaseActivity implements View.OnClickListen
                 if(!contextWordDialogOpened) {
                     contextWordDialogOpened = true;
                     WordContextMenu wordData = ServerRequestHelper.getWordInformation(getBaseContext(), SharedPreferencesHelper.getString(SharedPreferencesHelper.LOCALE_KEY), selectedWord);
-                    MaterialDialog dialog = DialogHelper.WordContextDialog(NavigateActivity.this, selectedWord, wordData.translation, "", new ContextMenuClickListener() {
+                    MaterialDialog dialog = WordContextDialog.createDialog(NavigateActivity.this, selectedWord, wordData.translation, "", new ContextMenuClickListener() {
                         @Override
                         public void onClick(View v, String action) {
                             Toast.makeText(getBaseContext(), action, Toast.LENGTH_SHORT).show();
