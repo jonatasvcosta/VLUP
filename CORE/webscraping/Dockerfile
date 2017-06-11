@@ -16,10 +16,8 @@ RUN apk add --no-cache \
     libpng-dev \
     jpeg-dev \
     && \
-    pip install -r requirements.txt \
+    pip install setup.py \
     && \
     wget -qO- https://raw.githubusercontent.com/codelucas/newspaper/master/download_corpora.py | python \
     && \
     apk del gcc build-base
-
-CMD ["python", "vlup_spider"]

@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+	scheduler:
+		build: .
+		image: "vlup-newscraper:latest"
+		volumes:
+		 - .:/usr/app
+     command: ["celery", "-A", "vlup_newscraper", "beat"]
+  worker:
+    build: .
+    image: "vlup-newscraper:latest"
+    volumes:
+     - .:/usr/app
+    command: ["celery", "-A", "vlup_newscraper", "worker"]
+	broker:
+		image: "rabbitmq:management-alpine"
+    ports:
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: 'user'
+      RABBITMQ_DEFAULT_PASS: 'password'
+
