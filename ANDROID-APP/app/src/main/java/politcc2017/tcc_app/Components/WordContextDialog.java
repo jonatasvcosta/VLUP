@@ -6,8 +6,15 @@ import android.widget.LinearLayout;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
+import java.util.ArrayList;
+
+import politcc2017.tcc_app.Activities.BaseActivity;
+import politcc2017.tcc_app.Components.Helpers.DialogHelper;
+import politcc2017.tcc_app.Components.Helpers.SharedPreferencesHelper;
 import politcc2017.tcc_app.Components.Listeners.ContextMenuClickListener;
+import politcc2017.tcc_app.Entities.WordContextMenu;
 import politcc2017.tcc_app.R;
+import politcc2017.tcc_app.Volley.ServerRequestHelper;
 
 import static politcc2017.tcc_app.Components.Helpers.DialogHelper.CustomDialogBuilder;
 
@@ -22,11 +29,11 @@ public class WordContextDialog {
         return WordContextDialog(context, title, translationString, "", null);
     }
 
-    public static MaterialDialog WordContextDialog(Context context, String title, String translationString, String phraseContext, final ContextMenuClickListener listener){
+    public static MaterialDialog WordContextDialog(final Context context, final String title, String translationString, String phraseContext, final ContextMenuClickListener listener){
         MaterialDialog.Builder builder = CustomDialogBuilder(context, title, -1, null, "", "", null, null, false, null, null, true);
         MaterialDialog dialog =  builder.build();
         View view = dialog.getCustomView();
-        CustomTextView translation = (CustomTextView) view.findViewById(R.id.word_context_menu_translation_text);
+        final CustomTextView translation = (CustomTextView) view.findViewById(R.id.word_context_menu_translation_text);
         LinearLayout addContainer = (LinearLayout) view.findViewById(R.id.add_to_bookshelf_context_container);
         LinearLayout translationContainer = (LinearLayout) view.findViewById(R.id.translate_context_container);
         LinearLayout pronounceContainer = (LinearLayout) view.findViewById(R.id.pronounce_context_container);
@@ -44,6 +51,17 @@ public class WordContextDialog {
             @Override
             public void onClick(View view) {
                 if(listener != null) listener.onClick(view, CONTEXT_TRANSLATE);
+                final String[] languages = context.getResources().getStringArray(R.array.languages_array);
+                final ArrayList<String> languagesList = new ArrayList<>();
+                for(int i = 0; i < languages.length; i++) languagesList.add(i, languages[i]);
+                DialogHelper.ListSingleChoiceDialog(context, context.getResources().getString(R.string.signup_activity_languages_field_error), languagesList, context.getResources().getString(R.string.dialog_confirm), context.getResources().getString(R.string.dialog_cancel), new MaterialDialog.ListCallbackSingleChoice() {
+                    @Override
+                    public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
+                        String newTranslation = getForeignTranslationFromServer(context, title, which);
+                        translation.setText(newTranslation);
+                        return true;
+                    }
+                }).show();
             }
         });
         pronounceContainer.setOnClickListener(new View.OnClickListener() {
@@ -56,14 +74,17 @@ public class WordContextDialog {
             @Override
             public void onClick(View view) {
                 if(listener != null) listener.onClick(view, CONTEXT_SYNONYM);
+                WordContextDialog.launchDialog(context, "Synonym of "+title);
             }
         });
         antonymContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(listener != null) listener.onClick(view, CONTEXT_ANTONYM);
+                WordContextDialog.launchDialog(context, "Antonym of "+title);
             }
         });
+
         similarWordsContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,15 +103,27 @@ public class WordContextDialog {
     }
 
     public static void launchDialog(Context c, String word){
-        String translationWord = "Translation of "+word;
-        WordContextDialog(c, word, translationWord).show();
+        String translation = getTranslationFromServer(c, word);
+        WordContextDialog(c, word, translation).show();
     }
 
-    public static void launchDialog(Context c, String word, String translation, String phraseContext, final ContextMenuClickListener listener){
+    public static void launchDialog(Context c, String word, String phraseContext, final ContextMenuClickListener listener){
+        String translation = getTranslationFromServer(c, word);
         WordContextDialog(c, word, translation, phraseContext, listener).show();
     }
 
-    public static MaterialDialog createDialog(Context c, String word, String translation, String phraseContext, final ContextMenuClickListener listener){
+    public static MaterialDialog createDialog(Context c, String word, String phraseContext, final ContextMenuClickListener listener){
+        String translation = getTranslationFromServer(c, word);
         return WordContextDialog(c, word, translation, phraseContext, listener);
     }
+
+    private static String getTranslationFromServer(Context c, String word){
+        WordContextMenu wordData = ServerRequestHelper.getWordInformation(c, SharedPreferencesHelper.getString(SharedPreferencesHelper.LOCALE_KEY), word);
+        return wordData.translation;
+    }
+
+    private static String getForeignTranslationFromServer(Context c, String word, int language){
+        return "überseztung von "+word;
+    }
+
 }
