@@ -1,6 +1,7 @@
 package politcc2017.tcc_app.Components;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -9,6 +10,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import java.util.ArrayList;
 
 import politcc2017.tcc_app.Activities.BaseActivity;
+import politcc2017.tcc_app.Activities.VocabularyActivity;
 import politcc2017.tcc_app.Components.Helpers.DialogHelper;
 import politcc2017.tcc_app.Components.Helpers.SharedPreferencesHelper;
 import politcc2017.tcc_app.Components.Listeners.ContextMenuClickListener;
@@ -89,6 +91,9 @@ public class WordContextDialog {
             @Override
             public void onClick(View view) {
                 if(listener != null) listener.onClick(view, CONTEXT_SIMILAR_WORDS);
+                Intent intent = new Intent(context, VocabularyActivity.class);
+                intent.putExtra(CONTEXT_SIMILAR_WORDS, title);
+                context.startActivity(intent);
             }
         });
 
