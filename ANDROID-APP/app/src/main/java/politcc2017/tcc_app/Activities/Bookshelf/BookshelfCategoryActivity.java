@@ -1,20 +1,21 @@
-package politcc2017.tcc_app.Activities;
+package politcc2017.tcc_app.Activities.Bookshelf;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.afollestad.inquiry.Inquiry;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.ArrayList;
 
+import politcc2017.tcc_app.Activities.BaseActivity;
 import politcc2017.tcc_app.Components.Helpers.DialogHelper;
 import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.BookshelfCategoryWords;
 import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.SqlHelper;
@@ -23,6 +24,7 @@ import politcc2017.tcc_app.Components.Listeners.CellClickListener;
 import politcc2017.tcc_app.Components.RecyclerView.Adapters.GenericAdapter;
 import politcc2017.tcc_app.Components.RecyclerView.Data.GenericData;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.ViewHolderType;
+import politcc2017.tcc_app.Components.WordContextDialog;
 import politcc2017.tcc_app.R;
 
 /**
@@ -55,7 +57,7 @@ public class BookshelfCategoryActivity extends BaseActivity {
                     @Override
                     public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
                         if(input != null && input.length() > 0){
-                            AddNewWord(input.toString());
+                            addNewWord(input.toString());
                         }
 
                     }
@@ -64,7 +66,7 @@ public class BookshelfCategoryActivity extends BaseActivity {
         });
     }
 
-    private void AddNewWord(String input){
+    private void addNewWord(String input){
         if(!SharedPreferencesHelper.getBoolean(SharedPreferencesHelper.BOOKSHELF_BD_CHANGED_KEY, getApplicationContext())) setChangeToBookshelfCategories();
         Inquiry.get(this).insert(BookshelfCategoryWords.class).values(new BookshelfCategoryWords[]{new BookshelfCategoryWords(categoryID, input)}).run();
         mData.addNewCellWithString(GenericData.BOOKSHELF_CATEGORY_WORD,input, mData.Size());
@@ -111,7 +113,7 @@ public class BookshelfCategoryActivity extends BaseActivity {
                     RemoveWord(position);
                 }
                 else if(message.equals("word")){
-                    DialogHelper.WordContextDialog(BookshelfCategoryActivity.this, mData.getValue(position).get(GenericData.BOOKSHELF_CATEGORY_WORD).toString(), "Translation of "+mData.getValue(position).get(GenericData.BOOKSHELF_CATEGORY_WORD).toString()).show();
+                    WordContextDialog.launchDialog(BookshelfCategoryActivity.this, mData.getValue(position).get(GenericData.BOOKSHELF_CATEGORY_WORD).toString());
                 }
             }
 

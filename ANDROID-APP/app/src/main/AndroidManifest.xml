@@ -28,13 +28,13 @@
         <activity android:name=".Activities.SignupActivity"/>
         <activity android:name=".Activities.NavigateActivity"/>
         <activity android:name=".Activities.DictionaryActivity"/>
-        <activity android:name=".Activities.BookshelfActivity"/>
+        <activity android:name=".Activities.Bookshelf.BookshelfActivity"/>
         <activity android:name=".Activities.BeAPro.BeAProCreateClassTextActivity"/>
         <activity android:name=".Activities.BeAPro.BeAProCreateClassActivity"/>
         <activity android:name=".Activities.BeAPro.BeAProListClassesActivity"/>
         <activity android:name=".Activities.BeAPro.BeAProClassDetailActivity"/>
         <activity android:name=".Activities.CameraActivity"/>
-        <activity android:name=".Activities.BookshelfCategoryActivity"/>
+        <activity android:name=".Activities.Bookshelf.BookshelfCategoryActivity"/>
         <activity android:name=".Activities.NewsActivity"/>
         <activity android:name=".Activities.SettingsActivity"/>
     </application>

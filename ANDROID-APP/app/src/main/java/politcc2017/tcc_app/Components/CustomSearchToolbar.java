@@ -180,6 +180,10 @@ public class CustomSearchToolbar extends LinearLayout {
         return mAutoCompleteEditText.getText().toString();
     }
 
+    public void setSuggestionText(String text){
+        mAutoCompleteEditText.setText(text);
+    }
+
     public void setSearchUrl(String url){
         if(url.contains(secureBaseAdress)){
             url = url.replace(secureBaseAdress, baseAdress);

@@ -50,6 +50,10 @@ public class GenericData {
         }
     }
 
+    public void clearAllCells(){
+        mData.clear();
+    }
+
     public void addStringsToAllCells(Object key, ArrayList<String> values) {
         Hashtable cellData;
         for (int i = 0; i < values.size(); i++) {

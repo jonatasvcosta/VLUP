@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import politcc2017.tcc_app.Activities.BeAPro.BeAProListClassesActivity;
+import politcc2017.tcc_app.Activities.Bookshelf.BookshelfActivity;
 import politcc2017.tcc_app.Common.ResourcesHelper;
 import politcc2017.tcc_app.Components.CustomTextView;
 import politcc2017.tcc_app.Components.Helpers.DialogHelper;

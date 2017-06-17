@@ -1,5 +1,6 @@
 package politcc2017.tcc_app.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,6 +20,7 @@ import politcc2017.tcc_app.Components.RecyclerView.Adapters.GenericAdapter;
 import politcc2017.tcc_app.Components.RecyclerView.Data.GenericData;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.GenericViewHolder;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.ViewHolderType;
+import politcc2017.tcc_app.Components.WordContextDialog;
 import politcc2017.tcc_app.Entities.WordContextMenu;
 import politcc2017.tcc_app.R;
 
@@ -55,7 +57,7 @@ public class VocabularyActivity extends BaseActivity {
 
             @Override
             public void onClick(String message, int position) {
-                DialogHelper.WordContextDialog(VocabularyActivity.this, message, "Translation of "+message).show();
+                WordContextDialog.launchDialog(VocabularyActivity.this, message);
             }
 
             @Override
@@ -70,6 +72,14 @@ public class VocabularyActivity extends BaseActivity {
         });
         mRecyclerView.setAdapter(mAdapter);
         setActivityTitle(getResString(R.string.vocabulary_activity_title));
+
+        Intent i = getIntent();
+        if(i != null){
+            String word = i.getStringExtra(WordContextDialog.CONTEXT_SIMILAR_WORDS);
+            mSearchToolbar.setSuggestionText(word);
+            if(word != null && word.length() > 0) loadSimilarWordsFromServer(word);
+        }
+
         SetSuggestionList();
 
         mSearchToolbar.registerSearchListener(new View.OnClickListener() {
@@ -81,14 +91,31 @@ public class VocabularyActivity extends BaseActivity {
     }
 
     @Override
-    public void handleLearningLanguageChange(){
+    public void handleLearningLanguageChange() {
         Toast.makeText(getBaseContext(), "Language was changed, VocabularyActivity must reload all the content", Toast.LENGTH_SHORT).show();
+    }
+
+    private void loadSimilarWordsFromServer(String word){
+        if(word == null || word.length() == 0) return;
+        ArrayList<String> words = new ArrayList<>();
+        ArrayList<Integer> count = new ArrayList<>();
+        words.add("similar 1 to " + word);
+        words.add("similar 2 to " + word);
+        words.add("similar 3 to " + word);
+        count.add(2);
+        count.add(30);
+        count.add(200);
+        mData.clearAllCells();
+        mData.addStringsToAllCells(GenericData.VOCABULARY_WORD, words);
+        mData.addIntegersToAllCells(GenericData.VOCABULARY_COUNT, count);
+        mAdapter.notifyDataSetChanged();
     }
 
     private void loadWords(String category){
         category = category.trim().toLowerCase();
         //load words from server base on category
         if(category == null || category.equals("")) return;
+        mData.clearAllCells();
         ArrayList<String> words = new ArrayList<>();
         ArrayList<Integer> count = new ArrayList<>();
         if(category.equals("turismo")) {

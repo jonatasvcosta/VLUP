@@ -13,14 +13,8 @@
             android:layout_height="wrap_content"
             android:background="@color/cyan_darker"
             android:orientation="horizontal">
-                <politcc2017.tcc_app.Components.CustomTextView
-                    android:id="@+id/vocabulary_word"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    style="@style/TextMediumCyan"
-                    android:padding="@dimen/margin_small"/>
                 <LinearLayout
+                    android:id="@+id/vocabulary_count_linear_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -30,9 +24,16 @@
                             android:id="@+id/vocabulary_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
                             style="@style/TextMediumBlack"
                             android:padding="@dimen/margin_small"/>
                 </LinearLayout>
+                <politcc2017.tcc_app.Components.CustomTextView
+                    android:id="@+id/vocabulary_word"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_toLeftOf="@id/vocabulary_count_linear_layout"
+                    style="@style/TextMediumCyan"
+                    android:padding="@dimen/margin_small"/>
         </RelativeLayout>
 </RelativeLayout>

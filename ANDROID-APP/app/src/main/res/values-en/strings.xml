@@ -90,4 +90,6 @@
     <string name="be_a_pro_favorites_tab">Favorites</string>
     <string name="be_a_pro_myclasses_tab">My Classes</string>
     <string name="vocabulary_activity_title">Vocabulary</string>
+    <string name="bookshelf_word_added">Word added</string>
+    <string name="bookshelf_add_word_instructions">Choose the category to which the word belongs</string>
 </resources>

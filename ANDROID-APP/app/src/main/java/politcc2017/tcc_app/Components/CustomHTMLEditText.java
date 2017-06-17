@@ -21,6 +21,7 @@ import politcc2017.tcc_app.Volley.ServerRequestHelper;
  */
 
 public class CustomHTMLEditText extends KnifeText {
+    private String punctuation = ".:!-?";
     public CustomHTMLEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.setTypeface(FontHelper.get(FontHelper.TTF_FONT, getContext()));
@@ -35,60 +36,40 @@ public class CustomHTMLEditText extends KnifeText {
             public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
                 String selectedWord = getText().subSequence(getSelectionStart(), getSelectionEnd()).toString();
                 if(!selectedWord.matches(".*[a-zA-Z]+.*")) return false;
-                WordContextMenu wordData = ServerRequestHelper.getWordInformation(getContext(), SharedPreferencesHelper.getString(SharedPreferencesHelper.LOCALE_KEY), selectedWord);
-                DialogHelper.WordContextDialog(getContext(), selectedWord, wordData.translation, getContextPhrase(), new ContextMenuClickListener() {
-                    @Override
-                    public void onClick(View v, String action) {
-                        Toast.makeText(getContext(), action, Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onClick(View view) {
-
-                    }
-                }).show();
+                WordContextDialog.launchDialog(getContext(), selectedWord, getContextPhrase(), null);
                 return true;
             }
 
             private String getContextPhrase(){
                 String text = getText().toString();
-                int begin = 0, index = 0, end = getSelectionEnd();
-                while (index != -1 && index <= getSelectionStart()){
-                    begin = index;
-                    if(begin + 1 < text.length()){
-                        index = text.indexOf('.', begin+1);
-                        if(index == -1) index = text.indexOf(',', begin+1);
-                        if(index == -1) index = text.indexOf('\n', begin+1);
+                int selectionStart = getSelectionStart();
+                int selectionEnd = getSelectionEnd();
+                int begin = selectionStart;
+                int end = selectionEnd;
+                boolean addInitialEllipsize = false, addFinalEllipsize = false;
+                while(begin > 0){
+                    if(punctuation.indexOf(text.charAt(begin)) != -1){
+                        begin++;
+                        break;
                     }
+                    if(selectionStart - begin >= MAX_CONTEXT_PHRASE_TEXT_LENGTH/2){
+                        addInitialEllipsize = true;
+                        break;
+                    }
+                    begin --;
                 }
-                if(text.charAt(begin) == '.' || text.charAt(begin) == ',') begin++;
-                end = text.indexOf('.', getSelectionEnd());
-                if(end == -1){
-                    end = begin + MAX_CONTEXT_PHRASE_TEXT_LENGTH;
-                    if(end > text.length()) end = text.length();
+                while(end < length()){
+                    if(punctuation.indexOf(text.charAt(end)) != -1) break;
+                    if(end - selectionEnd >= MAX_CONTEXT_PHRASE_TEXT_LENGTH/2){
+                        addFinalEllipsize = true;
+                        break;
+                    }
+                    end++;
                 }
-                if((begin - end) < MAX_CONTEXT_PHRASE_TEXT_LENGTH) return text.substring(begin, end);
-                else if((begin - getSelectionStart()) < MAX_CONTEXT_PHRASE_TEXT_LENGTH/2) return (text.substring(begin, calculateFinalIndex(begin, text.length()))+"...");
-                else if((end - getSelectionEnd()) < MAX_CONTEXT_PHRASE_TEXT_LENGTH/2) return ("..."+text.substring(calculateInitialIndex(end), end));
-                else return ("..."+text.substring(getSelectionStart() - calculateMiddleIndex(), getSelectionEnd() + calculateMiddleIndex())+"...");
-            }
-
-            private int calculateFinalIndex(int begin, int maxLength){
-                int ret = MAX_CONTEXT_PHRASE_TEXT_LENGTH - (begin + getSelectionEnd());
-                if(ret < maxLength) return ret;
-                else return maxLength;
-            }
-
-            private int calculateInitialIndex(int end){
-                int ret = MAX_CONTEXT_PHRASE_TEXT_LENGTH - (getSelectionStart() + end);
-                if(ret > 0) return ret;
-                return 0;
-            }
-
-            private int calculateMiddleIndex(){
-                int ret = (MAX_CONTEXT_PHRASE_TEXT_LENGTH - (getSelectionEnd() + getSelectionStart()))/2;
-                if(ret > 0) return ret;
-                return 0;
+                String contextPhrase = text.substring(begin, end);
+                if(addInitialEllipsize) contextPhrase = "..."+contextPhrase;
+                if(addFinalEllipsize) contextPhrase = contextPhrase+"...";
+                return contextPhrase;
             }
 
             @Override
