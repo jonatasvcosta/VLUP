@@ -35,17 +35,7 @@ public class CustomHTMLEditText extends KnifeText {
             public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
                 String selectedWord = getText().subSequence(getSelectionStart(), getSelectionEnd()).toString();
                 if(!selectedWord.matches(".*[a-zA-Z]+.*")) return false;
-                WordContextDialog.launchDialog(getContext(), selectedWord, getContextPhrase(), new ContextMenuClickListener() {
-                    @Override
-                    public void onClick(View v, String action) {
-                        Toast.makeText(getContext(), action, Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onClick(View view) {
-
-                    }
-                });
+                WordContextDialog.launchDialog(getContext(), selectedWord, getContextPhrase(), null);
                 return true;
             }
 

@@ -1,5 +1,6 @@
-package politcc2017.tcc_app.Activities;
+package politcc2017.tcc_app.Activities.Bookshelf;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -7,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.afollestad.inquiry.Inquiry;
 import com.afollestad.materialdialogs.DialogAction;
@@ -14,6 +16,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.ArrayList;
 
+import politcc2017.tcc_app.Activities.BaseActivity;
 import politcc2017.tcc_app.Components.Helpers.DialogHelper;
 import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.BookshelfCategory;
 import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.BookshelfCategoryWords;
@@ -23,6 +26,7 @@ import politcc2017.tcc_app.Components.Listeners.CellClickListener;
 import politcc2017.tcc_app.Components.RecyclerView.Adapters.GenericAdapter;
 import politcc2017.tcc_app.Components.RecyclerView.Data.GenericData;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.ViewHolderType;
+import politcc2017.tcc_app.Components.WordContextDialog;
 import politcc2017.tcc_app.R;
 
 /**
@@ -33,6 +37,8 @@ public class BookshelfActivity extends BaseActivity {
     private RecyclerView recyclerView;
     private GenericData mData;
     private GenericAdapter mAdapter;
+    private String wordToAdd = "";
+    private boolean automaticallyAddWordToCategory = false;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +48,15 @@ public class BookshelfActivity extends BaseActivity {
         initialBDSetup();
         recyclerView = (RecyclerView) findViewById(R.id.bookshelf_activity_categories_list);
         setupRecyclerView();
+        Intent i = getIntent();
+        if(i != null){
+            wordToAdd = i.getStringExtra(WordContextDialog.CONTEXT_ADD_WORD);
+            if(wordToAdd != null && wordToAdd.length() > 0){
+                automaticallyAddWordToCategory = true;
+                Toast.makeText(getApplicationContext(), getResString(R.string.bookshelf_add_word_instructions), Toast.LENGTH_SHORT).show();
+            }
+
+        }
     }
 
     private void initialBDSetup(){
@@ -137,7 +152,16 @@ public class BookshelfActivity extends BaseActivity {
                         }
                     }, null).show();
                 }
-                else startOrResumeActivity(BookshelfCategoryActivity.class, message, position);
+                else{
+                    if(automaticallyAddWordToCategory){
+                        automaticallyAddWordToCategory = false;
+                        Inquiry.newInstance(getApplicationContext(), SqlHelper.DATABASE).build();
+                        Inquiry.get(getApplicationContext()).insert(BookshelfCategoryWords.class).values(new BookshelfCategoryWords[]{new BookshelfCategoryWords(position, wordToAdd)}).run();
+                        Toast.makeText(getApplicationContext(), getResString(R.string.bookshelf_word_added), Toast.LENGTH_SHORT).show();
+                        onBackPressed();
+                    }
+                    else startOrResumeActivity(BookshelfCategoryActivity.class, message, position);
+                }
             }
 
             @Override
@@ -216,7 +240,7 @@ public class BookshelfActivity extends BaseActivity {
         else recyclerView.scrollToPosition(position);
     }
 
-    private void loadData(){ //refactor this function getting data from app database / server
+    public void loadData(){ //refactor this function getting data from app database / server
         BookshelfCategory[] categories = Inquiry.get(this)
                 .select(BookshelfCategory.class)
                 .all();
