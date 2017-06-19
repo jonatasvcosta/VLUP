@@ -2,6 +2,7 @@ package politcc2017.tcc_app.Components;
 
 import android.content.Context;
 import android.content.Intent;
+import android.speech.tts.TextToSpeech;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -9,6 +10,7 @@ import com.afollestad.inquiry.Inquiry;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import politcc2017.tcc_app.Activities.BaseActivity;
 import politcc2017.tcc_app.Activities.Bookshelf.BookshelfActivity;
@@ -27,7 +29,8 @@ import static politcc2017.tcc_app.Components.Helpers.DialogHelper.CustomDialogBu
  * Created by Jônatas on 11/06/2017.
  */
 
-public class WordContextDialog {
+public class WordContextDialog{
+
     public static final String CONTEXT_ADD_WORD = "add", CONTEXT_TRANSLATE = "translate", CONTEXT_PRONOUNCE = "pronounce", CONTEXT_SYNONYM = "synonym", CONTEXT_ANTONYM = "antonym", CONTEXT_SIMILAR_WORDS = "similar_words";
 
     public static MaterialDialog WordContextDialog(Context context, String title, String translationString){
@@ -76,8 +79,7 @@ public class WordContextDialog {
             @Override
             public void onClick(View view) {
                 if(listener != null) listener.onClick(view, CONTEXT_PRONOUNCE);
-                Intent intent = new Intent(context, BookshelfCategory.class);
-                intent.putExtra(CONTEXT_ADD_WORD, title);
+                TextToSpeechComponent.textToSpeech(context, title);
             }
         });
         synonymContainer.setOnClickListener(new View.OnClickListener() {
@@ -138,5 +140,4 @@ public class WordContextDialog {
     private static String getForeignTranslationFromServer(Context c, String word, int language){
         return "überseztung von "+word;
     }
-
 }

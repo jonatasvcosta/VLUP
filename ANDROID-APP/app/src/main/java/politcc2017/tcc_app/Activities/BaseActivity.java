@@ -35,6 +35,7 @@ import politcc2017.tcc_app.Components.Listeners.ContextMenuClickListener;
 import politcc2017.tcc_app.Components.RecyclerView.Adapters.GenericAdapter;
 import politcc2017.tcc_app.Components.RecyclerView.Data.GenericData;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.ViewHolderType;
+import politcc2017.tcc_app.Components.TextToSpeechComponent;
 import politcc2017.tcc_app.R;
 
 import static android.content.Intent.FLAG_ACTIVITY_REORDER_TO_FRONT;
@@ -268,8 +269,10 @@ public class BaseActivity extends AppCompatActivity {
     public void changeLearningLanguage(int languageIndex){
         if(languageIndex == this.learningLanguage) return;
         ArrayList<Integer> flagIcons = ResourcesHelper.getIntArrayAsArrayList(getBaseContext(), R.array.languages_icons);
+        ArrayList<String> locales = ResourcesHelper.getStringArrayAsArrayList(getBaseContext(), R.array.locale_array);
         flagIcon.setImageResource(flagIcons.get(languageIndex));
         this.learningLanguage = languageIndex;
+        TextToSpeechComponent.setTextToSpeechLocale(getApplicationContext(), new Locale(locales.get(learningLanguage)));
         handleLearningLanguageChange();
     }
 
