@@ -4,9 +4,11 @@ package politcc2017.tcc_app.Activities;
  * Created by Jonatas on 25/10/2016.
  */
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.speech.RecognizerIntent;
 import android.support.annotation.LayoutRes;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -18,6 +20,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
@@ -43,6 +46,7 @@ import static android.content.Intent.FLAG_ACTIVITY_REORDER_TO_FRONT;
 public class BaseActivity extends AppCompatActivity {
     public static boolean LANGUAGE_SET = false;
     public static final int POS_HOME = 0, POS_VOCABULARY = 1, POS_NEWS = 2, POS_NAVIGATE = 3, POS_BE_A_PRO = 4, POS_BOOKSHELF = 5, POS_DICTIONARY = 6, POS_CAMERA = 7, POS_SETTINGS = 9;
+    private final int REQ_CODE_SPEECH_INPUT = 100;
     Toolbar toolbar;
     CustomTextView toolbarTitle;
     RecyclerView drawerRecyclerView;
@@ -129,6 +133,21 @@ public class BaseActivity extends AppCompatActivity {
 
     protected void setActivityToolbarColor(int colorID){
         toolbar.setBackgroundColor(colorID);
+    }
+
+    protected void promptSpeechInput() {
+        ArrayList<String> locales = ResourcesHelper.getStringArrayAsArrayList(getBaseContext(), R.array.locale_array);
+        Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, new Locale(locales.get(learningLanguage)));
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
+                "Speak something");
+        try {
+            startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
+        } catch (ActivityNotFoundException a) {
+            Toast.makeText(getApplicationContext(), "Speech not supported", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void startOrResumeActivity(Class <? extends BaseActivity> destinationActivity, String parameter, int id){
