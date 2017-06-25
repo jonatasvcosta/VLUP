@@ -1,0 +1,30 @@
+version: '2'
+services:
+  vlup:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.dev
+    depends_on:
+      - "database"
+    links:
+     - "database"
+    volumes:
+     - /static
+     - ./server:/app
+  reverseproxy:
+    image: "nginx:1.11.9-alpine"
+    ports:
+     - "80:80"
+    links:
+     - "vlup"
+    volumes_from:
+     - "vlup"
+    volumes:
+     - ./reverseproxy:/etc/nginx
+  database:
+    image: "postgres:9.6"
+    environment:
+      POSTGRES_USER: "VLUP"
+      POSTGRES_PASSWORD: "password"
+    volumes:
+      - ./database/init:/docker-entrypoint-initdb.d
