@@ -93,4 +93,6 @@
     <string name="vocabulary_activity_title">Wortschatz</string>
     <string name="bookshelf_word_added">Wort hinzugefügt</string>
     <string name="bookshelf_add_word_instructions">Wählen Sie die Kategorie, zu der das Wort gehört</string>
+    <string name="speech_instructions">Sprich etwas</string>
+    <string name="speech_not_supported">Spracherkennung wird nicht unterstützt</string>
 </resources>

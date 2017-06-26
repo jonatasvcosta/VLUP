@@ -3,7 +3,9 @@ package politcc2017.tcc_app.Activities;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -58,6 +60,12 @@ public class NavigateActivity extends BaseActivity implements View.OnClickListen
         toolbarListIcon = (ImageView) findViewById(R.id.base_toolbar_righ_icon);
         searchToolbar = (CustomSearchToolbar) findViewById(R.id.navigate_activity_search_toolbar);
         searchToolbar.registerSearchListener(this);
+        searchToolbar.registerMicrophoneListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                promptSpeechInput();
+            }
+        });
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         searchToolbar.registerRecyclerViewScrollListener(sitesRecyclerView, displayMetrics.heightPixels);
@@ -129,6 +137,24 @@ public class NavigateActivity extends BaseActivity implements View.OnClickListen
                 }
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case REQ_CODE_SPEECH_INPUT: {
+                if (resultCode == RESULT_OK && null != data) {
+
+                    ArrayList<String> result = data
+                            .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    searchToolbar.setSearchUrl(result.get(0));
+                }
+                break;
+            }
+
+        }
     }
 
     @Override

@@ -1,6 +1,8 @@
 package politcc2017.tcc_app.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -44,6 +46,12 @@ public class DictionaryActivity extends BaseActivity implements View.OnClickList
         mRecyclerView = (RecyclerView) findViewById(R.id.dictionary_activity_list);
         searchToolbar = (CustomSearchToolbar) findViewById(R.id.dictionary_activity_search_toolbar);
         searchToolbar.registerSearchListener(this);
+        searchToolbar.registerMicrophoneListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                promptSpeechInput();
+            }
+        });
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         searchToolbar.registerRecyclerViewScrollListener(mRecyclerView, displayMetrics.heightPixels);
@@ -88,6 +96,24 @@ public class DictionaryActivity extends BaseActivity implements View.OnClickList
         mAdapter = new GenericAdapter(data, ViewHolderType.DICTIONARY_CELL_VIEW_HOLDER);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case REQ_CODE_SPEECH_INPUT: {
+                if (resultCode == RESULT_OK && null != data) {
+
+                    ArrayList<String> result = data
+                            .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    searchToolbar.setSuggestionText(result.get(0));
+                }
+                break;
+            }
+
+        }
     }
 
     @Override
