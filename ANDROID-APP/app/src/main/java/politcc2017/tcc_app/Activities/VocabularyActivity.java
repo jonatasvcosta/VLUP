@@ -2,6 +2,7 @@ package politcc2017.tcc_app.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -39,6 +40,12 @@ public class VocabularyActivity extends BaseActivity {
         super.setContentView(R.layout.activity_vocabulary);
 
         mSearchToolbar = (CustomSearchToolbar) findViewById(R.id.vocabulary_activity_search_toolbar);
+        mSearchToolbar.registerMicrophoneListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                promptSpeechInput();
+            }
+        });
         mSearchToolbar.setAutoCompleteSearchBar();
         mRecyclerView = (RecyclerView) findViewById(R.id.vocabulary_words_recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -88,6 +95,24 @@ public class VocabularyActivity extends BaseActivity {
                 loadWords(mSearchToolbar.getSuggestionText());
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case REQ_CODE_SPEECH_INPUT: {
+                if (resultCode == RESULT_OK && null != data) {
+
+                    ArrayList<String> result = data
+                            .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    mSearchToolbar.setSuggestionText(result.get(0));
+                }
+                break;
+            }
+
+        }
     }
 
     @Override

@@ -101,4 +101,8 @@
     <string name="be_a_pro_new_tab">Novidades</string>
     <string name="vocabulary_activity_title">Vocabulário</string>
 
+    <!-- Speech integration-->
+    <string name="speech_instructions">Fale algo</string>
+    <string name="speech_not_supported">Reconhecimento de fala não suportado</string>
+
 </resources>

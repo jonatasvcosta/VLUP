@@ -30,8 +30,8 @@ public class CustomSearchToolbar extends LinearLayout {
     private EditText mEditText;
     private AutoCompleteEditText mAutoCompleteEditText;
     private Toolbar mToolbar;
-    private OnClickListener searchListener;
-    private ImageView searchIcon;
+    private OnClickListener searchListener, microphoneListener;
+    private ImageView searchIcon, microphoneIcon;
     private static final String baseAdress = "http://";
     private static final String secureBaseAdress = "https://";
     private static final float TOOLBAR_ELEVATION = 14f;
@@ -114,6 +114,10 @@ public class CustomSearchToolbar extends LinearLayout {
         searchListener = listener;
     }
 
+    public void registerMicrophoneListener(OnClickListener listener){
+        microphoneListener = listener;
+    }
+
     public CustomSearchToolbar(Context context) {
         super(context);
         ComponentSetup(context, null);
@@ -137,6 +141,7 @@ public class CustomSearchToolbar extends LinearLayout {
         mEditText.setVisibility(VISIBLE);
         mAutoCompleteEditText.setVisibility(GONE);
         searchIcon = (ImageView) findViewById(R.id.search_toolbar_search_icon);
+        microphoneIcon = (ImageView) findViewById(R.id.search_toolbar_microphone_icon);
         mToolbar = (Toolbar) findViewById(R.id.search_toolbar);
         mEditText.setTypeface(FontHelper.get(FontHelper.TTF_FONT, c));
         mEditText.setOnEditorActionListener(new TextView.OnEditorActionListener(){
@@ -153,6 +158,12 @@ public class CustomSearchToolbar extends LinearLayout {
             @Override
             public void onClick(View view) {
                 if(searchListener != null) searchListener.onClick(searchIcon);
+            }
+        });
+        microphoneIcon.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(microphoneListener != null) microphoneListener.onClick(microphoneIcon);
             }
         });
     }
