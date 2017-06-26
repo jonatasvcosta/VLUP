@@ -1,9 +1,11 @@
 #!/bin/sh
 
-./wait-for database:5432
+echo "Waiting for database:5432..."
+until nc -z -w 2 database 5432; do sleep 1; done
+sleep 5;
+echo "Got ping!"
 
 python /app/manage.py collectstatic --noinput
-python /app/manage.py syncdb --noinput
 python /app/manage.py makemigrations
 python /app/manage.py migrate --noinput
 
@@ -14,4 +16,9 @@ if [ "$DJANGO_PRODUCTION" != "true" ]; then
 fi
 
 # Start app
-gunicorn vlup.wsgi
+if [ "$DJANGO_PRODUCTION" == "true" ]; then
+    gunicorn vlup.wsgi
+else
+    gunicorn vlup.wsgi
+    #python /app/manage.py runserver 0.0.0.0:8000
+fi
