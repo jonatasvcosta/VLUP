@@ -54,12 +54,15 @@ setup(
     # requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
     install_requires=[
-        'cornice==2.4.0',
-        'pyramid==1.8.1',
-        'gunicorn==19.6.0',
-        'pymysql==0.7.10',
-        'sqlalchemy==1.1.6',
+        'django==1.11.2',
+        'djangorestframework==3.6.3',
+        'djangorestframework-jwt==1.11.0',
+        'gunicorn==19.7.1',
+        'psycopg2==2.7.1',
         'tenacity==3.7.1',
+        'coreapi==2.3.1',
+        'pygments',
+        'markdown',
     ],
 
     # List additional groups of dependencies here (e.g. development
@@ -76,8 +79,5 @@ setup(
     # "scripts" keyword. Entry points provide cross-platform support and allow
     # pip to create the appropriate form of executable for the target platform.
     entry_points={
-        'paste.app_factory': [
-            'main=app:main',
-        ],
     },
 )

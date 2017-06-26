@@ -1,14 +1,17 @@
-FROM python:3.6.0-alpine
+FROM python:3.6-alpine3.6
 MAINTAINER TCCPoli "tccpoli2017@gmail.com"
 
-COPY setup.py /usr/src/app/setup.py
-WORKDIR /usr/src/app
+COPY setup.py /app/setup.py
+WORKDIR /app
 
-RUN apk --no-cache add musl-dev linux-headers g++ \
-    && python setup.py egg_info \
+RUN apk --no-cache add musl-dev linux-headers gcc postgresql-dev \
     && python setup.py develop \
-    && apk del musl-dev linux-headers g++
+    && apk del musl-dev linux-headers gcc
 
-ENV DEPLOYMENT_ENVIRONMENT=dev
+ENV DJANGO_PRODUCTION=false
+ENV ROOT_PASSWORD=password
+ENV GUNICORN_CMD_ARGS="--bind=0.0.0.0:8000 --workers=1"
 
-CMD ["gunicorn", "--paste", "development.ini"]
+COPY init.sh /app/init.sh
+
+CMD "/app/init.sh"

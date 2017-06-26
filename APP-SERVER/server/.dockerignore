@@ -1,4 +1,3 @@
 Dockerfile
 Dockerfile.dev
 app.egg-info
-*.sh
