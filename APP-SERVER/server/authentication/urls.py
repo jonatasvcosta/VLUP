@@ -1,9 +1,9 @@
 from django.conf.urls import url, include
 from rest_framework_jwt.views import obtain_jwt_token
 from .views import UserProfileViewSet, CreateUserView
-from rest_framework.routers import DefaultRouter
+from rest_framework.routers import SimpleRouter
 
-router = DefaultRouter()
+router = SimpleRouter()
 router.register(r'^users', UserProfileViewSet)
 
 urlpatterns = [

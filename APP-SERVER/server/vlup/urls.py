@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from rest_framework.documentation import include_docs_urls
+from rest_framework_swagger.views import get_swagger_view
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^authentication/', include('authentication.urls')),
-    url(r'^docs/', include_docs_urls(title='Vlup API'))
+    url(r'^news/', include('news.urls')),
+    url(r'^docs/', get_swagger_view(title='Vlup API'))
 ]
