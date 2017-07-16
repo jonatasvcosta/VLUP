@@ -15,6 +15,7 @@ import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.DictionaryViewHol
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.DrawerViewHolder;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.GenericViewHolder;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.LabelViewHolder;
+import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.RankingViewHolder;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.SitesSuggestionViewHolder;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.ViewHolderType;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.VocabularyWordViewHolder;
@@ -70,6 +71,16 @@ public class GenericAdapter extends RecyclerView.Adapter<GenericViewHolder> {
         if(viewHolderType == ViewHolderType.BOOKSHELF_WORD_VIEW_HOLDER) {
             final View itemView = LayoutInflater.from(parent.getContext()).inflate(GenericViewHolder.getLayoutViewByPosition(position, ViewHolderType.BOOKSHELF_WORD_VIEW_HOLDER), null);
             return new BookshelfWordViewHolder(itemView, mCLickListener);
+        }
+
+        if(viewHolderType == ViewHolderType.BOOKSHELF_WORD_VIEW_HOLDER) {
+            final View itemView = LayoutInflater.from(parent.getContext()).inflate(GenericViewHolder.getLayoutViewByPosition(position, ViewHolderType.BOOKSHELF_WORD_VIEW_HOLDER), null);
+            return new BookshelfWordViewHolder(itemView, mCLickListener);
+        }
+
+        if(viewHolderType == ViewHolderType.RANKING_VIEW_HOLDER) {
+            final View itemView = LayoutInflater.from(parent.getContext()).inflate(GenericViewHolder.getLayoutViewByPosition(position, ViewHolderType.RANKING_VIEW_HOLDER), null);
+            return new RankingViewHolder(itemView, mCLickListener);
         }
 
         if(viewHolderType == ViewHolderType.VOCABULARY_WORD_VIEW_HOLDER) {

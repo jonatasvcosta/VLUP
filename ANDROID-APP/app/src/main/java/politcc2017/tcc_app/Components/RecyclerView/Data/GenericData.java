@@ -16,6 +16,8 @@ public class GenericData {
     public static final String BOOKSHELF_ITEM_CATEGORY = "bookshelf_category";
     public static final String BOOKSHELF_CATEGORY_WORD = "bookshelf_category_word";
     public static final String BOOKSHELF_TAGS = "bookshelf_tags";
+    public static final String USER_NAME = "user_name";
+    public static final String USER_SCORE = "user_score";
     public static final String CELL_TYPE = "cell_type";
     public static final String CELL_DEFAULT_TYPE = "default";
     public static final String CELL_HEADER_TYPE = "header";

@@ -45,7 +45,7 @@ import static android.content.Intent.FLAG_ACTIVITY_REORDER_TO_FRONT;
 
 public class BaseActivity extends AppCompatActivity {
     public static boolean LANGUAGE_SET = false;
-    public static final int POS_HOME = 0, POS_VOCABULARY = 1, POS_NEWS = 2, POS_NAVIGATE = 3, POS_BE_A_PRO = 4, POS_BOOKSHELF = 5, POS_DICTIONARY = 6, POS_CAMERA = 7, POS_SETTINGS = 9;
+    public static final int POS_HOME = 0, POS_VOCABULARY = 1, POS_NEWS = 2, POS_NAVIGATE = 3, POS_BE_A_PRO = 4, POS_BOOKSHELF = 5, POS_DICTIONARY = 6, POS_CAMERA = 7, POS_SETTINGS = 9, POS_RANKING = 10;
     protected final int REQ_CODE_SPEECH_INPUT = 100;
     Toolbar toolbar;
     CustomTextView toolbarTitle;
@@ -232,6 +232,7 @@ public class BaseActivity extends AppCompatActivity {
                 else if(position == POS_DICTIONARY) startOrResumeActivity(DictionaryActivity.class, true);
                 else if(position == POS_CAMERA) startOrResumeActivity(CameraActivity.class, true);
                 else if(position == POS_SETTINGS) startOrResumeActivity(SettingsActivity.class, true);
+                else if(position == POS_RANKING) startOrResumeActivity(RankingActivity.class, true);
                 else startOrResumeActivity(MaintenanceActivity.class, true);
             }
 

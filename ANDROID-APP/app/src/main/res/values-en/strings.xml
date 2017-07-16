@@ -94,4 +94,9 @@
     <string name="bookshelf_add_word_instructions">Choose the category to which the word belongs</string>
     <string name="speech_instructions">Speek something</string>
     <string name="speech_not_supported">Speech not suported</string>
+
+    <!-- RankingActivity -->
+    <string name="ranking_activity_title">Ranking</string>
+    <string name="ranking_activity_header">Top Users</string>
+    <string name="ranking_activity_header_score">Score</string>
 </resources>
