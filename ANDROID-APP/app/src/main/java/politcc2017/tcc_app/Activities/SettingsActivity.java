@@ -10,6 +10,8 @@ import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.ArrayList;
 
+import politcc2017.tcc_app.Common.ResourcesHelper;
+import politcc2017.tcc_app.Components.CustomCard;
 import politcc2017.tcc_app.Components.Helpers.DialogHelper;
 import politcc2017.tcc_app.Components.Helpers.SharedPreferencesHelper;
 import politcc2017.tcc_app.R;
@@ -19,6 +21,8 @@ import politcc2017.tcc_app.R;
  */
 
 public class SettingsActivity extends BaseActivity {
+    private CustomCard learningStatsCard;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +30,7 @@ public class SettingsActivity extends BaseActivity {
         setActivityTitle(getResString(R.string.settings_activity_title));
         Button nativeLanguageBtn = (Button) findViewById(R.id.settings_native_language_btn);
         Button learningLanguageBtn = (Button) findViewById(R.id.settings_learning_language_btn);
+        loadLearningStats();
 
         final String[] locales = getResources().getStringArray(R.array.locale_array);
         final String[] languages = getResources().getStringArray(R.array.languages_array);
@@ -53,6 +58,19 @@ public class SettingsActivity extends BaseActivity {
                 handleLearningLanguageChoice(SettingsActivity.this);
             }
         });
+    }
+    private void loadLearningStats() {
+        learningStatsCard = (CustomCard) findViewById(R.id.language_learning_stats);
+        final String[] languages = getResources().getStringArray(R.array.languages_array);
+        learningStatsCard.setTitle(languages[learningLanguage]);
+        learningStatsCard.hideBottomContainer();
+        learningStatsCard.setVotes("#1054 points");
+        ArrayList<Integer> flagIcons = ResourcesHelper.getIntArrayAsArrayList(getBaseContext(), R.array.languages_icons);
+        learningStatsCard.setTopRightIcon(flagIcons.get(learningLanguage));
+        learningStatsCard.setContent("<blockquote>Level 3 - Hookie Pre-Intermediate</blockquote><ul><li>104 words added to bookshelf</li></ul><ul><li>800 words translated</li></ul><ul><li>50 texts read</li>");
+    }
 
+    protected void handleLearningLanguageChange(){
+        loadLearningStats();
     }
 }

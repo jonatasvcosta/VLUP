@@ -24,6 +24,8 @@ public class CustomCard extends LinearLayout {
     private CustomTextView votes, title, categories;
     private CustomHTMLEditText content;
     private ImageView upvote, downvote, edit, favorite;
+    private LinearLayout bottomContainer;
+
     public CustomCard(Context context) {
         super(context);
         ComponentSetup(context, null);
@@ -52,6 +54,7 @@ public class CustomCard extends LinearLayout {
         categories = (CustomTextView) findViewById(R.id.custom_card_categories);
         content = (CustomHTMLEditText) findViewById(R.id.custom_card_class_content);
         cardLayout = (CardView) findViewById(R.id.custom_card_card_layout);
+        bottomContainer = (LinearLayout) findViewById(R.id.custom_card_bottom_icons_container);
         edit.setVisibility(View.GONE);
         categories.setVisibility(View.GONE);
         title.setVisibility(View.GONE);
@@ -133,6 +136,14 @@ public class CustomCard extends LinearLayout {
                 if(listener != null) listener.onClick("downvote", 0);
             }
         });
+    }
+
+    public void hideBottomContainer(){
+        bottomContainer.setVisibility(GONE);
+    }
+
+    public void setTopRightIcon(int res){
+        favorite.setImageResource(res);
     }
 
     public void setCardClickListener(final CellClickListener listener){
