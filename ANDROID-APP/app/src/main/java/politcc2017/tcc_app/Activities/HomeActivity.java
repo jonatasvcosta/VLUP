@@ -3,6 +3,9 @@ package politcc2017.tcc_app.Activities;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -33,7 +36,8 @@ public class HomeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_home);
         setActivityTitle("Home Activity");
-
+        Button fadeout = (Button) findViewById(R.id.test_fade_out_button);
+        final ImageView flag = (ImageView) findViewById(R.id.test_flag);
         Button stringButton = (Button) findViewById(R.id.string_request_button);
         Button jsonButton = (Button) findViewById(R.id.json_request_button);
         Button jsonArrayButton = (Button) findViewById(R.id.json_array_request_button);
@@ -57,6 +61,13 @@ public class HomeActivity extends BaseActivity {
         list.add("Tcheco");
         list.add("Russo");
         list.add("Japonês");
+
+        fadeout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fadeOutAndHideImage(flag);
+            }
+        });
 
         listSingleButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -179,5 +190,23 @@ public class HomeActivity extends BaseActivity {
         if(!LANGUAGE_SET){
             setLanguage();
         }
+    }
+    private void fadeOutAndHideImage(final ImageView img)
+    {
+        Animation fadeOut = new AlphaAnimation(1, 0);
+        fadeOut.setInterpolator(new AccelerateInterpolator());
+        fadeOut.setDuration(1000);
+
+        fadeOut.setAnimationListener(new Animation.AnimationListener()
+        {
+            public void onAnimationEnd(Animation animation)
+            {
+                img.setVisibility(View.GONE);
+            }
+            public void onAnimationRepeat(Animation animation) {}
+            public void onAnimationStart(Animation animation) {}
+        });
+
+        img.startAnimation(fadeOut);
     }
 }
