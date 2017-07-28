@@ -27,6 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.inquiry.Inquiry;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.ArrayList;
@@ -37,6 +38,9 @@ import politcc2017.tcc_app.Activities.Bookshelf.BookshelfActivity;
 import politcc2017.tcc_app.Common.ResourcesHelper;
 import politcc2017.tcc_app.Components.CustomTextView;
 import politcc2017.tcc_app.Components.Helpers.DialogHelper;
+import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.BookshelfCategory;
+import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.ScoringRules;
+import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.SqlHelper;
 import politcc2017.tcc_app.Components.Helpers.SharedPreferencesHelper;
 import politcc2017.tcc_app.Components.Listeners.CellClickListener;
 import politcc2017.tcc_app.Components.Listeners.ContextMenuClickListener;
@@ -103,6 +107,7 @@ public class BaseActivity extends AppCompatActivity {
                 handleLearningLanguageChoice(BaseActivity.this);
             }
         });
+        initialScoringRulesSetup();
     }
 
     protected void hideActionBar(){
@@ -340,7 +345,7 @@ public class BaseActivity extends AppCompatActivity {
         img.setVisibility(View.VISIBLE);
         final Animation fadeOut = new AlphaAnimation(1, 0);
         fadeOut.setInterpolator(new AccelerateInterpolator());
-        fadeOut.setDuration(750);
+        fadeOut.setDuration(1500);
         fadeOut.setAnimationListener(new Animation.AnimationListener()
         {
             public void onAnimationEnd(Animation animation){
@@ -351,6 +356,24 @@ public class BaseActivity extends AppCompatActivity {
         });
 
         img.startAnimation(fadeOut);
+    }
+
+    protected void initialScoringRulesSetup(){
+        Inquiry.newInstance(this, SqlHelper.DATABASE).build();
+        ScoringRules[] categories = Inquiry.get(this).select(ScoringRules.class).all();
+        if(categories != null) return; //if DB is properly set return
+        ArrayList<String> rules = new ArrayList<>();
+        Inquiry.get(this).insert(ScoringRules.class).values(new ScoringRules[]{
+                new ScoringRules(SqlHelper.RULE_ADD_WORD_BOOKSHELF, 2),
+                new ScoringRules(SqlHelper.RULE_CHECK_SIMILAR_WORDS, 1),
+                new ScoringRules(SqlHelper.RULE_CREATE_CLASS, 1000),
+        }).run();
+    }
+
+    protected int getScoringPoints(String rule){
+        ScoringRules[] rules = Inquiry.get(this).select(ScoringRules.class).where("name = ?", rule).all();
+        for(int i = 0; i < rules.length; i++) return rules[i].scoring;
+        return 0;
     }
 }
 

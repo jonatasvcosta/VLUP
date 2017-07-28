@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import politcc2017.tcc_app.Common.Languages;
 import politcc2017.tcc_app.Components.CustomPicker;
 import politcc2017.tcc_app.Components.Helpers.DialogHelper;
+import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.SqlHelper;
 import politcc2017.tcc_app.R;
 import politcc2017.tcc_app.Volley.ServerRequestHelper;
 
@@ -65,7 +66,7 @@ public class HomeActivity extends BaseActivity {
         fadeout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                scorePoints("+15");
+                scorePoints("+"+ getScoringPoints(SqlHelper.RULE_ADD_WORD_BOOKSHELF));
                 fadeInAndOutImage(flag);
             }
         });
