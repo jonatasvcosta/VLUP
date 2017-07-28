@@ -18,10 +18,16 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.inquiry.Inquiry;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.ArrayList;
@@ -32,6 +38,9 @@ import politcc2017.tcc_app.Activities.Bookshelf.BookshelfActivity;
 import politcc2017.tcc_app.Common.ResourcesHelper;
 import politcc2017.tcc_app.Components.CustomTextView;
 import politcc2017.tcc_app.Components.Helpers.DialogHelper;
+import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.BookshelfCategory;
+import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.ScoringRules;
+import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.SqlHelper;
 import politcc2017.tcc_app.Components.Helpers.SharedPreferencesHelper;
 import politcc2017.tcc_app.Components.Listeners.CellClickListener;
 import politcc2017.tcc_app.Components.Listeners.ContextMenuClickListener;
@@ -45,7 +54,7 @@ import static android.content.Intent.FLAG_ACTIVITY_REORDER_TO_FRONT;
 
 public class BaseActivity extends AppCompatActivity {
     public static boolean LANGUAGE_SET = false;
-    public static final int POS_HOME = 0, POS_VOCABULARY = 1, POS_NEWS = 2, POS_NAVIGATE = 3, POS_BE_A_PRO = 4, POS_BOOKSHELF = 5, POS_DICTIONARY = 6, POS_CAMERA = 7, POS_SETTINGS = 9;
+    public static final int POS_HOME = 0, POS_VOCABULARY = 1, POS_NEWS = 2, POS_NAVIGATE = 3, POS_BE_A_PRO = 4, POS_BOOKSHELF = 5, POS_DICTIONARY = 6, POS_CAMERA = 7, POS_SETTINGS = 9, POS_RANKING = 10;
     protected final int REQ_CODE_SPEECH_INPUT = 100;
     Toolbar toolbar;
     CustomTextView toolbarTitle;
@@ -58,6 +67,8 @@ public class BaseActivity extends AppCompatActivity {
     private int appLanguage = 0;
     public int learningLanguage = 0;
     ImageView rightIcon, rightMostIcon, leftMostIcon, flagIcon;
+    private LinearLayout scorePointContainer;
+    private TextView scorePointText;
 
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
@@ -75,6 +86,8 @@ public class BaseActivity extends AppCompatActivity {
         rightMostIcon = (ImageView) findViewById(R.id.base_toolbar_rightmost_icon);
         leftMostIcon = (ImageView) findViewById(R.id.base_toolbar_leftmost_icon);
         flagIcon = (ImageView) findViewById(R.id.base_toolbar_language_icon);
+        scorePointContainer = (LinearLayout) findViewById(R.id.score_point_container);
+        scorePointText = (CustomTextView) findViewById(R.id.score_point_text);
         setSupportActionBar(toolbar);
         baseActionBar = getSupportActionBar();
         baseActionBar.setTitle("");
@@ -94,6 +107,7 @@ public class BaseActivity extends AppCompatActivity {
                 handleLearningLanguageChoice(BaseActivity.this);
             }
         });
+        initialScoringRulesSetup();
     }
 
     protected void hideActionBar(){
@@ -232,6 +246,7 @@ public class BaseActivity extends AppCompatActivity {
                 else if(position == POS_DICTIONARY) startOrResumeActivity(DictionaryActivity.class, true);
                 else if(position == POS_CAMERA) startOrResumeActivity(CameraActivity.class, true);
                 else if(position == POS_SETTINGS) startOrResumeActivity(SettingsActivity.class, true);
+                else if(position == POS_RANKING) startOrResumeActivity(RankingActivity.class, true);
                 else startOrResumeActivity(MaintenanceActivity.class, true);
             }
 
@@ -318,6 +333,47 @@ public class BaseActivity extends AppCompatActivity {
         Intent intent = getIntent();
         finish();
         startActivity(intent);
+    }
+
+    protected void scorePoints(String points){
+        scorePointText.setText(points);
+        fadeInAndOutImage(scorePointContainer);
+    }
+
+    private void fadeInAndOutImage(final View img)
+    {
+        img.setVisibility(View.VISIBLE);
+        final Animation fadeOut = new AlphaAnimation(1, 0);
+        fadeOut.setInterpolator(new AccelerateInterpolator());
+        fadeOut.setDuration(1500);
+        fadeOut.setAnimationListener(new Animation.AnimationListener()
+        {
+            public void onAnimationEnd(Animation animation){
+                img.setVisibility(View.GONE);
+            }
+            public void onAnimationRepeat(Animation animation) {}
+            public void onAnimationStart(Animation animation) {}
+        });
+
+        img.startAnimation(fadeOut);
+    }
+
+    protected void initialScoringRulesSetup(){
+        Inquiry.newInstance(this, SqlHelper.DATABASE).build();
+        ScoringRules[] categories = Inquiry.get(this).select(ScoringRules.class).all();
+        if(categories != null) return; //if DB is properly set return
+        ArrayList<String> rules = new ArrayList<>();
+        Inquiry.get(this).insert(ScoringRules.class).values(new ScoringRules[]{
+                new ScoringRules(SqlHelper.RULE_ADD_WORD_BOOKSHELF, 2),
+                new ScoringRules(SqlHelper.RULE_CHECK_SIMILAR_WORDS, 1),
+                new ScoringRules(SqlHelper.RULE_CREATE_CLASS, 1000),
+        }).run();
+    }
+
+    protected int getScoringPoints(String rule){
+        ScoringRules[] rules = Inquiry.get(this).select(ScoringRules.class).where("name = ?", rule).all();
+        for(int i = 0; i < rules.length; i++) return rules[i].scoring;
+        return 0;
     }
 }
 

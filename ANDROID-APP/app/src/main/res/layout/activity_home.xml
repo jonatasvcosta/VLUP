@@ -25,6 +25,17 @@
             style="@style/PrimaryButton"
             android:layout_marginTop="40dp"
             android:text="Português"/>
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/test_flag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/flag_de"/>
+        <politcc2017.tcc_app.Components.CustomButton
+            android:id="@+id/test_fade_out_button"
+            style="@style/PrimaryButton"
+            android:layout_marginTop="40dp"
+            android:text="FadeOut flag"/>
         <politcc2017.tcc_app.Components.CustomButton
             android:id="@+id/default_dialog_button"
             style="@style/PrimaryButton"

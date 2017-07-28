@@ -37,6 +37,7 @@
         <activity android:name=".Activities.Bookshelf.BookshelfCategoryActivity"/>
         <activity android:name=".Activities.NewsActivity"/>
         <activity android:name=".Activities.SettingsActivity"/>
+        <activity android:name=".Activities.RankingActivity"/>
     </application>
 
 </manifest>

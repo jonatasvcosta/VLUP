@@ -16,6 +16,7 @@ import politcc2017.tcc_app.Components.AutoCompleteEditText;
 import politcc2017.tcc_app.Components.CustomSearchToolbar;
 import politcc2017.tcc_app.Components.CustomTextView;
 import politcc2017.tcc_app.Components.Helpers.DialogHelper;
+import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.SqlHelper;
 import politcc2017.tcc_app.Components.Listeners.CellClickListener;
 import politcc2017.tcc_app.Components.RecyclerView.Adapters.GenericAdapter;
 import politcc2017.tcc_app.Components.RecyclerView.Data.GenericData;
@@ -84,6 +85,7 @@ public class VocabularyActivity extends BaseActivity {
         if(i != null){
             String word = i.getStringExtra(WordContextDialog.CONTEXT_SIMILAR_WORDS);
             mSearchToolbar.setSuggestionText(word);
+            scorePoints("+"+getScoringPoints(SqlHelper.RULE_CHECK_SIMILAR_WORDS));
             if(word != null && word.length() > 0) loadSimilarWordsFromServer(word);
         }
 

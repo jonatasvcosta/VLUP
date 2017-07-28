@@ -104,5 +104,8 @@
     <!-- Speech integration-->
     <string name="speech_instructions">Fale algo</string>
     <string name="speech_not_supported">Reconhecimento de fala não suportado</string>
+    <string name="ranking_activity_title">Ranking</string>
+    <string name="ranking_activity_header">Top Users</string>
+    <string name="ranking_activity_header_score">Pontos</string>
 
 </resources>

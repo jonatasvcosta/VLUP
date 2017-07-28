@@ -3,6 +3,9 @@ package politcc2017.tcc_app.Activities;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -20,6 +23,7 @@ import java.util.ArrayList;
 import politcc2017.tcc_app.Common.Languages;
 import politcc2017.tcc_app.Components.CustomPicker;
 import politcc2017.tcc_app.Components.Helpers.DialogHelper;
+import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.SqlHelper;
 import politcc2017.tcc_app.R;
 import politcc2017.tcc_app.Volley.ServerRequestHelper;
 
@@ -33,7 +37,8 @@ public class HomeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_home);
         setActivityTitle("Home Activity");
-
+        Button fadeout = (Button) findViewById(R.id.test_fade_out_button);
+        final ImageView flag = (ImageView) findViewById(R.id.test_flag);
         Button stringButton = (Button) findViewById(R.id.string_request_button);
         Button jsonButton = (Button) findViewById(R.id.json_request_button);
         Button jsonArrayButton = (Button) findViewById(R.id.json_array_request_button);
@@ -57,6 +62,14 @@ public class HomeActivity extends BaseActivity {
         list.add("Tcheco");
         list.add("Russo");
         list.add("Japonês");
+
+        fadeout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                scorePoints("+"+ getScoringPoints(SqlHelper.RULE_ADD_WORD_BOOKSHELF));
+                fadeInAndOutImage(flag);
+            }
+        });
 
         listSingleButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -179,5 +192,22 @@ public class HomeActivity extends BaseActivity {
         if(!LANGUAGE_SET){
             setLanguage();
         }
+    }
+    private void fadeInAndOutImage(final View img)
+    {
+        img.setVisibility(View.VISIBLE);
+        final Animation fadeOut = new AlphaAnimation(1, 0);
+        fadeOut.setInterpolator(new AccelerateInterpolator());
+        fadeOut.setDuration(500);
+        fadeOut.setAnimationListener(new Animation.AnimationListener()
+        {
+            public void onAnimationEnd(Animation animation){
+                img.setVisibility(View.GONE);
+            }
+            public void onAnimationRepeat(Animation animation) {}
+            public void onAnimationStart(Animation animation) {}
+        });
+
+        img.startAnimation(fadeOut);
     }
 }

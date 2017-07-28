@@ -10,6 +10,7 @@
         <item>Camera</item>
         <item>Products for me</item>
         <item>Settings</item>
+        <item>Ranking</item>
         <item>About Us</item>
     </string-array>
 
@@ -24,6 +25,7 @@
         <item>@drawable/ic_camera</item>
         <item>@drawable/ic_products</item>
         <item>@drawable/ic_settings</item>
+        <item>@drawable/ic_ranking</item>
         <item>@drawable/ic_help</item>
     </integer-array>
 

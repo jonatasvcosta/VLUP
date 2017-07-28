@@ -53,6 +53,7 @@ public class BookshelfActivity extends BaseActivity {
             wordToAdd = i.getStringExtra(WordContextDialog.CONTEXT_ADD_WORD);
             if(wordToAdd != null && wordToAdd.length() > 0){
                 automaticallyAddWordToCategory = true;
+                scorePoints("+"+getScoringPoints(SqlHelper.RULE_ADD_WORD_BOOKSHELF));
                 Toast.makeText(getApplicationContext(), getResString(R.string.bookshelf_add_word_instructions), Toast.LENGTH_SHORT).show();
             }
 

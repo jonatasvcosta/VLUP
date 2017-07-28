@@ -22,6 +22,7 @@ import politcc2017.tcc_app.Components.CustomHTMLEditText;
 import politcc2017.tcc_app.Components.CustomPicker;
 import politcc2017.tcc_app.Components.Helpers.DialogHelper;
 import politcc2017.tcc_app.Components.Helpers.FontHelper;
+import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.SqlHelper;
 import politcc2017.tcc_app.R;
 
 /**
@@ -137,6 +138,7 @@ public class BeAProCreateClassActivity extends BaseActivity {
         else {
             classTitle.validate();
             classLanguage.validate();
+            scorePoints("+"+getScoringPoints(SqlHelper.RULE_CREATE_CLASS));
         }
     }
 
