@@ -18,7 +18,7 @@
     <dimen name="site_suggestion_cell_folded_height">100dp</dimen>
     <dimen name="bookshelf_category_cell_folded_height">80dp</dimen>
     <dimen name="site_suggestion_cell_unfolded_height">250dp</dimen>
-    <dimen name="custom_search_toolbar_height">80dp</dimen>
+    <dimen name="custom_search_toolbar_height">70dp</dimen>
     <dimen name="search_toolbar_edit_text_radius">10dp</dimen>
     <dimen name="bullet_radius">2dp</dimen>
     <dimen name="bullet_gap_width">8dp</dimen>

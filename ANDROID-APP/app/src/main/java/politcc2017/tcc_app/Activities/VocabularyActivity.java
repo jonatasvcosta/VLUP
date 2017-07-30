@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import politcc2017.tcc_app.Common.ResourcesHelper;
 import politcc2017.tcc_app.Components.CustomSearchToolbar;
 import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.SqlHelper;
 import politcc2017.tcc_app.Components.Listeners.CellClickListener;
@@ -39,6 +40,7 @@ public class VocabularyActivity extends BaseActivity {
         listIcon = (ImageView) findViewById(R.id.base_toolbar_righ_icon);
         mSearchToolbar = (CustomSearchToolbar) findViewById(R.id.vocabulary_activity_search_toolbar);
         mSearchToolbar.setAutoCompleteSearchBar();
+        mSearchToolbar.setAdvancedFilter(VocabularyActivity.this, ResourcesHelper.getStringArrayAsArrayList(getBaseContext(), R.array.vocabulary_search_advanced_filter));
         wordsRecyclerView = (RecyclerView) findViewById(R.id.vocabulary_words_recyclerview);
         trendingTopicsRecyclerView = (RecyclerView) findViewById(R.id.vocabulary_activity_trendingtopics_recyclerview);
         wordsRecyclerView.setLayoutManager(new LinearLayoutManager(this));

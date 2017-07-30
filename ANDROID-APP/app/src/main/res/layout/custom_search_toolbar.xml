@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:background="@color/gray"
         android:paddingTop="@dimen/margin_medium"
-        android:paddingBottom="@dimen/margin_medium"
+        android:paddingBottom="@dimen/margin_extra_small"
         android:paddingLeft="@dimen/margin_small"
         android:paddingRight="@dimen/margin_small"
         android:layout_height="@dimen/custom_search_toolbar_height">
@@ -25,6 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
                 <ImageView
@@ -46,13 +47,13 @@
                 android:id="@+id/search_toolbar_edit_text"
                 style="@style/TextMediumGray"
                 android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
                 android:layout_marginRight="@dimen/margin_small"
                 android:layout_toLeftOf="@id/search_container"
                 android:paddingTop="@dimen/margin_extra_small"
                 android:paddingBottom="@dimen/margin_extra_small"
                 android:paddingRight="@dimen/margin_small"
                 android:paddingLeft="@dimen/margin_small"
-                android:layout_centerVertical="true"
                 android:layout_width="match_parent"
                 android:background="@drawable/search_edit_text_background"
                 android:layout_height="wrap_content"/>
@@ -61,16 +62,25 @@
                 android:id="@+id/search_toolbar_edit_text_autocomplete"
                 style="@style/TextMediumGray"
                 android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
                 android:layout_toLeftOf="@id/search_container"
                 android:layout_marginRight="@dimen/margin_small"
                 android:paddingTop="@dimen/margin_extra_small"
                 android:paddingBottom="@dimen/margin_extra_small"
                 android:paddingRight="@dimen/margin_small"
                 android:paddingLeft="@dimen/margin_small"
-                android:layout_centerVertical="true"
                 android:layout_width="match_parent"
                 android:background="@drawable/search_edit_text_background"
                 android:layout_height="wrap_content"/>
+            <politcc2017.tcc_app.Components.CustomButton
+                style="@style/LinkButton"
+                android:visibility="gone"
+                android:id="@+id/advanced_filter_link"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentBottom="true"
+                android:paddingTop="@dimen/margin_medium"
+                android:text="@string/advanced_filter_text"
+                android:textSize="@dimen/font_small"/>
         </RelativeLayout>
     </android.support.v7.widget.Toolbar>
 </LinearLayout>

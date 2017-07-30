@@ -108,5 +108,6 @@
     <string name="ranking_activity_header">Top Users</string>
     <string name="ranking_activity_header_score">Pontos</string>
     <string name="news_activity_title">Notícias e Textos</string>
+    <string name="advanced_filter_text">Filtro Avançado</string>
 
 </resources>

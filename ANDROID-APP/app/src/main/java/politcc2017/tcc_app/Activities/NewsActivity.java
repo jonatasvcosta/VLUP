@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import politcc2017.tcc_app.Common.ResourcesHelper;
 import politcc2017.tcc_app.Components.CustomSearchToolbar;
 import politcc2017.tcc_app.Components.CustomTextView;
 import politcc2017.tcc_app.Components.Listeners.CellClickListener;
@@ -41,6 +42,7 @@ public class NewsActivity extends BaseActivity {
         mRecyclerView.setVisibility(View.VISIBLE);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mSearchToolbar.setAutoCompleteSearchBar();
+        mSearchToolbar.setAdvancedFilter(NewsActivity.this, ResourcesHelper.getStringArrayAsArrayList(getBaseContext(), R.array.news_search_advanced_filter));
         setActivityTitle(getResString(R.string.news_activity_title));
 
         setSuggestionList();

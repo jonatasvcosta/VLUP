@@ -103,5 +103,6 @@
 
     <!-- News activity-->
     <string name="news_activity_title">Nachrichten / Texte</string>
+    <string name="advanced_filter_text">Erweiterter Filter</string>
 
 </resources>
