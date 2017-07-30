@@ -200,6 +200,10 @@ public class BaseActivity extends AppCompatActivity {
         if(rightMostIcon.getVisibility() != View.VISIBLE) rightMostIcon.setVisibility(View.VISIBLE);
     }
 
+    protected void showToolbarRightIcon(){
+        if(rightIcon.getVisibility() != View.VISIBLE) rightIcon.setVisibility(View.VISIBLE);
+    }
+
     protected void setupEditorToolbarRightIcons(final ContextMenuClickListener listener){
         if(rightIcon.getVisibility() != View.VISIBLE) {
             rightIcon.setImageResource(R.drawable.ic_action_undo);

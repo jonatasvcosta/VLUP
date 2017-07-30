@@ -107,5 +107,6 @@
     <string name="ranking_activity_title">Ranking</string>
     <string name="ranking_activity_header">Top Users</string>
     <string name="ranking_activity_header_score">Pontos</string>
+    <string name="news_activity_title">Notícias e Textos</string>
 
 </resources>

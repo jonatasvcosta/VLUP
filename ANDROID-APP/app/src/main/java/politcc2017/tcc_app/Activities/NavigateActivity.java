@@ -150,6 +150,7 @@ public class NavigateActivity extends BaseActivity implements View.OnClickListen
                     ArrayList<String> result = data
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     searchToolbar.setSearchUrl(result.get(0));
+                    searchToolbar.notifySearchComplete();
                 }
                 break;
             }

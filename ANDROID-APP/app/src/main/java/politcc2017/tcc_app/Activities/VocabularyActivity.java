@@ -12,18 +12,13 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import politcc2017.tcc_app.Components.AutoCompleteEditText;
 import politcc2017.tcc_app.Components.CustomSearchToolbar;
-import politcc2017.tcc_app.Components.CustomTextView;
-import politcc2017.tcc_app.Components.Helpers.DialogHelper;
 import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.SqlHelper;
 import politcc2017.tcc_app.Components.Listeners.CellClickListener;
 import politcc2017.tcc_app.Components.RecyclerView.Adapters.GenericAdapter;
 import politcc2017.tcc_app.Components.RecyclerView.Data.GenericData;
-import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.GenericViewHolder;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.ViewHolderType;
 import politcc2017.tcc_app.Components.WordContextDialog;
-import politcc2017.tcc_app.Entities.WordContextMenu;
 import politcc2017.tcc_app.R;
 
 /**
@@ -31,54 +26,32 @@ import politcc2017.tcc_app.R;
  */
 
 public class VocabularyActivity extends BaseActivity {
-    CustomSearchToolbar mSearchToolbar;
-    RecyclerView mRecyclerView;
-    GenericAdapter mAdapter;
-    GenericData mData;
+    private CustomSearchToolbar mSearchToolbar;
+    private RecyclerView wordsRecyclerView, trendingTopicsRecyclerView;
+    private GenericAdapter mAdapter, trendingAdapter;
+    private GenericData mData, trendingData;
+    private ImageView listIcon;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_vocabulary);
-
+        showToolbarRightIcon();
+        listIcon = (ImageView) findViewById(R.id.base_toolbar_righ_icon);
         mSearchToolbar = (CustomSearchToolbar) findViewById(R.id.vocabulary_activity_search_toolbar);
-        mSearchToolbar.registerMicrophoneListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                promptSpeechInput();
-            }
-        });
         mSearchToolbar.setAutoCompleteSearchBar();
-        mRecyclerView = (RecyclerView) findViewById(R.id.vocabulary_words_recyclerview);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        wordsRecyclerView = (RecyclerView) findViewById(R.id.vocabulary_words_recyclerview);
+        trendingTopicsRecyclerView = (RecyclerView) findViewById(R.id.vocabulary_activity_trendingtopics_recyclerview);
+        wordsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        trendingTopicsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        trendingTopicsRecyclerView.setVisibility(View.VISIBLE);
         mData = new GenericData();
+        trendingData = new GenericData();
+        loadTrendingTopics(trendingData);
+        trendingAdapter = new GenericAdapter(trendingData, ViewHolderType.TRENDING_TOPICS_VIEW_HOLDER, getApplicationContext());
+        wordsRecyclerView.setAdapter(mAdapter);
         mAdapter = new GenericAdapter(mData, ViewHolderType.VOCABULARY_WORD_VIEW_HOLDER,getApplicationContext());
-        mAdapter.RegisterClickListener(new CellClickListener() {
-            @Override
-            public void onClick(View v, int position) {
-
-            }
-
-            @Override
-            public void onClick(ImageView v, String link) {
-
-            }
-
-            @Override
-            public void onClick(String message, int position) {
-                WordContextDialog.launchDialog(VocabularyActivity.this, message);
-            }
-
-            @Override
-            public void onLinkClick(String link) {
-
-            }
-
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-        mRecyclerView.setAdapter(mAdapter);
+        setupListeners();
+        trendingTopicsRecyclerView.setAdapter(trendingAdapter);
         setActivityTitle(getResString(R.string.vocabulary_activity_title));
 
         Intent i = getIntent();
@@ -124,6 +97,17 @@ public class VocabularyActivity extends BaseActivity {
         Toast.makeText(getBaseContext(), "Language was changed, VocabularyActivity must reload all the content", Toast.LENGTH_SHORT).show();
     }
 
+    private void loadTrendingTopics(GenericData data){
+        //call server here
+        ArrayList<String> topics = new ArrayList<>();
+        topics.add("Politics");
+        topics.add("Refugees");
+        topics.add("Global warming");
+        topics.add("North Korea");
+        topics.add("G5");
+        data.addStringsToAllCells(GenericData.TRENDING_TOPIC, topics);
+    }
+
     private void loadSimilarWordsFromServer(String word){
         if(word == null || word.length() == 0) return;
         ArrayList<String> words = new ArrayList<>();
@@ -141,6 +125,8 @@ public class VocabularyActivity extends BaseActivity {
     }
 
     private void loadWords(String category){
+        wordsRecyclerView.setVisibility(View.VISIBLE);
+        trendingTopicsRecyclerView.setVisibility(View.GONE);
         category = category.trim().toLowerCase();
         //load words from server base on category
         if(category == null || category.equals("")) return;
@@ -174,4 +160,73 @@ public class VocabularyActivity extends BaseActivity {
         "informática", "tecnologia", "TI", "empreendedorismo", "inovação", "ciência", "filosofia"});
     }
 
+    private void setupListeners(){
+        mSearchToolbar.registerMicrophoneListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                promptSpeechInput();
+            }
+        });
+        listIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                trendingTopicsRecyclerView.setVisibility(View.VISIBLE);
+                wordsRecyclerView.setVisibility(View.GONE);
+            }
+        });
+        mAdapter.RegisterClickListener(new CellClickListener() {
+            @Override
+            public void onClick(View v, int position) {
+
+            }
+
+            @Override
+            public void onClick(ImageView v, String link) {
+
+            }
+
+            @Override
+            public void onClick(String message, int position) {
+                WordContextDialog.launchDialog(VocabularyActivity.this, message);
+            }
+
+            @Override
+            public void onLinkClick(String link) {
+
+            }
+
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        trendingAdapter.RegisterClickListener(new CellClickListener() {
+            @Override
+            public void onClick(View v, int position) {
+
+            }
+
+            @Override
+            public void onClick(ImageView v, String link) {
+
+            }
+
+            @Override
+            public void onClick(String message, int position) {
+                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+                mSearchToolbar.setSuggestionText(message);
+                loadWords(message);
+            }
+
+            @Override
+            public void onLinkClick(String link) {
+
+            }
+
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+    }
 }

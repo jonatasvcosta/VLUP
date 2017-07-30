@@ -30,7 +30,7 @@ public class GenericData {
     public static final String DICTIONARY_CELL_SOURCE = "dcsource";
     public static final String VOCABULARY_WORD = "vword";
     public static final String VOCABULARY_COUNT = "vcount";
-
+    public static final String TRENDING_TOPIC = "ttopic";
 
     private ArrayList<Hashtable> mData;
 

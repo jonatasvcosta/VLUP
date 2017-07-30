@@ -95,7 +95,13 @@
     <string name="bookshelf_add_word_instructions">Wählen Sie die Kategorie, zu der das Wort gehört</string>
     <string name="speech_instructions">Sprich etwas</string>
     <string name="speech_not_supported">Spracherkennung wird nicht unterstützt</string>
+
+    <!-- Ranking activity-->
     <string name="ranking_activity_title">Rangliste</string>
     <string name="ranking_activity_header">Top-Benutzer</string>
     <string name="ranking_activity_header_score">Punkte</string>
+
+    <!-- News activity-->
+    <string name="news_activity_title">Nachrichten / Texte</string>
+
 </resources>

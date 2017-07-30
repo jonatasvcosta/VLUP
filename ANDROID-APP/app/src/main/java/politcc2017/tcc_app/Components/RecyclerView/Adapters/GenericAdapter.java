@@ -17,6 +17,7 @@ import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.GenericViewHolder
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.LabelViewHolder;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.RankingViewHolder;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.SitesSuggestionViewHolder;
+import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.TrendingTopicViewHolder;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.ViewHolderType;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.VocabularyWordViewHolder;
 import politcc2017.tcc_app.R;
@@ -95,6 +96,10 @@ public class GenericAdapter extends RecyclerView.Adapter<GenericViewHolder> {
         if(viewHolderType == ViewHolderType.DICTIONARY_CELL_VIEW_HOLDER) {
             final View itemView = LayoutInflater.from(parent.getContext()).inflate(GenericViewHolder.getLayoutViewByPosition(position, ViewHolderType.DICTIONARY_CELL_VIEW_HOLDER), parent, false);
             return new DictionaryViewHolder(itemView, mCLickListener, mContext);
+        }
+        if(viewHolderType == ViewHolderType.TRENDING_TOPICS_VIEW_HOLDER) {
+            final View itemView = LayoutInflater.from(parent.getContext()).inflate(GenericViewHolder.getLayoutViewByPosition(position, ViewHolderType.TRENDING_TOPICS_VIEW_HOLDER), parent, false);
+            return new TrendingTopicViewHolder(itemView, mCLickListener);
         }
         return null;
     }
