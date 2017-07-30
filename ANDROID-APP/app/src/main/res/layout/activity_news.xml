@@ -7,6 +7,10 @@
     android:orientation="vertical"
     android:background="@color/cyan_lightest"
     android:gravity="center_horizontal">
+    <politcc2017.tcc_app.Components.CustomSearchToolbar
+        android:id="@+id/news_activity_search_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
     <ScrollView
         android:layout_width="match_parent"
         android:paddingRight="@dimen/margin_medium"
@@ -16,6 +20,7 @@
         android:id="@+id/activity_news_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         style="@style/TextMediumGray"
         android:layout_marginTop="@dimen/margin_large"
         android:layout_marginBottom="@dimen/margin_large"

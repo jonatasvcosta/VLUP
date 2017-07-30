@@ -85,8 +85,10 @@ public class VocabularyActivity extends BaseActivity {
         if(i != null){
             String word = i.getStringExtra(WordContextDialog.CONTEXT_SIMILAR_WORDS);
             mSearchToolbar.setSuggestionText(word);
-            scorePoints("+"+getScoringPoints(SqlHelper.RULE_CHECK_SIMILAR_WORDS));
-            if(word != null && word.length() > 0) loadSimilarWordsFromServer(word);
+            if(word != null && word.length() > 0){
+                scorePoints("+"+getScoringPoints(SqlHelper.RULE_CHECK_SIMILAR_WORDS));
+                loadSimilarWordsFromServer(word);
+            }
         }
 
         SetSuggestionList();

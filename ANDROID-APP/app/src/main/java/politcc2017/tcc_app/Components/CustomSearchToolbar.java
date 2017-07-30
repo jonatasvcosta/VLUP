@@ -35,12 +35,7 @@ public class CustomSearchToolbar extends LinearLayout {
     private static final String baseAdress = "http://";
     private static final String secureBaseAdress = "https://";
     private static final float TOOLBAR_ELEVATION = 14f;
-    private static final String STATE_RECYCLER_VIEW = "state-recycler-view";
-    private static final String STATE_VERTICAL_OFFSET = "state-vertical-offset";
-    private static final String STATE_SCROLLING_OFFSET = "state-scrolling-direction";
-    private static final String STATE_TOOLBAR_ELEVATION = "state-toolbar-elevation";
-    private static final String STATE_TOOLBAR_TRANSLATION_Y = "state-toolbar-translation-y";
-    // Keeps track of the overall vertical offset in the list
+
     private int verticalOffset;
     // Determines the scroll UP/DOWN offset
     private int scrollingOffset;
@@ -168,6 +163,10 @@ public class CustomSearchToolbar extends LinearLayout {
         });
     }
 
+    public void notifySearchComplete(){
+        if(searchListener != null) searchListener.onClick(searchIcon);
+    }
+
     public void setAutoCompleteSearchBar(){
         mEditText.setVisibility(GONE);
         mAutoCompleteEditText.setVisibility(VISIBLE);
@@ -193,6 +192,7 @@ public class CustomSearchToolbar extends LinearLayout {
 
     public void setSuggestionText(String text){
         mAutoCompleteEditText.setText(text);
+        notifySearchComplete();
     }
 
     public void setSearchUrl(String url){
