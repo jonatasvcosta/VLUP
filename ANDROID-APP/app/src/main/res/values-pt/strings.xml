@@ -110,4 +110,7 @@
     <string name="news_activity_title">Notícias e Textos</string>
     <string name="advanced_filter_text">Filtro Avançado</string>
 
+    <string name="rating_good">Bom</string>
+    <string name="rating_medium">Mediano</string>
+    <string name="rating_bad">Ruim</string>
 </resources>

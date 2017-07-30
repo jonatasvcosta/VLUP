@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public abstract class SqlHelper {
     public static String DATABASE = "database.db";
     public static String RULE_ADD_WORD_BOOKSHELF = "RULE_ADD_WORD_BOOKSHELF";
+    public static String RULE_RATE_TEXT = "RULE_RATE_TEXT";
     public static String RULE_CHECK_SIMILAR_WORDS = "RULE_CHECK_SIMILAR_WORDS";
     public static String RULE_CREATE_CLASS = "RULE_CREATE_CLASS";
 }

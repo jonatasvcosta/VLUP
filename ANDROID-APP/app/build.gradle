@@ -23,6 +23,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.google.code.gson:gson:2.6.2'
     compile 'org.sufficientlysecure:html-textview:3.3'
+    compile 'com.getbase:floatingactionbutton:1.10.1'
     compile 'com.rmtheis:tess-two:6.2.0'
     compile 'net.alexandroid.utils:gps:1.6'
     compile 'com.github.mthli:Knife:v1.1'

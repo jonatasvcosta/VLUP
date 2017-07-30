@@ -10,11 +10,15 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
+
 import java.util.ArrayList;
 
 import politcc2017.tcc_app.Common.ResourcesHelper;
 import politcc2017.tcc_app.Components.CustomSearchToolbar;
 import politcc2017.tcc_app.Components.CustomTextView;
+import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.SqlHelper;
 import politcc2017.tcc_app.Components.Listeners.CellClickListener;
 import politcc2017.tcc_app.Components.RecyclerView.Adapters.GenericAdapter;
 import politcc2017.tcc_app.Components.RecyclerView.Data.GenericData;
@@ -30,6 +34,8 @@ public class NewsActivity extends BaseActivity {
     private CustomSearchToolbar mSearchToolbar;
     private RecyclerView mRecyclerView;
     private ImageView listIcon;
+    private FloatingActionsMenu ratingMenu;
+    private FloatingActionButton addBookshelfFAB, rateGoodFAB, rateMediumFAB, rateBadFAB;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,6 +45,12 @@ public class NewsActivity extends BaseActivity {
         listIcon = (ImageView) findViewById(R.id.base_toolbar_righ_icon);
         mSearchToolbar = (CustomSearchToolbar) findViewById(R.id.news_activity_search_toolbar);
         mRecyclerView = (RecyclerView) findViewById(R.id.news_activity_trendingtopics_recyclerview);
+        ratingMenu = (FloatingActionsMenu) findViewById(R.id.news_activity_rating_floating_menu);
+        addBookshelfFAB = (FloatingActionButton) findViewById(R.id.news_activity_add_bookshelf_btn);
+        rateGoodFAB = (FloatingActionButton) findViewById(R.id.news_activity_rate_good_btn);
+        rateMediumFAB = (FloatingActionButton) findViewById(R.id.news_activity_rate_neutral_btn);
+        rateBadFAB = (FloatingActionButton) findViewById(R.id.news_activity_rate_bad_btn);
+
         mRecyclerView.setVisibility(View.VISIBLE);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mSearchToolbar.setAutoCompleteSearchBar();
@@ -71,6 +83,7 @@ public class NewsActivity extends BaseActivity {
         //call server here
         mNewsText.setVisibility(View.VISIBLE);
         mRecyclerView.setVisibility(View.GONE);
+        ratingMenu.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -92,6 +105,34 @@ public class NewsActivity extends BaseActivity {
     }
 
     private void setupListeners(){
+        addBookshelfFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getBaseContext(), "Add to bookshelf!", Toast.LENGTH_SHORT).show();
+                scorePoints("+"+getScoringPoints(SqlHelper.RULE_ADD_WORD_BOOKSHELF));
+            }
+        });
+        rateGoodFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getBaseContext(), "God!", Toast.LENGTH_SHORT).show();
+                scorePoints("+"+getScoringPoints(SqlHelper.RULE_RATE_TEXT));
+            }
+        });
+        rateMediumFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getBaseContext(), "Medium!", Toast.LENGTH_SHORT).show();
+                scorePoints("+"+getScoringPoints(SqlHelper.RULE_RATE_TEXT));
+            }
+        });
+        rateBadFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getBaseContext(), "Bad!", Toast.LENGTH_SHORT).show();
+                scorePoints("+"+getScoringPoints(SqlHelper.RULE_RATE_TEXT));
+            }
+        });
         mSearchToolbar.registerMicrophoneListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -109,6 +150,7 @@ public class NewsActivity extends BaseActivity {
             public void onClick(View view) {
                 mRecyclerView.setVisibility(View.VISIBLE);
                 mNewsText.setVisibility(View.GONE);
+                ratingMenu.setVisibility(View.GONE);
             }
         });
         mAdapter.RegisterClickListener(new CellClickListener() {

@@ -370,6 +370,7 @@ public class BaseActivity extends AppCompatActivity {
         Inquiry.get(this).insert(ScoringRules.class).values(new ScoringRules[]{
                 new ScoringRules(SqlHelper.RULE_ADD_WORD_BOOKSHELF, 2),
                 new ScoringRules(SqlHelper.RULE_CHECK_SIMILAR_WORDS, 1),
+                new ScoringRules(SqlHelper.RULE_RATE_TEXT, 1),
                 new ScoringRules(SqlHelper.RULE_CREATE_CLASS, 1000),
         }).run();
     }

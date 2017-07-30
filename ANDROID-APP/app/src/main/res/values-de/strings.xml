@@ -104,5 +104,8 @@
     <!-- News activity-->
     <string name="news_activity_title">Nachrichten / Texte</string>
     <string name="advanced_filter_text">Erweiterter Filter</string>
+    <string name="rating_bad">Schlecht</string>
+    <string name="rating_good">Gut</string>
+    <string name="rating_medium">Mittlere</string>
 
 </resources>

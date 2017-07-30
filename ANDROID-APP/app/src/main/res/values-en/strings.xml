@@ -101,4 +101,7 @@
     <string name="ranking_activity_header">Top Users</string>
     <string name="ranking_activity_header_score">Score</string>
     <string name="news_activity_title">News and Texts</string>
+    <string name="rating_bad">Bad</string>
+    <string name="rating_good">Good</string>
+    <string name="rating_medium">Median</string>
 </resources>

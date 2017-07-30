@@ -82,4 +82,9 @@
         <item name="android:background">@android:color/transparent</item>
         <item name="android:textColor">@drawable/link_button_selector</item>
     </style>
+    <style name="menu_labels_style">
+        <item name="android:background">@drawable/label_rounded_background</item>
+        <item name="android:padding">@dimen/margin_extra_small</item>
+        <item name="android:textColor">@color/beige</item>
+    </style>
 </resources>
