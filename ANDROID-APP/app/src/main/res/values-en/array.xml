@@ -71,4 +71,20 @@
         <item>Day-by-day</item>
         <item>Others</item>
     </string-array>
+
+    <string-array name="vocabulary_search_advanced_filter">
+        <item>Adjectives</item>
+        <item>Adverbs</item>
+        <item>Nouns</item>
+        <item>Verbs</item>
+    </string-array>
+
+    <string-array name="news_search_advanced_filter">
+        <item>Top rated</item>
+        <item>Medium rated</item>
+        <item>Length - large</item>
+        <item>Length - medium</item>
+        <item>Length - small</item>
+    </string-array>
+
 </resources>

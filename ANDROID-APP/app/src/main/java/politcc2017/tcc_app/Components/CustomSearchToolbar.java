@@ -17,8 +17,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+
+import java.util.ArrayList;
+
+import politcc2017.tcc_app.Activities.HomeActivity;
 import politcc2017.tcc_app.Components.Helpers.AndroidHelper;
+import politcc2017.tcc_app.Components.Helpers.DialogHelper;
 import politcc2017.tcc_app.Components.Helpers.FontHelper;
 import politcc2017.tcc_app.R;
 
@@ -29,18 +36,15 @@ import politcc2017.tcc_app.R;
 public class CustomSearchToolbar extends LinearLayout {
     private EditText mEditText;
     private AutoCompleteEditText mAutoCompleteEditText;
+    private CustomButton advancedFilter;
     private Toolbar mToolbar;
     private OnClickListener searchListener, microphoneListener;
     private ImageView searchIcon, microphoneIcon;
+    private ArrayList<String> filterList;
     private static final String baseAdress = "http://";
     private static final String secureBaseAdress = "https://";
     private static final float TOOLBAR_ELEVATION = 14f;
-    private static final String STATE_RECYCLER_VIEW = "state-recycler-view";
-    private static final String STATE_VERTICAL_OFFSET = "state-vertical-offset";
-    private static final String STATE_SCROLLING_OFFSET = "state-scrolling-direction";
-    private static final String STATE_TOOLBAR_ELEVATION = "state-toolbar-elevation";
-    private static final String STATE_TOOLBAR_TRANSLATION_Y = "state-toolbar-translation-y";
-    // Keeps track of the overall vertical offset in the list
+
     private int verticalOffset;
     // Determines the scroll UP/DOWN offset
     private int scrollingOffset;
@@ -143,6 +147,7 @@ public class CustomSearchToolbar extends LinearLayout {
         searchIcon = (ImageView) findViewById(R.id.search_toolbar_search_icon);
         microphoneIcon = (ImageView) findViewById(R.id.search_toolbar_microphone_icon);
         mToolbar = (Toolbar) findViewById(R.id.search_toolbar);
+        advancedFilter = (CustomButton) findViewById(R.id.advanced_filter_link);
         mEditText.setTypeface(FontHelper.get(FontHelper.TTF_FONT, c));
         mEditText.setOnEditorActionListener(new TextView.OnEditorActionListener(){
             public boolean onEditorAction(TextView exampleView, int actionId, KeyEvent event){
@@ -166,6 +171,10 @@ public class CustomSearchToolbar extends LinearLayout {
                 if(microphoneListener != null) microphoneListener.onClick(microphoneIcon);
             }
         });
+    }
+
+    public void notifySearchComplete(){
+        if(searchListener != null) searchListener.onClick(searchIcon);
     }
 
     public void setAutoCompleteSearchBar(){
@@ -193,6 +202,7 @@ public class CustomSearchToolbar extends LinearLayout {
 
     public void setSuggestionText(String text){
         mAutoCompleteEditText.setText(text);
+        notifySearchComplete();
     }
 
     public void setSearchUrl(String url){
@@ -237,4 +247,32 @@ public class CustomSearchToolbar extends LinearLayout {
             mToolbar.setElevation(elevation);
         }
     }
+
+    public ArrayList<String> getAdvancedFilterList(){
+        return filterList;
+    }
+
+    public void setAdvancedFilter(final Context context, final ArrayList<String> list){
+        advancedFilter.setVisibility(VISIBLE);
+        advancedFilter.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogHelper.ListMultiChoiceDialog(context, getResources().getString(R.string.advanced_filter_text), list, getResources().getString(R.string.dialog_confirm), getResources().getString(R.string.dialog_cancel), new MaterialDialog.ListCallbackMultiChoice() {
+                    @Override
+                    public boolean onSelection(MaterialDialog dialog, Integer[] which, CharSequence[] text) {
+
+                        if(filterList == null) filterList = new ArrayList<String>();
+                        String filter = "";
+                        for(int i = 0; i < text.length; i++){
+                            filterList.add(text[i].toString());
+                            filter += text[i]+" ";
+                        }
+                        Toast.makeText(context, filter, Toast.LENGTH_SHORT).show();
+                        return false;
+                    }
+                }).show();
+            }
+        });
+    }
+
 }

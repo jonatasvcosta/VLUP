@@ -71,4 +71,19 @@
         <item>Dia-a-dia</item>
         <item>Outros</item>
     </string-array>
+
+    <string-array name="vocabulary_search_advanced_filter">
+        <item>Adjetivos</item>
+        <item>Advérbios</item>
+        <item>Substantivos</item>
+        <item>Verbos</item>
+    </string-array>
+
+    <string-array name="news_search_advanced_filter">
+        <item>Melhor avaliados</item>
+        <item>Medianamente avaliados</item>
+        <item>Comprimento - longo</item>
+        <item>Comprimento - médio</item>
+        <item>Comprimento - curto</item>
+    </string-array>
 </resources>
