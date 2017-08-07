@@ -63,6 +63,8 @@ public class SettingsActivity extends BaseActivity {
         learningStatsCard = (CustomCard) findViewById(R.id.language_learning_stats);
         final String[] languages = getResources().getStringArray(R.array.languages_array);
         learningStatsCard.setTitle(languages[learningLanguage]);
+        learningStatsCard.setRadius(getResources().getDimension(R.dimen.margin_extra_large));
+        learningStatsCard.setCardColor(getResources().getColor(R.color.card_beige));
         learningStatsCard.hideBottomContainer();
         learningStatsCard.setVotes("#1054 points");
         ArrayList<Integer> flagIcons = ResourcesHelper.getIntArrayAsArrayList(getBaseContext(), R.array.languages_icons);

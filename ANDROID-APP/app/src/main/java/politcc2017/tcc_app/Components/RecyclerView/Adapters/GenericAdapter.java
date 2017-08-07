@@ -14,6 +14,7 @@ import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.CustomCardViewHol
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.DictionaryViewHolder;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.DrawerViewHolder;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.GenericViewHolder;
+import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.HomeCardViewHolder;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.LabelViewHolder;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.RankingViewHolder;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.SitesSuggestionViewHolder;
@@ -74,11 +75,6 @@ public class GenericAdapter extends RecyclerView.Adapter<GenericViewHolder> {
             return new BookshelfWordViewHolder(itemView, mCLickListener);
         }
 
-        if(viewHolderType == ViewHolderType.BOOKSHELF_WORD_VIEW_HOLDER) {
-            final View itemView = LayoutInflater.from(parent.getContext()).inflate(GenericViewHolder.getLayoutViewByPosition(position, ViewHolderType.BOOKSHELF_WORD_VIEW_HOLDER), null);
-            return new BookshelfWordViewHolder(itemView, mCLickListener);
-        }
-
         if(viewHolderType == ViewHolderType.RANKING_VIEW_HOLDER) {
             final View itemView = LayoutInflater.from(parent.getContext()).inflate(GenericViewHolder.getLayoutViewByPosition(position, ViewHolderType.RANKING_VIEW_HOLDER), null);
             return new RankingViewHolder(itemView, mCLickListener);
@@ -93,6 +89,12 @@ public class GenericAdapter extends RecyclerView.Adapter<GenericViewHolder> {
             final View itemView = LayoutInflater.from(parent.getContext()).inflate(GenericViewHolder.getLayoutViewByPosition(position, ViewHolderType.CUSTOM_CARD_VIEW_HOLDER), null);
             return new CustomCardViewHolder(itemView, mCLickListener, mContext);
         }
+
+        if(viewHolderType == ViewHolderType.HOME_CARD_VIEW_HOLDER) {
+            final View itemView = LayoutInflater.from(parent.getContext()).inflate(GenericViewHolder.getLayoutViewByPosition(position, ViewHolderType.HOME_CARD_VIEW_HOLDER), null);
+            return new HomeCardViewHolder(itemView, mCLickListener, mContext);
+        }
+
         if(viewHolderType == ViewHolderType.DICTIONARY_CELL_VIEW_HOLDER) {
             final View itemView = LayoutInflater.from(parent.getContext()).inflate(GenericViewHolder.getLayoutViewByPosition(position, ViewHolderType.DICTIONARY_CELL_VIEW_HOLDER), parent, false);
             return new DictionaryViewHolder(itemView, mCLickListener, mContext);

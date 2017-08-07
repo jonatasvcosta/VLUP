@@ -16,10 +16,12 @@ import politcc2017.tcc_app.R;
  */
 
 public class HomeCardViewHolder extends GenericViewHolder{
-    CustomCard card;
+    private CustomCard card;
+    private Context mContext;
 
     public HomeCardViewHolder(View itemView, CellClickListener listener, Context c) {
         super(itemView, listener);
+        mContext = c;
         card = (CustomCard) itemView.findViewById(R.id.custom_card_cell);
         setListeners(listener);
     }
@@ -136,10 +138,17 @@ public class HomeCardViewHolder extends GenericViewHolder{
     @Override
     public void setViewContent(Hashtable cellData) {
         String content = null;
+
         if(cellData.containsKey(GenericData.CUSTOM_CARD_TYPE)){
             String type = cellData.get(GenericData.CUSTOM_CARD_TYPE).toString();
             if(type.equals(GenericData.LINK)){
-
+                card.setCardColor(mContext.getApplicationContext().getResources().getColor(R.color.card_blue));
+            }
+            else if(type.equals(GenericData.MINI_CLASS)){
+                card.setCardColor(mContext.getApplicationContext().getResources().getColor(R.color.card_beige));
+            }
+            else if(type.equals(GenericData.TRENDING_WORDS)){
+                card.setCardColor(mContext.getApplicationContext().getResources().getColor(R.color.card_gray));
             }
         }
         if (cellData.containsKey(GenericData.CUSTOM_CARD_TITLE)) {
