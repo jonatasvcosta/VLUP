@@ -88,6 +88,14 @@ public class CustomCard extends LinearLayout {
         }, true);
     }
 
+    public void setRadius(float newRadius){
+        cardLayout.setRadius(newRadius);
+    }
+
+    public void setCardColor(int color){
+        cardLayout.setCardBackgroundColor(color);
+    }
+
     public void setVotes(String votes){
         this.votes.setText(votes);
     }

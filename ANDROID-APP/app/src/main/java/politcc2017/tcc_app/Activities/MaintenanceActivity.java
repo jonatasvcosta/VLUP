@@ -21,7 +21,7 @@ public class MaintenanceActivity extends BaseActivity {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startOrResumeActivity(HomeActivity.class, true);
+                startOrResumeActivity(TestComponentsActivity.class, true);
             }
         });
     }
