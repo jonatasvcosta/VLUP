@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 import politcc2017.tcc_app.Activities.BaseActivity;
 import politcc2017.tcc_app.Components.Listeners.CellClickListener;
@@ -100,11 +101,12 @@ public class BeAProFragment extends Fragment{
 
     private void startClassDetailActivity(int position){
         Intent i = new Intent(getContext(), BeAProClassDetailActivity.class);
-        i.putExtra(GenericData.CUSTOM_CARD_TITLE, data.getValue(position).get(GenericData.CUSTOM_CARD_TITLE).toString());
-        i.putExtra(GenericData.CUSTOM_CARD_CATEGORIES, data.getValue(position).get(GenericData.CUSTOM_CARD_CATEGORIES).toString());
-        i.putExtra(GenericData.CUSTOM_CARD_CONTENT, data.getValue(position).get(GenericData.CUSTOM_CARD_CONTENT).toString());
-        i.putExtra(GenericData.CUSTOM_CARD_VOTES, data.getValue(position).get(GenericData.CUSTOM_CARD_VOTES).toString());
-        i.putExtra(GenericData.CUSTOM_CARD_URL, data.getValue(position).get(GenericData.CUSTOM_CARD_URL).toString());
+        Hashtable content = data.getValue(position);
+        if(content.containsKey(GenericData.CUSTOM_CARD_TITLE)) i.putExtra(GenericData.CUSTOM_CARD_TITLE, content.get(GenericData.CUSTOM_CARD_TITLE).toString());
+        if(content.containsKey(GenericData.CUSTOM_CARD_CATEGORIES)) i.putExtra(GenericData.CUSTOM_CARD_CATEGORIES, content.get(GenericData.CUSTOM_CARD_CATEGORIES).toString());
+        if(content.containsKey(GenericData.CUSTOM_CARD_CONTENT)) i.putExtra(GenericData.CUSTOM_CARD_CONTENT, content.get(GenericData.CUSTOM_CARD_CONTENT).toString());
+        if(content.containsKey(GenericData.CUSTOM_CARD_VOTES)) i.putExtra(GenericData.CUSTOM_CARD_VOTES, content.get(GenericData.CUSTOM_CARD_VOTES).toString());
+        if(content.containsKey(GenericData.CUSTOM_CARD_URL)) i.putExtra(GenericData.CUSTOM_CARD_URL, content.get(GenericData.CUSTOM_CARD_URL).toString());
         startActivity(i);
     }
 

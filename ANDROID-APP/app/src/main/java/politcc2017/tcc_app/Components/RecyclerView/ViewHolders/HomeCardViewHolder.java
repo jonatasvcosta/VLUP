@@ -18,11 +18,13 @@ import politcc2017.tcc_app.R;
 public class HomeCardViewHolder extends GenericViewHolder{
     private CustomCard card;
     private Context mContext;
+    private static int HOME_NEWS_CARD_MAX_LINES = 20;
 
     public HomeCardViewHolder(View itemView, CellClickListener listener, Context c) {
         super(itemView, listener);
         mContext = c;
         card = (CustomCard) itemView.findViewById(R.id.custom_card_cell);
+        card.hideFavoriteIcon();
         setListeners(listener);
     }
 
@@ -55,32 +57,6 @@ public class HomeCardViewHolder extends GenericViewHolder{
                 }
             });
             card.setDownvoteIconClickListener(new CellClickListener() {
-                @Override
-                public void onClick(View v, int position) {
-
-                }
-
-                @Override
-                public void onClick(ImageView v, String link) {
-
-                }
-
-                @Override
-                public void onClick(String message, int position) {
-                    listener.onClick(message, getAdapterPosition());
-                }
-
-                @Override
-                public void onLinkClick(String link) {
-
-                }
-
-                @Override
-                public void onClick(View view) {
-
-                }
-            });
-            card.setFavoriteIconClickListener(new CellClickListener() {
                 @Override
                 public void onClick(View v, int position) {
 
@@ -141,13 +117,18 @@ public class HomeCardViewHolder extends GenericViewHolder{
 
         if(cellData.containsKey(GenericData.CUSTOM_CARD_TYPE)){
             String type = cellData.get(GenericData.CUSTOM_CARD_TYPE).toString();
-            if(type.equals(GenericData.LINK)){
+            if (type.equals(GenericData.NEWS)){
+                card.setMaxLines(HOME_NEWS_CARD_MAX_LINES);
+            }
+            else if(type.equals(GenericData.LINK)){
+                card.setRadius(mContext.getResources().getDimension(R.dimen.margin_extra_large));
                 card.setCardColor(mContext.getApplicationContext().getResources().getColor(R.color.card_blue));
             }
             else if(type.equals(GenericData.MINI_CLASS)){
                 card.setCardColor(mContext.getApplicationContext().getResources().getColor(R.color.card_beige));
             }
             else if(type.equals(GenericData.TRENDING_WORDS)){
+                card.setRadius(mContext.getResources().getDimension(R.dimen.margin_medium));
                 card.setCardColor(mContext.getApplicationContext().getResources().getColor(R.color.card_gray));
             }
         }

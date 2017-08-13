@@ -6,6 +6,7 @@ import android.speech.RecognizerIntent;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -55,6 +56,9 @@ public class NewsActivity extends BaseActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mSearchToolbar.setAutoCompleteSearchBar();
         mSearchToolbar.setAdvancedFilter(NewsActivity.this, ResourcesHelper.getStringArrayAsArrayList(getBaseContext(), R.array.news_search_advanced_filter));
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        mSearchToolbar.registerRecyclerViewScrollListener(mRecyclerView, displayMetrics.heightPixels);
         setActivityTitle(getResString(R.string.news_activity_title));
 
         setSuggestionList();

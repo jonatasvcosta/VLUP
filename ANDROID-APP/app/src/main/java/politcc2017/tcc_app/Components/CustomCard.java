@@ -69,7 +69,9 @@ public class CustomCard extends LinearLayout {
         content.setMaxLines(Integer.MAX_VALUE);
     }
 
-
+    public void setMaxLines(int maxLines){
+        content.setMaxLines(maxLines);
+    }
     public void setContent(String content){
         this.content.fromHtml(content);
     }
@@ -105,6 +107,10 @@ public class CustomCard extends LinearLayout {
         this.categories.setText(categories);
     }
 
+    public void hideFavoriteIcon(){
+        this.favorite.setVisibility(GONE);
+    }
+
     public void setContentMarkable(){
         content.allowWordContextMenu();
     }
@@ -120,6 +126,7 @@ public class CustomCard extends LinearLayout {
     }
 
     public void setFavoriteIconClickListener(final CellClickListener listener){
+        favorite.setVisibility(VISIBLE);
         favorite.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {

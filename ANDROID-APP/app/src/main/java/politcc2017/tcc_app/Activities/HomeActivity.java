@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 import politcc2017.tcc_app.Activities.BeAPro.BeAProClassDetailActivity;
 import politcc2017.tcc_app.Components.Listeners.CellClickListener;
@@ -73,45 +74,69 @@ public class HomeActivity extends BaseActivity {
     }
 
     private void HandleCellClicks(String message, int position){
-        Toast.makeText(getApplicationContext(), message+" : "+Integer.toString(position), Toast.LENGTH_SHORT).show(); //replace with proper actions
         if(message.equals("cardlayout")){
-        //    startClassDetailActivity(position);
+            if(data.getValue(position).get(GenericData.CUSTOM_CARD_TYPE).toString().equals(GenericData.MINI_CLASS)) startClassDetailActivity(position);
+            if(data.getValue(position).get(GenericData.CUSTOM_CARD_TYPE).toString().equals(GenericData.LINK)) startClassNavigation(position);
+            if(data.getValue(position).get(GenericData.CUSTOM_CARD_TYPE).toString().equals(GenericData.TRENDING_WORDS)) startClassVocabulary(position);
         }
     }
 
+    private void startClassVocabulary(int position){
+        Intent i = new Intent(getApplicationContext(), VocabularyActivity.class);
+        Hashtable content = data.getValue(position);
+        if(content.containsKey(GenericData.CUSTOM_CARD_CONTENT)) i.putExtra(GenericData.TRENDING_WORDS, content.get(GenericData.CUSTOM_CARD_CONTENT).toString());
+        startActivity(i);
+    }
+
+    private void startClassNavigation(int position){
+        Intent i = new Intent(getApplicationContext(), NavigateActivity.class);
+        Hashtable content = data.getValue(position);
+        if(content.containsKey(GenericData.CUSTOM_CARD_CONTENT)) i.putExtra(GenericData.LINK, content.get(GenericData.CUSTOM_CARD_CONTENT).toString().replace("<link>", "").replace("</link>", ""));
+        startActivity(i);
+    }
+
     private void startClassDetailActivity(int position){
-        /*Intent i = new Intent(getContext(), BeAProClassDetailActivity.class);
-        i.putExtra(GenericData.CUSTOM_CARD_TITLE, data.getValue(position).get(GenericData.CUSTOM_CARD_TITLE).toString());
-        i.putExtra(GenericData.CUSTOM_CARD_CATEGORIES, data.getValue(position).get(GenericData.CUSTOM_CARD_CATEGORIES).toString());
-        i.putExtra(GenericData.CUSTOM_CARD_CONTENT, data.getValue(position).get(GenericData.CUSTOM_CARD_CONTENT).toString());
-        i.putExtra(GenericData.CUSTOM_CARD_VOTES, data.getValue(position).get(GenericData.CUSTOM_CARD_VOTES).toString());
-        i.putExtra(GenericData.CUSTOM_CARD_URL, data.getValue(position).get(GenericData.CUSTOM_CARD_URL).toString());
-        startActivity(i);*/
+        Intent i = new Intent(getApplicationContext(), BeAProClassDetailActivity.class);
+        Hashtable content = data.getValue(position);
+        if(content.containsKey(GenericData.CUSTOM_CARD_TITLE)) i.putExtra(GenericData.CUSTOM_CARD_TITLE, content.get(GenericData.CUSTOM_CARD_TITLE).toString());
+        if(content.containsKey(GenericData.CUSTOM_CARD_CATEGORIES)) i.putExtra(GenericData.CUSTOM_CARD_CATEGORIES, content.get(GenericData.CUSTOM_CARD_CATEGORIES).toString());
+        if(content.containsKey(GenericData.CUSTOM_CARD_CONTENT)) i.putExtra(GenericData.CUSTOM_CARD_CONTENT, content.get(GenericData.CUSTOM_CARD_CONTENT).toString());
+        if(content.containsKey(GenericData.CUSTOM_CARD_VOTES)) i.putExtra(GenericData.CUSTOM_CARD_VOTES, content.get(GenericData.CUSTOM_CARD_VOTES).toString());
+        if(content.containsKey(GenericData.CUSTOM_CARD_URL)) i.putExtra(GenericData.CUSTOM_CARD_URL, content.get(GenericData.CUSTOM_CARD_URL).toString());
+        startActivity(i);
     }
 
     private GenericData getDataFromServer(){
         data = new GenericData(); //replace with proper call to server
         ArrayList<String> titles = new ArrayList<>();
         titles.add("Trump to North Korea: Be very, very nervous");
+        titles.add("Check out movies news!");
         titles.add("Expressões Linguísticas");
+        titles.add("Trending words");
         ArrayList<String> descriptions = new ArrayList<>();
         descriptions.add("<b> President Donald Trump has warned North Korea it should be \"very, very nervous\" if it does anything to the US</b>.\n" +
-
-                "<p>He said the regime would be in trouble \"like few nations have ever been\" if they do not \"get their act together</p>\".\n" +
-
+                "<p>He said the regime would be in trouble \"like few nations have ever been\" if they do not \"get their act together</p>\n" +
                 "<p>His comments came after Pyongyang announced it had a plan to fire four missiles near the US territory of Guam.</p");
+        descriptions.add("<link>http://www.imdb.com/news/movie?ref_=nv_nw_mv_2</link>");
         descriptions.add("<blockquote>Express&otilde;es&nbsp;Lingu&iacute;sticas:</blockquote></p><ul><li>Enfiar o p&eacute; na jaca - exagerar</li></ul><ul><li>Botar pra quebrar&nbsp;- exagerar</li></ul><ul><li>Badernar&nbsp;- fazer bagun&ccedil;a</li></ul><ul><li>Encher a cara - embriagar-se</li></ul><ul><li>Ir para o&nbsp;olho da rua - ser demitido</li></ul><ul><li>Enfiar o p&eacute; na jaca - exagerar</li></ul><ul><li>Botar pra quebrar&nbsp;- exagerar</li></ul><ul><li>Badernar&nbsp;- fazer bagun&ccedil;a</li></ul><ul><li>Encher a cara - embriagar-se</li></ul><ul><li>Ir para o&nbsp;olho da rua - ser demitido</li></ul><ul><li>Enfiar o p&eacute; na jaca - exagerar</li></ul><ul><li>Botar pra quebrar&nbsp;- exagerar</li></ul><ul><li>Badernar&nbsp;- fazer bagun&ccedil;a</li></ul><ul><li>Encher a cara - embriagar-se</li></ul><ul><li>Ir para o&nbsp;olho da rua - ser demitido</li></ul><ul><li>Enfiar o p&eacute; na jaca - exagerar</li></ul><ul><li>Botar pra quebrar&nbsp;- exagerar</li></ul><ul><li>Badernar&nbsp;- fazer bagun&ccedil;a</li></ul><ul><li>Encher a cara - embriagar-se</li></ul><ul><li>Ir para o&nbsp;olho da rua - ser demitido</li></ul><ul><li>Enfiar o p&eacute; na jaca - exagerar</li></ul><ul><li>Botar pra quebrar&nbsp;- exagerar</li></ul><ul><li>Badernar&nbsp;- fazer bagun&ccedil;a</li></ul><ul><li>Encher a cara - embriagar-se</li></ul><ul><li>Ir para o&nbsp;olho da rua - ser demitido</li></ul><ul><li>Enfiar o p&eacute; na jaca - exagerar</li></ul><ul><li>Botar pra quebrar&nbsp;- exagerar</li></ul><ul><li>Badernar&nbsp;- fazer bagun&ccedil;a</li></ul><ul><li>Encher a cara - embriagar-se</li></ul><ul><li>Ir para o&nbsp;olho da rua - ser demitido</li></ul><ul><li>Enfiar o p&eacute; na jaca - exagerar</li></ul><ul><li>Botar pra quebrar&nbsp;- exagerar</li></ul><ul><li>Badernar&nbsp;- fazer bagun&ccedil;a</li></ul><ul><li>Encher a cara - embriagar-se</li></ul><ul><li>Ir para o&nbsp;olho da rua - ser demitido</li></ul><ul><li>Enfiar o p&eacute; na jaca - exagerar</li></ul><ul><li>Botar pra quebrar&nbsp;- exagerar</li></ul><ul><li>Badernar&nbsp;- fazer bagun&ccedil;a</li></ul><ul><li>Encher a cara - embriagar-se</li></ul><ul><li>Ir para o&nbsp;olho da rua - ser demitido</li></ul>");
+        descriptions.add("<li>Política</li><li>Conflitos</li><li>Bolsa de valores</li><li>Juros</li><li>Lava-jato</li><li>Corrupção</li>");
+
         ArrayList<String> categories = new ArrayList<>();
         categories.add("conflito, política");
+        categories.add("movies");
         categories.add("expressões, linguagem popular");
+        categories.add("trending words");
 
         ArrayList<String> votes = new ArrayList<>();
         votes.add("#15211");
+        votes.add("#12");
         votes.add("#1221");
 
         ArrayList<String> cardType = new ArrayList<>();
         cardType.add(GenericData.NEWS);
+        cardType.add(GenericData.LINK);
         cardType.add(GenericData.MINI_CLASS);
+        cardType.add(GenericData.TRENDING_WORDS);
 
         data.addStringsToAllCells(GenericData.CUSTOM_CARD_TITLE, titles);
         data.addStringsToAllCells(GenericData.CUSTOM_CARD_CONTENT, descriptions);

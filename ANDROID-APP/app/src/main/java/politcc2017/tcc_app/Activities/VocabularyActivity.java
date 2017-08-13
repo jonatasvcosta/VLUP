@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import politcc2017.tcc_app.Common.ResourcesHelper;
 import politcc2017.tcc_app.Components.CustomSearchToolbar;
@@ -59,8 +61,10 @@ public class VocabularyActivity extends BaseActivity {
         Intent i = getIntent();
         if(i != null){
             String word = i.getStringExtra(WordContextDialog.CONTEXT_SIMILAR_WORDS);
-            mSearchToolbar.setSuggestionText(word);
+            String trendingWords = i.getStringExtra(GenericData.TRENDING_WORDS);
+            if(trendingWords != null && trendingWords.length() > 0) setupTrendingWords(trendingWords);
             if(word != null && word.length() > 0){
+                mSearchToolbar.setSuggestionText(word);
                 scorePoints("+"+getScoringPoints(SqlHelper.RULE_CHECK_SIMILAR_WORDS));
                 loadSimilarWordsFromServer(word);
             }
@@ -112,6 +116,8 @@ public class VocabularyActivity extends BaseActivity {
 
     private void loadSimilarWordsFromServer(String word){
         if(word == null || word.length() == 0) return;
+        wordsRecyclerView.setVisibility(View.VISIBLE);
+        trendingTopicsRecyclerView.setVisibility(View.GONE);
         ArrayList<String> words = new ArrayList<>();
         ArrayList<Integer> count = new ArrayList<>();
         words.add("similar 1 to " + word);
@@ -123,7 +129,22 @@ public class VocabularyActivity extends BaseActivity {
         mData.clearAllCells();
         mData.addStringsToAllCells(GenericData.VOCABULARY_WORD, words);
         mData.addIntegersToAllCells(GenericData.VOCABULARY_COUNT, count);
-        mAdapter.notifyDataSetChanged();
+        wordsRecyclerView.setAdapter(mAdapter);
+    }
+
+    private void setupTrendingWords(String trendingWords){
+        if(trendingWords == null || trendingWords.length() == 0) return;
+        wordsRecyclerView.setVisibility(View.VISIBLE);
+        trendingTopicsRecyclerView.setVisibility(View.GONE);
+        String[] words = trendingWords.split("<li>");
+        ArrayList<String> wordList = new ArrayList<>();
+        for(int i = 0; i < words.length; i++){
+            words[i] = words[i].replace("</li>", "");
+            if(words[i] != null && words[i].length() > 2) wordList.add(words[i]);
+        }
+        mData.clearAllCells();
+        mData.addStringsToAllCells(GenericData.VOCABULARY_WORD, wordList);
+        wordsRecyclerView.setAdapter(mAdapter);
     }
 
     private void loadWords(String category){

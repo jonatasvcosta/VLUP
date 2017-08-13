@@ -26,6 +26,7 @@ import java.util.ArrayList;
 
 import politcc2017.tcc_app.Components.CustomSearchToolbar;
 import politcc2017.tcc_app.Components.Helpers.DialogHelper;
+import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.SqlHelper;
 import politcc2017.tcc_app.Components.Helpers.SharedPreferencesHelper;
 import politcc2017.tcc_app.Components.Listeners.CellClickListener;
 import politcc2017.tcc_app.Components.Listeners.ContextMenuClickListener;
@@ -88,6 +89,12 @@ public class NavigateActivity extends BaseActivity implements View.OnClickListen
                 if(searchToolbar.getVisibility() != View.VISIBLE) searchToolbar.setVisibility(View.VISIBLE);
             }
         });
+
+        Intent i = getIntent();
+        if(i != null){
+            String url = i.getStringExtra(GenericData.LINK);
+            if(url != null && url.length() > 0) loadWebSite(url);
+        }
     }
 
     private void setupWebView(String url){
@@ -254,6 +261,11 @@ public class NavigateActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onClick(View view) {
+        loadNewWebsite();
+    }
+
+    private void loadWebSite(String url){
+        searchToolbar.setSearchUrl(url);
         loadNewWebsite();
     }
 
