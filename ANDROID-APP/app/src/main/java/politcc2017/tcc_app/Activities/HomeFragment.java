@@ -1,48 +1,62 @@
 package politcc2017.tcc_app.Activities;
 
+/**
+ * Created by Jonatas on 13/08/2017.
+ */
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
 
 import politcc2017.tcc_app.Activities.BeAPro.BeAProClassDetailActivity;
 import politcc2017.tcc_app.Components.Listeners.CellClickListener;
+import politcc2017.tcc_app.Components.Listeners.FragmentListener;
 import politcc2017.tcc_app.Components.RecyclerView.Adapters.GenericAdapter;
 import politcc2017.tcc_app.Components.RecyclerView.Data.GenericData;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.ViewHolderType;
 import politcc2017.tcc_app.R;
 
-import static java.security.AccessController.getContext;
-
-/**
- * Created by Jonatas on 06/08/2017.
- */
-
-public class HomeActivity extends BaseActivity {
+public class HomeFragment extends Fragment{
 
     private RecyclerView mRecyclerView;
     private GenericData data;
+    private FragmentListener listener;
+
+    public HomeFragment() {
+        // Required empty public constructor
+    }
+
+    public HomeFragment(FragmentListener listener) {
+        this.listener = listener;
+    }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        super.setContentView(R.layout.activity_home);
+    }
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.home_cards_list);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View v = inflater.inflate(R.layout.activity_home, container, false);
+        mRecyclerView = (RecyclerView) v.findViewById(R.id.home_cards_list);
         PopulateRecyclerView();
-        setActivityTitle(getResString(R.string.app_name));
+        return v;
     }
 
     private void PopulateRecyclerView(){
         GenericData data = getDataFromServer();
-        GenericAdapter mAdapter = new GenericAdapter(data, ViewHolderType.HOME_CARD_VIEW_HOLDER, getApplicationContext());
+        GenericAdapter mAdapter = new GenericAdapter(data, ViewHolderType.HOME_CARD_VIEW_HOLDER, getContext());
         mAdapter.RegisterClickListener(new CellClickListener() {
             @Override
             public void onClick(View v, int position) {
@@ -70,7 +84,7 @@ public class HomeActivity extends BaseActivity {
             }
         });
         mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
     private void HandleCellClicks(String message, int position){
@@ -82,21 +96,21 @@ public class HomeActivity extends BaseActivity {
     }
 
     private void startClassVocabulary(int position){
-        Intent i = new Intent(getApplicationContext(), VocabularyActivity.class);
         Hashtable content = data.getValue(position);
-        if(content.containsKey(GenericData.CUSTOM_CARD_CONTENT)) i.putExtra(GenericData.TRENDING_WORDS, content.get(GenericData.CUSTOM_CARD_CONTENT).toString());
-        startActivity(i);
+        String messageContent = null;
+        if(content.containsKey(GenericData.CUSTOM_CARD_CONTENT)) messageContent = content.get(GenericData.CUSTOM_CARD_CONTENT).toString();
+        if(listener != null) listener.onMessageSent("HOME_FRAGMENT", "SWITCH_VOCABULARY" , messageContent);
     }
 
     private void startClassNavigation(int position){
-        Intent i = new Intent(getApplicationContext(), NavigateActivity.class);
+        Intent i = new Intent(getContext(), NavigateActivity.class);
         Hashtable content = data.getValue(position);
         if(content.containsKey(GenericData.CUSTOM_CARD_CONTENT)) i.putExtra(GenericData.LINK, content.get(GenericData.CUSTOM_CARD_CONTENT).toString().replace("<link>", "").replace("</link>", ""));
         startActivity(i);
     }
 
     private void startClassDetailActivity(int position){
-        Intent i = new Intent(getApplicationContext(), BeAProClassDetailActivity.class);
+        Intent i = new Intent(getContext(), BeAProClassDetailActivity.class);
         Hashtable content = data.getValue(position);
         if(content.containsKey(GenericData.CUSTOM_CARD_TITLE)) i.putExtra(GenericData.CUSTOM_CARD_TITLE, content.get(GenericData.CUSTOM_CARD_TITLE).toString());
         if(content.containsKey(GenericData.CUSTOM_CARD_CATEGORIES)) i.putExtra(GenericData.CUSTOM_CARD_CATEGORIES, content.get(GenericData.CUSTOM_CARD_CATEGORIES).toString());

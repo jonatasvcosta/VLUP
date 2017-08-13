@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.speech.RecognizerIntent;
 import android.support.annotation.LayoutRes;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -240,9 +241,9 @@ public class BaseActivity extends AppCompatActivity {
             @Override
             public void onClick(View v, int position) {
                 mDrawerLayout.closeDrawers();
-                if(position == POS_HOME) startOrResumeActivity(HomeActivity.class, true);
-                else if(position == POS_VOCABULARY) startOrResumeActivity(VocabularyActivity.class, true);
-                else if(position == POS_NEWS) startOrResumeActivity(NewsActivity.class, true);
+                if(position == POS_HOME) startOrResumeActivity(MainActivitiesActivity.class, true);
+                else if(position == POS_VOCABULARY) startOrResumeActivity(MainActivitiesActivity.class, "VOCABULARY_ACTIVITY", 0);
+                else if(position == POS_NEWS) startOrResumeActivity(MainActivitiesActivity.class, "NEWS_ACTIVITY", 0);
                 else if(position == POS_NAVIGATE) startOrResumeActivity(NavigateActivity.class, true);
                 else if(position == POS_BE_A_PRO) startOrResumeActivity(BeAProListClassesActivity.class, true);
                 else if(position == POS_BOOKSHELF) startOrResumeActivity(BookshelfActivity.class, true);

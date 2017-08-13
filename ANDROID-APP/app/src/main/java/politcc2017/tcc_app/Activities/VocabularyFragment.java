@@ -1,75 +1,75 @@
 package politcc2017.tcc_app.Activities;
 
-import android.content.Intent;
+/**
+ * Created by Jonatas on 13/08/2017.
+ */
+
 import android.os.Bundle;
-import android.speech.RecognizerIntent;
-import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import politcc2017.tcc_app.Common.ResourcesHelper;
 import politcc2017.tcc_app.Components.CustomSearchToolbar;
 import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.SqlHelper;
 import politcc2017.tcc_app.Components.Listeners.CellClickListener;
+import politcc2017.tcc_app.Components.Listeners.FragmentListener;
 import politcc2017.tcc_app.Components.RecyclerView.Adapters.GenericAdapter;
 import politcc2017.tcc_app.Components.RecyclerView.Data.GenericData;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.ViewHolderType;
 import politcc2017.tcc_app.Components.WordContextDialog;
 import politcc2017.tcc_app.R;
 
-/**
- * Created by Jonatas on 15/03/2017.
- */
+public class VocabularyFragment extends Fragment{
 
-public class VocabularyActivity extends BaseActivity {
     private CustomSearchToolbar mSearchToolbar;
     private RecyclerView wordsRecyclerView, trendingTopicsRecyclerView;
     private GenericAdapter mAdapter, trendingAdapter;
     private GenericData mData, trendingData;
-    private ImageView listIcon;
+    private FragmentListener listener;
+
+    public VocabularyFragment() {
+        // Required empty public constructor
+    }
+
+    public VocabularyFragment(FragmentListener listener) {
+        this.listener = listener;
+    }
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        super.setContentView(R.layout.activity_vocabulary);
-        showToolbarRightIcon();
-        listIcon = (ImageView) findViewById(R.id.base_toolbar_righ_icon);
-        mSearchToolbar = (CustomSearchToolbar) findViewById(R.id.vocabulary_activity_search_toolbar);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.activity_vocabulary, container, false);
+
+        mSearchToolbar = (CustomSearchToolbar) v.findViewById(R.id.vocabulary_activity_search_toolbar);
         mSearchToolbar.setAutoCompleteSearchBar();
-        mSearchToolbar.setAdvancedFilter(VocabularyActivity.this, ResourcesHelper.getStringArrayAsArrayList(getBaseContext(), R.array.vocabulary_search_advanced_filter));
-        wordsRecyclerView = (RecyclerView) findViewById(R.id.vocabulary_words_recyclerview);
-        trendingTopicsRecyclerView = (RecyclerView) findViewById(R.id.vocabulary_activity_trendingtopics_recyclerview);
-        wordsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        trendingTopicsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mSearchToolbar.setAdvancedFilter(getActivity(), ResourcesHelper.getStringArrayAsArrayList(getContext(), R.array.vocabulary_search_advanced_filter));
+        wordsRecyclerView = (RecyclerView) v.findViewById(R.id.vocabulary_words_recyclerview);
+        trendingTopicsRecyclerView = (RecyclerView) v.findViewById(R.id.vocabulary_activity_trendingtopics_recyclerview);
+        wordsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        trendingTopicsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         trendingTopicsRecyclerView.setVisibility(View.VISIBLE);
         mData = new GenericData();
         trendingData = new GenericData();
         loadTrendingTopics(trendingData);
-        trendingAdapter = new GenericAdapter(trendingData, ViewHolderType.TRENDING_TOPICS_VIEW_HOLDER, getApplicationContext());
+        trendingAdapter = new GenericAdapter(trendingData, ViewHolderType.TRENDING_TOPICS_VIEW_HOLDER, getContext());
         wordsRecyclerView.setAdapter(mAdapter);
-        mAdapter = new GenericAdapter(mData, ViewHolderType.VOCABULARY_WORD_VIEW_HOLDER,getApplicationContext());
+        mAdapter = new GenericAdapter(mData, ViewHolderType.VOCABULARY_WORD_VIEW_HOLDER,getContext());
         setupListeners();
         trendingTopicsRecyclerView.setAdapter(trendingAdapter);
-        setActivityTitle(getResString(R.string.vocabulary_activity_title));
-
-        Intent i = getIntent();
-        if(i != null){
-            String word = i.getStringExtra(WordContextDialog.CONTEXT_SIMILAR_WORDS);
-            String trendingWords = i.getStringExtra(GenericData.TRENDING_WORDS);
-            if(trendingWords != null && trendingWords.length() > 0) setupTrendingWords(trendingWords);
-            if(word != null && word.length() > 0){
-                mSearchToolbar.setSuggestionText(word);
-                scorePoints("+"+getScoringPoints(SqlHelper.RULE_CHECK_SIMILAR_WORDS));
-                loadSimilarWordsFromServer(word);
-            }
-        }
+        //setActivityTitle(getResString(R.string.vocabulary_activity_title));
 
         SetSuggestionList();
 
@@ -79,29 +79,7 @@ public class VocabularyActivity extends BaseActivity {
                 loadWords(mSearchToolbar.getSuggestionText());
             }
         });
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        switch (requestCode) {
-            case REQ_CODE_SPEECH_INPUT: {
-                if (resultCode == RESULT_OK && null != data) {
-
-                    ArrayList<String> result = data
-                            .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    mSearchToolbar.setSuggestionText(result.get(0));
-                }
-                break;
-            }
-
-        }
-    }
-
-    @Override
-    public void handleLearningLanguageChange() {
-        Toast.makeText(getBaseContext(), "Language was changed, VocabularyActivity must reload all the content", Toast.LENGTH_SHORT).show();
+        return v;
     }
 
     private void loadTrendingTopics(GenericData data){
@@ -115,9 +93,12 @@ public class VocabularyActivity extends BaseActivity {
         data.addStringsToAllCells(GenericData.TRENDING_TOPIC, topics);
     }
 
-    private void loadSimilarWordsFromServer(String word){
+    public void loadSimilarWordsFromServer(String word){
         if(word == null || word.length() == 0) return;
+        mSearchToolbar.setSuggestionText(word);
+        loadSimilarWordsFromServer(word);
         wordsRecyclerView.setVisibility(View.VISIBLE);
+        if(this.listener != null) listener.onMessageSent("VOCABULARY_FRAGMENT", SqlHelper.RULE_CHECK_SIMILAR_WORDS);
         trendingTopicsRecyclerView.setVisibility(View.GONE);
         ArrayList<String> words = new ArrayList<>();
         ArrayList<Integer> count = new ArrayList<>();
@@ -133,7 +114,7 @@ public class VocabularyActivity extends BaseActivity {
         wordsRecyclerView.setAdapter(mAdapter);
     }
 
-    private void setupTrendingWords(String trendingWords){
+    public void setupTrendingWords(String trendingWords){
         if(trendingWords == null || trendingWords.length() == 0) return;
         wordsRecyclerView.setVisibility(View.VISIBLE);
         trendingTopicsRecyclerView.setVisibility(View.GONE);
@@ -174,6 +155,7 @@ public class VocabularyActivity extends BaseActivity {
         mData.addStringsToAllCells(GenericData.VOCABULARY_WORD, words);
         mData.addIntegersToAllCells(GenericData.VOCABULARY_COUNT, count);
         mAdapter.notifyDataSetChanged();
+        wordsRecyclerView.setAdapter(mAdapter);
     }
 
     private void SetSuggestionList(){
@@ -181,21 +163,14 @@ public class VocabularyActivity extends BaseActivity {
 
         mSearchToolbar.setAutoCompleteSuggestionList(new String[] {
                 "turismo", "viagens", "economia", "mercado financeiro", "finanças", "esportes", "lazer",
-        "informática", "tecnologia", "TI", "empreendedorismo", "inovação", "ciência", "filosofia"});
+                "informática", "tecnologia", "TI", "empreendedorismo", "inovação", "ciência", "filosofia"});
     }
 
     private void setupListeners(){
         mSearchToolbar.registerMicrophoneListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                promptSpeechInput();
-            }
-        });
-        listIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                trendingTopicsRecyclerView.setVisibility(View.VISIBLE);
-                wordsRecyclerView.setVisibility(View.GONE);
+                //promptSpeechInput();
             }
         });
         mAdapter.RegisterClickListener(new CellClickListener() {
@@ -211,7 +186,7 @@ public class VocabularyActivity extends BaseActivity {
 
             @Override
             public void onClick(String message, int position) {
-                WordContextDialog.launchDialog(VocabularyActivity.this, message);
+                WordContextDialog.launchDialog(getActivity(), message);
             }
 
             @Override
@@ -237,7 +212,7 @@ public class VocabularyActivity extends BaseActivity {
 
             @Override
             public void onClick(String message, int position) {
-                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
                 mSearchToolbar.setSuggestionText(message);
                 loadWords(message);
             }
@@ -252,5 +227,10 @@ public class VocabularyActivity extends BaseActivity {
 
             }
         });
+    }
+
+    public void switchRecyclerViews(){
+        trendingTopicsRecyclerView.setVisibility(View.VISIBLE);
+        wordsRecyclerView.setVisibility(View.GONE);
     }
 }

@@ -18,7 +18,7 @@
         <activity android:name=".Activities.BaseActivity"/>
         <activity android:name=".Activities.MaintenanceActivity"/>
         <activity android:name=".Activities.TestComponentsActivity"/>
-        <activity android:name=".Activities.HomeActivity"/>
+        <activity android:name=".Activities.MainActivitiesActivity"/>
         <activity android:name=".Activities.VocabularyActivity"/>
         <activity android:name=".Activities.LoginActivity">
             <intent-filter>
