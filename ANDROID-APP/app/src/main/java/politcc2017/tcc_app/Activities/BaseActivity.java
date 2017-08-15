@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.speech.RecognizerIntent;
 import android.support.annotation.LayoutRes;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -56,7 +55,7 @@ import static android.content.Intent.FLAG_ACTIVITY_REORDER_TO_FRONT;
 public class BaseActivity extends AppCompatActivity {
     public static boolean LANGUAGE_SET = false;
     public static final int POS_HOME = 0, POS_VOCABULARY = 1, POS_NEWS = 2, POS_NAVIGATE = 3, POS_BE_A_PRO = 4, POS_BOOKSHELF = 5, POS_DICTIONARY = 6, POS_CAMERA = 7, POS_SETTINGS = 9, POS_RANKING = 10;
-    protected final int REQ_CODE_SPEECH_INPUT = 100;
+    protected final int REQ_CODE_VOCABULARY_SPEECH_INPUT = 100, REQ_CODE_NEWS_SPEECH_INPUT = 101, REQ_CODE_SPEECH_INPUT = 102;
     Toolbar toolbar;
     CustomTextView toolbarTitle;
     RecyclerView drawerRecyclerView;
@@ -155,11 +154,11 @@ public class BaseActivity extends AppCompatActivity {
         toolbar.setBackgroundColor(colorID);
     }
 
-    protected void promptSpeechInput() {
-        promptSpeechInput(learningLanguage);
+    protected void promptSpeechInput(String sender) {
+        promptSpeechInput(learningLanguage, sender);
     }
 
-    protected void promptSpeechInput(int language) {
+    protected void promptSpeechInput(int language, String sender) {
         ArrayList<String> locales = ResourcesHelper.getStringArrayAsArrayList(getBaseContext(), R.array.locale_array);
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
@@ -168,7 +167,10 @@ public class BaseActivity extends AppCompatActivity {
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
                 getResString(R.string.speech_instructions));
         try {
-            startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
+            int code = REQ_CODE_SPEECH_INPUT;
+            if(sender.equals("VOCABULARY_FRAGMENT")) code = REQ_CODE_VOCABULARY_SPEECH_INPUT;
+            if(sender.equals("NEWS_FRAGMENT")) code = REQ_CODE_NEWS_SPEECH_INPUT;
+            startActivityForResult(intent, code);
         } catch (ActivityNotFoundException a) {
             Toast.makeText(getApplicationContext(), getResString(R.string.speech_not_supported), Toast.LENGTH_SHORT).show();
         }

@@ -83,6 +83,10 @@ public class VocabularyFragment extends Fragment{
         return v;
     }
 
+    public void setupSpeechInput(String input){
+        mSearchToolbar.setSuggestionText(input);
+    }
+
     private void loadTrendingTopics(GenericData data){
         //call server here
         ArrayList<String> topics = new ArrayList<>();

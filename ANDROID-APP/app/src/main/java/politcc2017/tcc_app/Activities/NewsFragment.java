@@ -83,6 +83,7 @@ public class NewsFragment extends Fragment{
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         mSearchToolbar.registerRecyclerViewScrollListener(mRecyclerView, displayMetrics.heightPixels);
+        if(listener != null) listener.onMessageSent("NEWS_FRAGMENT", "READY");
         return v;
     }
 
@@ -109,24 +110,10 @@ public class NewsFragment extends Fragment{
         mRecyclerView.setVisibility(View.VISIBLE);
         ratingMenu.setVisibility(View.GONE);
     }
-    /*
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
-        switch (requestCode) {
-            case REQ_CODE_SPEECH_INPUT: {
-                if (resultCode == RESULT_OK && null != data) {
-
-                    ArrayList<String> result = data
-                            .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-                    mSearchToolbar.setSuggestionText(result.get(0));
-                }
-                break;
-            }
-
-        }
-    }*/
+    public void setupSpeechInput(String input){
+        mSearchToolbar.setSuggestionText(input);
+    }
 
     private void setupListeners(){
         addBookshelfFAB.setOnClickListener(new View.OnClickListener() {
@@ -160,7 +147,7 @@ public class NewsFragment extends Fragment{
         mSearchToolbar.registerMicrophoneListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //promptSpeechInput();
+                if(listener != null) listener.onMessageSent("NEWS_FRAGMENT", "PROMPT_SPEECH");
             }
         });
         mSearchToolbar.registerSearchListener(new View.OnClickListener() {

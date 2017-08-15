@@ -64,7 +64,7 @@ public class NavigateActivity extends BaseActivity implements View.OnClickListen
         searchToolbar.registerMicrophoneListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                promptSpeechInput();
+                promptSpeechInput("NAVIGATE_ACTIVITY");
             }
         });
         DisplayMetrics displayMetrics = new DisplayMetrics();

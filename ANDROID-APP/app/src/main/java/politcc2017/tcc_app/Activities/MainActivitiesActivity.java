@@ -2,6 +2,7 @@ package politcc2017.tcc_app.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -32,27 +33,30 @@ public class MainActivitiesActivity extends BaseActivity implements FragmentList
     private VocabularyFragment vocabularyFragment;
     private HomeFragment homeFragment;
     public static final int POS_HOME_TAB = 0, POS_NEWS_TAB = 2, POS_VOCABULARY_TAB = 1;
-    private boolean setupSimilarWords = false;
-    private String similarWord;
+    private boolean setupSimilarWords = false, setupSearchInput = false;
+    private String similarWord, speechInput;
+    private int reqCode;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.home_tab_layout);
-        setActivityTitle(getResString(R.string.be_a_pro_activity_title));
+        setActivityTitle(getResString(R.string.home_activity_title));
         newsFragment = new NewsFragment(this);
         vocabularyFragment = new VocabularyFragment(this);
         homeFragment = new HomeFragment(this);
         viewPager = (ViewPager) findViewById(R.id.home_viewpager);
         setupViewPager(viewPager);
-        setupSimilarWords = false;
-
+        setupSimilarWords = setupSearchInput = false;
         tabLayout = (TabLayout) findViewById(R.id.home_tab_layout);
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(final TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
+                if(tab.getPosition() == POS_HOME_TAB) setActivityTitle(getResString(R.string.home_activity_title));
+                if(tab.getPosition() == POS_VOCABULARY_TAB) setActivityTitle(getResString(R.string.vocabulary_activity_title));
+                if(tab.getPosition() == POS_NEWS_TAB) setActivityTitle(getResString(R.string.news_activity_title));
                 setupActionBarIcons(tab.getPosition());
             }
 
@@ -100,10 +104,26 @@ public class MainActivitiesActivity extends BaseActivity implements FragmentList
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(homeFragment, "Home");
+        adapter.addFragment(homeFragment, getResString(R.string.home_activity_title));
         adapter.addFragment(vocabularyFragment, getResString(R.string.vocabulary_activity_title));
         adapter.addFragment(newsFragment, getResString(R.string.news_activity_title));
         viewPager.setAdapter(adapter);
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && data != null) {
+
+            ArrayList<String> result = data
+                    .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+
+            this.reqCode = requestCode;
+            this.speechInput = result.get(0);
+            this.setupSearchInput = true;
+        }
+
     }
 
     @Override
@@ -120,10 +140,17 @@ public class MainActivitiesActivity extends BaseActivity implements FragmentList
             this.viewPager.setCurrentItem(POS_VOCABULARY_TAB);
             setupActionBarIcons(POS_VOCABULARY_TAB);
         }
+
         if(sender.equals("VOCABULARY_FRAGMENT") && message.equals("READY") && setupSimilarWords){
             setupSimilarWords = false;
             vocabularyFragment.loadSimilarWordsFromServer(similarWord);
         }
+        if(message.equals("READY") && setupSearchInput){
+            setupSearchInput = false;
+            if(sender.equals("VOCABULARY_FRAGMENT")) vocabularyFragment.setupSpeechInput(speechInput);
+            if(sender.equals("NEWS_FRAGMENT")) newsFragment.setupSpeechInput(speechInput);
+        }
+        if(message.equals("PROMPT_SPEECH")) promptSpeechInput(sender);
         if(message.equals(SqlHelper.RULE_CHECK_SIMILAR_WORDS)) this.scorePoints("+"+getScoringPoints(SqlHelper.RULE_CHECK_SIMILAR_WORDS));
         if(message.equals(SqlHelper.RULE_ADD_WORD_BOOKSHELF)) this.scorePoints("+"+getScoringPoints(SqlHelper.RULE_ADD_WORD_BOOKSHELF));
         if(message.equals(SqlHelper.RULE_RATE_TEXT)) this.scorePoints("+"+getScoringPoints(SqlHelper.RULE_RATE_TEXT));

@@ -51,6 +51,7 @@ public class HomeFragment extends Fragment{
         View v = inflater.inflate(R.layout.activity_home, container, false);
         mRecyclerView = (RecyclerView) v.findViewById(R.id.home_cards_list);
         PopulateRecyclerView();
+        if(listener != null) listener.onMessageSent("HOME_FRAGMENT", "READY");
         return v;
     }
 
