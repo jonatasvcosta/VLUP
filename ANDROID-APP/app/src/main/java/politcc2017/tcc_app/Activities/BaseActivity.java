@@ -44,6 +44,7 @@ import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.SqlHelper;
 import politcc2017.tcc_app.Components.Helpers.SharedPreferencesHelper;
 import politcc2017.tcc_app.Components.Listeners.CellClickListener;
 import politcc2017.tcc_app.Components.Listeners.ContextMenuClickListener;
+import politcc2017.tcc_app.Components.Listeners.FragmentListener;
 import politcc2017.tcc_app.Components.RecyclerView.Adapters.GenericAdapter;
 import politcc2017.tcc_app.Components.RecyclerView.Data.GenericData;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.ViewHolderType;
@@ -69,6 +70,7 @@ public class BaseActivity extends AppCompatActivity {
     ImageView rightIcon, rightMostIcon, leftMostIcon, flagIcon;
     private LinearLayout scorePointContainer;
     private TextView scorePointText;
+    private FragmentListener activityListener;
 
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
@@ -124,6 +126,10 @@ public class BaseActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         baseActionBar = getSupportActionBar();
         baseActionBar.setTitle("");
+    }
+
+    protected void setActivityListener(FragmentListener listener){
+        this.activityListener = listener;
     }
 
     protected void handleLearningLanguageChange(){} //each activity must handle this method
@@ -241,9 +247,18 @@ public class BaseActivity extends AppCompatActivity {
             @Override
             public void onClick(View v, int position) {
                 mDrawerLayout.closeDrawers();
-                if(position == POS_HOME) startOrResumeActivity(MainActivitiesActivity.class, true);
-                else if(position == POS_VOCABULARY) startOrResumeActivity(MainActivitiesActivity.class, "VOCABULARY_ACTIVITY", 0);
-                else if(position == POS_NEWS) startOrResumeActivity(MainActivitiesActivity.class, "NEWS_ACTIVITY", 0);
+                if(position == POS_HOME){
+                    startOrResumeActivity(MainActivitiesActivity.class, "HOME_ACTIVITY", 0);
+                    if(activityListener != null) activityListener.onMessageSent("BASE_ACTIVITY", "HOME_ACTIVITY");
+                }
+                else if(position == POS_VOCABULARY){
+                    startOrResumeActivity(MainActivitiesActivity.class, "VOCABULARY_ACTIVITY", 0);
+                    if(activityListener != null) activityListener.onMessageSent("BASE_ACTIVITY", "VOCABULARY_ACTIVITY");
+                }
+                else if(position == POS_NEWS){
+                    startOrResumeActivity(MainActivitiesActivity.class, "NEWS_ACTIVITY", 0);
+                    if(activityListener != null) activityListener.onMessageSent("BASE_ACTIVITY", "NEWS_ACTIVITY");
+                }
                 else if(position == POS_NAVIGATE) startOrResumeActivity(NavigateActivity.class, true);
                 else if(position == POS_BE_A_PRO) startOrResumeActivity(BeAProListClassesActivity.class, true);
                 else if(position == POS_BOOKSHELF) startOrResumeActivity(BookshelfActivity.class, true);

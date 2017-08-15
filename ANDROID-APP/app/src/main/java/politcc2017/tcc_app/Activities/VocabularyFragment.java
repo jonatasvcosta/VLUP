@@ -79,6 +79,7 @@ public class VocabularyFragment extends Fragment{
                 loadWords(mSearchToolbar.getSuggestionText());
             }
         });
+        if(listener != null) listener.onMessageSent("VOCABULARY_FRAGMENT", "READY");
         return v;
     }
 
@@ -96,7 +97,6 @@ public class VocabularyFragment extends Fragment{
     public void loadSimilarWordsFromServer(String word){
         if(word == null || word.length() == 0) return;
         mSearchToolbar.setSuggestionText(word);
-        loadSimilarWordsFromServer(word);
         wordsRecyclerView.setVisibility(View.VISIBLE);
         if(this.listener != null) listener.onMessageSent("VOCABULARY_FRAGMENT", SqlHelper.RULE_CHECK_SIMILAR_WORDS);
         trendingTopicsRecyclerView.setVisibility(View.GONE);
