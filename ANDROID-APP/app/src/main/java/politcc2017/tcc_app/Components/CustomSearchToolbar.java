@@ -23,7 +23,6 @@ import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.ArrayList;
 
-import politcc2017.tcc_app.Activities.HomeActivity;
 import politcc2017.tcc_app.Components.Helpers.AndroidHelper;
 import politcc2017.tcc_app.Components.Helpers.DialogHelper;
 import politcc2017.tcc_app.Components.Helpers.FontHelper;

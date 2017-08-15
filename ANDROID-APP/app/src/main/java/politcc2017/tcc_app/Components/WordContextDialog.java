@@ -2,22 +2,16 @@ package politcc2017.tcc_app.Components;
 
 import android.content.Context;
 import android.content.Intent;
-import android.speech.tts.TextToSpeech;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.afollestad.inquiry.Inquiry;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
-import politcc2017.tcc_app.Activities.BaseActivity;
 import politcc2017.tcc_app.Activities.Bookshelf.BookshelfActivity;
-import politcc2017.tcc_app.Activities.VocabularyActivity;
+import politcc2017.tcc_app.Activities.MainActivitiesActivity;
 import politcc2017.tcc_app.Components.Helpers.DialogHelper;
-import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.BookshelfCategory;
-import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.SqlHelper;
 import politcc2017.tcc_app.Components.Helpers.SharedPreferencesHelper;
 import politcc2017.tcc_app.Components.Listeners.ContextMenuClickListener;
 import politcc2017.tcc_app.Entities.WordContextMenu;
@@ -102,7 +96,7 @@ public class WordContextDialog{
             @Override
             public void onClick(View view) {
                 if(listener != null) listener.onClick(view, CONTEXT_SIMILAR_WORDS);
-                Intent intent = new Intent(context, VocabularyActivity.class);
+                Intent intent = new Intent(context, MainActivitiesActivity.class);
                 intent.putExtra(CONTEXT_SIMILAR_WORDS, title);
                 context.startActivity(intent);
             }

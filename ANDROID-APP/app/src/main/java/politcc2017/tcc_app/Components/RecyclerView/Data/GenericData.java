@@ -26,11 +26,17 @@ public class GenericData {
     public static final String CUSTOM_CARD_VOTES = "cvotes";
     public static final String CUSTOM_CARD_URL = "curl";
     public static final String CUSTOM_CARD_CONTENT = "ccontent";
+    public static final String CUSTOM_CARD_TYPE = "ctype";
     public static final String DICTIONARY_CELL_CONTENT = "dccontent";
     public static final String DICTIONARY_CELL_SOURCE = "dcsource";
     public static final String VOCABULARY_WORD = "vword";
     public static final String VOCABULARY_COUNT = "vcount";
     public static final String TRENDING_TOPIC = "ttopic";
+    public static final String NEWS = "NEWS";
+    public static final String MINI_CLASS = "MINI_CLASS";
+    public static final String ADVERTISEMENT = "ADVERTISEMENT";
+    public static final String LINK = "LINK";
+    public static final String TRENDING_WORDS = "TRENDING_WORDS";
 
     private ArrayList<Hashtable> mData;
 

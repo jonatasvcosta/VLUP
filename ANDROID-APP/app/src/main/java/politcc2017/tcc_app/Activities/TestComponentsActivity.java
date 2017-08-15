@@ -31,11 +31,11 @@ import politcc2017.tcc_app.Volley.ServerRequestHelper;
  * Created by Jonatas on 25/10/2016.
  */
 
-public class HomeActivity extends BaseActivity {
+public class TestComponentsActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        super.setContentView(R.layout.activity_home);
+        super.setContentView(R.layout.activity_test);
         setActivityTitle("Home Activity");
         Button fadeout = (Button) findViewById(R.id.test_fade_out_button);
         final ImageView flag = (ImageView) findViewById(R.id.test_flag);
@@ -74,7 +74,7 @@ public class HomeActivity extends BaseActivity {
         listSingleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogHelper.ListSingleChoiceDialog(HomeActivity.this, "Escolha um idioma", list, "OK", "Cancelar", new MaterialDialog.ListCallbackSingleChoice() {
+                DialogHelper.ListSingleChoiceDialog(TestComponentsActivity.this, "Escolha um idioma", list, "OK", "Cancelar", new MaterialDialog.ListCallbackSingleChoice() {
                     @Override
                     public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
                         Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
@@ -84,7 +84,7 @@ public class HomeActivity extends BaseActivity {
             }
         });
 
-        picker.registerDialog(DialogHelper.ListSingleChoiceDialog(HomeActivity.this, "Escolha um idioma", list, "OK", "Cancelar", new MaterialDialog.ListCallbackSingleChoice() {
+        picker.registerDialog(DialogHelper.ListSingleChoiceDialog(TestComponentsActivity.this, "Escolha um idioma", list, "OK", "Cancelar", new MaterialDialog.ListCallbackSingleChoice() {
             @Override
             public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
                 picker.setText(text.toString());
@@ -96,7 +96,7 @@ public class HomeActivity extends BaseActivity {
         listMultiButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogHelper.ListMultiChoiceDialog(HomeActivity.this, "Escolha idiomas", list, "OK", "Cancelar", new MaterialDialog.ListCallbackMultiChoice() {
+                DialogHelper.ListMultiChoiceDialog(TestComponentsActivity.this, "Escolha idiomas", list, "OK", "Cancelar", new MaterialDialog.ListCallbackMultiChoice() {
 
                     @Override
                     public boolean onSelection(MaterialDialog dialog, Integer[] which, CharSequence[] text) {
@@ -124,14 +124,14 @@ public class HomeActivity extends BaseActivity {
         defaultDialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogHelper.CustomDialog(HomeActivity.this, "Título", R.drawable.maintenance_icon,"Texto qualquer explicando esse dialog", "Ok", "Cancelar").show();
+                DialogHelper.CustomDialog(TestComponentsActivity.this, "Título", R.drawable.maintenance_icon,"Texto qualquer explicando esse dialog", "Ok", "Cancelar").show();
             }
         });
 
         progressDialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogHelper.ProgressDialog(HomeActivity.this, "Carregando", "Aguarde").show();
+                DialogHelper.ProgressDialog(TestComponentsActivity.this, "Carregando", "Aguarde").show();
             }
         });
 

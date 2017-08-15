@@ -38,12 +38,12 @@ import politcc2017.tcc_app.Activities.Bookshelf.BookshelfActivity;
 import politcc2017.tcc_app.Common.ResourcesHelper;
 import politcc2017.tcc_app.Components.CustomTextView;
 import politcc2017.tcc_app.Components.Helpers.DialogHelper;
-import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.BookshelfCategory;
 import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.ScoringRules;
 import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.SqlHelper;
 import politcc2017.tcc_app.Components.Helpers.SharedPreferencesHelper;
 import politcc2017.tcc_app.Components.Listeners.CellClickListener;
 import politcc2017.tcc_app.Components.Listeners.ContextMenuClickListener;
+import politcc2017.tcc_app.Components.Listeners.FragmentListener;
 import politcc2017.tcc_app.Components.RecyclerView.Adapters.GenericAdapter;
 import politcc2017.tcc_app.Components.RecyclerView.Data.GenericData;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.ViewHolderType;
@@ -55,7 +55,7 @@ import static android.content.Intent.FLAG_ACTIVITY_REORDER_TO_FRONT;
 public class BaseActivity extends AppCompatActivity {
     public static boolean LANGUAGE_SET = false;
     public static final int POS_HOME = 0, POS_VOCABULARY = 1, POS_NEWS = 2, POS_NAVIGATE = 3, POS_BE_A_PRO = 4, POS_BOOKSHELF = 5, POS_DICTIONARY = 6, POS_CAMERA = 7, POS_SETTINGS = 9, POS_RANKING = 10;
-    protected final int REQ_CODE_SPEECH_INPUT = 100;
+    protected final int REQ_CODE_VOCABULARY_SPEECH_INPUT = 100, REQ_CODE_NEWS_SPEECH_INPUT = 101, REQ_CODE_SPEECH_INPUT = 102;
     Toolbar toolbar;
     CustomTextView toolbarTitle;
     RecyclerView drawerRecyclerView;
@@ -69,6 +69,7 @@ public class BaseActivity extends AppCompatActivity {
     ImageView rightIcon, rightMostIcon, leftMostIcon, flagIcon;
     private LinearLayout scorePointContainer;
     private TextView scorePointText;
+    private FragmentListener activityListener;
 
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
@@ -126,6 +127,10 @@ public class BaseActivity extends AppCompatActivity {
         baseActionBar.setTitle("");
     }
 
+    protected void setActivityListener(FragmentListener listener){
+        this.activityListener = listener;
+    }
+
     protected void handleLearningLanguageChange(){} //each activity must handle this method
 
     private void setDrawerData(){
@@ -149,11 +154,11 @@ public class BaseActivity extends AppCompatActivity {
         toolbar.setBackgroundColor(colorID);
     }
 
-    protected void promptSpeechInput() {
-        promptSpeechInput(learningLanguage);
+    protected void promptSpeechInput(String sender) {
+        promptSpeechInput(learningLanguage, sender);
     }
 
-    protected void promptSpeechInput(int language) {
+    protected void promptSpeechInput(int language, String sender) {
         ArrayList<String> locales = ResourcesHelper.getStringArrayAsArrayList(getBaseContext(), R.array.locale_array);
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
@@ -162,7 +167,10 @@ public class BaseActivity extends AppCompatActivity {
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT,
                 getResString(R.string.speech_instructions));
         try {
-            startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
+            int code = REQ_CODE_SPEECH_INPUT;
+            if(sender.equals("VOCABULARY_FRAGMENT")) code = REQ_CODE_VOCABULARY_SPEECH_INPUT;
+            if(sender.equals("NEWS_FRAGMENT")) code = REQ_CODE_NEWS_SPEECH_INPUT;
+            startActivityForResult(intent, code);
         } catch (ActivityNotFoundException a) {
             Toast.makeText(getApplicationContext(), getResString(R.string.speech_not_supported), Toast.LENGTH_SHORT).show();
         }
@@ -241,9 +249,18 @@ public class BaseActivity extends AppCompatActivity {
             @Override
             public void onClick(View v, int position) {
                 mDrawerLayout.closeDrawers();
-                if(position == POS_HOME) startOrResumeActivity(HomeActivity.class, true);
-                else if(position == POS_VOCABULARY) startOrResumeActivity(VocabularyActivity.class, true);
-                else if(position == POS_NEWS) startOrResumeActivity(NewsActivity.class, true);
+                if(position == POS_HOME){
+                    startOrResumeActivity(MainActivitiesActivity.class, "HOME_ACTIVITY", 0);
+                    if(activityListener != null) activityListener.onMessageSent("BASE_ACTIVITY", "HOME_ACTIVITY");
+                }
+                else if(position == POS_VOCABULARY){
+                    startOrResumeActivity(MainActivitiesActivity.class, "VOCABULARY_ACTIVITY", 0);
+                    if(activityListener != null) activityListener.onMessageSent("BASE_ACTIVITY", "VOCABULARY_ACTIVITY");
+                }
+                else if(position == POS_NEWS){
+                    startOrResumeActivity(MainActivitiesActivity.class, "NEWS_ACTIVITY", 0);
+                    if(activityListener != null) activityListener.onMessageSent("BASE_ACTIVITY", "NEWS_ACTIVITY");
+                }
                 else if(position == POS_NAVIGATE) startOrResumeActivity(NavigateActivity.class, true);
                 else if(position == POS_BE_A_PRO) startOrResumeActivity(BeAProListClassesActivity.class, true);
                 else if(position == POS_BOOKSHELF) startOrResumeActivity(BookshelfActivity.class, true);

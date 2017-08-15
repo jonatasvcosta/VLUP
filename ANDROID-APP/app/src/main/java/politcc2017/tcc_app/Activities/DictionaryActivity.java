@@ -49,7 +49,7 @@ public class DictionaryActivity extends BaseActivity implements View.OnClickList
         searchToolbar.registerMicrophoneListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                promptSpeechInput();
+                promptSpeechInput("DICTIONARY_ACTIVITY");
             }
         });
         DisplayMetrics displayMetrics = new DisplayMetrics();

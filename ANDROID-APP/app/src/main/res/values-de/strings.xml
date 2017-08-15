@@ -107,5 +107,6 @@
     <string name="rating_bad">Schlecht</string>
     <string name="rating_good">Gut</string>
     <string name="rating_medium">Mittlere</string>
+    <string name="home_activity_title">Startseite</string>
 
 </resources>

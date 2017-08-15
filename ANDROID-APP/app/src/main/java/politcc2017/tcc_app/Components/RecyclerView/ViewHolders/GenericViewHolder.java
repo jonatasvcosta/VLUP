@@ -26,7 +26,7 @@ public abstract class GenericViewHolder extends RecyclerView.ViewHolder {
         if(type == ViewHolderType.BOOKSHELF_WORD_VIEW_HOLDER) return R.layout.bookshelf_word_cell;
         if(type == ViewHolderType.RANKING_VIEW_HOLDER) return R.layout.user_ranking_cell;
         if(type == ViewHolderType.VOCABULARY_WORD_VIEW_HOLDER) return R.layout.vocabulary_word_cell;
-        if(type == ViewHolderType.CUSTOM_CARD_VIEW_HOLDER) return R.layout.custom_card_item_cell;
+        if(type == ViewHolderType.CUSTOM_CARD_VIEW_HOLDER || type == ViewHolderType.HOME_CARD_VIEW_HOLDER) return R.layout.custom_card_item_cell;
         if(type == ViewHolderType.DICTIONARY_CELL_VIEW_HOLDER) return R.layout.dictionary_cell;
         if(type == ViewHolderType.TRENDING_TOPICS_VIEW_HOLDER) return R.layout.trending_topic_cell;
         return -1;
