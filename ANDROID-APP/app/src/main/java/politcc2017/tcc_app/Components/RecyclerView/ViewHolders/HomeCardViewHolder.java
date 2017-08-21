@@ -1,8 +1,14 @@
 package politcc2017.tcc_app.Components.RecyclerView.ViewHolders;
 
 import android.content.Context;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.ImageView;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.NativeExpressAdView;
+import com.google.android.gms.ads.VideoOptions;
 
 import java.util.Hashtable;
 
@@ -17,13 +23,19 @@ import politcc2017.tcc_app.R;
 
 public class HomeCardViewHolder extends GenericViewHolder{
     private CustomCard card;
+    private CardView adsCard;
     private Context mContext;
     private static int HOME_NEWS_CARD_MAX_LINES = 20;
+    private NativeExpressAdView adView;
 
     public HomeCardViewHolder(View itemView, CellClickListener listener, Context c) {
         super(itemView, listener);
         mContext = c;
         card = (CustomCard) itemView.findViewById(R.id.custom_card_cell);
+        adsCard = (CardView) itemView.findViewById(R.id.ads_card_cell);
+        adView = (NativeExpressAdView) itemView.findViewById(R.id.ads_card_adview);
+        card.setVisibility(View.VISIBLE);
+        adsCard.setVisibility(View.GONE);
         card.hideFavoriteIcon();
         setListeners(listener);
     }
@@ -119,6 +131,18 @@ public class HomeCardViewHolder extends GenericViewHolder{
             String type = cellData.get(GenericData.CUSTOM_CARD_TYPE).toString();
             if (type.equals(GenericData.NEWS)){
                 card.setMaxLines(HOME_NEWS_CARD_MAX_LINES);
+            }
+            else if(type.equals(GenericData.ADS_IMAGE) || type.equals(GenericData.ADS_VIDEO)){
+                adsCard.setVisibility(View.VISIBLE);
+                card.setVisibility(View.GONE);
+                if(type.equals(GenericData.ADS_VIDEO)) {
+                    adView.setVideoOptions(new VideoOptions.Builder()
+                            .setStartMuted(true)
+                            .build());
+                }
+                AdRequest request = new AdRequest.Builder()
+                        .addTestDevice("379438B680AF5ECCD27F54638EE00DB8").build();
+                adView.loadAd(request);
             }
             else if(type.equals(GenericData.LINK)){
                 card.setRadius(mContext.getResources().getDimension(R.dimen.margin_extra_large));

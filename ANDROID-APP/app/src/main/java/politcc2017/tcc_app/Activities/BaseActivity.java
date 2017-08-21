@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import com.afollestad.inquiry.Inquiry;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.google.android.gms.ads.MobileAds;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -56,6 +57,7 @@ public class BaseActivity extends AppCompatActivity {
     public static boolean LANGUAGE_SET = false;
     public static final int POS_HOME = 0, POS_VOCABULARY = 1, POS_NEWS = 2, POS_NAVIGATE = 3, POS_BE_A_PRO = 4, POS_BOOKSHELF = 5, POS_DICTIONARY = 6, POS_CAMERA = 7, POS_SETTINGS = 9, POS_RANKING = 10;
     protected final int REQ_CODE_VOCABULARY_SPEECH_INPUT = 100, REQ_CODE_NEWS_SPEECH_INPUT = 101, REQ_CODE_SPEECH_INPUT = 102;
+    protected final String ADMOB_APP_ID = "ca-app-pub-3940256099942544~3347511713";
     Toolbar toolbar;
     CustomTextView toolbarTitle;
     RecyclerView drawerRecyclerView;
@@ -108,6 +110,7 @@ public class BaseActivity extends AppCompatActivity {
                 handleLearningLanguageChoice(BaseActivity.this);
             }
         });
+        MobileAds.initialize(this, ADMOB_APP_ID);
         initialScoringRulesSetup();
     }
 
