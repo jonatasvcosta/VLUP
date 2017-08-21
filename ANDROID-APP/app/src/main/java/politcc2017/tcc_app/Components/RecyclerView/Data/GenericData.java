@@ -34,7 +34,8 @@ public class GenericData {
     public static final String TRENDING_TOPIC = "ttopic";
     public static final String NEWS = "NEWS";
     public static final String MINI_CLASS = "MINI_CLASS";
-    public static final String ADVERTISEMENT = "ADVERTISEMENT";
+    public static final String ADS_IMAGE = "ADS_IMAGE";
+    public static final String ADS_VIDEO = "ADS_VIDEO";
     public static final String LINK = "LINK";
     public static final String TRENDING_WORDS = "TRENDING_WORDS";
 

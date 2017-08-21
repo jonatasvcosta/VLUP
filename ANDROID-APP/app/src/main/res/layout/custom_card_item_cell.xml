@@ -1,12 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:gravity="center_vertical"
     android:clickable="true">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+        <android.support.v7.widget.CardView
+            android:id="@+id/ads_card_cell"
+            android:layout_width="match_parent"
+            android:layout_margin="@dimen/margin_medium"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:clickable="true"
+            app:cardBackgroundColor="@color/white">
+            <com.google.android.gms.ads.NativeExpressAdView
+                android:id="@+id/ads_card_adview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                ads:adUnitId="ca-app-pub-3940256099942544/2177258514"
+                ads:adSize="300x250">
+            </com.google.android.gms.ads.NativeExpressAdView>
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
     <politcc2017.tcc_app.Components.CustomCard
         android:id="@+id/custom_card_cell"
         android:layout_width="match_parent"

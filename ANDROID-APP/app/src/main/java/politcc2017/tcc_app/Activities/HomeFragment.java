@@ -126,32 +126,45 @@ public class HomeFragment extends Fragment{
         ArrayList<String> titles = new ArrayList<>();
         titles.add("Trump to North Korea: Be very, very nervous");
         titles.add("Check out movies news!");
+        titles.add("");
         titles.add("Expressões Linguísticas");
         titles.add("Trending words");
+        titles.add("");
+
         ArrayList<String> descriptions = new ArrayList<>();
         descriptions.add("<b> President Donald Trump has warned North Korea it should be \"very, very nervous\" if it does anything to the US</b>.\n" +
                 "<p>He said the regime would be in trouble \"like few nations have ever been\" if they do not \"get their act together</p>\n" +
                 "<p>His comments came after Pyongyang announced it had a plan to fire four missiles near the US territory of Guam.</p");
         descriptions.add("<link>http://www.imdb.com/news/movie?ref_=nv_nw_mv_2</link>");
+        descriptions.add("");
         descriptions.add("<blockquote>Express&otilde;es&nbsp;Lingu&iacute;sticas:</blockquote></p><ul><li>Enfiar o p&eacute; na jaca - exagerar</li></ul><ul><li>Botar pra quebrar&nbsp;- exagerar</li></ul><ul><li>Badernar&nbsp;- fazer bagun&ccedil;a</li></ul><ul><li>Encher a cara - embriagar-se</li></ul><ul><li>Ir para o&nbsp;olho da rua - ser demitido</li></ul><ul><li>Enfiar o p&eacute; na jaca - exagerar</li></ul><ul><li>Botar pra quebrar&nbsp;- exagerar</li></ul><ul><li>Badernar&nbsp;- fazer bagun&ccedil;a</li></ul><ul><li>Encher a cara - embriagar-se</li></ul><ul><li>Ir para o&nbsp;olho da rua - ser demitido</li></ul><ul><li>Enfiar o p&eacute; na jaca - exagerar</li></ul><ul><li>Botar pra quebrar&nbsp;- exagerar</li></ul><ul><li>Badernar&nbsp;- fazer bagun&ccedil;a</li></ul><ul><li>Encher a cara - embriagar-se</li></ul><ul><li>Ir para o&nbsp;olho da rua - ser demitido</li></ul><ul><li>Enfiar o p&eacute; na jaca - exagerar</li></ul><ul><li>Botar pra quebrar&nbsp;- exagerar</li></ul><ul><li>Badernar&nbsp;- fazer bagun&ccedil;a</li></ul><ul><li>Encher a cara - embriagar-se</li></ul><ul><li>Ir para o&nbsp;olho da rua - ser demitido</li></ul><ul><li>Enfiar o p&eacute; na jaca - exagerar</li></ul><ul><li>Botar pra quebrar&nbsp;- exagerar</li></ul><ul><li>Badernar&nbsp;- fazer bagun&ccedil;a</li></ul><ul><li>Encher a cara - embriagar-se</li></ul><ul><li>Ir para o&nbsp;olho da rua - ser demitido</li></ul><ul><li>Enfiar o p&eacute; na jaca - exagerar</li></ul><ul><li>Botar pra quebrar&nbsp;- exagerar</li></ul><ul><li>Badernar&nbsp;- fazer bagun&ccedil;a</li></ul><ul><li>Encher a cara - embriagar-se</li></ul><ul><li>Ir para o&nbsp;olho da rua - ser demitido</li></ul><ul><li>Enfiar o p&eacute; na jaca - exagerar</li></ul><ul><li>Botar pra quebrar&nbsp;- exagerar</li></ul><ul><li>Badernar&nbsp;- fazer bagun&ccedil;a</li></ul><ul><li>Encher a cara - embriagar-se</li></ul><ul><li>Ir para o&nbsp;olho da rua - ser demitido</li></ul><ul><li>Enfiar o p&eacute; na jaca - exagerar</li></ul><ul><li>Botar pra quebrar&nbsp;- exagerar</li></ul><ul><li>Badernar&nbsp;- fazer bagun&ccedil;a</li></ul><ul><li>Encher a cara - embriagar-se</li></ul><ul><li>Ir para o&nbsp;olho da rua - ser demitido</li></ul>");
         descriptions.add("<li>Política</li><li>Conflitos</li><li>Bolsa de valores</li><li>Juros</li><li>Lava-jato</li><li>Corrupção</li>");
+        descriptions.add("");
 
         ArrayList<String> categories = new ArrayList<>();
         categories.add("conflito, política");
         categories.add("movies");
+        categories.add("");
         categories.add("expressões, linguagem popular");
         categories.add("trending words");
+        categories.add("");
 
         ArrayList<String> votes = new ArrayList<>();
         votes.add("#15211");
         votes.add("#12");
+        votes.add("");
         votes.add("#1221");
+        votes.add("#15");
+        votes.add("");
 
         ArrayList<String> cardType = new ArrayList<>();
         cardType.add(GenericData.NEWS);
         cardType.add(GenericData.LINK);
+        cardType.add(GenericData.ADS_IMAGE);
         cardType.add(GenericData.MINI_CLASS);
         cardType.add(GenericData.TRENDING_WORDS);
+        cardType.add(GenericData.ADS_VIDEO);
+
 
         data.addStringsToAllCells(GenericData.CUSTOM_CARD_TITLE, titles);
         data.addStringsToAllCells(GenericData.CUSTOM_CARD_CONTENT, descriptions);
