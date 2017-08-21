@@ -1,23 +1,35 @@
 version: '3'
 
 services:
-	scheduler:
-		build: .
-		image: "vlup-newscraper:latest"
-		volumes:
-		 - .:/usr/app
-     command: ["celery", "-A", "vlup_newscraper", "beat"]
+  scheduler:
+    build: .
+    image: "vlup-newscraper:latest"
+    links:
+      - broker
+    volumes:
+      - .:/app:ro
+    command: celery -A vlup_newscraper.celery beat --max-interval 30 --loglevel=info -s /home/celery/db --pidfile /home/celery/pid
   worker:
     build: .
     image: "vlup-newscraper:latest"
+    external_links:
+      - appserver_database_1:database
+    networks:
+      - default
+      - appserver_default
+    links:
+      - broker
     volumes:
-     - .:/usr/app
-    command: ["celery", "-A", "vlup_newscraper", "worker"]
-	broker:
-		image: "rabbitmq:management-alpine"
+      - .:/app:ro
+    command: celery -A vlup_newscraper.celery worker --loglevel=info
+  broker:
+    image: "rabbitmq:management-alpine"
     ports:
       - "15672:15672"
     environment:
       RABBITMQ_DEFAULT_USER: 'user'
       RABBITMQ_DEFAULT_PASS: 'password'
 
+networks:
+  appserver_default:
+    external: true

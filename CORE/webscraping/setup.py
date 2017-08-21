@@ -54,10 +54,11 @@ setup(
     # requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
     install_requires=[
-        'newspaper3k==0.1.9',
-        'celery==4.0.2',
-        'pymysql==0.7.10',
-        'sqlalchemy==1.1.6',
+        'psycopg2==2.7.1',
+        'newspaper3k',
+        'celery',
+        'tenacity',
+        'sqlalchemy'
     ],
 
     # List additional groups of dependencies here (e.g. development
