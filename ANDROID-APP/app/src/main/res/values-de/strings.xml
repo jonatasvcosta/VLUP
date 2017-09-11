@@ -108,5 +108,6 @@
     <string name="rating_good">Gut</string>
     <string name="rating_medium">Mittlere</string>
     <string name="home_activity_title">Startseite</string>
+    <string name="bookshelf_no_words_random">Zufällige Auswahl erfordert Worte hinzugefügt</string>
 
 </resources>

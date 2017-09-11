@@ -13,8 +13,10 @@ import android.widget.Toast;
 import com.afollestad.inquiry.Inquiry;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.melnykov.fab.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import politcc2017.tcc_app.Activities.BaseActivity;
 import politcc2017.tcc_app.Components.Helpers.DialogHelper;
@@ -39,6 +41,7 @@ public class BookshelfActivity extends BaseActivity {
     private GenericAdapter mAdapter;
     private String wordToAdd = "";
     private boolean automaticallyAddWordToCategory = false;
+    private FloatingActionButton randomWordFAB;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,8 +115,16 @@ public class BookshelfActivity extends BaseActivity {
     private void setupRecyclerView(){
         loadData();
         mAdapter = new GenericAdapter(mData, ViewHolderType.BOOKSHELF_VIEW_HOLDER, getApplicationContext());
+        randomWordFAB = (FloatingActionButton) findViewById(R.id.fab_random_word_all);
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        randomWordFAB.attachToRecyclerView(recyclerView);
+        randomWordFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                displayRandomWord();
+            }
+        });
         mAdapter.RegisterClickListener(new CellClickListener() {
             @Override
             public void onClick(View v, final int position) {
@@ -256,6 +267,29 @@ public class BookshelfActivity extends BaseActivity {
             }
         mData.addStringsToAllCells(GenericData.BOOKSHELF_ITEM_CATEGORY, words);
         mData.setSpecialTypeCells(labels, GenericData.CELL_HEADER_TYPE);
+    }
+
+    private void displayRandomWord(){
+        ArrayList<String> words = loadAllCategoryWords();
+        if(words.size() == 0){
+            Toast.makeText(getApplicationContext(), getResString(R.string.bookshelf_no_words_random), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Random rand = new Random();
+        int index = rand.nextInt(words.size());
+        WordContextDialog.launchDialog(this, words.get(index));
+    }
+
+    private ArrayList<String> loadAllCategoryWords(){
+        ArrayList<String> words = new ArrayList<>();
+        BookshelfCategoryWords[] categoriesWords = Inquiry.get(this)
+                .select(BookshelfCategoryWords.class)
+                .all();
+        if(categoriesWords != null)
+            for(int i = 0; i < categoriesWords.length; i++){
+                words.add(categoriesWords[i].name);
+            }
+        return words;
     }
 
     private void setChangeToBookshelfCategories(){

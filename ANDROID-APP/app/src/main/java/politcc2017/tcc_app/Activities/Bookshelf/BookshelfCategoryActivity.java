@@ -12,8 +12,10 @@ import android.widget.Toast;
 
 import com.afollestad.inquiry.Inquiry;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.melnykov.fab.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import politcc2017.tcc_app.Activities.BaseActivity;
 import politcc2017.tcc_app.Components.Helpers.DialogHelper;
@@ -37,14 +39,22 @@ public class BookshelfCategoryActivity extends BaseActivity {
     private GenericData mData;
     private RecyclerView mRecyclerView;
     private GenericAdapter mAdapter;
-    private com.melnykov.fab.FloatingActionButton addWordFAB;
+    private com.melnykov.fab.FloatingActionButton addWordFAB, randomWordFAB;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_bookshelf_category);
         Inquiry.newInstance(this, SqlHelper.DATABASE).build();
+        mData = new GenericData();
         mRecyclerView = (RecyclerView) findViewById(R.id.bookshelf_category_words_recyclerview);
         addWordFAB = (com.melnykov.fab.FloatingActionButton) findViewById(R.id.add_word_fab);
+        randomWordFAB = (com.melnykov.fab.FloatingActionButton) findViewById(R.id.random_word_fab);
+        randomWordFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                displayRandomWord();
+            }
+        });
         setupToolbar();
         setupListeners();
     }
@@ -78,7 +88,9 @@ public class BookshelfCategoryActivity extends BaseActivity {
         if(intent != null) title = intent.getStringExtra("parameter");
         categoryID = intent.getIntExtra("id", -1);
         setActivityTitle(title);
-        loadData();
+        ArrayList<String> words = loadCategoryWords();
+        mData = new GenericData();
+        mData.addStringsToAllCells(GenericData.BOOKSHELF_CATEGORY_WORD, words);
         setupRecyclerView();
     }
 
@@ -143,9 +155,18 @@ public class BookshelfCategoryActivity extends BaseActivity {
         setupRecyclerView();
     }
 
-    private void loadData(){
-        if(mData != null) return;
-        mData = new GenericData();
+    private void displayRandomWord(){
+        ArrayList<String> words = loadCategoryWords();
+        if(words.size() == 0){
+            Toast.makeText(getApplicationContext(), getResString(R.string.bookshelf_no_words_random), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Random rand = new Random();
+        int index = rand.nextInt(words.size());
+        WordContextDialog.launchDialog(this, words.get(index));
+    }
+
+    private ArrayList<String> loadCategoryWords(){
         ArrayList<String> words = new ArrayList<>();
         BookshelfCategoryWords[] categoriesWords = Inquiry.get(this)
                 .select(BookshelfCategoryWords.class).where("id = ?", categoryID)
@@ -154,7 +175,7 @@ public class BookshelfCategoryActivity extends BaseActivity {
             for(int i = 0; i < categoriesWords.length; i++){
                 words.add(categoriesWords[i].name);
             }
-        mData.addStringsToAllCells(GenericData.BOOKSHELF_CATEGORY_WORD, words);
+        return words;
     }
 
     @Override
