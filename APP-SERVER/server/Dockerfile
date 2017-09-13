@@ -6,7 +6,11 @@ WORKDIR /app
 
 RUN apk --no-cache add musl-dev linux-headers g++ postgresql-dev \
     && python setup.py install \
-    && apk del musl-dev linux-headers g++
+    && apk del musl-dev linux-headers g++ && \
+    pip install --upgrade pip && \
+    pip install django && \   
+    pip install djangorestframework && \
+    pip install googletrans
 
 ENV DJANGO_PRODUCTION=true
 ENV GUNICORN_CMD_ARGS="--bind=0.0.0.0:8000 --workers=4"
