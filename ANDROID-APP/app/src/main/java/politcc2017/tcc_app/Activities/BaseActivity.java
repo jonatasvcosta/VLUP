@@ -392,6 +392,7 @@ public class BaseActivity extends AppCompatActivity {
                 new ScoringRules(SqlHelper.RULE_CHECK_SIMILAR_WORDS, 1),
                 new ScoringRules(SqlHelper.RULE_RATE_TEXT, 1),
                 new ScoringRules(SqlHelper.RULE_CREATE_CLASS, 1000),
+                new ScoringRules(SqlHelper.RULE_ADD_TEXT_BOOKSHELF, 5),
         }).run();
     }
 
