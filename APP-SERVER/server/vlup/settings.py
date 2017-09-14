@@ -26,8 +26,7 @@ SECRET_KEY = 'kgq^23yr5a%d^*!e#=9k+z7pbip$_cn*#m83hp1*_30ssdna-j'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS =['ec2-184-73-142-34.compute-1.amazonaws.com', 'localhost', '127.0.0.1', '184.73.142.34']
 
 # Application definition
 
@@ -42,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'authentication',
     'news',
+    'translation'
 ]
 
 MIDDLEWARE = [

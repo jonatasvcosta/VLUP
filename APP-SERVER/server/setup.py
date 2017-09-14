@@ -64,6 +64,7 @@ setup(
         'coreapi',
         'pygments',
         'markdown',
+        'googletrans',
     ],
 
     # List additional groups of dependencies here (e.g. development
