@@ -43,7 +43,7 @@ public class BookshelfActivity extends BaseActivity {
     private String wordToAdd = "", textToAdd;
     private boolean automaticallyAddWordToCategory = false, automaticallyAddTextToCategory = false;
     private FloatingActionButton randomWordFAB;
-    private static int WORDS_HEADER_POSITION = 0, TEXTS_HEADER_POSITION = 1;
+    private ArrayList<Integer> textType;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +64,7 @@ public class BookshelfActivity extends BaseActivity {
                 scorePoints("+"+getScoringPoints(SqlHelper.RULE_ADD_WORD_BOOKSHELF));
                 Toast.makeText(getApplicationContext(), getResString(R.string.bookshelf_add_word_instructions), Toast.LENGTH_SHORT).show();
             }
-            else if(textToAdd != null && textToAdd.length() > 0){
+            else if(textToAdd != null && !textToAdd.isEmpty()){
                 setupRecyclerView(WordContextDialog.CONTEXT_ADD_TEXT);
                 automaticallyAddTextToCategory = true;
                 scorePoints("+"+getScoringPoints(SqlHelper.RULE_ADD_TEXT_BOOKSHELF));
@@ -84,22 +84,22 @@ public class BookshelfActivity extends BaseActivity {
         SharedPreferencesHelper.Initialize(getApplicationContext());
         SharedPreferencesHelper.addString(SharedPreferencesHelper.BOOKSHELF_BD_LOCALE_KEY, appLocale);
         Inquiry.get(this).insert(BookshelfCategory.class).values(new BookshelfCategory[]{
-                new BookshelfCategory(0 ,bookshelfCategories[0], true),
+                new BookshelfCategory(0 ,bookshelfCategories[0], true, false),
                 new BookshelfCategory(1 , bookshelfCategories[1]),
                 new BookshelfCategory(2 , bookshelfCategories[2]),
                 new BookshelfCategory(3 , bookshelfCategories[3]),
                 new BookshelfCategory(4 , bookshelfCategories[4]),
                 new BookshelfCategory(5 , bookshelfCategories[5]),
-                new BookshelfCategory(6 , bookshelfCategories[6], true),
-                new BookshelfCategory(7 , bookshelfCategories[7]),
-                new BookshelfCategory(8 , bookshelfCategories[8]),
-                new BookshelfCategory(9 , bookshelfCategories[9]),
-                new BookshelfCategory(10 , bookshelfCategories[10]),
-                new BookshelfCategory(11 , bookshelfCategories[11]),
-                new BookshelfCategory(12, bookshelfCategories[12], true),
-                new BookshelfCategory(13, bookshelfCategories[13]),
-                new BookshelfCategory(14, bookshelfCategories[14]),
-                new BookshelfCategory(15, bookshelfCategories[15]),
+                new BookshelfCategory(6 , bookshelfCategories[6], true, true),
+                new BookshelfCategory(7 , bookshelfCategories[7], false, true),
+                new BookshelfCategory(8 , bookshelfCategories[8], false, true),
+                new BookshelfCategory(9 , bookshelfCategories[9], false, true),
+                new BookshelfCategory(10 , bookshelfCategories[10], false, true),
+                new BookshelfCategory(11 , bookshelfCategories[11], false, true),
+                new BookshelfCategory(12, bookshelfCategories[12], true, true),
+                new BookshelfCategory(13, bookshelfCategories[13], false, true),
+                new BookshelfCategory(14, bookshelfCategories[14], false, true),
+                new BookshelfCategory(15, bookshelfCategories[15], false, true),
         }).run();
     }
 
@@ -128,30 +128,36 @@ public class BookshelfActivity extends BaseActivity {
         BookshelfCategory[] categories = Inquiry.get(this)
                 .select(BookshelfCategory.class)
                 .all();
-        for(int i = 1; i < categories.length ; i++){
-            if(categories[i].header){
-                textsLimiter = i;
-                break;
-            }
-        }
+
         mData = new GenericData();
         ArrayList<String> words = new ArrayList<>();
         ArrayList<Integer> labels = new ArrayList<>();
-        int i = 0, count = 0;
-        if(dataType.equals(WordContextDialog.CONTEXT_ADD_TEXT)) i = textsLimiter;
-        boolean skipCategory = false;
-        for (; i < categories.length; i++) {
-            if (dataType.equals(WordContextDialog.CONTEXT_ADD_WORD) && i == textsLimiter) skipCategory = true;
-            if(skipCategory && i > textsLimiter && categories[i].header) skipCategory = false;
-            if(!skipCategory){
+        textType = new ArrayList<>();
+        int count = 0;
+        for(int i = 0; i < categories.length ; i++){
+            if(dataType.equals(WordContextDialog.CONTEXT_ADD_WORD) && !categories[i].textCategory){
                 words.add(categories[i].name);
+                if(categories[i].header) labels.add(count);
                 count++;
             }
-            if (!skipCategory && categories[i].header) labels.add(count-1);
+            else if(dataType.equals(WordContextDialog.CONTEXT_ADD_TEXT) && categories[i].textCategory){
+                words.add(categories[i].name);
+                textType.add(count);
+                if(categories[i].header) labels.add(count);
+                count++;
+            }
+            else if(!dataType.equals(WordContextDialog.CONTEXT_ADD_TEXT) && !dataType.equals(WordContextDialog.CONTEXT_ADD_WORD)){
+                words.add(categories[i].name);
+                if(categories[i].header) labels.add(i);
+            }
         }
 
         mData.addStringsToAllCells(GenericData.BOOKSHELF_ITEM_CATEGORY, words);
         mData.setSpecialTypeCells(labels, GenericData.CELL_HEADER_TYPE);
+    }
+
+    private BookshelfCategory[] getCategories(){
+        return Inquiry.get(this).select(BookshelfCategory.class).all();
     }
 
     private void setupRecyclerView(String dataType){
@@ -218,11 +224,16 @@ public class BookshelfActivity extends BaseActivity {
                     if(automaticallyAddTextToCategory){
                         automaticallyAddTextToCategory = false;
                         Inquiry.newInstance(getApplicationContext(), SqlHelper.DATABASE).build();
-                        Inquiry.get(getApplicationContext()).insert(BookshelfTexts.class).values(new BookshelfTexts[]{new BookshelfTexts(position, textToAdd)}).run();
-                        Toast.makeText(getApplicationContext(), getResString(R.string.bookshelf_word_added), Toast.LENGTH_SHORT).show();
+                        BookshelfCategory[] categories = getCategories();
+                        int offset;
+                        for(offset = 1; offset < categories.length && !categories[offset].header; offset++);
+                        Inquiry.get(getApplicationContext()).insert(BookshelfTexts.class).values(new BookshelfTexts[]{new BookshelfTexts(offset+position, textToAdd)}).run();
+                        Toast.makeText(getApplicationContext(), getResString(R.string.bookshelf_text_added), Toast.LENGTH_SHORT).show();
                         onBackPressed();
                     }
-                    else startOrResumeActivity(BookshelfCategoryActivity.class, message, position);
+                    String type = "";
+                    if(textType.contains(position)) type = "text";
+                    else startOrResumeActivity(BookshelfCategoryActivity.class, message, position, type);
                 }
             }
 

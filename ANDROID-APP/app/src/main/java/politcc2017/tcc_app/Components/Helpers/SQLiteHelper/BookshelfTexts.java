@@ -16,6 +16,7 @@ public class BookshelfTexts {
     public BookshelfTexts(int id, String content){
         this.id = id;
         this.content = content;
+        this.categories = "";
     }
 
     public BookshelfTexts(int id, String content, String categories){

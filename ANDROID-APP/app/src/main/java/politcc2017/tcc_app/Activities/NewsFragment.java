@@ -20,6 +20,7 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import politcc2017.tcc_app.Activities.Bookshelf.BookshelfActivity;
 import politcc2017.tcc_app.Common.ResourcesHelper;
@@ -74,7 +75,6 @@ public class NewsFragment extends Fragment{
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mSearchToolbar.setAutoCompleteSearchBar();
         mSearchToolbar.setAdvancedFilter(getActivity(), ResourcesHelper.getStringArrayAsArrayList(getContext(), R.array.news_search_advanced_filter));
-        //setActivityTitle(getResString(R.string.news_activity_title));
 
         setSuggestionList();
         mNewsText = (CustomTextView) v.findViewById(R.id.activity_news_text);
@@ -124,9 +124,10 @@ public class NewsFragment extends Fragment{
         addBookshelfFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(listener != null) listener.onMessageSent("NEWS_FRAGMENT", SqlHelper.RULE_ADD_WORD_BOOKSHELF);
+                if(listener != null) listener.onMessageSent("NEWS_FRAGMENT", SqlHelper.RULE_ADD_TEXT_BOOKSHELF);
                 Intent intent = new Intent(getContext(), BookshelfActivity.class);
-                intent.putExtra(CONTEXT_ADD_TEXT, mNewsText.getText().toString());
+                int a = (new Random()).nextInt(155);
+                intent.putExtra(CONTEXT_ADD_TEXT, mNewsText.getText().toString()+Integer.toString(a));
                 getContext().startActivity(intent);
             }
         });

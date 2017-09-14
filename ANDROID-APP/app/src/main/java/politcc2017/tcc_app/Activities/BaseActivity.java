@@ -179,13 +179,18 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-    public void startOrResumeActivity(Class <? extends BaseActivity> destinationActivity, String parameter, int id){
+    public void startOrResumeActivity(Class <? extends BaseActivity> destinationActivity, String parameter, int id, String type){
         hideRightIcons();
         Intent intent = new Intent(getBaseContext(), destinationActivity);
         intent.addFlags(FLAG_ACTIVITY_REORDER_TO_FRONT);
         if(parameter != null) intent.putExtra("parameter", parameter);
         if(id != -1) intent.putExtra("id", id);
+        if(!type.isEmpty()) intent.putExtra("type", type);
         startActivity(intent);
+    }
+
+    public void startOrResumeActivity(Class <? extends BaseActivity> destinationActivity, String parameter, int id){
+        startOrResumeActivity(destinationActivity, parameter, id, "");
     }
 
     public void startOrResumeActivity(Class <? extends BaseActivity> destinationActivity){

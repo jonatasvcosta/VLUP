@@ -166,6 +166,7 @@ public class HomeCardViewHolder extends GenericViewHolder{
             content = cellData.get(GenericData.CUSTOM_CARD_CONTENT).toString();
             card.setContent(content);
         }
+        card.setVotes("");
         if (cellData.containsKey(GenericData.CUSTOM_CARD_VOTES)) {
             card.setVotes(cellData.get(GenericData.CUSTOM_CARD_VOTES).toString());
         }
