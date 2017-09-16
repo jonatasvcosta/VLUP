@@ -195,6 +195,13 @@ public class NewsFragment extends Fragment{
         });
     }
 
+    public void setNewsText(String text){
+        mNewsText.setVisibility(View.VISIBLE);
+        mRecyclerView.setVisibility(View.GONE);
+        ratingMenu.setVisibility(View.VISIBLE);
+        mNewsText.setText(text);
+    }
+
     private void setSuggestionList(){
         //load suggestions from server, based on user learning language
 

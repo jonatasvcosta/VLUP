@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import politcc2017.tcc_app.Activities.BaseActivity;
+import politcc2017.tcc_app.Activities.MainActivitiesActivity;
 import politcc2017.tcc_app.Components.Helpers.DialogHelper;
 import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.BookshelfCategory;
 import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.BookshelfCategoryWords;
@@ -114,6 +115,37 @@ public class BookshelfCategoryActivity extends BaseActivity {
     private void setupRecyclerView(String categoryType){
         if(categoryType != null && categoryType.equals("text")){
             mAdapter = new GenericAdapter(mData, ViewHolderType.HOME_CARD_VIEW_HOLDER, getApplicationContext());
+            mAdapter.RegisterClickListener(new CellClickListener() {
+                @Override
+                public void onClick(View v, int position) {
+
+                }
+
+                @Override
+                public void onClick(ImageView v, String link) {
+
+                }
+
+                @Override
+                public void onClick(String message, int position) {
+                    if(message.equals("cardlayout")){
+                        Intent i = new Intent(getApplicationContext(), MainActivitiesActivity.class);
+                        i.putExtra("parameter", "NEWS_ACTIVITY");
+                        i.putExtra(WordContextDialog.CONTEXT_ADD_TEXT, "Random text");
+                        startActivity(i);
+                    }
+                }
+
+                @Override
+                public void onLinkClick(String link) {
+
+                }
+
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
         }
         else mAdapter = new GenericAdapter(mData, ViewHolderType.BOOKSHELF_WORD_VIEW_HOLDER, getApplicationContext());
         mRecyclerView.setAdapter(mAdapter);
