@@ -26,7 +26,7 @@ import static politcc2017.tcc_app.Components.Helpers.DialogHelper.CustomDialogBu
 
 public class WordContextDialog{
 
-    public static final String CONTEXT_ADD_WORD = "add", CONTEXT_TRANSLATE = "translate", CONTEXT_PRONOUNCE = "pronounce", CONTEXT_SYNONYM = "synonym", CONTEXT_ANTONYM = "antonym", CONTEXT_SIMILAR_WORDS = "similar_words";
+    public static final String CONTEXT_ADD_WORD = "add",CONTEXT_ADD_TEXT = "add_text", CONTEXT_TRANSLATE = "translate", CONTEXT_PRONOUNCE = "pronounce", CONTEXT_SYNONYM = "synonym", CONTEXT_ANTONYM = "antonym", CONTEXT_SIMILAR_WORDS = "similar_words";
 
     public static MaterialDialog WordContextDialog(Context context, String title, String translationString){
         return WordContextDialog(context, title, translationString, "", null);

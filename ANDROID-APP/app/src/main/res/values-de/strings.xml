@@ -108,5 +108,8 @@
     <string name="rating_good">Gut</string>
     <string name="rating_medium">Mittlere</string>
     <string name="home_activity_title">Startseite</string>
+    <string name="bookshelf_no_words_random">Zufällige Auswahl erfordert Worte hinzugefügt</string>
+    <string name="bookshelf_add_text_instructions">Wähle die Kategorie, zu der der Text gehört</string>
+    <string name="bookshelf_text_added">Text hinzugefügt</string>
 
 </resources>

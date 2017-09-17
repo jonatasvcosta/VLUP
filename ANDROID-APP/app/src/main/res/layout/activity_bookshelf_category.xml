@@ -48,4 +48,9 @@
             app:fab_colorNormal="@color/primary_color"
             app:fab_colorPressed="@color/cyan_dark"/>
     </LinearLayout>
+    <politcc2017.tcc_app.Components.CustomSearchToolbar
+        android:id="@+id/bookshelf_text_category_search_toolbar"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </FrameLayout>

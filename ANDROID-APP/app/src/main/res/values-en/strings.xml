@@ -91,6 +91,7 @@
     <string name="be_a_pro_myclasses_tab">My Classes</string>
     <string name="vocabulary_activity_title">Vocabulary</string>
     <string name="bookshelf_word_added">Word added</string>
+    <string name="bookshelf_text_added">Text added</string>
     <string name="bookshelf_add_word_instructions">Choose the category to which the word belongs</string>
     <string name="speech_instructions">Speek something</string>
     <string name="speech_not_supported">Speech not suported</string>
@@ -105,4 +106,6 @@
     <string name="rating_good">Good</string>
     <string name="rating_medium">Median</string>
     <string name="home_activity_title">Home</string>
+    <string name="bookshelf_no_words_random">No words to select randomly</string>
+    <string name="bookshelf_add_text_instructions">Choose the category to which the text belongs</string>
 </resources>

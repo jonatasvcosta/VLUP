@@ -33,8 +33,8 @@ public class MainActivitiesActivity extends BaseActivity implements FragmentList
     private VocabularyFragment vocabularyFragment;
     private HomeFragment homeFragment;
     public static final int POS_HOME_TAB = 0, POS_NEWS_TAB = 2, POS_VOCABULARY_TAB = 1;
-    private boolean setupSimilarWords = false, setupSearchInput = false;
-    private String similarWord, speechInput;
+    private boolean setupSimilarWords = false, setupSearchInput = false, setupNews = false;
+    private String similarWord, speechInput, newsText;
     private int reqCode;
 
     @Override
@@ -75,9 +75,16 @@ public class MainActivitiesActivity extends BaseActivity implements FragmentList
         Intent i = getIntent();
         if(i != null) {
             String word = i.getStringExtra(WordContextDialog.CONTEXT_SIMILAR_WORDS);
+            String text = i.getStringExtra(WordContextDialog.CONTEXT_ADD_TEXT);
             String defaultActivity = i.getStringExtra("parameter");
             if(defaultActivity != null && defaultActivity.equals("VOCABULARY_ACTIVITY")) viewPager.setCurrentItem(POS_VOCABULARY_TAB);
-            else if(defaultActivity != null && defaultActivity.equals("NEWS_ACTIVITY")) viewPager.setCurrentItem(POS_NEWS_TAB);
+            else if(defaultActivity != null && defaultActivity.equals("NEWS_ACTIVITY")){
+                viewPager.setCurrentItem(POS_NEWS_TAB);
+                if(text != null && !text.isEmpty()){
+                    setupNews = true;
+                    newsText = text;
+                }
+            }
             else if(defaultActivity != null && defaultActivity.equals("HOME_ACTIVITY")) viewPager.setCurrentItem(POS_HOME_TAB);
             if(word != null && word.length() > 0){
                 viewPager.setCurrentItem(POS_VOCABULARY_TAB);
@@ -140,7 +147,10 @@ public class MainActivitiesActivity extends BaseActivity implements FragmentList
             this.viewPager.setCurrentItem(POS_VOCABULARY_TAB);
             setupActionBarIcons(POS_VOCABULARY_TAB);
         }
-
+        if(sender.equals("NEWS_FRAGMENT") && message.equals("READY") && setupNews){
+            setupNews = false;
+            newsFragment.setNewsText(newsText);
+        }
         if(sender.equals("VOCABULARY_FRAGMENT") && message.equals("READY") && setupSimilarWords){
             setupSimilarWords = false;
             vocabularyFragment.loadSimilarWordsFromServer(similarWord);
@@ -161,6 +171,10 @@ public class MainActivitiesActivity extends BaseActivity implements FragmentList
         if(sender.equals("HOME_FRAGMENT") && message.equals("SWITCH_VOCABULARY") && value != null){
             viewPager.setCurrentItem(POS_VOCABULARY_TAB);
             vocabularyFragment.setupTrendingWords(value);
+        }
+        if(sender.equals("HOME_FRAGMENT") && message.equals("SWITCH_NEWS") && value != null){
+            viewPager.setCurrentItem(POS_NEWS_TAB);
+            newsFragment.setNewsText(value);
         }
     }
 

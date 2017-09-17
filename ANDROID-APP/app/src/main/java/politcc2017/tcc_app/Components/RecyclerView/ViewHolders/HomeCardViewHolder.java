@@ -132,6 +132,9 @@ public class HomeCardViewHolder extends GenericViewHolder{
             if (type.equals(GenericData.NEWS)){
                 card.setMaxLines(HOME_NEWS_CARD_MAX_LINES);
             }
+            if(type.equals(GenericData.BOOKSHELF_TEXT)){
+                card.setUnlimitedLines();
+            }
             else if(type.equals(GenericData.ADS_IMAGE) || type.equals(GenericData.ADS_VIDEO)){
                 adsCard.setVisibility(View.VISIBLE);
                 card.setVisibility(View.GONE);
@@ -166,6 +169,10 @@ public class HomeCardViewHolder extends GenericViewHolder{
             content = cellData.get(GenericData.CUSTOM_CARD_CONTENT).toString();
             card.setContent(content);
         }
+        if(cellData.containsKey(GenericData.TEXT_FILTER)){
+            card.filterContent(cellData.get(GenericData.TEXT_FILTER).toString());
+        }
+        card.setVotes("");
         if (cellData.containsKey(GenericData.CUSTOM_CARD_VOTES)) {
             card.setVotes(cellData.get(GenericData.CUSTOM_CARD_VOTES).toString());
         }
