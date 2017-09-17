@@ -107,6 +107,14 @@ public class CustomCard extends LinearLayout {
         this.categories.setText(categories);
     }
 
+    public void filterContent(String textFilter){
+        int start = this.content.toHtml().indexOf(textFilter);
+        int end = start+textFilter.length();
+        String content = this.content.toHtml();
+        String str = content.substring(0, start)+"<b><u>"+content.substring(start, end)+"</u></b>"+content.substring(end, content.length());
+        this.content.fromHtml(str);
+    }
+
     public void hideFavoriteIcon(){
         this.favorite.setVisibility(GONE);
     }

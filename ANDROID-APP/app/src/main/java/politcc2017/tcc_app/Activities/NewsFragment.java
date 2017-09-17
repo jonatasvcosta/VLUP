@@ -20,7 +20,6 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import politcc2017.tcc_app.Activities.Bookshelf.BookshelfActivity;
 import politcc2017.tcc_app.Common.ResourcesHelper;
@@ -126,8 +125,7 @@ public class NewsFragment extends Fragment{
             public void onClick(View view) {
                 if(listener != null) listener.onMessageSent("NEWS_FRAGMENT", SqlHelper.RULE_ADD_TEXT_BOOKSHELF);
                 Intent intent = new Intent(getContext(), BookshelfActivity.class);
-                int a = (new Random()).nextInt(155);
-                intent.putExtra(CONTEXT_ADD_TEXT, mNewsText.getText().toString()+Integer.toString(a));
+                intent.putExtra(CONTEXT_ADD_TEXT, mNewsText.getText().toString());
                 getContext().startActivity(intent);
             }
         });

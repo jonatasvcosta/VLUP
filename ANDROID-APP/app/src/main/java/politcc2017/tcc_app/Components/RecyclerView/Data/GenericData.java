@@ -26,6 +26,7 @@ public class GenericData {
     public static final String CUSTOM_CARD_VOTES = "cvotes";
     public static final String CUSTOM_CARD_URL = "curl";
     public static final String CUSTOM_CARD_CONTENT = "ccontent";
+    public static final String TEXT_FILTER = "text_filter";
     public static final String CUSTOM_CARD_TYPE = "ctype";
     public static final String DICTIONARY_CELL_CONTENT = "dccontent";
     public static final String DICTIONARY_CELL_SOURCE = "dcsource";
@@ -33,6 +34,7 @@ public class GenericData {
     public static final String VOCABULARY_COUNT = "vcount";
     public static final String TRENDING_TOPIC = "ttopic";
     public static final String NEWS = "NEWS";
+    public static final String BOOKSHELF_TEXT = "BOOKSHELF_TEXT";
     public static final String MINI_CLASS = "MINI_CLASS";
     public static final String ADS_IMAGE = "ADS_IMAGE";
     public static final String ADS_VIDEO = "ADS_VIDEO";

@@ -19,6 +19,7 @@ import java.util.Random;
 
 import politcc2017.tcc_app.Activities.BaseActivity;
 import politcc2017.tcc_app.Activities.MainActivitiesActivity;
+import politcc2017.tcc_app.Components.CustomSearchToolbar;
 import politcc2017.tcc_app.Components.Helpers.DialogHelper;
 import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.BookshelfCategory;
 import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.BookshelfCategoryWords;
@@ -43,6 +44,7 @@ public class BookshelfCategoryActivity extends BaseActivity {
     private RecyclerView mRecyclerView;
     private GenericAdapter mAdapter;
     private com.melnykov.fab.FloatingActionButton addWordFAB, randomWordFAB;
+    private CustomSearchToolbar mSearchToolbar;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +62,7 @@ public class BookshelfCategoryActivity extends BaseActivity {
                 displayRandomWord();
             }
         });
+        mSearchToolbar = (CustomSearchToolbar) findViewById(R.id.bookshelf_text_category_search_toolbar);
         setupToolbar();
         setupListeners();
     }
@@ -97,7 +100,20 @@ public class BookshelfCategoryActivity extends BaseActivity {
         if(intent != null) title = intent.getStringExtra("parameter");
         categoryID = intent.getIntExtra("id", -1);
         categoryType = intent.getStringExtra("type");
-        if(getSelectedCategory(categoryID)[0].textCategory) categoryType = "text";
+        mSearchToolbar.setVisibility(View.GONE);
+        if(getSelectedCategory(categoryID)[0].textCategory){
+            categoryType = "text";
+            mSearchToolbar.setVisibility(View.VISIBLE);
+            mSearchToolbar.registerSearchListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mData = getTextsCardsData(mSearchToolbar.getRawURL());
+                    randomWordFAB.setVisibility(View.GONE);
+                    addWordFAB.setVisibility(View.GONE);
+                    setupRecyclerView(categoryType);
+                }
+            });
+        }
         setActivityTitle(title);
         if(categoryType == null || !categoryType.equals("text")) {
             ArrayList<String> words = loadCategoryWords();
@@ -105,7 +121,7 @@ public class BookshelfCategoryActivity extends BaseActivity {
             mData.addStringsToAllCells(GenericData.BOOKSHELF_CATEGORY_WORD, words);
         }
         else{
-            mData = getTextsCardsData();
+            mData = getTextsCardsData("");
             randomWordFAB.setVisibility(View.GONE);
             addWordFAB.setVisibility(View.GONE);
         }
@@ -115,37 +131,6 @@ public class BookshelfCategoryActivity extends BaseActivity {
     private void setupRecyclerView(String categoryType){
         if(categoryType != null && categoryType.equals("text")){
             mAdapter = new GenericAdapter(mData, ViewHolderType.HOME_CARD_VIEW_HOLDER, getApplicationContext());
-            mAdapter.RegisterClickListener(new CellClickListener() {
-                @Override
-                public void onClick(View v, int position) {
-
-                }
-
-                @Override
-                public void onClick(ImageView v, String link) {
-
-                }
-
-                @Override
-                public void onClick(String message, int position) {
-                    if(message.equals("cardlayout")){
-                        Intent i = new Intent(getApplicationContext(), MainActivitiesActivity.class);
-                        i.putExtra("parameter", "NEWS_ACTIVITY");
-                        i.putExtra(WordContextDialog.CONTEXT_ADD_TEXT, "Random text");
-                        startActivity(i);
-                    }
-                }
-
-                @Override
-                public void onLinkClick(String link) {
-
-                }
-
-                @Override
-                public void onClick(View view) {
-
-                }
-            });
         }
         else mAdapter = new GenericAdapter(mData, ViewHolderType.BOOKSHELF_WORD_VIEW_HOLDER, getApplicationContext());
         mRecyclerView.setAdapter(mAdapter);
@@ -193,12 +178,22 @@ public class BookshelfCategoryActivity extends BaseActivity {
         });
     }
 
-    private GenericData getTextsCardsData(){
+    private GenericData getTextsCardsData(String filter){
         GenericData data = new GenericData();
         ArrayList<String> descriptions = loadCategoryTexts();
+        ArrayList<String> filteredDescription = new ArrayList<>();
         ArrayList<String> cardType = new ArrayList<>();
-        for(int i = 0; i < descriptions.size(); i++) cardType.add(GenericData.NEWS);
+        ArrayList<String> filters = new ArrayList<>();
+        if(filter != null && !filter.isEmpty()){
+            for(int i = 0; i < descriptions.size(); i++) if(descriptions.get(i).toLowerCase().contains(filter.toString())) filteredDescription.add(descriptions.get(i));
+            descriptions = filteredDescription;
+        }
+        for(int i = 0; i < descriptions.size(); i++){
+            cardType.add(GenericData.BOOKSHELF_TEXT);
+            if(filter != null && !filter.isEmpty()) filters.add(filter);
+        }
         data.addStringsToAllCells(GenericData.CUSTOM_CARD_CONTENT, descriptions);
+        data.addStringsToAllCells(GenericData.TEXT_FILTER, filters);
         data.addStringsToAllCells(GenericData.CUSTOM_CARD_TYPE, cardType);
         return data;
     }
