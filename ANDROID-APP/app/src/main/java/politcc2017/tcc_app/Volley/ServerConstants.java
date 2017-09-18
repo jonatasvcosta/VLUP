@@ -7,8 +7,8 @@ import com.android.volley.Request;
  */
 
 public class ServerConstants {
-    public static final String API_URL = "http://androidtutorialpoint.com/api/";
-    public static final String SIGNUP_POST_URL = API_URL+"signup/";
+    public static final String BASE_URL = "http://ec2-184-73-142-34.compute-1.amazonaws.com/";
+    public static final String SIGNUP_POST_URL = BASE_URL+"signup/";
 
     public static final String STRING_TAG = "STRING_TAG";
     public static final String JSON_TAG = "JSON_TAG";
@@ -19,4 +19,5 @@ public class ServerConstants {
     public static final int POST_REQUEST = Request.Method.POST;
     public static final int DELETE_REQUEST = Request.Method.DELETE;
 
+    public static final String AUTHENTICATION_ENDPOINT = "authentication/api-token-auth/";
 }
