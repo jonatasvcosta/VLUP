@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="bookshelf_word_added"></string>
+    <string name="bookshelf_no_words_random"></string>
 </resources>

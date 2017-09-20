@@ -13,13 +13,16 @@ import android.widget.Toast;
 import com.afollestad.inquiry.Inquiry;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.melnykov.fab.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import politcc2017.tcc_app.Activities.BaseActivity;
 import politcc2017.tcc_app.Components.Helpers.DialogHelper;
 import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.BookshelfCategory;
 import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.BookshelfCategoryWords;
+import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.BookshelfTexts;
 import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.SqlHelper;
 import politcc2017.tcc_app.Components.Helpers.SharedPreferencesHelper;
 import politcc2017.tcc_app.Components.Listeners.CellClickListener;
@@ -37,8 +40,10 @@ public class BookshelfActivity extends BaseActivity {
     private RecyclerView recyclerView;
     private GenericData mData;
     private GenericAdapter mAdapter;
-    private String wordToAdd = "";
-    private boolean automaticallyAddWordToCategory = false;
+    private String wordToAdd = "", textToAdd;
+    private boolean automaticallyAddWordToCategory = false, automaticallyAddTextToCategory = false;
+    private FloatingActionButton randomWordFAB;
+    private ArrayList<Integer> textType;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,17 +52,26 @@ public class BookshelfActivity extends BaseActivity {
         setActivityTitle(getResString(R.string.bookshelf_activity_title));
         initialBDSetup();
         recyclerView = (RecyclerView) findViewById(R.id.bookshelf_activity_categories_list);
-        setupRecyclerView();
+
         Intent i = getIntent();
         if(i != null){
             wordToAdd = i.getStringExtra(WordContextDialog.CONTEXT_ADD_WORD);
-            if(wordToAdd != null && wordToAdd.length() > 0){
+            textToAdd = i.getStringExtra(WordContextDialog.CONTEXT_ADD_TEXT);
+            if((wordToAdd == null || wordToAdd.isEmpty()) && (textToAdd == null  || textToAdd.isEmpty())) setupRecyclerView("default");
+            else if(wordToAdd != null && !wordToAdd.isEmpty()){
+                setupRecyclerView(WordContextDialog.CONTEXT_ADD_WORD);
                 automaticallyAddWordToCategory = true;
                 scorePoints("+"+getScoringPoints(SqlHelper.RULE_ADD_WORD_BOOKSHELF));
                 Toast.makeText(getApplicationContext(), getResString(R.string.bookshelf_add_word_instructions), Toast.LENGTH_SHORT).show();
             }
-
+            else if(textToAdd != null && !textToAdd.isEmpty()){
+                setupRecyclerView(WordContextDialog.CONTEXT_ADD_TEXT);
+                automaticallyAddTextToCategory = true;
+                scorePoints("+"+getScoringPoints(SqlHelper.RULE_ADD_TEXT_BOOKSHELF));
+                Toast.makeText(getApplicationContext(), getResString(R.string.bookshelf_add_text_instructions), Toast.LENGTH_SHORT).show();
+            }
         }
+        else setupRecyclerView("default");
     }
 
     private void initialBDSetup(){
@@ -70,22 +84,22 @@ public class BookshelfActivity extends BaseActivity {
         SharedPreferencesHelper.Initialize(getApplicationContext());
         SharedPreferencesHelper.addString(SharedPreferencesHelper.BOOKSHELF_BD_LOCALE_KEY, appLocale);
         Inquiry.get(this).insert(BookshelfCategory.class).values(new BookshelfCategory[]{
-                new BookshelfCategory(0 ,bookshelfCategories[0], true),
+                new BookshelfCategory(0 ,bookshelfCategories[0], true, false),
                 new BookshelfCategory(1 , bookshelfCategories[1]),
                 new BookshelfCategory(2 , bookshelfCategories[2]),
                 new BookshelfCategory(3 , bookshelfCategories[3]),
                 new BookshelfCategory(4 , bookshelfCategories[4]),
                 new BookshelfCategory(5 , bookshelfCategories[5]),
-                new BookshelfCategory(6 , bookshelfCategories[6], true),
-                new BookshelfCategory(7 , bookshelfCategories[7]),
-                new BookshelfCategory(8 , bookshelfCategories[8]),
-                new BookshelfCategory(9 , bookshelfCategories[9]),
-                new BookshelfCategory(10 , bookshelfCategories[10]),
-                new BookshelfCategory(11 , bookshelfCategories[11]),
-                new BookshelfCategory(12, bookshelfCategories[12], true),
-                new BookshelfCategory(13, bookshelfCategories[13]),
-                new BookshelfCategory(14, bookshelfCategories[14]),
-                new BookshelfCategory(15, bookshelfCategories[15]),
+                new BookshelfCategory(6 , bookshelfCategories[6], true, true),
+                new BookshelfCategory(7 , bookshelfCategories[7], false, true),
+                new BookshelfCategory(8 , bookshelfCategories[8], false, true),
+                new BookshelfCategory(9 , bookshelfCategories[9], false, true),
+                new BookshelfCategory(10 , bookshelfCategories[10], false, true),
+                new BookshelfCategory(11 , bookshelfCategories[11], false, true),
+                new BookshelfCategory(12, bookshelfCategories[12], true, true),
+                new BookshelfCategory(13, bookshelfCategories[13], false, true),
+                new BookshelfCategory(14, bookshelfCategories[14], false, true),
+                new BookshelfCategory(15, bookshelfCategories[15], false, true),
         }).run();
     }
 
@@ -109,11 +123,57 @@ public class BookshelfActivity extends BaseActivity {
         }
     }
 
-    private void setupRecyclerView(){
-        loadData();
+    public void loadData(String dataType){ //refactor this function getting data from app database / server
+        int textsLimiter = 0;
+        BookshelfCategory[] categories = Inquiry.get(this)
+                .select(BookshelfCategory.class)
+                .all();
+
+        mData = new GenericData();
+        ArrayList<String> words = new ArrayList<>();
+        ArrayList<Integer> labels = new ArrayList<>();
+        textType = new ArrayList<>();
+        int count = 0;
+        for(int i = 0; i < categories.length ; i++){
+            if(dataType.equals(WordContextDialog.CONTEXT_ADD_WORD) && !categories[i].textCategory){
+                words.add(categories[i].name);
+                if(categories[i].header) labels.add(count);
+                count++;
+            }
+            else if(dataType.equals(WordContextDialog.CONTEXT_ADD_TEXT) && categories[i].textCategory){
+                words.add(categories[i].name);
+                textType.add(count);
+                if(categories[i].header) labels.add(count);
+                count++;
+            }
+            else if(!dataType.equals(WordContextDialog.CONTEXT_ADD_TEXT) && !dataType.equals(WordContextDialog.CONTEXT_ADD_WORD)){
+                words.add(categories[i].name);
+                if(categories[i].header) labels.add(i);
+            }
+        }
+
+        mData.addStringsToAllCells(GenericData.BOOKSHELF_ITEM_CATEGORY, words);
+        mData.setSpecialTypeCells(labels, GenericData.CELL_HEADER_TYPE);
+    }
+
+    private BookshelfCategory[] getCategories(){
+        return Inquiry.get(this).select(BookshelfCategory.class).all();
+    }
+
+    private void setupRecyclerView(String dataType){
+        loadData(dataType);
         mAdapter = new GenericAdapter(mData, ViewHolderType.BOOKSHELF_VIEW_HOLDER, getApplicationContext());
+        randomWordFAB = (FloatingActionButton) findViewById(R.id.fab_random_word_all);
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        randomWordFAB.attachToRecyclerView(recyclerView);
+        if(dataType.equals(WordContextDialog.CONTEXT_ADD_TEXT) || dataType.equals(WordContextDialog.CONTEXT_ADD_WORD)) randomWordFAB.setVisibility(View.GONE);
+        randomWordFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                displayRandomWord();
+            }
+        });
         mAdapter.RegisterClickListener(new CellClickListener() {
             @Override
             public void onClick(View v, final int position) {
@@ -161,7 +221,19 @@ public class BookshelfActivity extends BaseActivity {
                         Toast.makeText(getApplicationContext(), getResString(R.string.bookshelf_word_added), Toast.LENGTH_SHORT).show();
                         onBackPressed();
                     }
-                    else startOrResumeActivity(BookshelfCategoryActivity.class, message, position);
+                    if(automaticallyAddTextToCategory){
+                        automaticallyAddTextToCategory = false;
+                        Inquiry.newInstance(getApplicationContext(), SqlHelper.DATABASE).build();
+                        BookshelfCategory[] categories = getCategories();
+                        int offset;
+                        for(offset = 1; offset < categories.length && !categories[offset].header; offset++);
+                        Inquiry.get(getApplicationContext()).insert(BookshelfTexts.class).values(new BookshelfTexts[]{new BookshelfTexts(offset+position, textToAdd)}).run();
+                        Toast.makeText(getApplicationContext(), getResString(R.string.bookshelf_text_added), Toast.LENGTH_SHORT).show();
+                        onBackPressed();
+                    }
+                    String type = "";
+                    if(textType.contains(position)) type = "text";
+                    else startOrResumeActivity(BookshelfCategoryActivity.class, message, position, type);
                 }
             }
 
@@ -185,7 +257,7 @@ public class BookshelfActivity extends BaseActivity {
                 .values(new BookshelfCategory[]{new BookshelfCategory(position+1, input)})
                 .run();
         mData.addNewCellWithString(GenericData.BOOKSHELF_ITEM_CATEGORY,input, position+1);
-        setupRecyclerView();
+        setupRecyclerView("default");
         recyclerView.scrollToPosition(position);
     }
 
@@ -236,26 +308,32 @@ public class BookshelfActivity extends BaseActivity {
         Inquiry.get(this).delete(BookshelfCategoryWords.class).where("id = ?", position).run();
         UpdateCellsPosition(position, -1);
         mData.removeCell(position);
-        setupRecyclerView();
+        setupRecyclerView("default");
         if(position > 0) recyclerView.scrollToPosition(position-1);
         else recyclerView.scrollToPosition(position);
     }
 
-    public void loadData(){ //refactor this function getting data from app database / server
-        BookshelfCategory[] categories = Inquiry.get(this)
-                .select(BookshelfCategory.class)
-                .all();
-        if(mData != null) return;
-        mData = new GenericData();
+    private void displayRandomWord(){
+        ArrayList<String> words = loadAllCategoryWords();
+        if(words.size() == 0){
+            Toast.makeText(getApplicationContext(), getResString(R.string.bookshelf_no_words_random), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Random rand = new Random();
+        int index = rand.nextInt(words.size());
+        WordContextDialog.launchDialog(this, words.get(index));
+    }
+
+    private ArrayList<String> loadAllCategoryWords(){
         ArrayList<String> words = new ArrayList<>();
-        ArrayList<Integer> labels = new ArrayList<>();
-        if(categories != null)
-            for(int i = 0; i < categories.length; i++){
-                words.add(categories[i].name);
-                if(categories[i].header) labels.add(i);
+        BookshelfCategoryWords[] categoriesWords = Inquiry.get(this)
+                .select(BookshelfCategoryWords.class)
+                .all();
+        if(categoriesWords != null)
+            for(int i = 0; i < categoriesWords.length; i++){
+                words.add(categoriesWords[i].name);
             }
-        mData.addStringsToAllCells(GenericData.BOOKSHELF_ITEM_CATEGORY, words);
-        mData.setSpecialTypeCells(labels, GenericData.CELL_HEADER_TYPE);
+        return words;
     }
 
     private void setChangeToBookshelfCategories(){

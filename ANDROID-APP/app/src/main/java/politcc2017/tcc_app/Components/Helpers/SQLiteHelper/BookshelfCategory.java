@@ -16,12 +16,15 @@ public class BookshelfCategory {
     public BookshelfCategory(int id, String name){
         this.id = id;
         this.name = name;
+        this.header = false;
+        this.textCategory = false;
     }
 
-    public BookshelfCategory(int id, String name, boolean header){
+    public BookshelfCategory(int id, String name, boolean header, boolean textCategory){
         this.id = id;
         this.name = name;
         this.header = header;
+        this.textCategory = textCategory;
     }
     @Column(primaryKey = true)
     public int id;
@@ -29,4 +32,6 @@ public class BookshelfCategory {
     public String name;
     @Column
     public boolean header;
+    @Column
+    public boolean textCategory;
 }

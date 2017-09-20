@@ -44,7 +44,9 @@
     <string name="add_word_button_text">Adicionar</string>
     <string name="add_word_text">Digite a palavra</string>
     <string name="bookshelf_word_added">Palavra adicionada</string>
+    <string name="bookshelf_no_words_random">Sem palavras para selecionar randomicamente</string>
     <string name="bookshelf_add_word_instructions">Escolha a categoria a que a palavra pertence</string>
+    <string name="bookshelf_add_text_instructions">Escolha a categoria a que o texto pertence</string>
 
 <string name="camera_activity_scan_text">Tirar foto de texto</string>
 
@@ -114,4 +116,5 @@
     <string name="rating_good">Bom</string>
     <string name="rating_medium">Mediano</string>
     <string name="rating_bad">Ruim</string>
+    <string name="bookshelf_text_added">Texto  adicionado</string>
 </resources>

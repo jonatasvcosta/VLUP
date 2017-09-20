@@ -4,6 +4,7 @@ package politcc2017.tcc_app.Activities;
  * Created by Jonatas on 13/08/2017.
  */
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,6 +21,7 @@ import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import java.util.ArrayList;
 
+import politcc2017.tcc_app.Activities.Bookshelf.BookshelfActivity;
 import politcc2017.tcc_app.Common.ResourcesHelper;
 import politcc2017.tcc_app.Components.CustomSearchToolbar;
 import politcc2017.tcc_app.Components.CustomTextView;
@@ -30,6 +32,9 @@ import politcc2017.tcc_app.Components.RecyclerView.Adapters.GenericAdapter;
 import politcc2017.tcc_app.Components.RecyclerView.Data.GenericData;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.ViewHolderType;
 import politcc2017.tcc_app.R;
+
+import static politcc2017.tcc_app.Components.WordContextDialog.CONTEXT_ADD_TEXT;
+import static politcc2017.tcc_app.Components.WordContextDialog.CONTEXT_ADD_WORD;
 
 public class NewsFragment extends Fragment{
 
@@ -69,7 +74,6 @@ public class NewsFragment extends Fragment{
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mSearchToolbar.setAutoCompleteSearchBar();
         mSearchToolbar.setAdvancedFilter(getActivity(), ResourcesHelper.getStringArrayAsArrayList(getContext(), R.array.news_search_advanced_filter));
-        //setActivityTitle(getResString(R.string.news_activity_title));
 
         setSuggestionList();
         mNewsText = (CustomTextView) v.findViewById(R.id.activity_news_text);
@@ -119,8 +123,10 @@ public class NewsFragment extends Fragment{
         addBookshelfFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Add to bookshelf!", Toast.LENGTH_SHORT).show();
-                if(listener != null) listener.onMessageSent("NEWS_FRAGMENT", SqlHelper.RULE_ADD_WORD_BOOKSHELF);
+                if(listener != null) listener.onMessageSent("NEWS_FRAGMENT", SqlHelper.RULE_ADD_TEXT_BOOKSHELF);
+                Intent intent = new Intent(getContext(), BookshelfActivity.class);
+                intent.putExtra(CONTEXT_ADD_TEXT, mNewsText.getText().toString());
+                getContext().startActivity(intent);
             }
         });
         rateGoodFAB.setOnClickListener(new View.OnClickListener() {
@@ -185,6 +191,13 @@ public class NewsFragment extends Fragment{
 
             }
         });
+    }
+
+    public void setNewsText(String text){
+        mNewsText.setVisibility(View.VISIBLE);
+        mRecyclerView.setVisibility(View.GONE);
+        ratingMenu.setVisibility(View.VISIBLE);
+        mNewsText.setText(text);
     }
 
     private void setSuggestionList(){

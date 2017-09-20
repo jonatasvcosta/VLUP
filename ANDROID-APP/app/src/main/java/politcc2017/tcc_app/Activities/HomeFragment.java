@@ -90,6 +90,7 @@ public class HomeFragment extends Fragment{
 
     private void HandleCellClicks(String message, int position){
         if(message.equals("cardlayout")){
+            if(data.getValue(position).get(GenericData.CUSTOM_CARD_TYPE).toString().equals(GenericData.NEWS)) startClassNewsActivity(position);
             if(data.getValue(position).get(GenericData.CUSTOM_CARD_TYPE).toString().equals(GenericData.MINI_CLASS)) startClassDetailActivity(position);
             if(data.getValue(position).get(GenericData.CUSTOM_CARD_TYPE).toString().equals(GenericData.LINK)) startClassNavigation(position);
             if(data.getValue(position).get(GenericData.CUSTOM_CARD_TYPE).toString().equals(GenericData.TRENDING_WORDS)) startClassVocabulary(position);
@@ -101,6 +102,13 @@ public class HomeFragment extends Fragment{
         String messageContent = null;
         if(content.containsKey(GenericData.CUSTOM_CARD_CONTENT)) messageContent = content.get(GenericData.CUSTOM_CARD_CONTENT).toString();
         if(listener != null) listener.onMessageSent("HOME_FRAGMENT", "SWITCH_VOCABULARY" , messageContent);
+    }
+
+    private void startClassNewsActivity(int position){
+        Hashtable content = data.getValue(position);
+        String messageContent = null;
+        if(content.containsKey(GenericData.CUSTOM_CARD_CONTENT)) messageContent = content.get(GenericData.CUSTOM_CARD_CONTENT).toString();
+        if(listener != null) listener.onMessageSent("HOME_FRAGMENT", "SWITCH_NEWS" , messageContent);
     }
 
     private void startClassNavigation(int position){
