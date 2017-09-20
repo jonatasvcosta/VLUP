@@ -20,4 +20,5 @@ public class ServerConstants {
     public static final int DELETE_REQUEST = Request.Method.DELETE;
 
     public static final String AUTHENTICATION_ENDPOINT = "authentication/api-token-auth/";
+    public static final String TRANSLATION_ENDPOINT = "translation/";
 }

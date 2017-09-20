@@ -122,25 +122,11 @@ public class NavigateActivity extends BaseActivity implements View.OnClickListen
                 String selectedWord = clipboard.getText().toString();
                 if(!contextWordDialogOpened) {
                     contextWordDialogOpened = true;
-                    WordContextMenu wordData = ServerRequestHelper.getWordInformation(getBaseContext(), SharedPreferencesHelper.getString(SharedPreferencesHelper.LOCALE_KEY), selectedWord);
-                    MaterialDialog dialog = WordContextDialog.createDialog(NavigateActivity.this, selectedWord, "", new ContextMenuClickListener() {
-                        @Override
-                        public void onClick(View v, String action) {
-                            Toast.makeText(getBaseContext(), action, Toast.LENGTH_SHORT).show();
-                        }
-
-                        @Override
-                        public void onClick(View view) {
-
-                        }
-                    });
-                    dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                        @Override
-                        public void onDismiss(DialogInterface dialogInterface) {
-                            contextWordDialogOpened = false;
-                        }
-                    });
-                    dialog.show();
+                    try {
+                        WordContextDialog.launchDialog(NavigateActivity.this, selectedWord);
+                        contextWordDialogOpened = false;
+                    }
+                    catch (Exception e){}
                 }
             }
         });

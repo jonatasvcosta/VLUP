@@ -1,7 +1,9 @@
 package politcc2017.tcc_app.Volley;
 
 import android.content.Context;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
@@ -15,8 +17,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import politcc2017.tcc_app.Entities.WordContextMenu;
+import politcc2017.tcc_app.Volley.Objects.CustomJsonObjectRequest;
 
 import static politcc2017.tcc_app.Volley.ServerConstants.BASE_URL;
 
@@ -25,10 +29,34 @@ import static politcc2017.tcc_app.Volley.ServerConstants.BASE_URL;
  */
 
 public class ServerRequestHelper {
+    private static String ServerToken;
 
-    public static WordContextMenu getWordInformation(Context c, String locale, String word){
-        //change this after this is implemented on server
+    public static void SetToken(String token){
+        ServerToken = token;
+    }
+
+    public static WordContextMenu getWordInformation(final Context c, String locale, String word){
         return new WordContextMenu("Translation of "+word, "Synonym of "+word, "Antonym of "+word, new String[] {"similar word1", "similat word 2"});
+    }
+
+    public static void getWordTranslation(final Context c, String finalLanguage, String originalLanguage, String word, final Response.Listener<String> listener){
+        HashMap<String, String> params = new HashMap<String, String>();
+        params.put("original_text", word);
+        params.put("original_language", originalLanguage);
+        params.put("final_language", finalLanguage);
+        final String[] translation = new String[]{word};
+        postAuthorizedJSONRequest(c, ServerConstants.TRANSLATION_ENDPOINT, params ,new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    translation[0] = response.get("translated_text").toString();
+                    listener.onResponse(translation[0]);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    listener.onResponse(translation[0]);
+                }
+            }
+        });
     }
 
     public static void getString(Context c, String url, final String defaultString, final Response.Listener<String> responseListener){
@@ -54,6 +82,23 @@ public class ServerRequestHelper {
     public static void getImage(Context c, String relativeUrl, final ImageLoader.ImageListener responseListener) {
         String completeURL = BASE_URL + relativeUrl;
         imageAbsoluteURLRequest(c, completeURL, responseListener);
+    }
+
+    public static void postAuthorizedJSONRequest(Context c, String relativeURL, HashMap<String, String> params, final Response.Listener<JSONObject> listener){
+        CustomJsonObjectRequest request_json = new CustomJsonObjectRequest(ServerToken, BASE_URL + relativeURL, new JSONObject(params),
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        listener.onResponse(response);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.e("Error: ", error.getMessage());
+            }
+        });
+
+        AppSingleton.getInstance(c).addToRequestQueue(request_json, ServerConstants.JSON_TAG + relativeURL);
     }
 
     public static void postJSONRequest(Context c, String relativeURL, HashMap<String, String> params, final Response.Listener<JSONObject> listener){

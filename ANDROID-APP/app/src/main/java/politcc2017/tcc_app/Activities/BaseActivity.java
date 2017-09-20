@@ -7,6 +7,7 @@ package politcc2017.tcc_app.Activities;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.speech.RecognizerIntent;
 import android.support.annotation.LayoutRes;
@@ -54,6 +55,7 @@ import politcc2017.tcc_app.Components.RecyclerView.Adapters.GenericAdapter;
 import politcc2017.tcc_app.Components.RecyclerView.Data.GenericData;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.ViewHolderType;
 import politcc2017.tcc_app.Components.TextToSpeechComponent;
+import politcc2017.tcc_app.Components.WordContextDialog;
 import politcc2017.tcc_app.R;
 import politcc2017.tcc_app.Volley.ServerConstants;
 import politcc2017.tcc_app.Volley.ServerRequestHelper;
@@ -153,6 +155,7 @@ public class BaseActivity extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 try {
                     token = response.get("token").toString();
+                    WordContextDialog.SetToken(token);
                     Toast.makeText(getApplicationContext(), token, Toast.LENGTH_LONG).show();
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -331,11 +334,13 @@ public class BaseActivity extends AppCompatActivity {
     protected void handleLearningLanguageChoice(Context c){
         final String[] languages = getResources().getStringArray(R.array.languages_array);
         final ArrayList<String> languagesList = new ArrayList<>();
+        final ArrayList<String> locales = ResourcesHelper.getStringArrayAsArrayList(getBaseContext(), R.array.locale_array);
         for(int i = 0; i < languages.length; i++) languagesList.add(i, languages[i]);
         DialogHelper.ListSingleChoiceDialog(c, getResString(R.string.signup_activity_languages_field), languagesList, getResString(R.string.dialog_confirm), getResString(R.string.dialog_cancel), new MaterialDialog.ListCallbackSingleChoice() {
             @Override
             public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
                 SharedPreferencesHelper.addInt(SharedPreferencesHelper.LEARNING_LANGUAGE_KEY, which);
+                SharedPreferencesHelper.addString(SharedPreferencesHelper.LEARNING_LANGUAGE_LOCALE, locales.get(which));
                 changeLearningLanguage(which);
                 return true;
             }
