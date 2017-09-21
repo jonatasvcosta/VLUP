@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
@@ -22,7 +23,6 @@ import java.util.Map;
 import politcc2017.tcc_app.Entities.WordContextMenu;
 import politcc2017.tcc_app.Volley.Objects.CustomJsonObjectRequest;
 
-import static politcc2017.tcc_app.Volley.ServerConstants.BASE_URL;
 
 /**
  * Created by Jonatas on 30/10/2016.
@@ -41,15 +41,15 @@ public class ServerRequestHelper {
 
     public static void getWordTranslation(final Context c, String finalLanguage, String originalLanguage, String word, final Response.Listener<String> listener){
         HashMap<String, String> params = new HashMap<String, String>();
-        params.put("original_text", word);
-        params.put("original_language", originalLanguage);
-        params.put("final_language", finalLanguage);
+        params.put(ServerConstants.ORIGINAL_TEXT_KEY, word);
+        params.put(ServerConstants.ORIGINAL_LANGUAGE_KEY, originalLanguage);
+        params.put(ServerConstants.FINAL_LANGUAGE_KEY, finalLanguage);
         final String[] translation = new String[]{word};
         postAuthorizedJSONRequest(c, ServerConstants.TRANSLATION_ENDPOINT, params ,new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    translation[0] = response.get("translated_text").toString();
+                    translation[0] = response.get(ServerConstants.TRANSLATED_TEXT_KEY).toString();
                     listener.onResponse(translation[0]);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -70,22 +70,39 @@ public class ServerRequestHelper {
     }
 
     public static void getJsonArray(Context c, String url, final Response.Listener<JSONArray> responseListener){
-        String completeURL = BASE_URL + url;
+        String completeURL = ServerConstants.BASE_URL + url;
         jsonArrayAbsoluteURLRequest(ServerConstants.GET_REQUEST, c, completeURL, null, responseListener);
     }
 
     public static void postJsonArray(Context c, String url, JSONArray objectSent, final Response.Listener<JSONArray> responseListener){
-        String completeURL = BASE_URL + url;
+        String completeURL = ServerConstants.BASE_URL + url;
         jsonArrayAbsoluteURLRequest(ServerConstants.POST_REQUEST, c, completeURL, objectSent, responseListener);
     }
 
     public static void getImage(Context c, String relativeUrl, final ImageLoader.ImageListener responseListener) {
-        String completeURL = BASE_URL + relativeUrl;
+        String completeURL = ServerConstants.BASE_URL + relativeUrl;
         imageAbsoluteURLRequest(c, completeURL, responseListener);
     }
 
     public static void postAuthorizedJSONRequest(Context c, String relativeURL, HashMap<String, String> params, final Response.Listener<JSONObject> listener){
-        CustomJsonObjectRequest request_json = new CustomJsonObjectRequest(ServerToken, BASE_URL + relativeURL, new JSONObject(params),
+        CustomJsonObjectRequest request_json = new CustomJsonObjectRequest(ServerToken, Request.Method.POST, ServerConstants.BASE_URL + relativeURL, new JSONObject(params),
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        listener.onResponse(response);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.e("Error: ", error.getMessage());
+            }
+        });
+
+        AppSingleton.getInstance(c).addToRequestQueue(request_json, ServerConstants.JSON_TAG + relativeURL);
+    }
+
+    public static void getAuthorizedJSONRequest(Context c, String relativeURL, JSONObject params, final Response.Listener<JSONObject> listener){
+        CustomJsonObjectRequest request_json = new CustomJsonObjectRequest(ServerToken, Request.Method.GET, ServerConstants.BASE_URL + relativeURL, params,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -102,7 +119,7 @@ public class ServerRequestHelper {
     }
 
     public static void postJSONRequest(Context c, String relativeURL, HashMap<String, String> params, final Response.Listener<JSONObject> listener){
-        JsonObjectRequest request_json = new JsonObjectRequest(BASE_URL+relativeURL, new JSONObject(params),
+        JsonObjectRequest request_json = new JsonObjectRequest(ServerConstants.BASE_URL+relativeURL, new JSONObject(params),
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {

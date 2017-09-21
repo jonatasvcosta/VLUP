@@ -19,10 +19,15 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import politcc2017.tcc_app.Components.CustomSearchToolbar;
 import politcc2017.tcc_app.Components.Helpers.DialogHelper;
@@ -36,6 +41,7 @@ import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.ViewHolderType;
 import politcc2017.tcc_app.Components.WordContextDialog;
 import politcc2017.tcc_app.Entities.WordContextMenu;
 import politcc2017.tcc_app.R;
+import politcc2017.tcc_app.Volley.ServerConstants;
 import politcc2017.tcc_app.Volley.ServerRequestHelper;
 
 /**
@@ -165,6 +171,16 @@ public class NavigateActivity extends BaseActivity implements View.OnClickListen
 
     private void SetSuggestionListData(){
         GenericData data = new GenericData();
+        JSONObject params = new JSONObject();
+        try {
+            params.put("language", "en");
+        } catch (JSONException e) {}
+        ServerRequestHelper.getAuthorizedJSONRequest(getApplicationContext(), ServerConstants.WEBSITES_LIST_ENDPOINT, params, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+            }
+        });
 
         //These fake data will be replaced by data from server:
         ArrayList<String> linkArray = new ArrayList<>();

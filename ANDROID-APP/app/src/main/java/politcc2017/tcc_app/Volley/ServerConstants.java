@@ -21,4 +21,12 @@ public class ServerConstants {
 
     public static final String AUTHENTICATION_ENDPOINT = "authentication/api-token-auth/";
     public static final String TRANSLATION_ENDPOINT = "translation/";
+    public static final String WEBSITES_LIST_ENDPOINT = "news/websites/";
+    public static final String USERNAME_KEY = "username";
+    public static final String PASSWORD_KEY = "password";
+    public static final String TOKEN_KEY = "token";
+    public static final String ORIGINAL_TEXT_KEY = "original_text";
+    public static final String ORIGINAL_LANGUAGE_KEY = "original_language";
+    public static final String FINAL_LANGUAGE_KEY = "final_language";
+    public static final String TRANSLATED_TEXT_KEY = "translated_text";
 }

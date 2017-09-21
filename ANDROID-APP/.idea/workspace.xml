@@ -54,41 +54,103 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ServerConstants.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Volley/ServerConstants.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="22" column="67" selection-start-line="22" selection-start-column="67" selection-end-line="22" selection-end-column="67" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="SignupActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Activities/SignupActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="663">
-              <caret line="73" column="8" selection-start-line="71" selection-start-column="8" selection-end-line="73" selection-end-column="8" />
+            <state relative-caret-position="289">
+              <caret line="88" column="40" selection-start-line="88" selection-start-column="40" selection-end-line="88" selection-end-column="40" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <marker date="1506193601739" expanded="true" signature="3025:3037" ph="(response) → {" />
+                <marker date="1506193601739" expanded="true" signature="3025:3148" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NewsFragment.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Activities/NewsFragment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="302">
+              <caret line="114" column="47" selection-start-line="114" selection-start-column="47" selection-end-line="114" selection-end-column="47" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#2191#2192#0" expanded="true" />
+                <element signature="e#2231#2232#0" expanded="true" />
+                <element signature="e#2300#2301#0" expanded="true" />
+                <element signature="e#2350#2351#0" expanded="true" />
+                <element signature="e#5241#5242#0" expanded="true" />
+                <element signature="e#5296#5297#0" expanded="true" />
+                <element signature="e#5377#5827#0" expanded="true" />
+                <element signature="e#5826#5827#0" expanded="true" />
+                <element signature="e#5869#6173#0" expanded="true" />
+                <element signature="e#6172#6173#0" expanded="true" />
+                <element signature="e#6217#6524#0" expanded="true" />
+                <element signature="e#6523#6524#0" expanded="true" />
+                <element signature="e#6565#6869#0" expanded="true" />
+                <element signature="e#6868#6869#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MainActivitiesActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Activities/MainActivitiesActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="455">
+              <caret line="164" column="77" selection-start-line="164" selection-start-column="77" selection-end-line="164" selection-end-column="77" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SharedPreferencesHelper.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Components/Helpers/SharedPreferencesHelper.java">
+      <file leaf-file-name="activity_news.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_news.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="19" column="79" selection-start-line="19" selection-start-column="79" selection-end-line="19" selection-end-column="79" />
+            <state relative-caret-position="426">
+              <caret line="47" column="32" selection-start-line="47" selection-start-column="32" selection-end-line="47" selection-end-column="32" />
               <folding />
             </state>
+          </provider>
+          <provider editor-type-id="android-designer2">
+            <state />
           </provider>
         </entry>
       </file>
       <file leaf-file-name="NavigateActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Activities/NavigateActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1496">
-              <caret line="126" column="56" selection-start-line="126" selection-start-column="56" selection-end-line="126" selection-end-column="56" />
+            <state relative-caret-position="217">
+              <caret line="177" column="0" selection-start-line="177" selection-start-column="0" selection-end-line="177" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ServerRequestHelper.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Volley/ServerRequestHelper.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="387">
+              <caret line="113" column="0" selection-start-line="113" selection-start-column="0" selection-end-line="113" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#4124#4352#0" expanded="true" />
+                <element signature="e#4351#4352#0" expanded="true" />
+                <element signature="e#4354#4551#0" expanded="true" />
+                <element signature="e#4550#4551#0" expanded="true" />
+                <element signature="e#4988#5216#0" expanded="true" />
+                <element signature="e#5215#5216#0" expanded="true" />
+                <element signature="e#5414#5415#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CustomJsonObjectRequest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Volley/Objects/CustomJsonObjectRequest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="187">
+              <caret line="18" column="20" selection-start-line="18" selection-start-column="14" selection-end-line="18" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -97,137 +159,19 @@
       <file leaf-file-name="BaseActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Activities/BaseActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="249">
-              <caret line="336" column="124" selection-start-line="336" selection-start-column="14" selection-end-line="336" selection-end-column="124" />
+            <state relative-caret-position="1122">
+              <caret line="124" column="35" selection-start-line="124" selection-start-column="35" selection-end-line="124" selection-end-column="35" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WordContextDialog.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="WordContextDialog.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Components/WordContextDialog.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="183">
-              <caret line="73" column="91" selection-start-line="73" selection-start-column="91" selection-end-line="73" selection-end-column="91" />
-              <folding>
-                <element signature="e#3895#3975#0" expanded="true" />
-                <element signature="e#3992#4049#0" expanded="true" />
-                <element signature="e#4051#4107#0" expanded="true" />
-                <element signature="e#4109#4891#0" expanded="true" />
-                <element signature="e#4520#4812#0" expanded="true" />
-                <element signature="e#4811#4812#0" expanded="true" />
-                <element signature="e#4890#4891#0" expanded="true" />
-                <element signature="e#7173#7367#0" expanded="true" />
-                <element signature="e#7366#7367#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ServerRequestHelper.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Volley/ServerRequestHelper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="215">
-              <caret line="41" column="74" selection-start-line="41" selection-start-column="74" selection-end-line="41" selection-end-column="74" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1771#2232#0" expanded="true" />
-                <element signature="e#2231#2232#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MaterialDialog.java" pinned="false" current-in-tab="false">
-        <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.afollestad.material-dialogs/core/0.8.5.9/1f27bb23ce1db47c3b01ab6a739745a644341b35/core-0.8.5.9-sources.jar!/com/afollestad/materialdialogs/MaterialDialog.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="21760">
-              <caret line="1351" column="0" selection-start-line="1351" selection-start-column="0" selection-end-line="1351" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#2974#2975#0" expanded="false" />
-                <element signature="e#3005#3006#0" expanded="false" />
-                <element signature="e#21216#21217#0" expanded="false" />
-                <element signature="e#21254#21255#0" expanded="false" />
-                <element signature="e#21297#21298#0" expanded="false" />
-                <element signature="e#21337#21338#0" expanded="false" />
-                <element signature="e#21387#21388#0" expanded="false" />
-                <element signature="e#21429#21430#0" expanded="false" />
-                <element signature="e#33756#33757#0" expanded="false" />
-                <element signature="e#33804#33805#0" expanded="false" />
-                <element signature="e#34129#34130#0" expanded="false" />
-                <element signature="e#34183#34184#0" expanded="false" />
-                <element signature="e#34516#34517#0" expanded="false" />
-                <element signature="e#34572#34573#0" expanded="false" />
-                <element signature="e#56366#56367#0" expanded="false" />
-                <element signature="e#56421#56422#0" expanded="false" />
-                <element signature="e#57769#57770#0" expanded="false" />
-                <element signature="e#57796#57797#0" expanded="false" />
-                <element signature="e#57853#57854#0" expanded="false" />
-                <element signature="e#57884#57885#0" expanded="false" />
-                <element signature="e#57946#57947#0" expanded="false" />
-                <element signature="e#57974#57975#0" expanded="false" />
-                <element signature="e#58182#58183#0" expanded="false" />
-                <element signature="e#58210#58211#0" expanded="false" />
-                <element signature="e#58326#58327#0" expanded="false" />
-                <element signature="e#58353#58354#0" expanded="false" />
-                <element signature="e#58593#58594#0" expanded="false" />
-                <element signature="e#58623#58624#0" expanded="false" />
-                <element signature="e#58863#58864#0" expanded="false" />
-                <element signature="e#58905#58906#0" expanded="false" />
-                <element signature="e#60719#60720#0" expanded="false" />
-                <element signature="e#60769#60770#0" expanded="false" />
-                <element signature="e#61456#61457#0" expanded="false" />
-                <element signature="e#61495#61496#0" expanded="false" />
-                <element signature="e#63033#63034#0" expanded="false" />
-                <element signature="e#63068#63069#0" expanded="false" />
-                <element signature="e#63904#63905#0" expanded="false" />
-                <element signature="e#63936#63937#0" expanded="false" />
-                <element signature="e#63993#63994#0" expanded="false" />
-                <element signature="e#64047#64048#0" expanded="false" />
-                <element signature="e#65284#65285#0" expanded="false" />
-                <element signature="e#65337#65338#0" expanded="false" />
-                <element signature="e#66173#66174#0" expanded="false" />
-                <element signature="e#66208#66209#0" expanded="false" />
-                <element signature="e#68884#68885#0" expanded="false" />
-                <element signature="e#68926#68927#0" expanded="false" />
-                <element signature="e#70000#70001#0" expanded="false" />
-                <element signature="e#70039#70040#0" expanded="false" />
-                <element signature="e#76673#76674#0" expanded="false" />
-                <element signature="e#76704#76705#0" expanded="false" />
-                <element signature="e#76909#76910#0" expanded="false" />
-                <element signature="e#76955#76956#0" expanded="false" />
-                <element signature="e#77130#77131#0" expanded="false" />
-                <element signature="e#77177#77178#0" expanded="false" />
-                <element signature="e#77237#77238#0" expanded="false" />
-                <element signature="e#77284#77285#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BookshelfCategoryActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Activities/Bookshelf/BookshelfCategoryActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2176">
-              <caret line="161" column="41" selection-start-line="161" selection-start-column="41" selection-end-line="161" selection-end-column="41" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#2790#2791#0" expanded="false" />
-                <element signature="e#2841#2842#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BookshelfWordViewHolder.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Components/RecyclerView/ViewHolders/BookshelfWordViewHolder.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="663">
-              <caret line="48" column="47" selection-start-line="48" selection-start-column="47" selection-end-line="48" selection-end-column="47" />
-              <folding>
-                <element signature="imports" expanded="false" />
-              </folding>
+            <state relative-caret-position="935">
+              <caret line="75" column="45" selection-start-line="75" selection-start-column="45" selection-end-line="75" selection-end-column="45" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -2361,19 +2305,19 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_bookshelf_category.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Components/RecyclerView/Data/GenericData.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Activities/Bookshelf/BookshelfCategoryActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Activities/NewsFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Components/RecyclerView/ViewHolders/HomeCardViewHolder.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Components/CustomCard.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Volley/Objects/User.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Activities/TestComponentsActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Activities/HomeFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Volley/ServerConstants.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Volley/Objects/CustomJsonObjectRequest.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Activities/NavigateActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Activities/BaseActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Components/Helpers/SharedPreferencesHelper.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Volley/ServerRequestHelper.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Components/WordContextDialog.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Activities/BaseActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Volley/ServerConstants.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Activities/NewsFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Volley/Objects/CustomJsonObjectRequest.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Volley/ServerRequestHelper.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Activities/NavigateActivity.java" />
       </list>
     </option>
   </component>
@@ -2409,7 +2353,6 @@
     </navigator>
     <panes>
       <pane id="ProjectPane" />
-      <pane id="Scratches" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -2427,38 +2370,6 @@
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ANDROID-APP" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="layout" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ANDROID-APP" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -2476,28 +2387,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="tcc_app" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ANDROID-APP" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tcc_app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Components" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -2522,10 +2411,25 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ANDROID-APP" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="manifests" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidManifestsGroupNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2932,15 +2836,16 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850778" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32739422" sideWeight="0.491453" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32739422" sideWeight="0.491453" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25746268" sideWeight="0.5132013" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32516703" sideWeight="0.5170576" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39532295" sideWeight="0.48294243" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32889125" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23162584" sideWeight="0.8534115" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850778" sideWeight="0.4978678" order="7" side_tool="false" content_ui="tabs" />
@@ -2964,7 +2869,6 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32889125" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33184856" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -2995,7 +2899,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850778" sideWeight="0.4978678" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15565032" sideWeight="0.48679867" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1705757" sideWeight="0.48679867" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33184856" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3299356" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -3040,46 +2944,41 @@
           <properties />
           <option name="timeStamp" value="43" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Activities/NavigateActivity.java</url>
+          <line>177</line>
+          <properties />
+          <option name="timeStamp" value="88" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Volley/ServerRequestHelper.java</url>
+          <line>113</line>
+          <properties />
+          <option name="timeStamp" value="91" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Activities/NavigateActivity.java</url>
+          <line>179</line>
+          <properties method="onResponse" />
+          <option name="timeStamp" value="86" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Volley/ServerRequestHelper.java</url>
+          <line>112</line>
+          <properties method="onErrorResponse" />
+          <option name="timeStamp" value="90" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="86" />
+      <option name="time" value="92" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/custom_card_item_cell.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="43" selection-start-line="15" selection-start-column="43" selection-end-line="15" selection-end-column="43" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/be_a_pro_list_classes.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="44" selection-start-line="17" selection-start-column="44" selection-end-line="17" selection-end-column="44" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_bookshelf.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="29" column="56" selection-start-line="29" selection-start-column="56" selection-end-line="29" selection-end-column="56" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Components/Helpers/SQLiteHelper/SqlHelper.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="7" column="29" selection-start-line="7" selection-start-column="29" selection-end-line="7" selection-end-column="29" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -3170,22 +3069,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Activities/MainActivitiesActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2652">
-          <caret line="176" column="37" selection-start-line="176" selection-start-column="37" selection-end-line="176" selection-end-column="37" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#8308#8309#0" expanded="false" />
-            <element signature="e#8346#8347#0" expanded="false" />
-            <element signature="e#8594#8595#0" expanded="false" />
-            <element signature="e#8645#8646#0" expanded="false" />
-            <element signature="e#8883#8884#0" expanded="false" />
-            <element signature="e#8946#8947#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_vocabulary.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -3208,10 +3091,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4267">
           <caret line="283" column="23" selection-start-line="283" selection-start-column="23" selection-end-line="283" selection-end-column="23" />
-          <folding>
-            <element signature="e#8928#8929#0" expanded="false" />
-            <element signature="e#8979#8980#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3219,7 +3098,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="765">
           <caret line="45" column="36" selection-start-line="45" selection-start-column="36" selection-end-line="45" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="android-designer2">
@@ -3236,23 +3114,6 @@
             <element signature="e#6237#6238#0" expanded="false" />
             <element signature="e#6436#6437#0" expanded="false" />
             <element signature="e#6471#6472#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Activities/NewsFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="27" selection-start-line="21" selection-start-column="27" selection-end-line="21" selection-end-column="27" />
-          <folding>
-            <element signature="e#1994#1995#0" expanded="false" />
-            <element signature="e#2034#2035#0" expanded="false" />
-            <element signature="e#2103#2104#0" expanded="false" />
-            <element signature="e#2153#2154#0" expanded="false" />
-            <element signature="e#5044#5045#0" expanded="false" />
-            <element signature="e#5099#5100#0" expanded="false" />
-            <element signature="e#7082#7083#0" expanded="false" />
-            <element signature="e#7158#7159#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -3353,7 +3214,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="181">
           <caret line="38" column="101" selection-start-line="38" selection-start-column="101" selection-end-line="38" selection-end-column="101" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3361,6 +3221,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
           <caret line="321" column="37" selection-start-line="321" selection-start-column="31" selection-end-line="321" selection-end-column="37" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -3378,30 +3239,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Volley/Objects/CustomJsonObjectRequest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="319">
-          <caret line="30" column="46" selection-start-line="30" selection-start-column="46" selection-end-line="30" selection-end-column="46" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#1063#1079#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Activities/SignupActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="663">
-          <caret line="73" column="8" selection-start-line="71" selection-start-column="8" selection-end-line="73" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Volley/ServerConstants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="67" selection-start-line="22" selection-start-column="67" selection-end-line="22" selection-end-column="67" />
-          <folding />
+        <state relative-caret-position="289">
+          <caret line="88" column="40" selection-start-line="88" selection-start-column="40" selection-end-line="88" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <marker date="1506193601739" expanded="true" signature="3025:3037" ph="(response) → {" />
+            <marker date="1506193601739" expanded="true" signature="3025:3148" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -3409,9 +3255,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="663">
           <caret line="48" column="47" selection-start-line="48" selection-start-column="47" selection-end-line="48" selection-end-column="47" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3419,19 +3262,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2176">
           <caret line="161" column="41" selection-start-line="161" selection-start-column="41" selection-end-line="161" selection-end-column="41" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#2790#2791#0" expanded="false" />
-            <element signature="e#2841#2842#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Activities/NavigateActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1496">
-          <caret line="126" column="56" selection-start-line="126" selection-start-column="56" selection-end-line="126" selection-end-column="56" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3450,106 +3280,127 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://C:/android-sdk/platforms/android-23/android.jar!/android/content/ContentProvider.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="333">
+          <caret line="168" column="0" selection-start-line="168" selection-start-column="0" selection-end-line="168" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.afollestad.material-dialogs/core/0.8.5.9/1f27bb23ce1db47c3b01ab6a739745a644341b35/core-0.8.5.9-sources.jar!/com/afollestad/materialdialogs/MaterialDialog.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21760">
-          <caret line="1351" column="0" selection-start-line="1351" selection-start-column="0" selection-end-line="1351" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#2974#2975#0" expanded="false" />
-            <element signature="e#3005#3006#0" expanded="false" />
-            <element signature="e#21216#21217#0" expanded="false" />
-            <element signature="e#21254#21255#0" expanded="false" />
-            <element signature="e#21297#21298#0" expanded="false" />
-            <element signature="e#21337#21338#0" expanded="false" />
-            <element signature="e#21387#21388#0" expanded="false" />
-            <element signature="e#21429#21430#0" expanded="false" />
-            <element signature="e#33756#33757#0" expanded="false" />
-            <element signature="e#33804#33805#0" expanded="false" />
-            <element signature="e#34129#34130#0" expanded="false" />
-            <element signature="e#34183#34184#0" expanded="false" />
-            <element signature="e#34516#34517#0" expanded="false" />
-            <element signature="e#34572#34573#0" expanded="false" />
-            <element signature="e#56366#56367#0" expanded="false" />
-            <element signature="e#56421#56422#0" expanded="false" />
-            <element signature="e#57769#57770#0" expanded="false" />
-            <element signature="e#57796#57797#0" expanded="false" />
-            <element signature="e#57853#57854#0" expanded="false" />
-            <element signature="e#57884#57885#0" expanded="false" />
-            <element signature="e#57946#57947#0" expanded="false" />
-            <element signature="e#57974#57975#0" expanded="false" />
-            <element signature="e#58182#58183#0" expanded="false" />
-            <element signature="e#58210#58211#0" expanded="false" />
-            <element signature="e#58326#58327#0" expanded="false" />
-            <element signature="e#58353#58354#0" expanded="false" />
-            <element signature="e#58593#58594#0" expanded="false" />
-            <element signature="e#58623#58624#0" expanded="false" />
-            <element signature="e#58863#58864#0" expanded="false" />
-            <element signature="e#58905#58906#0" expanded="false" />
-            <element signature="e#60719#60720#0" expanded="false" />
-            <element signature="e#60769#60770#0" expanded="false" />
-            <element signature="e#61456#61457#0" expanded="false" />
-            <element signature="e#61495#61496#0" expanded="false" />
-            <element signature="e#63033#63034#0" expanded="false" />
-            <element signature="e#63068#63069#0" expanded="false" />
-            <element signature="e#63904#63905#0" expanded="false" />
-            <element signature="e#63936#63937#0" expanded="false" />
-            <element signature="e#63993#63994#0" expanded="false" />
-            <element signature="e#64047#64048#0" expanded="false" />
-            <element signature="e#65284#65285#0" expanded="false" />
-            <element signature="e#65337#65338#0" expanded="false" />
-            <element signature="e#66173#66174#0" expanded="false" />
-            <element signature="e#66208#66209#0" expanded="false" />
-            <element signature="e#68884#68885#0" expanded="false" />
-            <element signature="e#68926#68927#0" expanded="false" />
-            <element signature="e#70000#70001#0" expanded="false" />
-            <element signature="e#70039#70040#0" expanded="false" />
-            <element signature="e#76673#76674#0" expanded="false" />
-            <element signature="e#76704#76705#0" expanded="false" />
-            <element signature="e#76909#76910#0" expanded="false" />
-            <element signature="e#76955#76956#0" expanded="false" />
-            <element signature="e#77130#77131#0" expanded="false" />
-            <element signature="e#77177#77178#0" expanded="false" />
-            <element signature="e#77237#77238#0" expanded="false" />
-            <element signature="e#77284#77285#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Volley/ServerRequestHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="41" column="74" selection-start-line="41" selection-start-column="74" selection-end-line="41" selection-end-column="74" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1771#2232#0" expanded="true" />
-            <element signature="e#2231#2232#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Activities/BaseActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="336" column="124" selection-start-line="336" selection-start-column="14" selection-end-line="336" selection-end-column="124" />
-          <folding />
+        <state relative-caret-position="323">
+          <caret line="1369" column="26" selection-start-line="1369" selection-start-column="26" selection-end-line="1369" selection-end-column="26" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Components/WordContextDialog.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="73" column="91" selection-start-line="73" selection-start-column="91" selection-end-line="73" selection-end-column="91" />
+        <state relative-caret-position="935">
+          <caret line="75" column="45" selection-start-line="75" selection-start-column="45" selection-end-line="75" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Activities/BaseActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1122">
+          <caret line="124" column="35" selection-start-line="124" selection-start-column="35" selection-end-line="124" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Activities/MainActivitiesActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="455">
+          <caret line="164" column="77" selection-start-line="164" selection-start-column="77" selection-end-line="164" selection-end-column="77" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Volley/ServerConstants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="23" column="31" selection-start-line="23" selection-start-column="31" selection-end-line="23" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Activities/NewsFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="302">
+          <caret line="114" column="47" selection-start-line="114" selection-start-column="47" selection-end-line="114" selection-end-column="47" />
           <folding>
-            <element signature="e#3895#3975#0" expanded="true" />
-            <element signature="e#3992#4049#0" expanded="true" />
-            <element signature="e#4051#4107#0" expanded="true" />
-            <element signature="e#4109#4891#0" expanded="true" />
-            <element signature="e#4520#4812#0" expanded="true" />
-            <element signature="e#4811#4812#0" expanded="true" />
-            <element signature="e#4890#4891#0" expanded="true" />
-            <element signature="e#7173#7367#0" expanded="true" />
-            <element signature="e#7366#7367#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#2191#2192#0" expanded="true" />
+            <element signature="e#2231#2232#0" expanded="true" />
+            <element signature="e#2300#2301#0" expanded="true" />
+            <element signature="e#2350#2351#0" expanded="true" />
+            <element signature="e#5241#5242#0" expanded="true" />
+            <element signature="e#5296#5297#0" expanded="true" />
+            <element signature="e#5377#5827#0" expanded="true" />
+            <element signature="e#5826#5827#0" expanded="true" />
+            <element signature="e#5869#6173#0" expanded="true" />
+            <element signature="e#6172#6173#0" expanded="true" />
+            <element signature="e#6217#6524#0" expanded="true" />
+            <element signature="e#6523#6524#0" expanded="true" />
+            <element signature="e#6565#6869#0" expanded="true" />
+            <element signature="e#6868#6869#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_news.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="426">
+          <caret line="47" column="32" selection-start-line="47" selection-start-column="32" selection-end-line="47" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Volley/Objects/CustomJsonObjectRequest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="18" column="20" selection-start-line="18" selection-start-column="14" selection-end-line="18" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Activities/NavigateActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="217">
+          <caret line="177" column="0" selection-start-line="177" selection-start-column="0" selection-end-line="177" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/politcc2017/tcc_app/Volley/ServerRequestHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="387">
+          <caret line="113" column="0" selection-start-line="113" selection-start-column="0" selection-end-line="113" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#4124#4352#0" expanded="true" />
+            <element signature="e#4351#4352#0" expanded="true" />
+            <element signature="e#4354#4551#0" expanded="true" />
+            <element signature="e#4550#4551#0" expanded="true" />
+            <element signature="e#4988#5216#0" expanded="true" />
+            <element signature="e#5215#5216#0" expanded="true" />
+            <element signature="e#5414#5415#0" expanded="true" />
           </folding>
         </state>
       </provider>
