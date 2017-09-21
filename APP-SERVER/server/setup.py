@@ -55,6 +55,7 @@ setup(
     # https://packaging.python.org/en/latest/requirements.html
     install_requires=[
         'django==1.11.2',
+        'django-filter',
         'djangorestframework==3.6.3',
         'djangorestframework-jwt==1.11.0',
         'gunicorn==19.7.1',
