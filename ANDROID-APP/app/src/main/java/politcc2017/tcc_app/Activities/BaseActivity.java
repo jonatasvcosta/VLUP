@@ -7,6 +7,7 @@ package politcc2017.tcc_app.Activities;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.speech.RecognizerIntent;
 import android.support.annotation.LayoutRes;
@@ -29,9 +30,14 @@ import android.widget.Toast;
 
 import com.afollestad.inquiry.Inquiry;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.android.volley.Response;
 import com.google.android.gms.ads.MobileAds;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
 
 import politcc2017.tcc_app.Activities.BeAPro.BeAProListClassesActivity;
@@ -49,7 +55,10 @@ import politcc2017.tcc_app.Components.RecyclerView.Adapters.GenericAdapter;
 import politcc2017.tcc_app.Components.RecyclerView.Data.GenericData;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.ViewHolderType;
 import politcc2017.tcc_app.Components.TextToSpeechComponent;
+import politcc2017.tcc_app.Components.WordContextDialog;
 import politcc2017.tcc_app.R;
+import politcc2017.tcc_app.Volley.ServerConstants;
+import politcc2017.tcc_app.Volley.ServerRequestHelper;
 
 import static android.content.Intent.FLAG_ACTIVITY_REORDER_TO_FRONT;
 
@@ -72,6 +81,7 @@ public class BaseActivity extends AppCompatActivity {
     private LinearLayout scorePointContainer;
     private TextView scorePointText;
     private FragmentListener activityListener;
+    protected String token;
 
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
@@ -110,6 +120,7 @@ public class BaseActivity extends AppCompatActivity {
                 handleLearningLanguageChoice(BaseActivity.this);
             }
         });
+        getToken();
         MobileAds.initialize(this, ADMOB_APP_ID);
         initialScoringRulesSetup();
     }
@@ -132,6 +143,25 @@ public class BaseActivity extends AppCompatActivity {
 
     protected void setActivityListener(FragmentListener listener){
         this.activityListener = listener;
+    }
+
+    protected void getToken(){
+        HashMap<String, String> params = new HashMap<String, String>();
+
+        params.put(ServerConstants.USERNAME_KEY, "root");
+        params.put(ServerConstants.PASSWORD_KEY, "password");
+        ServerRequestHelper.postJSONRequest(getApplicationContext(), ServerConstants.AUTHENTICATION_ENDPOINT, params, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    token = response.get(ServerConstants.TOKEN_KEY).toString();
+                    WordContextDialog.SetToken(token);
+                    Toast.makeText(getApplicationContext(), token, Toast.LENGTH_LONG).show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     protected void handleLearningLanguageChange(){} //each activity must handle this method
@@ -304,11 +334,13 @@ public class BaseActivity extends AppCompatActivity {
     protected void handleLearningLanguageChoice(Context c){
         final String[] languages = getResources().getStringArray(R.array.languages_array);
         final ArrayList<String> languagesList = new ArrayList<>();
+        final ArrayList<String> locales = ResourcesHelper.getStringArrayAsArrayList(getBaseContext(), R.array.locale_array);
         for(int i = 0; i < languages.length; i++) languagesList.add(i, languages[i]);
         DialogHelper.ListSingleChoiceDialog(c, getResString(R.string.signup_activity_languages_field), languagesList, getResString(R.string.dialog_confirm), getResString(R.string.dialog_cancel), new MaterialDialog.ListCallbackSingleChoice() {
             @Override
             public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
                 SharedPreferencesHelper.addInt(SharedPreferencesHelper.LEARNING_LANGUAGE_KEY, which);
+                SharedPreferencesHelper.addString(SharedPreferencesHelper.LEARNING_LANGUAGE_LOCALE, locales.get(which));
                 changeLearningLanguage(which);
                 return true;
             }

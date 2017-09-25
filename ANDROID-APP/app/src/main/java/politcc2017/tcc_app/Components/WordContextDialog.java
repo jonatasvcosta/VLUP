@@ -6,11 +6,13 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.android.volley.Response;
 
 import java.util.ArrayList;
 
 import politcc2017.tcc_app.Activities.Bookshelf.BookshelfActivity;
 import politcc2017.tcc_app.Activities.MainActivitiesActivity;
+import politcc2017.tcc_app.Common.ResourcesHelper;
 import politcc2017.tcc_app.Components.Helpers.DialogHelper;
 import politcc2017.tcc_app.Components.Helpers.SharedPreferencesHelper;
 import politcc2017.tcc_app.Components.Listeners.ContextMenuClickListener;
@@ -25,11 +27,16 @@ import static politcc2017.tcc_app.Components.Helpers.DialogHelper.CustomDialogBu
  */
 
 public class WordContextDialog{
-
+    private static String serverToken;
     public static final String CONTEXT_ADD_WORD = "add",CONTEXT_ADD_TEXT = "add_text", CONTEXT_TRANSLATE = "translate", CONTEXT_PRONOUNCE = "pronounce", CONTEXT_SYNONYM = "synonym", CONTEXT_ANTONYM = "antonym", CONTEXT_SIMILAR_WORDS = "similar_words";
 
     public static MaterialDialog WordContextDialog(Context context, String title, String translationString){
         return WordContextDialog(context, title, translationString, "", null);
+    }
+
+    public static void SetToken(String token){
+        serverToken = token;
+        ServerRequestHelper.SetToken(token);
     }
 
     public static MaterialDialog WordContextDialog(final Context context, final String title, String translationString, String phraseContext, final ContextMenuClickListener listener){
@@ -60,11 +67,17 @@ public class WordContextDialog{
                 final String[] languages = context.getResources().getStringArray(R.array.languages_array);
                 final ArrayList<String> languagesList = new ArrayList<>();
                 for(int i = 0; i < languages.length; i++) languagesList.add(i, languages[i]);
+                final ArrayList<String> locales = ResourcesHelper.getStringArrayAsArrayList(context, R.array.locale_array);
                 DialogHelper.ListSingleChoiceDialog(context, context.getResources().getString(R.string.signup_activity_languages_field_error), languagesList, context.getResources().getString(R.string.dialog_confirm), context.getResources().getString(R.string.dialog_cancel), new MaterialDialog.ListCallbackSingleChoice() {
                     @Override
                     public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
-                        String newTranslation = getForeignTranslationFromServer(context, title, which);
-                        translation.setText(newTranslation);
+                        ServerRequestHelper.getWordTranslation(context, locales.get(which),
+                                SharedPreferencesHelper.getString(SharedPreferencesHelper.LEARNING_LANGUAGE_LOCALE), title, new Response.Listener<String>() {
+                                    @Override
+                                    public void onResponse(String response) {
+                                        translation.setText(response);
+                                    }
+                        });
                         return true;
                     }
                 }).show();
@@ -112,27 +125,23 @@ public class WordContextDialog{
         return dialog;
     }
 
-    public static void launchDialog(Context c, String word){
-        String translation = getTranslationFromServer(c, word);
-        WordContextDialog(c, word, translation).show();
+    public static void launchDialog(final Context c, final String word){
+        ServerRequestHelper.getWordTranslation(c, SharedPreferencesHelper.getString(SharedPreferencesHelper.LOCALE_KEY),
+                SharedPreferencesHelper.getString(SharedPreferencesHelper.LEARNING_LANGUAGE_LOCALE) ,word, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                WordContextDialog(c, word, response).show();
+            }
+        });
     }
 
-    public static void launchDialog(Context c, String word, String phraseContext, final ContextMenuClickListener listener){
-        String translation = getTranslationFromServer(c, word);
-        WordContextDialog(c, word, translation, phraseContext, listener).show();
-    }
-
-    public static MaterialDialog createDialog(Context c, String word, String phraseContext, final ContextMenuClickListener listener){
-        String translation = getTranslationFromServer(c, word);
-        return WordContextDialog(c, word, translation, phraseContext, listener);
-    }
-
-    private static String getTranslationFromServer(Context c, String word){
-        WordContextMenu wordData = ServerRequestHelper.getWordInformation(c, SharedPreferencesHelper.getString(SharedPreferencesHelper.LOCALE_KEY), word);
-        return wordData.translation;
-    }
-
-    private static String getForeignTranslationFromServer(Context c, String word, int language){
-        return "überseztung von "+word;
+    public static void launchDialog(final Context c, final String word, final String phraseContext, final ContextMenuClickListener listener){
+        ServerRequestHelper.getWordTranslation(c, SharedPreferencesHelper.getString(SharedPreferencesHelper.LOCALE_KEY),
+                SharedPreferencesHelper.getString(SharedPreferencesHelper.LEARNING_LANGUAGE_LOCALE), word, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                WordContextDialog(c, word, response, phraseContext, listener).show();
+            }
+        });
     }
 }

@@ -18,6 +18,7 @@ public class SharedPreferencesHelper {
     public static final String EMAIL_KEY = "EMAIL_KEY";
     public static final String NATIVE_LANGUAGE_KEY = "NATIVE_LANGUAGE_KEY";
     public static final String LEARNING_LANGUAGE_KEY = "LEARNING_LANGUAGE_KEY";
+    public static final String LEARNING_LANGUAGE_LOCALE = "LEARNING_LANGUAGE_LOCALE";
     public static final String PASSWORD_KEY = "PASSWORD_KEY";
     public static final String AUTOMATIC_AUTHENTICATION_KEY = "AUTOMATIC_AUTHENTICATION_KEY";
     public static final String LOCALE_KEY = "LOCALE_KEY";
