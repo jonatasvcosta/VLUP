@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import politcc2017.tcc_app.Entities.WordContextMenu;
+import politcc2017.tcc_app.Volley.Objects.CustomJsonArrayRequest;
 import politcc2017.tcc_app.Volley.Objects.CustomJsonObjectRequest;
 
 
@@ -101,7 +102,7 @@ public class ServerRequestHelper {
         AppSingleton.getInstance(c).addToRequestQueue(request_json, ServerConstants.JSON_TAG + relativeURL);
     }
 
-    public static void getAuthorizedJSONRequest(Context c, String relativeURL, JSONObject params, final Response.Listener<JSONObject> listener){
+    public static void getAuthorizedJSONRequest(Context c, String relativeURL, JSONObject params, final Response.Listener<JSONObject> listener) {
         CustomJsonObjectRequest request_json = new CustomJsonObjectRequest(ServerToken, Request.Method.GET, ServerConstants.BASE_URL + relativeURL, params,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -114,6 +115,23 @@ public class ServerRequestHelper {
                 VolleyLog.e("Error: ", error.getMessage());
             }
         });
+        AppSingleton.getInstance(c).addToRequestQueue(request_json, ServerConstants.JSON_TAG + relativeURL);
+    }
+
+    public static void getAuthorizedJSONArrayRequest(Context c, String relativeURL, JSONArray params, final Response.Listener<JSONArray> listener){
+        CustomJsonArrayRequest request_json = new CustomJsonArrayRequest(ServerToken, Request.Method.GET, ServerConstants.BASE_URL + relativeURL, params,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        listener.onResponse(response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        VolleyLog.e("Error: ", error.getMessage());
+                    }
+                });
 
         AppSingleton.getInstance(c).addToRequestQueue(request_json, ServerConstants.JSON_TAG + relativeURL);
     }
