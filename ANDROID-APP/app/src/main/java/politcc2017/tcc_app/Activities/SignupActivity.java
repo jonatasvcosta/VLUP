@@ -81,7 +81,6 @@ public class SignupActivity extends AppCompatActivity implements LocationListene
 
     protected void getToken(final MaterialDialog dialog){
         HashMap<String, String> params = new HashMap<String, String>();
-
         params.put(ServerConstants.USERNAME_KEY, "root");
         params.put(ServerConstants.PASSWORD_KEY, "password");
         ServerRequestHelper.postJSONRequest(getApplicationContext(), ServerConstants.AUTHENTICATION_ENDPOINT, params, new Response.Listener<JSONObject>() {
@@ -109,8 +108,8 @@ public class SignupActivity extends AppCompatActivity implements LocationListene
         params.put(ServerConstants.NAME_KEY, user.name);
         params.put(ServerConstants.NATIVE_LANGUAGE_KEY, locales.get(user.nativeLanguage));
         params.put(ServerConstants.LEARNING_LANGUAGE_KEY, locales.get(user.learningLanguage));
-        params.put(ServerConstants.LATITUDE_KEY, 0);
-        params.put(ServerConstants.LONGITUDE_KEY, 0);
+        params.put(ServerConstants.LATITUDE_KEY, user.latitude);
+        params.put(ServerConstants.LONGITUDE_KEY, user.longitude);
 
         ServerRequestHelper.postAuthorizedJSONRequest(getApplicationContext(), ServerConstants.SIGNUP_ENDPOINT, new JSONObject(params), new Response.Listener<JSONObject>() {
             @Override

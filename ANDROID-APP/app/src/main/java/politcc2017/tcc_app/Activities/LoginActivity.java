@@ -8,14 +8,25 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 
 import politcc2017.tcc_app.Components.CustomButton;
 import politcc2017.tcc_app.Components.CustomEditText;
 import politcc2017.tcc_app.Components.Helpers.DialogHelper;
 import politcc2017.tcc_app.Components.Helpers.SharedPreferencesHelper;
+import politcc2017.tcc_app.Components.WordContextDialog;
 import politcc2017.tcc_app.R;
+import politcc2017.tcc_app.Volley.ServerConstants;
+import politcc2017.tcc_app.Volley.ServerRequestHelper;
 
 /**
  * Created by Jonatas on 25/10/2016.
@@ -51,12 +62,7 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(validateLogin()){
-                    if(mCheckBox.isChecked()) SharedPreferencesHelper.addBoolean(SharedPreferencesHelper.AUTOMATIC_AUTHENTICATION_KEY, true);
-                    else SharedPreferencesHelper.addBoolean(SharedPreferencesHelper.AUTOMATIC_AUTHENTICATION_KEY, false);
-                    startHomeActivity();
-                }
-                else errorDialog.show();
+                validateLogin();
             }
         });
         checkboxContainer.setOnClickListener(new View.OnClickListener() {
@@ -74,14 +80,26 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    protected boolean validateLogin(){
+    protected void validateLogin(){
         MaterialDialog dialog = DialogHelper.ProgressDialog(LoginActivity.this, getResources().getString(R.string.dialog_loading_title));
         dialog.show();
-
-        //Make authentication call here!
-
+        HashMap<String, String> params = new HashMap<String, String>();
+        params.put(ServerConstants.USERNAME_KEY, emailEditText.getText());
+        params.put(ServerConstants.PASSWORD_KEY, passwordEditText.getText());
+        ServerRequestHelper.postJSONRequest(getApplicationContext(), ServerConstants.AUTHENTICATION_ENDPOINT, params, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                if(mCheckBox.isChecked()) SharedPreferencesHelper.addBoolean(SharedPreferencesHelper.AUTOMATIC_AUTHENTICATION_KEY, true);
+                else SharedPreferencesHelper.addBoolean(SharedPreferencesHelper.AUTOMATIC_AUTHENTICATION_KEY, false);
+                startHomeActivity();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                errorDialog.show();
+            }
+        });
         dialog.dismiss();
-        return true;
     }
 
     protected void startHomeActivity(){

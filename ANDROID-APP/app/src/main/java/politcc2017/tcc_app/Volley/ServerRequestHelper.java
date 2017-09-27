@@ -85,7 +85,7 @@ public class ServerRequestHelper {
         imageAbsoluteURLRequest(c, completeURL, responseListener);
     }
 
-    public static void postAuthorizedJSONRequest(Context c, String relativeURL, JSONObject params, final Response.Listener<JSONObject> listener){
+    public static void postAuthorizedJSONRequest(Context c, String relativeURL, JSONObject params, final Response.Listener<JSONObject> listener, final Response.ErrorListener errorListener){
         CustomJsonObjectRequest request_json = new CustomJsonObjectRequest(ServerToken, Request.Method.POST, ServerConstants.BASE_URL + relativeURL, params,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -96,10 +96,15 @@ public class ServerRequestHelper {
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.e("Error: ", error.getMessage());
+                if(errorListener != null) errorListener.onErrorResponse(error);
             }
         });
 
         AppSingleton.getInstance(c).addToRequestQueue(request_json, ServerConstants.JSON_TAG + relativeURL);
+    }
+
+    public static void postAuthorizedJSONRequest(Context c, String relativeURL, JSONObject params, final Response.Listener<JSONObject> listener){
+        postAuthorizedJSONRequest(c, relativeURL, params, listener, null);
     }
 
     public static void getAuthorizedJSONRequest(Context c, String relativeURL, JSONObject params, final Response.Listener<JSONObject> listener) {
@@ -136,7 +141,7 @@ public class ServerRequestHelper {
         AppSingleton.getInstance(c).addToRequestQueue(request_json, ServerConstants.JSON_TAG + relativeURL);
     }
 
-    public static void postJSONRequest(Context c, String relativeURL, HashMap<String, String> params, final Response.Listener<JSONObject> listener){
+    public static void postJSONRequest(Context c, String relativeURL, HashMap<String, String> params, final Response.Listener<JSONObject> listener, final Response.ErrorListener errorListener) {
         JsonObjectRequest request_json = new JsonObjectRequest(ServerConstants.BASE_URL+relativeURL, new JSONObject(params),
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -147,9 +152,13 @@ public class ServerRequestHelper {
             @Override
             public void onErrorResponse(VolleyError error) {
                 VolleyLog.e("Error: ", error.getMessage());
+                if(errorListener != null) errorListener.onErrorResponse(error);
             }
         });
         AppSingleton.getInstance(c).addToRequestQueue(request_json, ServerConstants.JSON_TAG+relativeURL);
+    }
+    public static void postJSONRequest(Context c, String relativeURL, HashMap<String, String> params, final Response.Listener<JSONObject> listener){
+        postJSONRequest(c, relativeURL, params,listener, null);
     }
 
 
