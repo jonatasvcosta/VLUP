@@ -19,10 +19,17 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.jar.Attributes;
 
 import politcc2017.tcc_app.Components.CustomSearchToolbar;
 import politcc2017.tcc_app.Components.Helpers.DialogHelper;
@@ -36,6 +43,7 @@ import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.ViewHolderType;
 import politcc2017.tcc_app.Components.WordContextDialog;
 import politcc2017.tcc_app.Entities.WordContextMenu;
 import politcc2017.tcc_app.R;
+import politcc2017.tcc_app.Volley.ServerConstants;
 import politcc2017.tcc_app.Volley.ServerRequestHelper;
 
 /**
@@ -122,25 +130,11 @@ public class NavigateActivity extends BaseActivity implements View.OnClickListen
                 String selectedWord = clipboard.getText().toString();
                 if(!contextWordDialogOpened) {
                     contextWordDialogOpened = true;
-                    WordContextMenu wordData = ServerRequestHelper.getWordInformation(getBaseContext(), SharedPreferencesHelper.getString(SharedPreferencesHelper.LOCALE_KEY), selectedWord);
-                    MaterialDialog dialog = WordContextDialog.createDialog(NavigateActivity.this, selectedWord, "", new ContextMenuClickListener() {
-                        @Override
-                        public void onClick(View v, String action) {
-                            Toast.makeText(getBaseContext(), action, Toast.LENGTH_SHORT).show();
-                        }
-
-                        @Override
-                        public void onClick(View view) {
-
-                        }
-                    });
-                    dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                        @Override
-                        public void onDismiss(DialogInterface dialogInterface) {
-                            contextWordDialogOpened = false;
-                        }
-                    });
-                    dialog.show();
+                    try {
+                        WordContextDialog.launchDialog(NavigateActivity.this, selectedWord);
+                        contextWordDialogOpened = false;
+                    }
+                    catch (Exception e){}
                 }
             }
         });
@@ -178,37 +172,45 @@ public class NavigateActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void SetSuggestionListData(){
-        GenericData data = new GenericData();
+        ServerRequestHelper.getAuthorizedJSONArrayRequest(getApplicationContext(), ServerConstants.WEBSITES_LIST_ENDPOINT, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                PopulateRecyclerView(response);
+            }
+        });
+    }
 
-        //These fake data will be replaced by data from server:
+    private void PopulateRecyclerView(JSONArray response){
+        GenericData data = new GenericData();
         ArrayList<String> linkArray = new ArrayList<>();
         ArrayList<String> titleArray = new ArrayList<>();
         ArrayList<String> descriptionArray = new ArrayList<>();
         ArrayList<String> imageArray = new ArrayList<>();
 
-        linkArray.add("http://www.bbc.com/news");
-        titleArray.add("BBC");
-        descriptionArray.add("A British Broadcasting Corporation é uma emissora pública de rádio e televisão do Reino Unido fundada em 1922. Possui uma boa reputação nacional e internacional. Por vezes, é chamada afetuosamente pelos ingleses como Beeb, The Corporation ou Auntie.");
-        imageArray.add("https://www.bbc.co.uk/news/special/2015/newsspec_11063/brasil_1024x576.png");
-        linkArray.add("http://www.dw.com/en/top-stories/s-9097");
-        titleArray.add("Deutsche Welle");
-        descriptionArray.add("Deutsche Welle é uma empresa de radiodifusão da Alemanha, com sedes em Bonn e Berlim, que transmite para o exterior programas de rádio, além de oferecer uma programação televisiva e um amplo portal de conteúdo online em 30 línguas.");
-        imageArray.add("http://2.bp.blogspot.com/-oK-e8hUeW1M/Tyfi-bDXxiI/AAAAAAAAD_o/h5Msp1u-tLs/s1600/Deutsche+Welle+logo.png");
-        linkArray.add("https://www.nytimes.com/");
-        titleArray.add("The New York Times");
-        descriptionArray.add("The New York Times: Find breaking news, multimedia, reviews & opinion on Washington, business, sports, movies, travel, books, jobs, education, real estate...");
-        imageArray.add("http://vignette4.wikia.nocookie.net/turtledove/images/9/9a/New_York_Times_logo_500.gif/revision/latest?cb=20151126221853");
-        linkArray.add("https://www.bloomberg.com/");
-        titleArray.add("Bloomberg");
-        descriptionArray.add("Bloomberg delivers business and markets news, data, analysis, and video to the world, featuring stories from Businessweek and Bloomberg News.");
-        imageArray.add("http://www.coinbuzz.com/wp-content/uploads/2014/05/Bloomberg.png");
+        for(int i = 0; i < response.length(); i++){
+            JSONObject website = null;
+            try {
+                website = (JSONObject) response.get(i);
+                linkArray.add(website.getString("url"));
+                titleArray.add(website.getString("name"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        //descriptionArray.add("A British Broadcasting Corporation é uma emissora pública de rádio e televisão do Reino Unido fundada em 1922. Possui uma boa reputação nacional e internacional. Por vezes, é chamada afetuosamente pelos ingleses como Beeb, The Corporation ou Auntie.");
+        //imageArray.add("https://www.bbc.co.uk/news/special/2015/newsspec_11063/brasil_1024x576.png");
+        //descriptionArray.add("Deutsche Welle é uma empresa de radiodifusão da Alemanha, com sedes em Bonn e Berlim, que transmite para o exterior programas de rádio, além de oferecer uma programação televisiva e um amplo portal de conteúdo online em 30 línguas.");
+        //imageArray.add("http://2.bp.blogspot.com/-oK-e8hUeW1M/Tyfi-bDXxiI/AAAAAAAAD_o/h5Msp1u-tLs/s1600/Deutsche+Welle+logo.png");
+        //descriptionArray.add("The New York Times: Find breaking news, multimedia, reviews & opinion on Washington, business, sports, movies, travel, books, jobs, education, real estate...");
+        //imageArray.add("http://vignette4.wikia.nocookie.net/turtledove/images/9/9a/New_York_Times_logo_500.gif/revision/latest?cb=20151126221853");
+        //descriptionArray.add("Bloomberg delivers business and markets news, data, analysis, and video to the world, featuring stories from Businessweek and Bloomberg News.");
+        //imageArray.add("http://www.coinbuzz.com/wp-content/uploads/2014/05/Bloomberg.png");
 
         data.addStringsToAllCells(GenericData.SUGGESTION_ITEM_LINK, linkArray);
         data.addStringsToAllCells(GenericData.SUGGESTION_ITEM_TITLE, titleArray);
         data.addStringsToAllCells(GenericData.SUGGESTION_ITEM_DESCRIPTION, descriptionArray);
         data.addStringsToAllCells(GenericData.SUGGESTION_ITEM_IMAGE, imageArray);
-
-        //end of fake data
 
         mAdapter = new GenericAdapter(data, ViewHolderType.BROWSER_SUGGESTION_ITEM_VIEW_HOLDER);
         sitesRecyclerView.setAdapter(mAdapter);

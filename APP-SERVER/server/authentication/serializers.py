@@ -17,13 +17,11 @@ class UserProfileSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source='user.username', read_only=True)
     password = serializers.CharField(source='user.password', write_only=True)
     email = serializers.EmailField(source='user.email')
-    first_name = serializers.CharField(source='user.first_name')
-    last_name = serializers.CharField(source='user.last_name')
 
     class Meta:
         model = UserProfile
         fields = (
-            'id', 'username', 'email', 'password', 'first_name', 'last_name',
+            'id', 'username', 'email', 'password',
             'name', 'native_language', 'learning_language',
             'latitude', 'longitude',
             'created_at', 'updated_at',

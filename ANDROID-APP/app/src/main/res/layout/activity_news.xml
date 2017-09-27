@@ -32,30 +32,66 @@
             android:paddingRight="@dimen/margin_medium"
             android:paddingLeft="@dimen/margin_medium"
             android:layout_height="match_parent">
-        <politcc2017.tcc_app.Components.CustomTextView
-            android:id="@+id/activity_news_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            style="@style/TextMediumGray"
-            android:layout_marginTop="@dimen/margin_large"
-            android:paddingBottom="100dp"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas hendrerit dolor in tellus congue, vel semper enim sagittis. Ut efficitur convallis enim sed rhoncus. Donec a libero a metus mattis maximus nec non est. Mauris aliquet facilisis urna non lacinia. Phasellus convallis turpis et est egestas vulputate. Suspendisse rutrum libero justo, in semper lorem ullamcorper nec. Pellentesque consectetur nibh sed quam vulputate pretium. Pellentesque et sem id elit mollis dignissim at in ex. Pellentesque a luctus orci. Curabitur et pretium velit, hendrerit mollis turpis. Proin eu lobortis nulla, sit amet convallis tellus. Sed elementum lacus quis sapien efficitur, in feugiat elit ullamcorper. Aliquam hendrerit diam vel leo consequat ullamcorper. In feugiat urna sed enim tristique accumsan.
+            <politcc2017.tcc_app.Components.CustomTextView
+                android:id="@+id/activity_news_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                style="@style/TextMediumGray"
+                android:layout_marginTop="@dimen/margin_large"
+                android:paddingBottom="100dp"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas hendrerit dolor in tellus congue, vel semper enim sagittis. Ut efficitur convallis enim sed rhoncus. Donec a libero a metus mattis maximus nec non est. Mauris aliquet facilisis urna non lacinia. Phasellus convallis turpis et est egestas vulputate. Suspendisse rutrum libero justo, in semper lorem ullamcorper nec. Pellentesque consectetur nibh sed quam vulputate pretium. Pellentesque et sem id elit mollis dignissim at in ex. Pellentesque a luctus orci. Curabitur et pretium velit, hendrerit mollis turpis. Proin eu lobortis nulla, sit amet convallis tellus. Sed elementum lacus quis sapien efficitur, in feugiat elit ullamcorper. Aliquam hendrerit diam vel leo consequat ullamcorper. In feugiat urna sed enim tristique accumsan.
     Donec ullamcorper orci sed placerat pharetra. Nunc laoreet velit a eros elementum ultricies. Nulla eleifend accumsan eros nec accumsan. Nam aliquet mi et ex sodales, sed feugiat ligula vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Ut quis nisl ullamcorper, pellentesque urna ac, dignissim ante. Suspendisse facilisis eros metus, eu commodo eros volutpat sed. In tristique ligula et purus pretium ullamcorper. Curabitur a condimentum purus. Sed fermentum, nunc tincidunt volutpat porta, nibh justo tincidunt quam, non auctor mauris eros nec arcu. Duis euismod ut tortor vitae fringilla. Nunc iaculis magna a facilisis pellentesque. In imperdiet cursus neque, quis commodo velit pulvinar sit amet. Aenean at erat ac nisi dapibus mattis vel quis dolor. Maecenas vitae risus pharetra, consectetur nisi sed, elementum urna." />
         </ScrollView>
     </LinearLayout>
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:id="@+id/news_activity_rated_good"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:visibility="gone"
+        android:src="@drawable/ic_happy"
+        fab:fab_type="mini"
+        fab:fab_title="@string/rating_good"
+        fab:fab_colorNormal="#ccff66"
+        fab:fab_colorPressed="#88cc00"/>
+
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:id="@+id/news_activity_rated_neutral"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:visibility="gone"
+        fab:fab_type="mini"
+        android:src="@drawable/ic_neutral"
+        fab:fab_title="@string/rating_medium"
+        fab:fab_colorNormal="#ffe066"
+        fab:fab_colorPressed="#e6b800"/>
+
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:id="@+id/news_activity_rated_bad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:visibility="gone"
+        android:src="@drawable/ic_sad"
+        fab:fab_type="mini"
+        fab:fab_title="@string/rating_bad"
+        fab:fab_colorNormal="#ff3333"
+        fab:fab_colorPressed="#b30000"/>
+
     <com.getbase.floatingactionbutton.FloatingActionsMenu
         android:visibility="gone"
         android:id="@+id/news_activity_rating_floating_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
         fab:fab_addButtonColorNormal="@color/cyan"
         fab:fab_addButtonColorPressed="@color/cyan_darker"
         fab:fab_addButtonPlusIconColor="@color/white"
         fab:fab_labelStyle="@style/menu_labels_style"
         fab:fab_addButtonSize="normal"
-        fab:fab_labelsPosition="left"
-        android:layout_gravity="bottom|right">
+        fab:fab_labelsPosition="left">
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/news_activity_add_bookshelf_btn"

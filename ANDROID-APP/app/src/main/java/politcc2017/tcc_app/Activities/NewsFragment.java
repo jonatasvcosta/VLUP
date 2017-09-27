@@ -43,8 +43,10 @@ public class NewsFragment extends Fragment{
     private RecyclerView mRecyclerView;
     private FloatingActionsMenu ratingMenu;
     private GenericAdapter mAdapter;
-    private FloatingActionButton addBookshelfFAB, rateGoodFAB, rateMediumFAB, rateBadFAB;
+    private FloatingActionButton addBookshelfFAB, rateGoodFAB, rateMediumFAB, rateBadFAB, fabRatedGood, fabRatedMedium, fabRatedBad;
     private FragmentListener listener;
+    private long referenceTime;
+
     public NewsFragment() {
         // Required empty public constructor
     }
@@ -63,6 +65,7 @@ public class NewsFragment extends Fragment{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.activity_news, container, false);
+        referenceTime = System.currentTimeMillis();
         mSearchToolbar = (CustomSearchToolbar) v.findViewById(R.id.news_activity_search_toolbar);
         mRecyclerView = (RecyclerView) v.findViewById(R.id.news_activity_trendingtopics_recyclerview);
         ratingMenu = (FloatingActionsMenu) v.findViewById(R.id.news_activity_rating_floating_menu);
@@ -70,6 +73,9 @@ public class NewsFragment extends Fragment{
         rateGoodFAB = (FloatingActionButton) v.findViewById(R.id.news_activity_rate_good_btn);
         rateMediumFAB = (FloatingActionButton) v.findViewById(R.id.news_activity_rate_neutral_btn);
         rateBadFAB = (FloatingActionButton) v.findViewById(R.id.news_activity_rate_bad_btn);
+        fabRatedGood = (FloatingActionButton) v.findViewById(R.id.news_activity_rated_good);
+        fabRatedMedium = (FloatingActionButton) v.findViewById(R.id.news_activity_rated_neutral);
+        fabRatedBad = (FloatingActionButton) v.findViewById(R.id.news_activity_rated_bad);
         mRecyclerView.setVisibility(View.VISIBLE);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mSearchToolbar.setAutoCompleteSearchBar();
@@ -89,6 +95,10 @@ public class NewsFragment extends Fragment{
         mSearchToolbar.registerRecyclerViewScrollListener(mRecyclerView, displayMetrics.heightPixels);
         if(listener != null) listener.onMessageSent("NEWS_FRAGMENT", "READY");
         return v;
+    }
+
+    private long getTimePassed(){
+        return System.currentTimeMillis() - referenceTime;
     }
 
     private void loadTrendingTopics(GenericData data){
@@ -132,22 +142,28 @@ public class NewsFragment extends Fragment{
         rateGoodFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "God!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Good! - " +(getTimePassed()/1000)+ " s", Toast.LENGTH_SHORT).show();
                 if(listener != null) listener.onMessageSent("NEWS_FRAGMENT", SqlHelper.RULE_RATE_TEXT);
+                fabRatedGood.setVisibility(View.VISIBLE);
+                ratingMenu.setVisibility(View.GONE);
             }
         });
         rateMediumFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Medium!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Medium! - " +(getTimePassed()/1000)+ " s", Toast.LENGTH_SHORT).show();
                 if(listener != null) listener.onMessageSent("NEWS_FRAGMENT", SqlHelper.RULE_RATE_TEXT);
+                fabRatedMedium.setVisibility(View.VISIBLE);
+                ratingMenu.setVisibility(View.GONE);
             }
         });
         rateBadFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Bad!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Bad! - "+(getTimePassed()/1000)+ " s", Toast.LENGTH_SHORT).show();
                 if(listener != null) listener.onMessageSent("NEWS_FRAGMENT", SqlHelper.RULE_RATE_TEXT);
+                fabRatedBad.setVisibility(View.VISIBLE);
+                ratingMenu.setVisibility(View.GONE);
             }
         });
         mSearchToolbar.registerMicrophoneListener(new View.OnClickListener() {

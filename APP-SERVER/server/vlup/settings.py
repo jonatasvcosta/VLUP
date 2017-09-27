@@ -26,7 +26,7 @@ SECRET_KEY = 'kgq^23yr5a%d^*!e#=9k+z7pbip$_cn*#m83hp1*_30ssdna-j'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS =['ec2-184-73-142-34.compute-1.amazonaws.com', 'localhost', '127.0.0.1', '184.73.142.34']
+ALLOWED_HOSTS =['ec2-34-229-129-100.compute-1.amazonaws.com', 'localhost', '127.0.0.1', '34.229.129.100', '172.31.22.225']
 
 # Application definition
 
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_filters',
     'rest_framework_swagger',
     'rest_framework',
     'authentication',
@@ -108,6 +109,9 @@ AUTH_PASSWORD_VALIDATORS = [
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',

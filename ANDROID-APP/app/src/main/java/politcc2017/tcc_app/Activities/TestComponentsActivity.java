@@ -135,18 +135,6 @@ public class TestComponentsActivity extends BaseActivity {
             }
         });
 
-        jsonButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ServerRequestHelper.getJson(getApplicationContext(), "volleyJsonObject", new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Toast.makeText(getApplicationContext(), response.toString(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
-
         jsonArrayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
