@@ -46,7 +46,7 @@ public class ServerRequestHelper {
         params.put(ServerConstants.ORIGINAL_LANGUAGE_KEY, originalLanguage);
         params.put(ServerConstants.FINAL_LANGUAGE_KEY, finalLanguage);
         final String[] translation = new String[]{word};
-        postAuthorizedJSONRequest(c, ServerConstants.TRANSLATION_ENDPOINT, params ,new Response.Listener<JSONObject>() {
+        postAuthorizedJSONRequest(c, ServerConstants.TRANSLATION_ENDPOINT, new JSONObject(params) ,new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
@@ -85,8 +85,8 @@ public class ServerRequestHelper {
         imageAbsoluteURLRequest(c, completeURL, responseListener);
     }
 
-    public static void postAuthorizedJSONRequest(Context c, String relativeURL, HashMap<String, String> params, final Response.Listener<JSONObject> listener){
-        CustomJsonObjectRequest request_json = new CustomJsonObjectRequest(ServerToken, Request.Method.POST, ServerConstants.BASE_URL + relativeURL, new JSONObject(params),
+    public static void postAuthorizedJSONRequest(Context c, String relativeURL, JSONObject params, final Response.Listener<JSONObject> listener){
+        CustomJsonObjectRequest request_json = new CustomJsonObjectRequest(ServerToken, Request.Method.POST, ServerConstants.BASE_URL + relativeURL, params,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {

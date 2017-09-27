@@ -14,12 +14,18 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.Response;
 
 import net.alexandroid.gps.GpsStatusDetector;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
 
 import politcc2017.tcc_app.Common.ResourcesHelper;
@@ -28,6 +34,7 @@ import politcc2017.tcc_app.Components.CustomEditText;
 import politcc2017.tcc_app.Components.CustomPicker;
 import politcc2017.tcc_app.Components.Helpers.DialogHelper;
 import politcc2017.tcc_app.Components.Helpers.SharedPreferencesHelper;
+import politcc2017.tcc_app.Components.WordContextDialog;
 import politcc2017.tcc_app.Entities.User;
 import politcc2017.tcc_app.R;
 import politcc2017.tcc_app.Volley.JSONHelper;
@@ -69,9 +76,45 @@ public class SignupActivity extends AppCompatActivity implements LocationListene
         user.email = emailEditText.getText();
         user.password = passwordEditText.getText();
         user.name = nameEditText.getText();
-        ServerRequestHelper.postString(getApplicationContext(), ServerConstants.SIGNUP_POST_URL, JSONHelper.objectToJSON(user), new Response.Listener<String>() {
+        getToken(loadingDialog);
+    }
+
+    protected void getToken(final MaterialDialog dialog){
+        HashMap<String, String> params = new HashMap<String, String>();
+
+        params.put(ServerConstants.USERNAME_KEY, "root");
+        params.put(ServerConstants.PASSWORD_KEY, "password");
+        ServerRequestHelper.postJSONRequest(getApplicationContext(), ServerConstants.AUTHENTICATION_ENDPOINT, params, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(String response) {
+            public void onResponse(JSONObject response) {
+                try {
+                    String token = response.get(ServerConstants.TOKEN_KEY).toString();
+                    WordContextDialog.SetToken(token);
+                    Toast.makeText(getApplicationContext(), token, Toast.LENGTH_LONG).show();
+                    postNewUser(dialog);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private void postNewUser(final MaterialDialog loadingDialog){
+        ArrayList<String> locales = ResourcesHelper.getStringArrayAsArrayList(getBaseContext(), R.array.locale_array);
+        HashMap<String, Object> params = new HashMap<>();
+        params.put(ServerConstants.EMAIL_KEY, user.email);
+        params.put(ServerConstants.PASSWORD_KEY, user.password);
+        params.put(ServerConstants.FIRST_NAME_KEY, user.name);
+        params.put(ServerConstants.LAST_NAME_KEY, user.name);
+        params.put(ServerConstants.NAME_KEY, user.name);
+        params.put(ServerConstants.NATIVE_LANGUAGE_KEY, locales.get(user.nativeLanguage));
+        params.put(ServerConstants.LEARNING_LANGUAGE_KEY, locales.get(user.learningLanguage));
+        params.put(ServerConstants.LATITUDE_KEY, 0);
+        params.put(ServerConstants.LONGITUDE_KEY, 0);
+
+        ServerRequestHelper.postAuthorizedJSONRequest(getApplicationContext(), ServerConstants.SIGNUP_ENDPOINT, new JSONObject(params), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
                 loadingDialog.dismiss();
                 startLoginActivity();
             }
