@@ -1,11 +1,8 @@
-# DASZ Server
+# VLUP Server
 
 ## Setup do ambiente
 
 Lembre de sempre usar python3
-
-- Instalação do pip: `sudo apt-get install python3-pip`
-- Atualização do pip: `pip3 install --upgrade pip`
 
 Instale Docker no seu sistema, e tenha certeza de que pode rodar o comando `docker` sem sudo:
 
@@ -19,4 +16,12 @@ http://askubuntu.com/questions/477551/how-can-i-use-docker-without-sudo
 
 ### Rodando containers
 
-- Execute: `./dev-run.sh`
+- Execute (DEV):
+
+`docker-compose -f dev.yaml build`
+`docker-compose -f dev.yaml up`
+
+- Execute (PROD):
+
+`docker-compose build`
+`docker-compose up`

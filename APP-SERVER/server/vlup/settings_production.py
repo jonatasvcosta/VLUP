@@ -23,10 +23,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'kgq^23yr5a%d^*!e#=9k+z7pbip$_cn*#m83hp1*_30ssdna-j'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS =['ec2-34-229-129-100.compute-1.amazonaws.com', 'localhost', '127.0.0.1', '34.229.129.100', '172.31.22.225']
+ALLOWED_HOSTS = [
+    'api.vlup.com.br',
+    'www.vlup.com.br',
+    'ec2-34-229-129-100.compute-1.amazonaws.com',
+    'localhost', '127.0.0.1',
+    '34.229.129.100', '172.31.22.225'
+]
 
 # Application definition
 
@@ -78,15 +83,14 @@ WSGI_APPLICATION = 'vlup.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'VLUP',
-        'USER': 'VLUP',
-        'PASSWORD': 'password',
-        'HOST': 'database',
-        'PORT': ''
+        'NAME': 'vlupdb',
+        'USER': 'vlup',
+        'PASSWORD': 'f7FWyRVwNBGH6GfUvJ5GtJ',
+        'HOST': 'database.vlup.com.br',
+        'PORT': '5432'
     }
 }
 
@@ -97,13 +101,7 @@ DATABASES = {
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    }
 ]
 
 REST_FRAMEWORK = {
