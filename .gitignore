@@ -5,6 +5,9 @@
 /build
 /captures
 .externalNativeBuild
+APP-SERVER/server/build
+APP-SERVER/server/dist
+APP-SERVER/server/mydatabase
 
 *.pyc
 __pycache__
