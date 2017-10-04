@@ -88,7 +88,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'vlupdb',
         'USER': 'vlup',
-        'PASSWORD': 'f7FWyRVwNBGH6GfUvJ5GtJ',
+        'PASSWORD': 'g9txVUyyB5Q3Es57CYneWh',
         'HOST': 'database.vlup.com.br',
         'PORT': '5432'
     }
