@@ -1,9 +1,6 @@
 #!/bin/sh
 
-echo "Waiting for database:5432..."
-until nc -z -w 2 database 5432; do sleep 1; done
 sleep 5;
-echo "Got ping!"
 
 python /app/manage.py collectstatic --noinput
 python /app/manage.py makemigrations

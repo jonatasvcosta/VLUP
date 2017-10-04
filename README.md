@@ -4,16 +4,16 @@ App de aprendizado de idiomas
 ##Conta de email do time
 Gmail:
 
-Login: **<span></span>tccpoli2017@gmail.com**
+Login: **<span></span>tccpoliusp@gmail.com**
 
-Senha: **tccpoli2017@**
+Senha: **1tccpoliusp@**
 
 ##Conta da AWS do time (cuidado)
 AWS:
 
-Login: **<span></span>tccpoli2017@gmail.com**
+Login: **<span></span>tccpoliusp@gmail.com**
 
-Senha: **tccpoli2017@**
+Senha: **1tccpoliusp@**
 
 ##Lista dos idiomas possíveis (serviço de tradução)
     'af': 'afrikaans',

@@ -9,6 +9,7 @@ RUN apk --no-cache add musl-dev linux-headers gcc postgresql-dev \
     && apk del musl-dev linux-headers gcc
 
 ENV DJANGO_PRODUCTION=false
+ENV DJANGO_SETTINGS_MODULE="vlup.settings_development"
 ENV ROOT_PASSWORD=password
 ENV GUNICORN_CMD_ARGS="--bind=0.0.0.0:8000 --workers=1"
 
