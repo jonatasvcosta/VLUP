@@ -44,7 +44,7 @@ public class SettingsActivity extends BaseActivity {
                 DialogHelper.ListSingleChoiceDialog(SettingsActivity.this, getResString(R.string.signup_activity_native_language_field), languagesList, getResString(R.string.dialog_confirm), getResString(R.string.dialog_cancel), new MaterialDialog.ListCallbackSingleChoice() {
                     @Override
                     public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
-                        SharedPreferencesHelper.addString(SharedPreferencesHelper.LOCALE_KEY, locales[which]);
+                        SharedPreferencesHelper.addString(getApplicationContext(), SharedPreferencesHelper.LOCALE_KEY, locales[which]);
                         changeAppLanguage(locales[which]);
                         return true;
                     }

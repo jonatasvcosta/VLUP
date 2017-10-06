@@ -269,7 +269,6 @@ public class BookshelfCategoryActivity extends BaseActivity {
     }
 
     private void setChangeToBookshelfCategories(){
-        SharedPreferencesHelper.Initialize(getApplicationContext());
-        SharedPreferencesHelper.addBoolean(SharedPreferencesHelper.BOOKSHELF_BD_CHANGED_KEY, true);
+        SharedPreferencesHelper.addBoolean(getApplicationContext(), SharedPreferencesHelper.BOOKSHELF_BD_CHANGED_KEY, true);
     }
 }

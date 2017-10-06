@@ -24,16 +24,17 @@ public class SharedPreferencesHelper {
     public static final String LOCALE_KEY = "LOCALE_KEY";
     public static final String BOOKSHELF_BD_CHANGED_KEY = "BOOKSHELF_BD_CHANGED_KEY";
     public static final String BOOKSHELF_BD_LOCALE_KEY = "BOOKSHELF_BD_LOCALE_KEY";
+    public static final String LANGUAGE_CHANGED_KEY = "LANGUAGE_CHANGED_KEY";
 
 
     public static void Initialize(Context context){
         mSharedPreferences = context.getSharedPreferences(USER_DATA_PREFERENCES, Context.MODE_PRIVATE);
         mEditor = mSharedPreferences.edit();
-        mEditor.putBoolean(AUTOMATIC_AUTHENTICATION_KEY, false);
         mEditor.commit();
     }
 
-    public static void addString(String key, String value){
+    public static void addString(Context c, String key, String value){
+        if(mEditor == null) Initialize(c);
         mEditor.putString(key, value);
         mEditor.commit();
     }
@@ -47,22 +48,19 @@ public class SharedPreferencesHelper {
         return mSharedPreferences.getString(key, "");
     }
 
-    public static void addInt(String key, int value){
+    public static void addInt(Context c, String key, int value){
+        if(mEditor == null) Initialize(c);
         mEditor.putInt(key, value);
         mEditor.commit();
     }
 
-    public static int getInt(String key){
-        return mSharedPreferences.getInt(key, -1);
-    }
-
-    public static int getInt(String key, Context c)
-    {
+    public static int getInt(String key, Context c){
         if(mSharedPreferences == null) mSharedPreferences = c.getSharedPreferences(USER_DATA_PREFERENCES, Context.MODE_PRIVATE);
         return mSharedPreferences.getInt(key, -1);
     }
 
-    public static void addStringArray(String key, String[] stringArray){
+    public static void addStringArray(Context c, String key, String[] stringArray){
+        if(mEditor == null) Initialize(c);
         mEditor.putStringSet(key, new HashSet<String>(Arrays.asList(stringArray)));
         mEditor.commit();
     }
@@ -73,7 +71,8 @@ public class SharedPreferencesHelper {
         return (new ArrayList<String>(hash));
     }
 
-    public static void addBoolean(String key, boolean value){
+    public static void addBoolean(Context c, String key, boolean value){
+        if(mEditor == null) Initialize(c);
         mEditor.putBoolean(key, value);
         mEditor.commit();
     }

@@ -207,8 +207,8 @@ public class SignupActivity extends AppCompatActivity implements LocationListene
     }
 
     public void SaveLanguagesChoice(){
-        SharedPreferencesHelper.addInt(SharedPreferencesHelper.LEARNING_LANGUAGE_KEY, user.learningLanguage);
-        SharedPreferencesHelper.addInt(SharedPreferencesHelper.NATIVE_LANGUAGE_KEY, user.nativeLanguage);
+        SharedPreferencesHelper.addInt(getApplicationContext(), SharedPreferencesHelper.LEARNING_LANGUAGE_KEY, user.learningLanguage);
+        SharedPreferencesHelper.addInt(getApplicationContext() , SharedPreferencesHelper.NATIVE_LANGUAGE_KEY, user.nativeLanguage);
     }
 
     public void changeAppLanguage(String loc){

@@ -82,7 +82,7 @@ public class BookshelfActivity extends BaseActivity {
         if(!appLocale.equals(bdLocale)) CleanCategories(); //if DB not changed and language is incorrect, clear and rebuild categories
         String [] bookshelfCategories = getResources().getStringArray(R.array.bookshelf_categories);
         SharedPreferencesHelper.Initialize(getApplicationContext());
-        SharedPreferencesHelper.addString(SharedPreferencesHelper.BOOKSHELF_BD_LOCALE_KEY, appLocale);
+        SharedPreferencesHelper.addString(getApplicationContext(), SharedPreferencesHelper.BOOKSHELF_BD_LOCALE_KEY, appLocale);
         Inquiry.get(this).insert(BookshelfCategory.class).values(new BookshelfCategory[]{
                 new BookshelfCategory(0 ,bookshelfCategories[0], true, false),
                 new BookshelfCategory(1 , bookshelfCategories[1]),
@@ -337,7 +337,6 @@ public class BookshelfActivity extends BaseActivity {
     }
 
     private void setChangeToBookshelfCategories(){
-        SharedPreferencesHelper.Initialize(getApplicationContext());
-        SharedPreferencesHelper.addBoolean(SharedPreferencesHelper.BOOKSHELF_BD_CHANGED_KEY, true);
+        SharedPreferencesHelper.addBoolean(getApplicationContext(), SharedPreferencesHelper.BOOKSHELF_BD_CHANGED_KEY, true);
     }
 }

@@ -212,7 +212,7 @@ public class BaseActivity extends AppCompatActivity {
     public void startOrResumeActivity(Class <? extends BaseActivity> destinationActivity, String parameter, int id, String type){
         hideRightIcons();
         Intent intent = new Intent(getBaseContext(), destinationActivity);
-        intent.addFlags(FLAG_ACTIVITY_REORDER_TO_FRONT);
+        if(!SharedPreferencesHelper.getBoolean(SharedPreferencesHelper.LANGUAGE_CHANGED_KEY, getApplicationContext()))intent.addFlags(FLAG_ACTIVITY_REORDER_TO_FRONT);
         if(parameter != null) intent.putExtra("parameter", parameter);
         if(id != -1) intent.putExtra("id", id);
         if(!type.isEmpty()) intent.putExtra("type", type);
@@ -231,7 +231,7 @@ public class BaseActivity extends AppCompatActivity {
         hideRightIcons();
         Intent intent = new Intent(getBaseContext(), destinationActivity);
         if(closeAllPreviousActivities) intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        else intent.addFlags(FLAG_ACTIVITY_REORDER_TO_FRONT);
+        else if(!SharedPreferencesHelper.getBoolean(SharedPreferencesHelper.LANGUAGE_CHANGED_KEY, getApplicationContext())) intent.addFlags(FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
     }
 
@@ -339,8 +339,8 @@ public class BaseActivity extends AppCompatActivity {
         DialogHelper.ListSingleChoiceDialog(c, getResString(R.string.signup_activity_languages_field), languagesList, getResString(R.string.dialog_confirm), getResString(R.string.dialog_cancel), new MaterialDialog.ListCallbackSingleChoice() {
             @Override
             public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
-                SharedPreferencesHelper.addInt(SharedPreferencesHelper.LEARNING_LANGUAGE_KEY, which);
-                SharedPreferencesHelper.addString(SharedPreferencesHelper.LEARNING_LANGUAGE_LOCALE, locales.get(which));
+                SharedPreferencesHelper.addInt(getApplicationContext(), SharedPreferencesHelper.LEARNING_LANGUAGE_KEY, which);
+                SharedPreferencesHelper.addString(getApplicationContext() ,SharedPreferencesHelper.LEARNING_LANGUAGE_LOCALE, locales.get(which));
                 changeLearningLanguage(which);
                 return true;
             }
@@ -362,6 +362,7 @@ public class BaseActivity extends AppCompatActivity {
         Configuration config = new Configuration();
         config.locale = locale;
         getResources().updateConfiguration(config,getResources().getDisplayMetrics());
+        SharedPreferencesHelper.addBoolean(getApplicationContext(), SharedPreferencesHelper.LANGUAGE_CHANGED_KEY, true);
         recreate();
     }
 
