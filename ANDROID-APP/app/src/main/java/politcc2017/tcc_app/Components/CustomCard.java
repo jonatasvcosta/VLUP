@@ -108,7 +108,8 @@ public class CustomCard extends LinearLayout {
     }
 
     public void filterContent(String textFilter){
-        int start = this.content.toHtml().indexOf(textFilter);
+        int start = this.content.toHtml().toLowerCase().indexOf(textFilter);
+        if(start < 0) return;
         int end = start+textFilter.length();
         String content = this.content.toHtml();
         String str = content.substring(0, start)+"<b><u>"+content.substring(start, end)+"</u></b>"+content.substring(end, content.length());
