@@ -174,7 +174,7 @@ public class VocabularyFragment extends Fragment{
         mSearchToolbar.registerMicrophoneListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //promptSpeechInput();
+                if(listener != null) listener.onMessageSent("VOCABULARY_FRAGMENT", "PROMPT_SPEECH");
             }
         });
         mAdapter.RegisterClickListener(new CellClickListener() {

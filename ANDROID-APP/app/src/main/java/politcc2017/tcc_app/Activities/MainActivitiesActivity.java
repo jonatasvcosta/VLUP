@@ -129,6 +129,8 @@ public class MainActivitiesActivity extends BaseActivity implements FragmentList
             this.reqCode = requestCode;
             this.speechInput = result.get(0);
             this.setupSearchInput = true;
+            if(reqCode == this.REQ_CODE_NEWS_SPEECH_INPUT) newsFragment.setupSpeechInput(speechInput);
+            if(reqCode == this.REQ_CODE_VOCABULARY_SPEECH_INPUT) vocabularyFragment.setupSpeechInput(speechInput);
         }
 
     }
