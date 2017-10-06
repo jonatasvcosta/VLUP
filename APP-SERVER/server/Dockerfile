@@ -10,6 +10,8 @@ RUN apk --no-cache add musl-dev linux-headers gcc postgresql-dev \
 
 ENV DJANGO_PRODUCTION=true
 ENV DJANGO_SETTINGS_MODULE="vlup.settings_production"
+ENV ROOT_PASSWORD=vluptcc
 ENV GUNICORN_CMD_ARGS="--bind=0.0.0.0:8000 --workers=4"
 
-CMD ["gunicorn", "vlup.wsgi"]
+CMD "/app/init.sh"
+
