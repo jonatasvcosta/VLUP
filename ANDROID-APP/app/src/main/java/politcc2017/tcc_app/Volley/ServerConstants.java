@@ -7,7 +7,7 @@ import com.android.volley.Request;
  */
 
 public class ServerConstants {
-    public static final String BASE_URL = "http://ec2-34-229-129-100.compute-1.amazonaws.com/";
+    public static final String BASE_URL = "http://api.vlup.com.br/";
     public static final String SIGNUP_POST_URL = BASE_URL+"signup/";
 
     public static final String STRING_TAG = "STRING_TAG";

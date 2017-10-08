@@ -37,6 +37,7 @@ public class HomeCardViewHolder extends GenericViewHolder{
         card.setVisibility(View.VISIBLE);
         adsCard.setVisibility(View.GONE);
         card.hideFavoriteIcon();
+        card.setContentMarkable();
         setListeners(listener);
     }
 

@@ -149,14 +149,13 @@ public class BaseActivity extends AppCompatActivity {
         HashMap<String, String> params = new HashMap<String, String>();
 
         params.put(ServerConstants.USERNAME_KEY, "root");
-        params.put(ServerConstants.PASSWORD_KEY, "password");
+        params.put(ServerConstants.PASSWORD_KEY, "vluptcc");
         ServerRequestHelper.postJSONRequest(getApplicationContext(), ServerConstants.AUTHENTICATION_ENDPOINT, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
                     token = response.get(ServerConstants.TOKEN_KEY).toString();
                     WordContextDialog.SetToken(token);
-                    Toast.makeText(getApplicationContext(), token, Toast.LENGTH_LONG).show();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

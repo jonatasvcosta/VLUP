@@ -121,6 +121,8 @@ public class CustomCard extends LinearLayout {
     }
 
     public void setContentMarkable(){
+        if(title != null) title.allowWordContextMenu();
+        if(categories != null) categories.allowWordContextMenu();
         content.allowWordContextMenu();
     }
 
