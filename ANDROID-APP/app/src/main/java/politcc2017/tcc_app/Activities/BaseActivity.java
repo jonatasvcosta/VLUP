@@ -89,6 +89,7 @@ public class BaseActivity extends AppCompatActivity {
         FrameLayout activityContainer = (FrameLayout) fullView.findViewById(R.id.activity_content);
         getLayoutInflater().inflate(layoutResID, activityContainer, true);
         super.setContentView(fullView);
+        setLanguage();
         drawerRecyclerView = (RecyclerView) findViewById(R.id.base_drawer_recycler_view);
         setDrawerData();
         mLayoutManager = new LinearLayoutManager(this);
@@ -355,14 +356,18 @@ public class BaseActivity extends AppCompatActivity {
         setDrawerData();
     }
 
-    public void changeAppLanguage(String loc){
+    public void changeAppLanguage(String loc, boolean recreate){
         Locale locale = new Locale(loc);
         Locale.setDefault(locale);
         Configuration config = new Configuration();
         config.locale = locale;
         getResources().updateConfiguration(config,getResources().getDisplayMetrics());
         SharedPreferencesHelper.addBoolean(getApplicationContext(), SharedPreferencesHelper.LANGUAGE_CHANGED_KEY, true);
-        recreate();
+        if(recreate) recreate();
+    }
+
+    public void changeAppLanguage(String loc){
+        changeAppLanguage(loc, true);
     }
 
     public void changeLearningLanguage(int languageIndex){
@@ -385,7 +390,7 @@ public class BaseActivity extends AppCompatActivity {
         String locale = SharedPreferencesHelper.getString(SharedPreferencesHelper.LOCALE_KEY, getBaseContext());
         if(locale != null && locale.length() > 0){
             LANGUAGE_SET = true;
-            changeAppLanguage(locale);
+            changeAppLanguage(locale, false);
         }
     }
 

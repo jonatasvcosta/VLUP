@@ -116,6 +116,10 @@ public class CustomCard extends LinearLayout {
         this.content.fromHtml(str);
     }
 
+    public String getContent(){
+        return this.content.toHtml();
+    }
+
     public void hideFavoriteIcon(){
         this.favorite.setVisibility(GONE);
     }

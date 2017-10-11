@@ -76,10 +76,10 @@ public class NavigateActivity extends BaseActivity implements View.OnClickListen
             }
         });
         DisplayMetrics displayMetrics = new DisplayMetrics();
+        SetSuggestionListData();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         searchToolbar.registerRecyclerViewScrollListener(sitesRecyclerView, displayMetrics.heightPixels);
         mWebView = (WebView) findViewById(R.id.navigate_activity_webview);
-        SetSuggestionListData();
         toolbarListIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -172,7 +172,8 @@ public class NavigateActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void SetSuggestionListData(){
-        ServerRequestHelper.getAuthorizedJSONArrayRequest(getApplicationContext(), ServerConstants.WEBSITES_LIST_ENDPOINT, null, new Response.Listener<JSONArray>() {
+        String languageQuery = "?language="+SharedPreferencesHelper.getString(SharedPreferencesHelper.LEARNING_LANGUAGE_LOCALE, getApplicationContext());
+        ServerRequestHelper.getAuthorizedJSONArrayRequest(getApplicationContext(), ServerConstants.WEBSITES_LIST_ENDPOINT+languageQuery, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 PopulateRecyclerView(response);
@@ -273,7 +274,7 @@ public class NavigateActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void handleLearningLanguageChange(){
-        Toast.makeText(getBaseContext(), "Language was changed, NavigateActivity must reload all the content", Toast.LENGTH_SHORT).show();
+        SetSuggestionListData();
     }
 
     private void loadNewWebsite(){
