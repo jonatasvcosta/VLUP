@@ -89,6 +89,7 @@ public class BaseActivity extends AppCompatActivity {
         FrameLayout activityContainer = (FrameLayout) fullView.findViewById(R.id.activity_content);
         getLayoutInflater().inflate(layoutResID, activityContainer, true);
         super.setContentView(fullView);
+        setLanguage();
         drawerRecyclerView = (RecyclerView) findViewById(R.id.base_drawer_recycler_view);
         setDrawerData();
         mLayoutManager = new LinearLayoutManager(this);
@@ -149,14 +150,13 @@ public class BaseActivity extends AppCompatActivity {
         HashMap<String, String> params = new HashMap<String, String>();
 
         params.put(ServerConstants.USERNAME_KEY, "root");
-        params.put(ServerConstants.PASSWORD_KEY, "password");
+        params.put(ServerConstants.PASSWORD_KEY, "vluptcc");
         ServerRequestHelper.postJSONRequest(getApplicationContext(), ServerConstants.AUTHENTICATION_ENDPOINT, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
                     token = response.get(ServerConstants.TOKEN_KEY).toString();
                     WordContextDialog.SetToken(token);
-                    Toast.makeText(getApplicationContext(), token, Toast.LENGTH_LONG).show();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -212,7 +212,7 @@ public class BaseActivity extends AppCompatActivity {
     public void startOrResumeActivity(Class <? extends BaseActivity> destinationActivity, String parameter, int id, String type){
         hideRightIcons();
         Intent intent = new Intent(getBaseContext(), destinationActivity);
-        intent.addFlags(FLAG_ACTIVITY_REORDER_TO_FRONT);
+        if(!SharedPreferencesHelper.getBoolean(SharedPreferencesHelper.LANGUAGE_CHANGED_KEY, getApplicationContext()))intent.addFlags(FLAG_ACTIVITY_REORDER_TO_FRONT);
         if(parameter != null) intent.putExtra("parameter", parameter);
         if(id != -1) intent.putExtra("id", id);
         if(!type.isEmpty()) intent.putExtra("type", type);
@@ -231,7 +231,7 @@ public class BaseActivity extends AppCompatActivity {
         hideRightIcons();
         Intent intent = new Intent(getBaseContext(), destinationActivity);
         if(closeAllPreviousActivities) intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        else intent.addFlags(FLAG_ACTIVITY_REORDER_TO_FRONT);
+        else if(!SharedPreferencesHelper.getBoolean(SharedPreferencesHelper.LANGUAGE_CHANGED_KEY, getApplicationContext())) intent.addFlags(FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
     }
 
@@ -339,8 +339,8 @@ public class BaseActivity extends AppCompatActivity {
         DialogHelper.ListSingleChoiceDialog(c, getResString(R.string.signup_activity_languages_field), languagesList, getResString(R.string.dialog_confirm), getResString(R.string.dialog_cancel), new MaterialDialog.ListCallbackSingleChoice() {
             @Override
             public boolean onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
-                SharedPreferencesHelper.addInt(SharedPreferencesHelper.LEARNING_LANGUAGE_KEY, which);
-                SharedPreferencesHelper.addString(SharedPreferencesHelper.LEARNING_LANGUAGE_LOCALE, locales.get(which));
+                SharedPreferencesHelper.addInt(getApplicationContext(), SharedPreferencesHelper.LEARNING_LANGUAGE_KEY, which);
+                SharedPreferencesHelper.addString(getApplicationContext() ,SharedPreferencesHelper.LEARNING_LANGUAGE_LOCALE, locales.get(which));
                 changeLearningLanguage(which);
                 return true;
             }
@@ -356,13 +356,18 @@ public class BaseActivity extends AppCompatActivity {
         setDrawerData();
     }
 
-    public void changeAppLanguage(String loc){
+    public void changeAppLanguage(String loc, boolean recreate){
         Locale locale = new Locale(loc);
         Locale.setDefault(locale);
         Configuration config = new Configuration();
         config.locale = locale;
         getResources().updateConfiguration(config,getResources().getDisplayMetrics());
-        recreate();
+        SharedPreferencesHelper.addBoolean(getApplicationContext(), SharedPreferencesHelper.LANGUAGE_CHANGED_KEY, true);
+        if(recreate) recreate();
+    }
+
+    public void changeAppLanguage(String loc){
+        changeAppLanguage(loc, true);
     }
 
     public void changeLearningLanguage(int languageIndex){
@@ -385,7 +390,7 @@ public class BaseActivity extends AppCompatActivity {
         String locale = SharedPreferencesHelper.getString(SharedPreferencesHelper.LOCALE_KEY, getBaseContext());
         if(locale != null && locale.length() > 0){
             LANGUAGE_SET = true;
-            changeAppLanguage(locale);
+            changeAppLanguage(locale, false);
         }
     }
 

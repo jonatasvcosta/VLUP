@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -162,6 +163,8 @@ public class CustomSearchToolbar extends LinearLayout {
             @Override
             public void onClick(View view) {
                 if(searchListener != null) searchListener.onClick(searchIcon);
+                InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
             }
         });
         microphoneIcon.setOnClickListener(new OnClickListener() {

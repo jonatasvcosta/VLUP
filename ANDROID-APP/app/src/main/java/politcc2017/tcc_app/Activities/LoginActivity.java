@@ -49,15 +49,15 @@ public class LoginActivity extends AppCompatActivity {
         mCheckBox = (CheckBox) findViewById(R.id.login_activity_remain_conected_checkbox);
         checkboxContainer = (LinearLayout) findViewById(R.id.login_activity_checkbox_container);
 
-        if(SharedPreferencesHelper.getBoolean(SharedPreferencesHelper.AUTOMATIC_AUTHENTICATION_KEY, getApplicationContext())) startHomeActivity(); //the user was previously authenticated
-
+        SharedPreferencesHelper.Initialize(getApplicationContext());
+        SharedPreferencesHelper.addBoolean(getApplicationContext(), SharedPreferencesHelper.LANGUAGE_CHANGED_KEY, false);
         Intent intent = getIntent();
         if(intent != null){
             if(intent.getStringExtra(SharedPreferencesHelper.EMAIL_KEY) != null) emailEditText.setText(intent.getStringExtra(SharedPreferencesHelper.EMAIL_KEY));
             if(intent.getStringExtra(SharedPreferencesHelper.PASSWORD_KEY) != null) passwordEditText.setText(intent.getStringExtra(SharedPreferencesHelper.PASSWORD_KEY));
         }
         errorDialog = DialogHelper.ErrorDialog(LoginActivity.this, R.drawable.ic_wrong, getResources().getString(R.string.login_activity_invalid_user_error), getResources().getString(R.string.dialog_confirm));
-        SharedPreferencesHelper.Initialize(getApplicationContext());
+
         if(SharedPreferencesHelper.getBoolean(SharedPreferencesHelper.AUTOMATIC_AUTHENTICATION_KEY, getApplicationContext())) startHomeActivity();
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +81,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     protected void validateLogin(){
+        startHomeActivity();
         MaterialDialog dialog = DialogHelper.ProgressDialog(LoginActivity.this, getResources().getString(R.string.dialog_loading_title));
         dialog.show();
         HashMap<String, String> params = new HashMap<String, String>();
@@ -89,8 +90,8 @@ public class LoginActivity extends AppCompatActivity {
         ServerRequestHelper.postJSONRequest(getApplicationContext(), ServerConstants.AUTHENTICATION_ENDPOINT, params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                if(mCheckBox.isChecked()) SharedPreferencesHelper.addBoolean(SharedPreferencesHelper.AUTOMATIC_AUTHENTICATION_KEY, true);
-                else SharedPreferencesHelper.addBoolean(SharedPreferencesHelper.AUTOMATIC_AUTHENTICATION_KEY, false);
+                if(mCheckBox.isChecked()) SharedPreferencesHelper.addBoolean(getApplicationContext(), SharedPreferencesHelper.AUTOMATIC_AUTHENTICATION_KEY, true);
+                else SharedPreferencesHelper.addBoolean(getApplicationContext(), SharedPreferencesHelper.AUTOMATIC_AUTHENTICATION_KEY, false);
                 startHomeActivity();
             }
         }, new Response.ErrorListener() {

@@ -23,6 +23,7 @@ import java.util.ArrayList;
 
 import politcc2017.tcc_app.Activities.Bookshelf.BookshelfActivity;
 import politcc2017.tcc_app.Common.ResourcesHelper;
+import politcc2017.tcc_app.Components.CustomCard;
 import politcc2017.tcc_app.Components.CustomSearchToolbar;
 import politcc2017.tcc_app.Components.CustomTextView;
 import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.SqlHelper;
@@ -38,7 +39,7 @@ import static politcc2017.tcc_app.Components.WordContextDialog.CONTEXT_ADD_WORD;
 
 public class NewsFragment extends Fragment{
 
-    private CustomTextView mNewsText;
+    private CustomCard mNewsCard;
     private CustomSearchToolbar mSearchToolbar;
     private RecyclerView mRecyclerView;
     private FloatingActionsMenu ratingMenu;
@@ -82,8 +83,9 @@ public class NewsFragment extends Fragment{
         mSearchToolbar.setAdvancedFilter(getActivity(), ResourcesHelper.getStringArrayAsArrayList(getContext(), R.array.news_search_advanced_filter));
 
         setSuggestionList();
-        mNewsText = (CustomTextView) v.findViewById(R.id.activity_news_text);
-        mNewsText.allowWordContextMenu();
+        mNewsCard = (CustomCard) v.findViewById(R.id.activity_news_cell);
+        mNewsCard.setContentMarkable();
+        mNewsCard.setUnlimitedLines();
         GenericData mData = new GenericData();
         loadTrendingTopics(mData);
         mAdapter = new GenericAdapter(mData, ViewHolderType.TRENDING_TOPICS_VIEW_HOLDER, getContext());
@@ -114,13 +116,13 @@ public class NewsFragment extends Fragment{
 
     private void loadNews(String search){
         //call server here
-        mNewsText.setVisibility(View.VISIBLE);
+        mNewsCard.setVisibility(View.VISIBLE);
         mRecyclerView.setVisibility(View.GONE);
         ratingMenu.setVisibility(View.VISIBLE);
     }
 
     public void switchRecyclerView(){
-        mNewsText.setVisibility(View.GONE);
+        mNewsCard.setVisibility(View.GONE);
         mRecyclerView.setVisibility(View.VISIBLE);
         ratingMenu.setVisibility(View.GONE);
     }
@@ -135,7 +137,7 @@ public class NewsFragment extends Fragment{
             public void onClick(View view) {
                 if(listener != null) listener.onMessageSent("NEWS_FRAGMENT", SqlHelper.RULE_ADD_TEXT_BOOKSHELF);
                 Intent intent = new Intent(getContext(), BookshelfActivity.class);
-                intent.putExtra(CONTEXT_ADD_TEXT, mNewsText.getText().toString());
+                intent.putExtra(CONTEXT_ADD_TEXT, mNewsCard.getContent());
                 getContext().startActivity(intent);
             }
         });
@@ -210,10 +212,10 @@ public class NewsFragment extends Fragment{
     }
 
     public void setNewsText(String text){
-        mNewsText.setVisibility(View.VISIBLE);
+        mNewsCard.setVisibility(View.VISIBLE);
         mRecyclerView.setVisibility(View.GONE);
         ratingMenu.setVisibility(View.VISIBLE);
-        mNewsText.setText(text);
+        mNewsCard.setContent(text);
     }
 
     private void setSuggestionList(){
