@@ -5,7 +5,7 @@ from sqlalchemy.orm import relationship
 
 DBSession = scoped_session(sessionmaker(autocommit=True))
 Base = declarative_base()
-conn = "postgresql+psycopg2://VLUP:password@database:5432/VLUP"
+conn = "postgresql+psycopg2://vlup:g9txVUyyB5Q3Es57CYneWh@database.vlup.com.br:5432/vlupdb"
 
 
 def initialize_sql():

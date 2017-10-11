@@ -2,6 +2,7 @@ import newspaper
 import celery
 from .celery import app
 from .model import DBSession, Article, Website, initialize_sql
+from .config import newspaper_config
 from celery.schedules import crontab
 
 
@@ -28,16 +29,20 @@ def check_news():
     initialize_sql()
     count = 1
     websites = DBSession.query(Website).all()
-    site = newspaper.build(websites[0].url)
-    for article in site.articles:
-        DBSession.begin()
-        article.download()
-        article.parse()
+    for website in websites:
+        site = newspaper.build(websites[0].url, newspaper_config)
+        for article in site.articles:
+            try:
+                DBSession.begin()
+                article.download()
+                article.parse()
 
-        print("{} - {}".format(count, article.title))
-        count += 1
-        save_article(article, websites[0])
-        DBSession.commit()
+                print("{} - {}".format(count, article.title))
+                count += 1
+                save_article(article, websites[0])
+                DBSession.commit()
+            except error:
+                print(error)
 
 
 def save_article(article, website):

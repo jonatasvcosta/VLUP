@@ -10,5 +10,5 @@ class Website(models.Model):
 class Article(models.Model):
     title = models.CharField(max_length=300)
     text = models.TextField()
-    url = models.URLField(max_length=500)
+    url = models.URLField(max_length=500, unique=True)
     website = models.ForeignKey(Website, on_delete=models.CASCADE)
