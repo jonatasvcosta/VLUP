@@ -1,1 +1,5 @@
-newspaper3k==0.1.9
+psycopg2==2.7.1
+newspaper3k
+celery
+tenacity
+sqlalchemy
