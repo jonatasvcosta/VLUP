@@ -2,7 +2,6 @@ import newspaper
 import celery
 from .celery import app
 from .model import DBSession, Article, Website, initialize_sql
-from .config import newspaper_config
 from celery.schedules import crontab
 
 
@@ -27,28 +26,37 @@ class SqlAlchemyTask(celery.Task):
 @app.task(name='vlup.check_news', base=SqlAlchemyTask)
 def check_news():
     initialize_sql()
-    count = 1
     websites = DBSession.query(Website).all()
     for website in websites:
-        site = newspaper.build(websites[0].url, newspaper_config)
-        for article in site.articles:
-            try:
-                DBSession.begin()
-                article.download()
-                article.parse()
+        download_website.delay(website.id)
 
-                print("{} - {}".format(count, article.title))
-                count += 1
-                save_article(article, websites[0])
-                DBSession.commit()
-            except error:
-                print(error)
+
+@app.task(name='vlup.download_website', base=SqlAlchemyTask)
+def download_website(website_id):
+    try:
+        count = 0
+        website = DBSession.query(Website).get(website_id)
+        print("Downloading {}".format(website.url))
+        news = newspaper.build(website.url, memoize_articles=False)
+        for article in news.articles:
+            count += save_article(article, website)
+        print("Downloaded {} articles from {}".format(count, website.url))
+    except:
+        print("Could not find website #{}".format(website_id))
 
 
 def save_article(article, website):
-    obj = Article()
-    obj.text = article.text
-    obj.title = article.title
-    obj.url = article.url
-    obj.website = website
-    DBSession.add(obj)
+    try:
+        article.download()
+        article.parse()
+
+        obj = Article()
+        obj.text = article.text
+        obj.title = article.title
+        obj.url = article.url
+        obj.website = website
+        DBSession.add(obj)
+        return 1
+    except Exception as error:
+        print("Error: {} - {}".format(article.url, error))
+        return 0

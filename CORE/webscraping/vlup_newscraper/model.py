@@ -19,6 +19,7 @@ class Website(Base):
     __tablename__ = 'news_website'
     id = Column(Integer, primary_key=True)
     name = Column(String(255))
+    language = Column(String(255))
     url = Column(String(255))
 
 

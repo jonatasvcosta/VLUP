@@ -9,4 +9,4 @@ class WebsiteAdmin(admin.ModelAdmin):
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('title', 'url', 'website')
