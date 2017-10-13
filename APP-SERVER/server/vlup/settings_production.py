@@ -26,11 +26,9 @@ SECRET_KEY = 'kgq^23yr5a%d^*!e#=9k+z7pbip$_cn*#m83hp1*_30ssdna-j'
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    'api.vlup.com.br',
-    'www.vlup.com.br',
-    'ec2-34-229-129-100.compute-1.amazonaws.com',
-    'localhost', '127.0.0.1',
-    '34.229.129.100', '172.31.22.225'
+    '.vlup.com.br',
+    '.amazonaws.com',
+    'localhost', '127.0.0.1'
 ]
 
 # Application definition
