@@ -4,7 +4,7 @@ LABEL TCCPoli "tccpoli2017@gmail.com"
 COPY setup.py /app/setup.py
 WORKDIR /app
 
-RUN apk --no-cache add musl-dev linux-headers gcc postgresql-dev \
+RUN apk --no-cache add git musl-dev linux-headers gcc postgresql-dev \
     && python setup.py install \
     && apk del musl-dev linux-headers gcc \
     && git clone https://github.com/gutfeeling/word_forms.git \
