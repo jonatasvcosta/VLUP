@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from django.http import HttpResponse
 from translation.services.translation import TranslationService
 from translation.serializers import TranslatedElementSerializer
@@ -15,6 +17,13 @@ def index(request):
         body_dict = json.loads(request.body)
         translated_element = as_translated_element(body_dict)
         original_text, original_language, final_language = translated_element.original_text, translated_element.original_language, translated_element.final_language
+
+        """
+        Algumas libs do Android enviam pt-br ao invés de pt
+        """
+        if(original_language == 'pt-br'): original_language = 'pt'
+        if(final_language == 'pt-br'): final_language = 'pt'
+
         translation_service = TranslationService()
         translated_element = translation_service.translate(original_text, original_language, final_language)    
         serializer = TranslatedElementSerializer(translated_element)

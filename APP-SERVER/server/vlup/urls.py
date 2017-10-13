@@ -22,5 +22,7 @@ urlpatterns = [
     url(r'^authentication/', include('authentication.urls')),
     url(r'^news/', include('news.urls')),
     url(r'^translation/', include('translation.urls')),
+    url(r'^synonymous/', include('synonymous.urls')),
+    #url(r'^similar_words/', include('similar_words.urls')),
     url(r'^docs/', get_swagger_view(title='Vlup API'))
 ]
