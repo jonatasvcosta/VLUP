@@ -21,4 +21,3 @@ __pycache__
 .externalNativeBuild
 ANDROID-APP/local.properties
 .idea/
-APP-SERVER/server/news/migrations
