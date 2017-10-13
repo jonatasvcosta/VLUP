@@ -1,5 +1,5 @@
 FROM python:3.6-alpine3.6
-MAINTAINER TCCPoli "tccpoli2017@gmail.com"
+LABEL TCCPoli "tccpoli2017@gmail.com"
 
 COPY . /app
 WORKDIR /app
