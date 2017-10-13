@@ -14,6 +14,13 @@ def index(request):
         body_dict = json.loads(request.body)
         synonymous_element = as_synonymous_element(body_dict)
         original_text, original_language, final_language = synonymous_element.original_text, synonymous_element.original_language, synonymous_element.final_language
+        
+        """
+        Algumas libs do Android enviam pt-br ao invés de pt
+        """
+        if(original_language == 'pt-br'): original_language = 'pt'
+        if(final_language == 'pt-br'): final_language = 'pt'
+        
         synonymous_service = SynonymousService()
         synonymous_element = synonymous_service.get_synonymous(original_text, original_language, final_language)    
         serializer = SynonymousElementSerializer(synonymous_element)
