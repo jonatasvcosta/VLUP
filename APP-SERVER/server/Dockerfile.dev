@@ -1,7 +1,7 @@
 FROM python:3.6-alpine3.6
-MAINTAINER TCCPoli "tccpoli2017@gmail.com"
+LABEL TCCPoli "tccpoli2017@gmail.com"
 
-COPY setup.py /app/setup.py
+COPY . /app
 WORKDIR /app
 
 RUN apk --no-cache add musl-dev linux-headers gcc postgresql-dev \
@@ -12,7 +12,5 @@ ENV DJANGO_PRODUCTION=false
 ENV DJANGO_SETTINGS_MODULE="vlup.settings_development"
 ENV ROOT_PASSWORD=password
 ENV GUNICORN_CMD_ARGS="--bind=0.0.0.0:8000 --workers=1"
-
-COPY init.sh /app/init.sh
 
 CMD "/app/init.sh"

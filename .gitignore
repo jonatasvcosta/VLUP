@@ -20,3 +20,4 @@ __pycache__
 /ANDROID-APP/captures
 .externalNativeBuild
 ANDROID-APP/local.properties
+.idea/
