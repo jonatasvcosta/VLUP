@@ -3,7 +3,11 @@
 sleep 5;
 
 python /app/manage.py collectstatic --noinput
-python /app/manage.py makemigrations
+
+if [ "$DJANGO_PRODUCTION" == "false" ]; then
+	python /app/manage.py makemigrations
+fi
+
 python /app/manage.py migrate --noinput
 
 echo "Creating Django superuser named 'root'..."
