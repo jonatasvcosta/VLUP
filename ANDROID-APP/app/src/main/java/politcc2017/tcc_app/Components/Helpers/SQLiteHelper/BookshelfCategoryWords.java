@@ -13,14 +13,16 @@ public class BookshelfCategoryWords {
 
     }
 
-    public BookshelfCategoryWords(int id, String name){
+    public BookshelfCategoryWords(int id, String name, String language){
         this.id = id;
         this.name = name;
+        this.language = language;
     }
 
     @Column
     public int id;
     @Column
     public String name;
-
+    @Column
+    public String language;
 }
