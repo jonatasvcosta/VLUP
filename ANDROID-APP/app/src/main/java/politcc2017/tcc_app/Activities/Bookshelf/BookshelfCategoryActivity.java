@@ -45,10 +45,13 @@ public class BookshelfCategoryActivity extends BaseActivity {
     private GenericAdapter mAdapter;
     private com.melnykov.fab.FloatingActionButton addWordFAB, randomWordFAB;
     private CustomSearchToolbar mSearchToolbar;
+    private String language;
+    private boolean alreadyCreated = false;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_bookshelf_category);
+        language = SharedPreferencesHelper.getString(SharedPreferencesHelper.LEARNING_LANGUAGE_LOCALE, getApplicationContext());
         Inquiry.newInstance(this, SqlHelper.DATABASE).build();
         mData = new GenericData();
         mRecyclerView = (RecyclerView) findViewById(R.id.bookshelf_category_words_recyclerview);
@@ -63,6 +66,7 @@ public class BookshelfCategoryActivity extends BaseActivity {
             }
         });
         mSearchToolbar = (CustomSearchToolbar) findViewById(R.id.bookshelf_text_category_search_toolbar);
+        alreadyCreated = true;
         setupToolbar();
         setupListeners();
     }
@@ -86,7 +90,7 @@ public class BookshelfCategoryActivity extends BaseActivity {
 
     private void addNewWord(String input){
         if(!SharedPreferencesHelper.getBoolean(SharedPreferencesHelper.BOOKSHELF_BD_CHANGED_KEY, getApplicationContext())) setChangeToBookshelfCategories();
-        Inquiry.get(this).insert(BookshelfCategoryWords.class).values(new BookshelfCategoryWords[]{new BookshelfCategoryWords(categoryID, input)}).run();
+        Inquiry.get(this).insert(BookshelfCategoryWords.class).values(new BookshelfCategoryWords[]{new BookshelfCategoryWords(categoryID, input, language)}).run();
         mData.addNewCellWithString(GenericData.BOOKSHELF_CATEGORY_WORD,input, mData.Size());
         mAdapter.notifyDataSetChanged();
     }
@@ -201,7 +205,7 @@ public class BookshelfCategoryActivity extends BaseActivity {
     private ArrayList<String> loadCategoryTexts(){
         ArrayList<String> textsList = new ArrayList<>();
         BookshelfTexts[] texts = Inquiry.get(this)
-                .select(BookshelfTexts.class).where("id = ?", categoryID)
+                .select(BookshelfTexts.class).where("id = ? and language = ?", categoryID, language)
                 .all();
         if(texts != null)
             for(int i = 0; i < texts.length; i++){
@@ -213,7 +217,7 @@ public class BookshelfCategoryActivity extends BaseActivity {
     private ArrayList<String> loadCategoryWords(){
         ArrayList<String> words = new ArrayList<>();
         BookshelfCategoryWords[] categoriesWords = Inquiry.get(this)
-                .select(BookshelfCategoryWords.class).where("id = ?", categoryID)
+                .select(BookshelfCategoryWords.class).where("id = ? and language = ?", categoryID, language)
                 .all();
         if(categoriesWords != null)
             for(int i = 0; i < categoriesWords.length; i++){
@@ -224,7 +228,7 @@ public class BookshelfCategoryActivity extends BaseActivity {
 
     private void UpdateWord(String input, int position){
         String previousInput = mData.getValue(position).get(GenericData.BOOKSHELF_CATEGORY_WORD).toString();
-        Inquiry.get(this).update(BookshelfCategoryWords.class).values(new BookshelfCategoryWords[]{new BookshelfCategoryWords(categoryID, input)}).where("id = ? AND name = ?", categoryID, previousInput).run();
+        Inquiry.get(this).update(BookshelfCategoryWords.class).values(new BookshelfCategoryWords[]{new BookshelfCategoryWords(categoryID, input, language)}).where("id = ? AND name = ?", categoryID, previousInput).run();
         mData.getValue(position).put(GenericData.BOOKSHELF_CATEGORY_WORD, input);
         mAdapter.notifyDataSetChanged();
     }
@@ -254,6 +258,15 @@ public class BookshelfCategoryActivity extends BaseActivity {
 
         // Creates an instance specifically for MainActivity
         Inquiry.newInstance(this, SqlHelper.DATABASE).build();
+    }
+
+    @Override
+    public void handleLearningLanguageChange(){
+        if(alreadyCreated){
+            mData = new GenericData();
+            mRecyclerView = (RecyclerView) findViewById(R.id.bookshelf_category_words_recyclerview);
+            setupToolbar();
+        }
     }
 
     @Override
