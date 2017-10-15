@@ -6,6 +6,10 @@ services:
       dockerfile: Dockerfile
     volumes:
      - /static
+    deploy:
+      resources:
+        limits:
+          memory: 700M
   reverseproxy:
     image: "nginx:1.11.9-alpine"
     ports:
