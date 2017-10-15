@@ -28,7 +28,10 @@ DEBUG = False
 ALLOWED_HOSTS = [
     '.vlup.com.br',
     '.amazonaws.com',
-    'localhost', '127.0.0.1'
+    'localhost', 
+    '127.0.0.1',
+    'ec2-54-90-253-109.compute-1.amazonaws.com',
+    '54.90.253.109',
 ]
 
 # Application definition
