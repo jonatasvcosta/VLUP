@@ -13,20 +13,22 @@ public class BookshelfCategory {
 
     }
 
-    public BookshelfCategory(int id, String name){
+    public BookshelfCategory(int id, String name, String language){
         this.id = id;
         this.name = name;
         this.header = false;
         this.textCategory = false;
+        this.language = language;
     }
 
-    public BookshelfCategory(int id, String name, boolean header, boolean textCategory){
+    public BookshelfCategory(int id, String name, boolean header, boolean textCategory, String language){
         this.id = id;
         this.name = name;
         this.header = header;
         this.textCategory = textCategory;
+        this.language = language;
     }
-    @Column(primaryKey = true)
+    @Column
     public int id;
     @Column
     public String name;
@@ -34,4 +36,6 @@ public class BookshelfCategory {
     public boolean header;
     @Column
     public boolean textCategory;
+    @Column
+    public String language;
 }

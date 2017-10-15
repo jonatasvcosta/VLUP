@@ -44,10 +44,12 @@ public class BookshelfActivity extends BaseActivity {
     private boolean automaticallyAddWordToCategory = false, automaticallyAddTextToCategory = false;
     private FloatingActionButton randomWordFAB;
     private ArrayList<Integer> textType;
+    private String language;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_bookshelf);
+        language = SharedPreferencesHelper.getString(SharedPreferencesHelper.LOCALE_KEY, getApplicationContext());
         Inquiry.newInstance(this, SqlHelper.DATABASE).build();
         setActivityTitle(getResString(R.string.bookshelf_activity_title));
         initialBDSetup();
@@ -74,33 +76,35 @@ public class BookshelfActivity extends BaseActivity {
         else setupRecyclerView("default");
     }
 
+    private void setupCategories(){
+        String [] bookshelfCategories = getResources().getStringArray(R.array.bookshelf_categories);
+        Inquiry.get(this).insert(BookshelfCategory.class).values(new BookshelfCategory[]{
+                new BookshelfCategory(0 ,bookshelfCategories[0], true, false, language),
+                new BookshelfCategory(1 , bookshelfCategories[1], language),
+                new BookshelfCategory(2 , bookshelfCategories[2], language),
+                new BookshelfCategory(3 , bookshelfCategories[3], language),
+                new BookshelfCategory(4 , bookshelfCategories[4], language),
+                new BookshelfCategory(5 , bookshelfCategories[5], language),
+                new BookshelfCategory(6 , bookshelfCategories[6], true, true, language),
+                new BookshelfCategory(7 , bookshelfCategories[7], false, true, language),
+                new BookshelfCategory(8 , bookshelfCategories[8], false, true, language),
+                new BookshelfCategory(9 , bookshelfCategories[9], false, true, language),
+                new BookshelfCategory(10 , bookshelfCategories[10], false, true, language),
+                new BookshelfCategory(11 , bookshelfCategories[11], false, true, language),
+                new BookshelfCategory(12, bookshelfCategories[12], true, true, language),
+                new BookshelfCategory(13, bookshelfCategories[13], false, true, language),
+                new BookshelfCategory(14, bookshelfCategories[14], false, true, language),
+                new BookshelfCategory(15, bookshelfCategories[15], false, true, language),
+        }).run();
+    }
+
     private void initialBDSetup(){
-        BookshelfCategory[] categories = Inquiry.get(this).select(BookshelfCategory.class).all();
+        BookshelfCategory[] categories = Inquiry.get(this).select(BookshelfCategory.class).where("language = ?", language).all();
         String appLocale = SharedPreferencesHelper.getString(SharedPreferencesHelper.LOCALE_KEY, getApplicationContext());
         String bdLocale = SharedPreferencesHelper.getString(SharedPreferencesHelper.BOOKSHELF_BD_LOCALE_KEY, getApplicationContext());
         if((categories != null && appLocale.equals(bdLocale)) || SharedPreferencesHelper.getBoolean(SharedPreferencesHelper.BOOKSHELF_BD_CHANGED_KEY, getApplicationContext())) return; //if DB has changed or is properly set return
-        if(!appLocale.equals(bdLocale)) CleanCategories(); //if DB not changed and language is incorrect, clear and rebuild categories
-        String [] bookshelfCategories = getResources().getStringArray(R.array.bookshelf_categories);
-        SharedPreferencesHelper.Initialize(getApplicationContext());
         SharedPreferencesHelper.addString(getApplicationContext(), SharedPreferencesHelper.BOOKSHELF_BD_LOCALE_KEY, appLocale);
-        Inquiry.get(this).insert(BookshelfCategory.class).values(new BookshelfCategory[]{
-                new BookshelfCategory(0 ,bookshelfCategories[0], true, false),
-                new BookshelfCategory(1 , bookshelfCategories[1]),
-                new BookshelfCategory(2 , bookshelfCategories[2]),
-                new BookshelfCategory(3 , bookshelfCategories[3]),
-                new BookshelfCategory(4 , bookshelfCategories[4]),
-                new BookshelfCategory(5 , bookshelfCategories[5]),
-                new BookshelfCategory(6 , bookshelfCategories[6], true, true),
-                new BookshelfCategory(7 , bookshelfCategories[7], false, true),
-                new BookshelfCategory(8 , bookshelfCategories[8], false, true),
-                new BookshelfCategory(9 , bookshelfCategories[9], false, true),
-                new BookshelfCategory(10 , bookshelfCategories[10], false, true),
-                new BookshelfCategory(11 , bookshelfCategories[11], false, true),
-                new BookshelfCategory(12, bookshelfCategories[12], true, true),
-                new BookshelfCategory(13, bookshelfCategories[13], false, true),
-                new BookshelfCategory(14, bookshelfCategories[14], false, true),
-                new BookshelfCategory(15, bookshelfCategories[15], false, true),
-        }).run();
+        setupCategories();
     }
 
     @Override
@@ -125,9 +129,7 @@ public class BookshelfActivity extends BaseActivity {
 
     public void loadData(String dataType){ //refactor this function getting data from app database / server
         int textsLimiter = 0;
-        BookshelfCategory[] categories = Inquiry.get(this)
-                .select(BookshelfCategory.class)
-                .all();
+        BookshelfCategory[] categories = getCategories();
 
         mData = new GenericData();
         ArrayList<String> words = new ArrayList<>();
@@ -157,7 +159,14 @@ public class BookshelfActivity extends BaseActivity {
     }
 
     private BookshelfCategory[] getCategories(){
-        return Inquiry.get(this).select(BookshelfCategory.class).all();
+        BookshelfCategory[] categories =  Inquiry.get(this).select(BookshelfCategory.class).
+                where("language = ?", language).all();
+        if(categories == null){
+            setupCategories();
+            categories =  Inquiry.get(this).select(BookshelfCategory.class).
+                    where("language = ?", language).all();
+        }
+        return categories;
     }
 
     private void setupRecyclerView(String dataType){
@@ -217,7 +226,7 @@ public class BookshelfActivity extends BaseActivity {
                     if(automaticallyAddWordToCategory){
                         automaticallyAddWordToCategory = false;
                         Inquiry.newInstance(getApplicationContext(), SqlHelper.DATABASE).build();
-                        Inquiry.get(getApplicationContext()).insert(BookshelfCategoryWords.class).values(new BookshelfCategoryWords[]{new BookshelfCategoryWords(position, wordToAdd)}).run();
+                        Inquiry.get(getApplicationContext()).insert(BookshelfCategoryWords.class).values(new BookshelfCategoryWords[]{new BookshelfCategoryWords(position, wordToAdd, language)}).run();
                         Toast.makeText(getApplicationContext(), getResString(R.string.bookshelf_word_added), Toast.LENGTH_SHORT).show();
                         onBackPressed();
                     }
@@ -227,7 +236,7 @@ public class BookshelfActivity extends BaseActivity {
                         BookshelfCategory[] categories = getCategories();
                         int offset;
                         for(offset = 1; offset < categories.length && !categories[offset].header; offset++);
-                        Inquiry.get(getApplicationContext()).insert(BookshelfTexts.class).values(new BookshelfTexts[]{new BookshelfTexts(offset+position, textToAdd)}).run();
+                        Inquiry.get(getApplicationContext()).insert(BookshelfTexts.class).values(new BookshelfTexts[]{new BookshelfTexts(offset+position, textToAdd, language)}).run();
                         Toast.makeText(getApplicationContext(), getResString(R.string.bookshelf_text_added), Toast.LENGTH_SHORT).show();
                         onBackPressed();
                     }
@@ -254,7 +263,7 @@ public class BookshelfActivity extends BaseActivity {
         UpdateCellsPosition(position+1, 1);
         Inquiry.get(this)
                 .insert(BookshelfCategory.class)
-                .values(new BookshelfCategory[]{new BookshelfCategory(position+1, input)})
+                .values(new BookshelfCategory[]{new BookshelfCategory(position+1, input, language)})
                 .run();
         mData.addNewCellWithString(GenericData.BOOKSHELF_ITEM_CATEGORY,input, position+1);
         setupRecyclerView("default");
@@ -290,7 +299,7 @@ public class BookshelfActivity extends BaseActivity {
 
     private void UpdateCategory(String input, int position){
         if(!SharedPreferencesHelper.getBoolean(SharedPreferencesHelper.BOOKSHELF_BD_CHANGED_KEY, getApplicationContext())) setChangeToBookshelfCategories();
-        Inquiry.get(this).update(BookshelfCategory.class).values(new BookshelfCategory[]{new BookshelfCategory(position, input)}).where("id = ?", position).run();
+        Inquiry.get(this).update(BookshelfCategory.class).values(new BookshelfCategory[]{new BookshelfCategory(position, input, language)}).where("id = ?", position).run();
         mData.getValue(position).put(GenericData.BOOKSHELF_ITEM_CATEGORY, input);
         mAdapter.notifyDataSetChanged();
     }
