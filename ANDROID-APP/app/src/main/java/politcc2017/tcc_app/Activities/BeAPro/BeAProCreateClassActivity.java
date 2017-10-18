@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.afollestad.inquiry.Inquiry;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.melnykov.fab.FloatingActionButton;
 import com.pierfrancescosoffritti.youtubeplayer.AbstractYouTubeListener;
@@ -22,6 +23,7 @@ import politcc2017.tcc_app.Components.CustomHTMLEditText;
 import politcc2017.tcc_app.Components.CustomPicker;
 import politcc2017.tcc_app.Components.Helpers.DialogHelper;
 import politcc2017.tcc_app.Components.Helpers.FontHelper;
+import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.CreatedMiniClasses;
 import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.SqlHelper;
 import politcc2017.tcc_app.R;
 
@@ -139,6 +141,16 @@ public class BeAProCreateClassActivity extends BaseActivity {
             classTitle.validate();
             classLanguage.validate();
             scorePoints("+"+getScoringPoints(SqlHelper.RULE_CREATE_CLASS));
+            String language = this.classLanguage.getText();
+            String translationLanguage = this.translationLanguage.getText();
+            String title = this.classTitle.getText();
+            String[] tags = this.tags.getText().toString().split(" ");
+            String content = this.content.toHtml();
+            if(movieUrl != null && movieUrl.length() > 0){
+                Inquiry.get(this).insert(CreatedMiniClasses.class).values(new CreatedMiniClasses[]{new CreatedMiniClasses(language, translationLanguage, title, tags, movieUrl, true)}).run();
+            }
+            else Inquiry.get(this).insert(CreatedMiniClasses.class).values(new CreatedMiniClasses[]{new CreatedMiniClasses(language, translationLanguage, title, tags, content)}).run();
+
         }
     }
 

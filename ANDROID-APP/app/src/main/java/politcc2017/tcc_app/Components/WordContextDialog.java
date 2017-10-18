@@ -93,6 +93,7 @@ public class WordContextDialog{
         synonymContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if(listener != null) listener.onClick(view, CONTEXT_SYNONYM);
                 WordContextDialog.launchDialog(context, "Synonym of "+title);
             }

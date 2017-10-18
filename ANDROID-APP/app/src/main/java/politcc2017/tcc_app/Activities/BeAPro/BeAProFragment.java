@@ -15,10 +15,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.afollestad.inquiry.Inquiry;
+
 import java.util.ArrayList;
 import java.util.Hashtable;
 
 import politcc2017.tcc_app.Activities.BaseActivity;
+import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.FavoriteMiniClasses;
 import politcc2017.tcc_app.Components.Listeners.CellClickListener;
 import politcc2017.tcc_app.Components.RecyclerView.Adapters.GenericAdapter;
 import politcc2017.tcc_app.Components.RecyclerView.Data.GenericData;
@@ -93,6 +96,13 @@ public class BeAProFragment extends Fragment{
     }
 
     private void HandleCellClicks(String message, int position){
+        if(message.equals("favorite")){
+            Hashtable dataCell = this.data.getValue(position);
+            String title = dataCell.get(GenericData.CUSTOM_CARD_TITLE).toString();
+            String[] tags = dataCell.get(GenericData.CUSTOM_CARD_CATEGORIES).toString().split(" ");
+            String content = dataCell.get(GenericData.CUSTOM_CARD_CONTENT).toString();
+            Inquiry.get(getContext()).insert(FavoriteMiniClasses.class).values(new FavoriteMiniClasses[]{new FavoriteMiniClasses("", "", title, tags, content)}).run();
+        }
         Toast.makeText(getContext(), message+" : "+Integer.toString(position), Toast.LENGTH_SHORT).show(); //replace with proper actions
         if(message.equals("cardlayout")){
             startClassDetailActivity(position);

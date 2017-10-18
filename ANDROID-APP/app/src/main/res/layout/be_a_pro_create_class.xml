@@ -3,18 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
-    <com.melnykov.fab.FloatingActionButton
-        android:id="@+id/add_movie_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:src="@drawable/ic_movie"
-        android:layout_marginRight="@dimen/margin_small"
-        android:layout_marginBottom="@dimen/margin_small"
-        app:fabSize="normal"
-        android:clickable="true"
-        app:fab_colorNormal="@color/cyan_darker"
-        app:fab_colorPressed="@color/cyan_darkest"/>
     <ScrollView
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
@@ -124,4 +112,16 @@
                 android:text="@string/continue_class_button"/>
         </LinearLayout>
     </ScrollView>
+    <com.melnykov.fab.FloatingActionButton
+        android:id="@+id/add_movie_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:src="@drawable/ic_movie"
+        android:layout_marginRight="@dimen/margin_small"
+        android:layout_marginBottom="@dimen/margin_small"
+        app:fabSize="normal"
+        android:clickable="true"
+        app:fab_colorNormal="@color/cyan_darker"
+        app:fab_colorPressed="@color/cyan_darkest"/>
 </FrameLayout>
