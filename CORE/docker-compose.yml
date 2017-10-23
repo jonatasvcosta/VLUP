@@ -8,20 +8,16 @@ services:
       - broker
     volumes:
       - .:/app:ro
-    command: celery -A vlup_newscraper.celery beat --max-interval 30 --loglevel=info -s /home/celery/db --pidfile /home/celery/pid
+    command: celery -A common.celery beat --max-interval 30 --loglevel=info -s /home/celery/db --pidfile /home/celery/pid
   worker:
     build: .
     image: "vlup-newscraper:latest"
-    external_links:
-      - appserver_database_1:database
-    networks:
-      - default
-      - appserver_default
     links:
       - broker
     volumes:
       - .:/app:ro
-    command: celery -A vlup_newscraper.celery worker --loglevel=info
+      - ./data:/app/data
+    command: celery -A common.celery worker --loglevel=info
   broker:
     image: "rabbitmq:management-alpine"
     ports:
@@ -29,7 +25,3 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: 'user'
       RABBITMQ_DEFAULT_PASS: 'password'
-
-networks:
-  appserver_default:
-    external: true

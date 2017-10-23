@@ -1,5 +1,5 @@
-FROM python:3.6.0-alpine
-MAINTAINER TCCPoli "tccpoli2017@gmail.com"
+FROM python:3.6-alpine3.6
+LABEL TCCPoli "tccpoli2017@gmail.com"
 
 COPY requirements.txt /app/requirements.txt
 WORKDIR /app
@@ -8,9 +8,6 @@ ENV HOME /home/celery
 RUN apk update \
     && \
     apk add --no-cache \
-            build-base \
-            gcc \
-            python-dev \
             libxml2-dev \
             libxslt-dev \
             libjpeg-turbo-dev \
@@ -19,6 +16,13 @@ RUN apk update \
             libpng-dev \
             jpeg-dev \
             postgresql-dev \
+            libstdc++ \
+            openblas-dev \
+    && \
+    apk add --no-cache --virtual .build-deps \
+            build-base \
+            gcc \
+            python3-dev \
     && \
     apk add --update openssl \
     && \
@@ -26,6 +30,6 @@ RUN apk update \
     && \
     wget -qO- https://raw.githubusercontent.com/codelucas/newspaper/master/download_corpora.py | python \
     && \
-    apk del gcc build-base
+    apk del --purge -r .build-deps
 
 RUN adduser -D -g '' -u 1000 celery

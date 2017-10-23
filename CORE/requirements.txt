@@ -3,3 +3,6 @@ newspaper3k
 celery
 tenacity
 sqlalchemy
+gensim
+numpy
+scipy
