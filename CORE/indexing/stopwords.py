@@ -12,4 +12,4 @@ class StopWords(object):
 	def __iter__(self):
 		with open(self.path, 'r') as file:
 			for line in file:
-				yield line.trim()
+				yield line.strip()

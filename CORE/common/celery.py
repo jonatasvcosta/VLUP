@@ -1,4 +1,4 @@
-from celery import Celery
+from celery import Celery, Task
 from .database import DBSession
 
 
@@ -8,7 +8,7 @@ app = Celery('core',
              include=['newscraper.tasks', 'indexing.tasks'])
 
 
-class SqlAlchemyTask(celery.Task):
+class SqlAlchemyTask(Task):
     """An abstract Celery Task that ensures that the connection the the
     database is closed on task completion"""
     abstract = True

@@ -18,3 +18,6 @@ class Article(Base):
     url = Column(String(500))
     website_id = Column(Integer, ForeignKey('news_website.id'))
     website = relationship(Website)
+
+    def should_save(self):
+        return len(self.text) > 140

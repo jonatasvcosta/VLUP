@@ -1,9 +1,8 @@
 import newspaper
 import celery
 from common.celery import app, SqlAlchemyTask
-from common import DBSession, initialize_sql
+from common.database import DBSession, initialize_sql
 from .model import Article, Website
-from .filtering import should_save_article
 from celery.schedules import crontab
 
 
@@ -44,22 +43,21 @@ def save_article(article, website):
         article.download()
         article.parse()
 
-        if not should_save_article(article):
-            return 0
-
         obj = Article()
         obj.text = article.text
         obj.title = article.title
         obj.url = article.url
         obj.website = website
 
-        print("{} - {}".format(article.title, article.url))
+        if obj.should_save():
+            print("{} - {}".format(article.title, article.url))
 
-        DBSession.begin()
-        DBSession.add(obj)
-        DBSession.commit()
-        return 1
+            DBSession.begin()
+            DBSession.add(obj)
+            DBSession.commit()
+            return 1
     except Exception as error:
         DBSession.rollback()
         print("Error: {} - {}".format(article.url, error))
-        return 0
+
+    return 0

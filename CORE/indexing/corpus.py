@@ -1,6 +1,7 @@
 import gensim
 from newscraper.model import Article, Website
 from .stopwords import StopWords
+from .preprocessing import PreProcessor
 from .model import Dictionary
 from . import PathUtility
 
@@ -21,24 +22,6 @@ class ArticleIterable(object):
                 yield result[0]
 
 
-class PreProcessor(object):
-    iterator = None
-
-    def __init__(self, iterator):
-        self.iterator = iterator
-
-    def __iter__(self):
-        for item in self.iterator:
-            yield PreProcessor.run(item)
-
-    @staticmethod
-    def run(text):
-        return gensim.utils.simple_preprocess(text,
-                                              deacc=True,
-                                              min_len=2,
-                                              max_len=25)
-
-
 class DbCorpus(object):
     language = None
     session = None
@@ -48,11 +31,12 @@ class DbCorpus(object):
 
     def __init__(self, language, session):
         self.language = language
+        self.session = session
 
         # Index for DB <-> corpus
         try:
-            self.index = gensim.utils.unpickle(PathUtility.CORPUS_INDEX)
-            self.iterable = ArticleIterable(self.index, session)
+            self.index = gensim.utils.unpickle(PathUtility.CORPUS_INDEX(self.language))
+            self.iterable = ArticleIterable(self.index, self.session)
         except:
             self.build_index()
 
@@ -84,7 +68,7 @@ class DbCorpus(object):
         db_query = self.session.query(Article.id).join(Article.website).\
                                 filter(Website.language == self.language).order_by(Article.id)
         self.index = [value[0] for value in db_query.all()]
-        self.iterable = ArticleIterable(self.index, session)
+        self.iterable = ArticleIterable(self.index, self.session)
 
     def build_dictionary(self):
         if self.iterable is None:

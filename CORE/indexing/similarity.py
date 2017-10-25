@@ -1,6 +1,6 @@
-import gensim
+from gensim.similarities.docsim import Similarity
 from . import PathUtility
-from .corpus import PreProcess
+from .preprocessing import PreProcessor
 from .model import LsiModel, TfIdfModel
 
 class SimilarityLSA(object):
@@ -39,7 +39,7 @@ class SimilarityLSA(object):
         # Final similarity
         if self.similarity is None:
             try:
-                self.similarity = gensim.similarity.docsim.Similarity.load(self.path)
+                self.similarity = Similarity.load(self.path)
             except:
                 self.build_similarity()
 
@@ -52,14 +52,14 @@ class SimilarityLSA(object):
         self.tfidf = TfIdfModel(self.corpus)
 
     def build_lsi(self):
-        self.lsi = LsiModel(self.tfidf,
+        self.lsi = LsiModel(self.tfidf[self.corpus],
                             id2word=self.corpus.dictionary,
                             num_topics=self.dimensions)
 
     def build_similarity(self):
-        self.similarity = gensim.similarity.docsim.Similarity(self.path,
-                                                              corpus=self.lsi,
-                                                              num_features=self.dimensions)
+        self.similarity = Similarity(self.path,
+                                     corpus=self.lsi[self.corpus],
+                                     num_features=self.dimensions)
 
     def save(self):
         self.tfidf.save(self.language)
@@ -67,7 +67,7 @@ class SimilarityLSA(object):
         self.similarity.save(self.path)
 
     def query(self, text, limit=15):
-        document = self.corpus.dictionary.doc2bow(PreProcess.run(text))
+        document = self.corpus.dictionary.doc2bow(PreProcessor.run(text))
         if len(document) == 0:
             raise Exception("Invalid query")
 

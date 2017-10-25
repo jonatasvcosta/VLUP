@@ -2,11 +2,12 @@ import os
 
 
 class PathUtility(object):
-    DATA = "/app/data"
+    ROOT = "/app"
+    DATA = os.path.join(ROOT, "data")
 
     @classmethod
     def STOP_WORDS(cls, language):
-        return os.path.join(cls.DATA, language, "stopwords")
+        return os.path.join(cls.ROOT, "indexing/stopwords/{}.txt".format(language))
 
     @classmethod
     def CORPUS_INDEX(cls, language):
