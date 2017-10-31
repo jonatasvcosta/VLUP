@@ -1,3 +1,3 @@
 #!/bin/sh
 
-docker-compose run worker celery -A newscraper.celery call vlup.check_news
+docker-compose run worker celery -A common.celery call vlup.check_news

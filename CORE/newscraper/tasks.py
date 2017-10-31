@@ -10,7 +10,7 @@ from celery.schedules import crontab
 def setup_periodic_tasks(sender, **kwargs):
     # Executes every 3 hours
     sender.add_periodic_task(
-        crontab(minute=0, hour='*/3'),
+        crontab(minute=0, hour='*/8'),
         check_news.s(),
     )
 

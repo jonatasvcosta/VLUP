@@ -6,3 +6,5 @@ sqlalchemy
 gensim
 numpy
 scipy
+gunicorn
+flask

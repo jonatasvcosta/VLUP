@@ -1,9 +1,21 @@
 version: '3'
 
 services:
+  api:
+    build: .
+    image: "vlup-newscraper:latest"
+    networks:
+      - network
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app:ro
+    command: gunicorn --bind=0.0.0.0:8000 --workers=4 api:app
   scheduler:
     build: .
     image: "vlup-newscraper:latest"
+    networks:
+      - internal
     links:
       - broker
     volumes:
@@ -12,6 +24,8 @@ services:
   worker:
     build: .
     image: "vlup-newscraper:latest"
+    networks:
+      - internal
     links:
       - broker
     volumes:
@@ -20,8 +34,15 @@ services:
     command: celery -A common.celery worker --loglevel=info
   broker:
     image: "rabbitmq:management-alpine"
+    networks:
+      - internal
     ports:
       - "15672:15672"
     environment:
       RABBITMQ_DEFAULT_USER: 'user'
       RABBITMQ_DEFAULT_PASS: 'password'
+networks:
+  internal:
+    driver: bridge
+  network:
+    driver: bridge

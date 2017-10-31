@@ -28,3 +28,6 @@ class PathUtility(object):
     @classmethod
     def SIMILARITY(cls, language):
         return os.path.join(cls.DATA, language, "similarity/index")
+
+
+available_languages = os.listdir(PathUtility.DATA)

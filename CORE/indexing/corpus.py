@@ -56,7 +56,7 @@ class DbCorpus(object):
         return self.dictionary.doc2bow(PreProcessor.run(document))
 
     def __len__(self):
-        return self.db_query.count()
+        return len(self.index)
 
     def save(self):
         gensim.utils.pickle(obj=self.index,
