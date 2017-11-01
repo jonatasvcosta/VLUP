@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'kgq^23yr5a%d^*!e#=9k+z7pbip$_cn*#m83hp1*_30ssdna-j'
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     '.vlup.com.br',

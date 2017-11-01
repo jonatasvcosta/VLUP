@@ -15,8 +15,9 @@ echo "import os; from django.contrib.auth.models import User; print('Root user a
 
 # Start app
 if [ "$DJANGO_PRODUCTION" == "true" ]; then
-    gunicorn vlup.wsgi
+    python /app/manage.py runserver 0.0.0.0:8000
+    #gunicorn vlup.wsgi
 else
-    gunicorn vlup.wsgi
-    #python /app/manage.py runserver 0.0.0.0:8000
+    python /app/manage.py runserver 0.0.0.0:8000
+    #gunicorn vlup.wsgi
 fi
