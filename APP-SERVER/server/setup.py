@@ -54,9 +54,9 @@ setup(
     # requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
     install_requires=[
-        'django==1.11.2',
+        'django==1.11.6',
         'django-filter',
-        'djangorestframework==3.6.3',
+        'djangorestframework==3.7.1',
         'djangorestframework-jwt==1.11.0',
         'gunicorn==19.7.1',
         'psycopg2==2.7.1',
@@ -67,6 +67,7 @@ setup(
         'markdown',
         'googletrans',
         'nltk',
+        'requests',
     ],
 
     # List additional groups of dependencies here (e.g. development

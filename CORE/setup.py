@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='vlup-newscraper',
+    name='vlup_core',
 
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
@@ -58,7 +58,10 @@ setup(
         'newspaper3k',
         'celery',
         'tenacity',
-        'sqlalchemy'
+        'sqlalchemy',
+        'gensim',
+        'gunicorn',
+        'flask',
     ],
 
     # List additional groups of dependencies here (e.g. development
