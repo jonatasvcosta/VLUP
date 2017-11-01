@@ -6,7 +6,6 @@ services:
       dockerfile: Dockerfile
     networks:
       - default
-      - core_network
     external_links:
       - api:core
     volumes:
@@ -28,5 +27,3 @@ services:
 networks:
   default:
     driver: bridge
-  core_network:
-    external: true
