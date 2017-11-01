@@ -1,3 +1,4 @@
+cd /home/ec2-user/TCC/APP-SERVER
 docker-compose down;
 eval `ssh-agent -s`
 ssh-add /home/ec2-user/.ssh/vlup_access_tcc
