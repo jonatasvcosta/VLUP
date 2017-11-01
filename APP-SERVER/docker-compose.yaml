@@ -4,17 +4,26 @@ services:
     build:
       context: ./server
       dockerfile: Dockerfile
+    networks:
+      - default
+    external_links:
+      - api:core
     volumes:
-     - /static
+      - /static
     mem_limit: 700m
     mem_reservation: 500m
   reverseproxy:
     image: "nginx:1.11.9-alpine"
+    networks:
+     - default
     ports:
-     - "80:80"
+      - "80:80"
     links:
-     - "vlup"
+      - "vlup"
     volumes_from:
-     - "vlup"
+      - "vlup"
     volumes:
-     - ./reverseproxy:/etc/nginx
+      - ./reverseproxy:/etc/nginx
+networks:
+  default:
+    driver: bridge
