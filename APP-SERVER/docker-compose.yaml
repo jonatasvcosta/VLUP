@@ -6,8 +6,8 @@ services:
       dockerfile: Dockerfile
     volumes:
      - /static
-    mem_limit: 700m
-    mem_reservation: 500m
+    #mem_limit: 700m
+    #mem_reservation: 500m
   reverseproxy:
     image: "nginx:1.11.9-alpine"
     ports:
