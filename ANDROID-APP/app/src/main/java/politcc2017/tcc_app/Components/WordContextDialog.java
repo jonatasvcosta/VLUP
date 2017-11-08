@@ -98,23 +98,10 @@ public class WordContextDialog{
         synonymContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                HashMap<String, String> params = new HashMap<String, String>();
-                params.put("original_text", title);
-                params.put("original_language", "en");
-                params.put("final_language", "en");
-                ServerRequestHelper.postAuthorizedJSONRequest(context,  ServerConstants.SYNONYM_ENDPOINT, new JSONObject(params), new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-
-                    }
-                });
                 if(listener != null) listener.onClick(view, CONTEXT_SYNONYM);
-                WordContextDialog.launchDialog(context, "Synonym of "+title);
+                Intent intent = new Intent(context, MainActivitiesActivity.class);
+                intent.putExtra(CONTEXT_SYNONYM, title);
+                context.startActivity(intent);
             }
         });
         antonymContainer.setOnClickListener(new View.OnClickListener() {
