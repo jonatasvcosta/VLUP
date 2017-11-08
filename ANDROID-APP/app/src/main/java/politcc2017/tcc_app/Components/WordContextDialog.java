@@ -7,8 +7,12 @@ import android.widget.LinearLayout;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import politcc2017.tcc_app.Activities.Bookshelf.BookshelfActivity;
 import politcc2017.tcc_app.Activities.MainActivitiesActivity;
@@ -18,6 +22,7 @@ import politcc2017.tcc_app.Components.Helpers.SharedPreferencesHelper;
 import politcc2017.tcc_app.Components.Listeners.ContextMenuClickListener;
 import politcc2017.tcc_app.Entities.WordContextMenu;
 import politcc2017.tcc_app.R;
+import politcc2017.tcc_app.Volley.ServerConstants;
 import politcc2017.tcc_app.Volley.ServerRequestHelper;
 
 import static politcc2017.tcc_app.Components.Helpers.DialogHelper.CustomDialogBuilder;
@@ -94,7 +99,9 @@ public class WordContextDialog{
             @Override
             public void onClick(View view) {
                 if(listener != null) listener.onClick(view, CONTEXT_SYNONYM);
-                WordContextDialog.launchDialog(context, "Synonym of "+title);
+                Intent intent = new Intent(context, MainActivitiesActivity.class);
+                intent.putExtra(CONTEXT_SYNONYM, title);
+                context.startActivity(intent);
             }
         });
         antonymContainer.setOnClickListener(new View.OnClickListener() {

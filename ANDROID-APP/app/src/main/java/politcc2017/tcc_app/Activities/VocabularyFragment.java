@@ -14,11 +14,20 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import politcc2017.tcc_app.Common.ResourcesHelper;
 import politcc2017.tcc_app.Components.CustomSearchToolbar;
 import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.SqlHelper;
+import politcc2017.tcc_app.Components.Helpers.SharedPreferencesHelper;
 import politcc2017.tcc_app.Components.Listeners.CellClickListener;
 import politcc2017.tcc_app.Components.Listeners.FragmentListener;
 import politcc2017.tcc_app.Components.RecyclerView.Adapters.GenericAdapter;
@@ -26,6 +35,8 @@ import politcc2017.tcc_app.Components.RecyclerView.Data.GenericData;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.ViewHolderType;
 import politcc2017.tcc_app.Components.WordContextDialog;
 import politcc2017.tcc_app.R;
+import politcc2017.tcc_app.Volley.ServerConstants;
+import politcc2017.tcc_app.Volley.ServerRequestHelper;
 
 public class VocabularyFragment extends Fragment{
 
@@ -98,24 +109,90 @@ public class VocabularyFragment extends Fragment{
         data.addStringsToAllCells(GenericData.TRENDING_TOPIC, topics);
     }
 
+    public void loadSynonymWordsFromServer(String word){
+        loadWordsListFromServer(word, ServerConstants.SYNONYM_ENDPOINT, "synonymous_list_final_language");
+    }
+
     public void loadSimilarWordsFromServer(String word){
+        loadWordsListFromServer(word, ServerConstants.SIMILAR_WORDS_ENDPOINT, "similar_words_final_language");
+    }
+
+    public void loadWordsListFromServer(String word, final String endpoint, final String keyRefence){
         if(word == null || word.length() == 0) return;
         mSearchToolbar.setSuggestionText(word);
         wordsRecyclerView.setVisibility(View.VISIBLE);
         if(this.listener != null) listener.onMessageSent("VOCABULARY_FRAGMENT", SqlHelper.RULE_CHECK_SIMILAR_WORDS);
         trendingTopicsRecyclerView.setVisibility(View.GONE);
-        ArrayList<String> words = new ArrayList<>();
+        final ArrayList<String> words = new ArrayList<>();
         ArrayList<Integer> count = new ArrayList<>();
-        words.add("similar 1 to " + word);
-        words.add("similar 2 to " + word);
-        words.add("similar 3 to " + word);
-        count.add(2);
-        count.add(30);
-        count.add(200);
-        mData.clearAllCells();
-        mData.addStringsToAllCells(GenericData.VOCABULARY_WORD, words);
-        mData.addIntegersToAllCells(GenericData.VOCABULARY_COUNT, count);
-        wordsRecyclerView.setAdapter(mAdapter);
+        HashMap<String, String> params = new HashMap<String, String>();
+        params.put("original_text", word);
+        String locale = SharedPreferencesHelper.getString(SharedPreferencesHelper.LEARNING_LANGUAGE_LOCALE, getContext());
+        params.put("original_language", locale);
+        params.put("final_language", locale);
+        ServerRequestHelper.postAuthorizedJSONRequest(getContext(),  endpoint, new JSONObject(params), new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                if(response != null && response.length() > 0){
+                    JSONObject parsedResponse = null;
+                    if(endpoint == ServerConstants.SIMILAR_WORDS_ENDPOINT) {
+                        try {
+                            parsedResponse = new JSONObject(response.getString(keyRefence));
+                            JSONArray adverbs = null;
+                            JSONArray nouns = null;
+                            JSONArray verbs = null;
+                            JSONArray adjectives = null;
+                            try {
+                                adverbs = parsedResponse.getJSONArray("r");
+                            } catch (JSONException e) {
+                            }
+                            try {
+                                nouns = parsedResponse.getJSONArray("n");
+                            } catch (JSONException e) {
+                            }
+                            try {
+                                verbs = parsedResponse.getJSONArray("v");
+                            } catch (JSONException e) {
+                            }
+                            try {
+                                adjectives = parsedResponse.getJSONArray("a");
+                            } catch (JSONException e) {
+                            }
+                            addArrayToData(adverbs, words);
+                            addArrayToData(nouns, words);
+                            addArrayToData(adjectives, words);
+                            addArrayToData(verbs, words);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    if( endpoint == ServerConstants.SYNONYM_ENDPOINT){
+                        try {
+                            String synonymList = response.getString(keyRefence);
+                            JSONArray parsedArray = new JSONArray(synonymList);
+                            addArrayToData(parsedArray, words);
+                        } catch (JSONException e) {}
+                    }
+                    mData.clearAllCells();
+                    mData.addStringsToAllCells(GenericData.VOCABULARY_WORD, words);
+                    wordsRecyclerView.setAdapter(mAdapter);
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+    }
+
+    public void addArrayToData(JSONArray array, ArrayList<String> words){
+        if(array == null || array.length() == 0) return;
+        for(int i = 0; i < array.length(); i++){
+            try {
+                words.add(array.get(i).toString());
+            } catch (JSONException e) {}
+        }
     }
 
     public void setupTrendingWords(String trendingWords){
