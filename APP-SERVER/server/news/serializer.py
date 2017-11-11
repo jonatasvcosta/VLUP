@@ -11,7 +11,7 @@ class WebsiteSerializer(serializers.ModelSerializer):
 class ArticleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Article
-        fields = ('id', 'title', 'url', 'website')
+        fields = '__all__'
         depth = 1
 
 
