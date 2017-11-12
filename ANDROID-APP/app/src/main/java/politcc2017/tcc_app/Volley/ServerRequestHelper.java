@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -137,6 +138,10 @@ public class ServerRequestHelper {
                         VolleyLog.e("Error: ", error.getMessage());
                     }
                 });
+
+        request_json.setRetryPolicy(new DefaultRetryPolicy(15000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         AppSingleton.getInstance(c).addToRequestQueue(request_json, ServerConstants.JSON_TAG + relativeURL);
     }

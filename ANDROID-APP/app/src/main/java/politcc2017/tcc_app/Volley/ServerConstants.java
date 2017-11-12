@@ -7,7 +7,7 @@ import com.android.volley.Request;
  */
 
 public class ServerConstants {
-    public static final String BASE_URL = "http://ec2-54-233-186-115.sa-east-1.compute.amazonaws.com/";//"http://api.vlup.com.br/";
+    public static final String BASE_URL = "http://api.vlup.com.br/";//"http://ec2-54-233-186-115.sa-east-1.compute.amazonaws.com/";
     public static final String SIGNUP_POST_URL = BASE_URL+"signup/";
 
     public static final String STRING_TAG = "STRING_TAG";
@@ -25,6 +25,7 @@ public class ServerConstants {
     public static final String SYNONYM_ENDPOINT = "synonymous/";
     public static final String SIMILAR_WORDS_ENDPOINT = "similar_words/";
     public static final String WEBSITES_LIST_ENDPOINT = "news/websites/";
+    public static final String NEWS_SEARCH_ENDPOINT = "news/article/similarity";
 
     public static final String USERNAME_KEY = "username";
     public static final String PASSWORD_KEY = "password";

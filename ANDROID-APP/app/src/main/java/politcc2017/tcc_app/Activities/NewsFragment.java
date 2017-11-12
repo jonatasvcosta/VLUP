@@ -16,10 +16,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.android.volley.Response;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import politcc2017.tcc_app.Activities.Bookshelf.BookshelfActivity;
 import politcc2017.tcc_app.Common.ResourcesHelper;
@@ -27,12 +31,15 @@ import politcc2017.tcc_app.Components.CustomCard;
 import politcc2017.tcc_app.Components.CustomSearchToolbar;
 import politcc2017.tcc_app.Components.CustomTextView;
 import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.SqlHelper;
+import politcc2017.tcc_app.Components.Helpers.SharedPreferencesHelper;
 import politcc2017.tcc_app.Components.Listeners.CellClickListener;
 import politcc2017.tcc_app.Components.Listeners.FragmentListener;
 import politcc2017.tcc_app.Components.RecyclerView.Adapters.GenericAdapter;
 import politcc2017.tcc_app.Components.RecyclerView.Data.GenericData;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.ViewHolderType;
 import politcc2017.tcc_app.R;
+import politcc2017.tcc_app.Volley.ServerConstants;
+import politcc2017.tcc_app.Volley.ServerRequestHelper;
 
 import static politcc2017.tcc_app.Components.WordContextDialog.CONTEXT_ADD_TEXT;
 import static politcc2017.tcc_app.Components.WordContextDialog.CONTEXT_ADD_WORD;
@@ -115,7 +122,15 @@ public class NewsFragment extends Fragment{
     }
 
     private void loadNews(String search){
-        //call server here
+        search = search.replace(" ","");
+        search = search.replace("\n","");
+        String params = "?query="+search+"&language=pt";
+        ServerRequestHelper.getAuthorizedJSONArrayRequest(getContext(), ServerConstants.NEWS_SEARCH_ENDPOINT+params, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+
+            }
+        });
         mNewsCard.setVisibility(View.VISIBLE);
         mRecyclerView.setVisibility(View.GONE);
         ratingMenu.setVisibility(View.VISIBLE);
