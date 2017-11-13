@@ -21,17 +21,16 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import politcc2017.tcc_app.Activities.Bookshelf.BookshelfActivity;
 import politcc2017.tcc_app.Common.ResourcesHelper;
 import politcc2017.tcc_app.Components.CustomCard;
 import politcc2017.tcc_app.Components.CustomSearchToolbar;
-import politcc2017.tcc_app.Components.CustomTextView;
 import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.SqlHelper;
-import politcc2017.tcc_app.Components.Helpers.SharedPreferencesHelper;
 import politcc2017.tcc_app.Components.Listeners.CellClickListener;
 import politcc2017.tcc_app.Components.Listeners.FragmentListener;
 import politcc2017.tcc_app.Components.RecyclerView.Adapters.GenericAdapter;
@@ -42,13 +41,12 @@ import politcc2017.tcc_app.Volley.ServerConstants;
 import politcc2017.tcc_app.Volley.ServerRequestHelper;
 
 import static politcc2017.tcc_app.Components.WordContextDialog.CONTEXT_ADD_TEXT;
-import static politcc2017.tcc_app.Components.WordContextDialog.CONTEXT_ADD_WORD;
 
 public class NewsFragment extends Fragment{
 
     private CustomCard mNewsCard;
     private CustomSearchToolbar mSearchToolbar;
-    private RecyclerView mRecyclerView;
+    private RecyclerView trendingRecyclerView, newsRecyclerView;
     private FloatingActionsMenu ratingMenu;
     private GenericAdapter mAdapter;
     private FloatingActionButton addBookshelfFAB, rateGoodFAB, rateMediumFAB, rateBadFAB, fabRatedGood, fabRatedMedium, fabRatedBad;
@@ -75,7 +73,8 @@ public class NewsFragment extends Fragment{
         View v = inflater.inflate(R.layout.activity_news, container, false);
         referenceTime = System.currentTimeMillis();
         mSearchToolbar = (CustomSearchToolbar) v.findViewById(R.id.news_activity_search_toolbar);
-        mRecyclerView = (RecyclerView) v.findViewById(R.id.news_activity_trendingtopics_recyclerview);
+        trendingRecyclerView = (RecyclerView) v.findViewById(R.id.news_activity_trendingtopics_recyclerview);
+        newsRecyclerView = (RecyclerView) v.findViewById(R.id.news_activity_news_recyclerview);
         ratingMenu = (FloatingActionsMenu) v.findViewById(R.id.news_activity_rating_floating_menu);
         addBookshelfFAB = (FloatingActionButton) v.findViewById(R.id.news_activity_add_bookshelf_btn);
         rateGoodFAB = (FloatingActionButton) v.findViewById(R.id.news_activity_rate_good_btn);
@@ -84,8 +83,8 @@ public class NewsFragment extends Fragment{
         fabRatedGood = (FloatingActionButton) v.findViewById(R.id.news_activity_rated_good);
         fabRatedMedium = (FloatingActionButton) v.findViewById(R.id.news_activity_rated_neutral);
         fabRatedBad = (FloatingActionButton) v.findViewById(R.id.news_activity_rated_bad);
-        mRecyclerView.setVisibility(View.VISIBLE);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        trendingRecyclerView.setVisibility(View.VISIBLE);
+        trendingRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mSearchToolbar.setAutoCompleteSearchBar();
         mSearchToolbar.setAdvancedFilter(getActivity(), ResourcesHelper.getStringArrayAsArrayList(getContext(), R.array.news_search_advanced_filter));
 
@@ -95,13 +94,14 @@ public class NewsFragment extends Fragment{
         mNewsCard.setUnlimitedLines();
         GenericData mData = new GenericData();
         loadTrendingTopics(mData);
+
         mAdapter = new GenericAdapter(mData, ViewHolderType.TRENDING_TOPICS_VIEW_HOLDER, getContext());
 
         setupListeners();
-        mRecyclerView.setAdapter(mAdapter);
+        trendingRecyclerView.setAdapter(mAdapter);
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        mSearchToolbar.registerRecyclerViewScrollListener(mRecyclerView, displayMetrics.heightPixels);
+        mSearchToolbar.registerRecyclerViewScrollListener(trendingRecyclerView, displayMetrics.heightPixels);
         if(listener != null) listener.onMessageSent("NEWS_FRAGMENT", "READY");
         return v;
     }
@@ -121,6 +121,43 @@ public class NewsFragment extends Fragment{
         data.addStringsToAllCells(GenericData.TRENDING_TOPIC, topics);
     }
 
+    private void populateData(JSONArray response){
+        if(response == null || response.length() == 0) return;
+        GenericData data = new GenericData();
+        ArrayList<String> titles = new ArrayList<>();
+        ArrayList<String> texts = new ArrayList<>();
+        ArrayList<String> cardType = new ArrayList<>();
+        ArrayList<String> votes = new ArrayList<>();
+        ArrayList<String> categories = new ArrayList<>();
+        for(int i = 0; i < response.length(); i++){
+            try {
+                JSONObject news = response.getJSONObject(i);
+                String id = news.getString("id");
+                String title = news.getString("title");
+                titles.add(title);
+                String text = news.getString("text");
+                texts.add(text);
+                votes.add("");
+                categories.add("");
+                cardType.add(GenericData.NEWS);
+                String url = news.getString("url");
+            } catch (JSONException e) {}
+        }
+        data.addStringsToAllCells(GenericData.CUSTOM_CARD_TITLE, titles);
+        data.addStringsToAllCells(GenericData.CUSTOM_CARD_CONTENT, texts);
+        data.addStringsToAllCells(GenericData.CUSTOM_CARD_TYPE, cardType);
+        data.addStringsToAllCells(GenericData.CUSTOM_CARD_CATEGORIES, categories);
+        data.addStringsToAllCells(GenericData.CUSTOM_CARD_VOTES, votes);
+        GenericAdapter newsAdapter = new GenericAdapter(data, ViewHolderType.HOME_CARD_VIEW_HOLDER, getContext());
+        newsRecyclerView.setAdapter(newsAdapter);
+        newsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        newsAdapter.notifyDataSetChanged();
+        newsRecyclerView.setVisibility(View.VISIBLE);
+        mNewsCard.setVisibility(View.GONE);
+        trendingRecyclerView.setVisibility(View.GONE);
+
+    }
+
     private void loadNews(String search){
         search = search.replace(" ","");
         search = search.replace("\n","");
@@ -128,17 +165,17 @@ public class NewsFragment extends Fragment{
         ServerRequestHelper.getAuthorizedJSONArrayRequest(getContext(), ServerConstants.NEWS_SEARCH_ENDPOINT+params, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-
+                populateData(response);
             }
         });
-        mNewsCard.setVisibility(View.VISIBLE);
-        mRecyclerView.setVisibility(View.GONE);
+        mNewsCard.setVisibility(View.GONE);
+        trendingRecyclerView.setVisibility(View.GONE);
         ratingMenu.setVisibility(View.VISIBLE);
     }
 
     public void switchRecyclerView(){
         mNewsCard.setVisibility(View.GONE);
-        mRecyclerView.setVisibility(View.VISIBLE);
+        trendingRecyclerView.setVisibility(View.VISIBLE);
         ratingMenu.setVisibility(View.GONE);
     }
 
@@ -228,7 +265,7 @@ public class NewsFragment extends Fragment{
 
     public void setNewsText(String text){
         mNewsCard.setVisibility(View.VISIBLE);
-        mRecyclerView.setVisibility(View.GONE);
+        trendingRecyclerView.setVisibility(View.GONE);
         ratingMenu.setVisibility(View.VISIBLE);
         mNewsCard.setContent(text);
     }
