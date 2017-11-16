@@ -31,6 +31,7 @@ import politcc2017.tcc_app.Common.ResourcesHelper;
 import politcc2017.tcc_app.Components.CustomCard;
 import politcc2017.tcc_app.Components.CustomSearchToolbar;
 import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.SqlHelper;
+import politcc2017.tcc_app.Components.Helpers.SharedPreferencesHelper;
 import politcc2017.tcc_app.Components.Listeners.CellClickListener;
 import politcc2017.tcc_app.Components.Listeners.FragmentListener;
 import politcc2017.tcc_app.Components.RecyclerView.Adapters.GenericAdapter;
@@ -151,17 +152,43 @@ public class NewsFragment extends Fragment{
         GenericAdapter newsAdapter = new GenericAdapter(data, ViewHolderType.HOME_CARD_VIEW_HOLDER, getContext());
         newsRecyclerView.setAdapter(newsAdapter);
         newsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        newsAdapter.notifyDataSetChanged();
+        mAdapter.RegisterClickListener(new CellClickListener() {
+            @Override
+            public void onClick(View v, int position) {
+
+            }
+
+            @Override
+            public void onClick(ImageView v, String link) {
+
+            }
+
+            @Override
+            public void onClick(String message, int position) {
+
+            }
+
+            @Override
+            public void onLinkClick(String link) {
+
+            }
+
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
         newsRecyclerView.setVisibility(View.VISIBLE);
         mNewsCard.setVisibility(View.GONE);
         trendingRecyclerView.setVisibility(View.GONE);
+        ratingMenu.setVisibility(View.GONE);
 
     }
 
     private void loadNews(String search){
         search = search.replace(" ","");
         search = search.replace("\n","");
-        String params = "?query="+search+"&language=pt";
+        String params = "?query="+search+"&language="+ SharedPreferencesHelper.getString(SharedPreferencesHelper.LEARNING_LANGUAGE_LOCALE);
         ServerRequestHelper.getAuthorizedJSONArrayRequest(getContext(), ServerConstants.NEWS_SEARCH_ENDPOINT+params, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {

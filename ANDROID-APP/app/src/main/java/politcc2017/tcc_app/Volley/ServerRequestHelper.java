@@ -3,6 +3,7 @@ package politcc2017.tcc_app.Volley;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -21,7 +22,9 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import politcc2017.tcc_app.Components.Helpers.DialogHelper;
 import politcc2017.tcc_app.Entities.WordContextMenu;
+import politcc2017.tcc_app.R;
 import politcc2017.tcc_app.Volley.Objects.CustomJsonArrayRequest;
 import politcc2017.tcc_app.Volley.Objects.CustomJsonObjectRequest;
 
@@ -125,10 +128,13 @@ public class ServerRequestHelper {
     }
 
     public static void getAuthorizedJSONArrayRequest(Context c, String relativeURL, JSONArray params, final Response.Listener<JSONArray> listener){
+        final MaterialDialog loading = DialogHelper.ProgressDialog(c, c.getResources().getString(R.string.dialog_loading_title));
+        loading.show();
         CustomJsonArrayRequest request_json = new CustomJsonArrayRequest(ServerToken, Request.Method.GET, ServerConstants.BASE_URL + relativeURL, params,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
+                        loading.dismiss();
                         listener.onResponse(response);
                     }
                 },

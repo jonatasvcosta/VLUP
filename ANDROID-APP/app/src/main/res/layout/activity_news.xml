@@ -25,7 +25,7 @@
             android:clipToPadding="false"
             android:paddingTop="@dimen/margin_large"
             android:layout_height="match_parent"
-            android:background="@color/cyan_darkest"
+            android:background="@color/cyan_lightest"
             android:paddingBottom="@dimen/margin_medium"/>
         <android.support.v7.widget.RecyclerView
             android:visibility="gone"

@@ -64,7 +64,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
-                    android:maxLines="1"
+                    android:maxLines="2"
                     android:layout_toLeftOf="@id/custom_card_top_icons_container"
                     android:text="Título muito grande que deveria ser cortado como efeito de teste"/>
                 <View
@@ -80,13 +80,13 @@
                 android:id="@+id/content_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@id/custom_card_top_container"
+                android:layout_alignTop="@id/custom_card_top_separator"
                 android:orientation="vertical">
                 <politcc2017.tcc_app.Components.CustomHTMLEditText
                     android:id="@+id/custom_card_class_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_extra_large"
+                    android:layout_marginTop="@dimen/custom_search_toolbar_height"
                     android:minHeight="@dimen/multiline_edit_text_fixed_height"
                     android:paddingTop="16dp"
                     android:paddingLeft="16dp"
