@@ -54,6 +54,8 @@ class UserProfileSerializer(serializers.ModelSerializer):
             setattr(instance.user, attr, value)
         instance.user.username = user_data['email']
         instance.user.set_password(user_data['password'])
+        instance.user.save()
+
         # Then, update UserProfile
         for attr, value in validated_data.items():
             setattr(instance, attr, value)
@@ -66,6 +68,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
         user_data['username'] = user_data['email']
         user = UserModel.objects.create(**user_data)
         user.set_password(user_data['password'])
+        user.save()
 
         profile = UserProfile.objects.create(user=user, **validated_data)
         return profile
