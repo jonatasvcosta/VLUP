@@ -49,7 +49,7 @@ class ArticleSimilarity(APIView):
                 data = r.json()
             except:
                 data = r.text
-            return Response(data, status==r.status_code)
+            return Response(data, status=r.status_code)
 
         try:
             result = r.json()['result']

@@ -65,7 +65,6 @@ setup(
         'coreapi',
         'pygments',
         'markdown',
-        'googletrans',
         'nltk',
         'requests',
     ],

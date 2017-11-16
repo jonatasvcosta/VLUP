@@ -26,7 +26,12 @@ def exception_handler(error):
 
 def register_routes(app):
     from .similarity import similarity_bp
+    from .similar_words import bp as sw_bp
+    from .translation import bp as tr_bp
+    from .synonymous import bp as sy_bp
     app.register_blueprint(similarity_bp, url_prefix='/similarity')
+    app.register_blueprint(sw_bp, url_prefix='/similar_words')
+    app.register_blueprint(sy_bp, url_prefix='/synonymous')
 
 def create_app(app):
     register_routes(app)
