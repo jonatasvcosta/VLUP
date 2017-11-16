@@ -3,6 +3,7 @@ newspaper3k
 celery
 tenacity
 sqlalchemy
+googletrans
 gunicorn
 flask
 gensim

@@ -1,29 +1,44 @@
-from django.http import HttpResponse
-from rest_framework.renderers import JSONRenderer
-from rest_framework.decorators import api_view
-import json
+import requests
+import coreapi
+import coreschema
+from rest_framework import viewsets, authentication
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.schemas import ManualSchema
 
-from synonymous.services.synonymous import SynonymousService
-from synonymous.serializers import SynonymousElementSerializer
-from synonymous.models import as_synonymous_element
 
+class SynonymousCore(APIView):
+    """
+    Faz uma query de translation
+    """
+    schema = ManualSchema(fields=[
+        coreapi.Field(
+            "original_text",
+            required=True,
+            location="query",
+            schema=coreschema.String(min_length=3)
+        ),
+        coreapi.Field(
+            "original_language",
+            required=True,
+            location="query",
+            schema=coreschema.String()
+        ),
+        coreapi.Field(
+            "final_language",
+            required=True,
+            location="query",
+            schema=coreschema.String()
+        ),
+    ])
+    endpoint = "http://core:8000/synonymous"
 
-@api_view(['POST'])
-def index(request):
-    if request.method == 'POST':
-        body_dict = json.loads(request.body)
-        synonymous_element = as_synonymous_element(body_dict)
-        original_text, original_language, final_language = synonymous_element.original_text, synonymous_element.original_language, synonymous_element.final_language
-        
-        """
-        Algumas libs do Android enviam pt-br ao invés de pt
-        """
-        if(original_language == 'pt-br'): original_language = 'pt'
-        if(final_language == 'pt-br'): final_language = 'pt'
-        
-        synonymous_service = SynonymousService()
-        synonymous_element = synonymous_service.get_synonymous(original_text, original_language, final_language)    
-        serializer = SynonymousElementSerializer(synonymous_element)
-        json_final = JSONRenderer().render(serializer.data)
+    def get(self, request, format=None):
+        r = requests.get(self.endpoint, params=request.query_params)
 
-    return HttpResponse(json_final)
+        try:
+            data = r.json()
+        except:
+            data = r.text
+        finally:
+            return Response(data, status=r.status_code)
