@@ -118,4 +118,6 @@
     <string name="rating_medium">Mediano</string>
     <string name="rating_bad">Ruim</string>
     <string name="bookshelf_text_added">Texto  adicionado</string>
+    <string name="return_btn_text">Voltar</string>
+
 </resources>
