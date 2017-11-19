@@ -99,6 +99,7 @@ public class ServerRequestHelper {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                String msg = new String(error.networkResponse.data);
                 VolleyLog.e("Error: ", error.getMessage());
                 if(errorListener != null) errorListener.onErrorResponse(error);
             }
