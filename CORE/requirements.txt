@@ -10,3 +10,5 @@ gensim
 numpy
 scipy
 file:///wheels/word_forms-1.0-py3-none-any.whl
+langdetect
+tldextract

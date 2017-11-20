@@ -17,6 +17,11 @@ class Article(models.Model):
     title = models.CharField(max_length=300)
     text = models.TextField()
     url = models.URLField(max_length=500, unique=True)
+
+    description = models.CharField(max_length=500, default='')
+    image_url = models.URLField(max_length=500, null=True)
+    publish_date = models.DateTimeField(null=True)
+
     website = models.ForeignKey(Website, on_delete=models.CASCADE)
 
     rating = models.IntegerField(default=0)

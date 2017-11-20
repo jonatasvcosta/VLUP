@@ -5,12 +5,11 @@ from common.database import DBSession
 from indexing import available_languages
 from indexing.corpus import DbCorpus
 from indexing.similarity import SimilarityLSA
-from indexing.preprocessing import PreProcessor
 
-similarity_bp = Blueprint('similarity', __name__)
+bp = Blueprint('similarity', __name__)
 
 
-@similarity_bp.route('/')
+@bp.route('/')
 def query_similarity():
     query = request.args.get('query', '')
     language = request.args.get('language', '')
