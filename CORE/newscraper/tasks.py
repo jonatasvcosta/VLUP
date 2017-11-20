@@ -4,6 +4,7 @@ from common.celery import app, SqlAlchemyTask
 from common.database import DBSession, initialize_sql
 from .model import Article, Website
 from celery.schedules import crontab
+from .validation import validate_article
 
 
 @app.on_after_finalize.connect
@@ -42,14 +43,20 @@ def save_article(article, website):
     try:
         article.download()
         article.parse()
+        article.nlp()
 
         obj = Article()
         obj.text = article.text
         obj.title = article.title
-        obj.url = article.url
+        obj.url = article.canonical_link or article.url
+
+        obj.description = article.meta_description
+        obj.image_url = article.top_img
+        obj.publish_date = article.publish_date
+
         obj.website = website
 
-        if obj.should_save():
+        if validate_article(article, website):
             print("{} - {}".format(article.title, article.url))
 
             DBSession.begin()
