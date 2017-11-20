@@ -5,14 +5,47 @@ from rest_framework import viewsets, authentication
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.schemas import ManualSchema
-from .serializer import WebsiteSerializer, ArticleResultSerializer
-from .models import Article, Website
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import detail_route
+from .serializer import WebsiteSerializer, ArticleSerializer, ArticleRatingSerializer, ArticleResultSerializer
+from .models import Article, Website, ArticleRating
 
 
 class WebsiteViewSet(viewsets.ModelViewSet):
     queryset = Website.objects.all()
     serializer_class = WebsiteSerializer
     filter_fields = ("language", "name")
+
+
+class ArticleViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = Article.objects.all()
+    serializer_class = ArticleSerializer
+
+    @detail_route(methods=['post'], permission_classes=[IsAuthenticated], url_path='rate', serializer_class=ArticleRatingSerializer)
+    def rate_article(self, request, pk=None):
+        article = Article.objects.get(pk=pk)
+        rating = ArticleRating.objects.filter(user=request.user, article__pk=pk).first()
+
+        value = int(request.data.get("value", None))
+        if value is None:
+            return Response("'value' has to be an integer", status=400)
+        time = int(request.data.get("time", 0))
+
+        if rating:
+            article.rating = article.rating - rating.value
+            rating.value = value
+            rating.time = time
+            rating.save()
+        else:
+            rating = ArticleRating.objects.create(article=article, user=request.user, value=value, time=time)
+
+        article.rating += value
+        article.save()
+
+        serializer = ArticleSerializer(article)
+
+        return Response(serializer.data)
+
 
 
 class ArticleSimilarity(APIView):

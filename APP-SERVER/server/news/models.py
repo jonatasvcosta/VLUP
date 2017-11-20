@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth import get_user_model
 
 
 class Website(models.Model):
@@ -18,6 +19,14 @@ class Article(models.Model):
     url = models.URLField(max_length=500, unique=True)
     website = models.ForeignKey(Website, on_delete=models.CASCADE)
 
+    rating = models.IntegerField(default=0)
+
     def __str__(self):
     	return str(self.title)
 
+
+class ArticleRating(models.Model):
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    article = models.ForeignKey(Article, on_delete=models.CASCADE)
+    value = models.IntegerField(default=0)
+    time = models.IntegerField(default=0)
