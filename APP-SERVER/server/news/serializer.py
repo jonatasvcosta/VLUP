@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Article, Website
+from .models import Article, ArticleRating, Website
 
 
 class WebsiteSerializer(serializers.ModelSerializer):
@@ -14,6 +14,11 @@ class ArticleSerializer(serializers.ModelSerializer):
         fields = '__all__'
         depth = 1
 
+
+class ArticleRatingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ArticleRating
+        fields = ('value',)
 
 class ArticleResultSerializer(serializers.BaseSerializer):
     scores = None
