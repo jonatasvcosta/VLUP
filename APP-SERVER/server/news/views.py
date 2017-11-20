@@ -29,13 +29,15 @@ class ArticleViewSet(viewsets.ReadOnlyModelViewSet):
         value = int(request.data.get("value", None))
         if value is None:
             return Response("'value' has to be an integer", status=400)
+        time = int(request.data.get("time", 0))
 
         if rating:
             article.rating = article.rating - rating.value
             rating.value = value
+            rating.time = time
             rating.save()
         else:
-            rating = ArticleRating.objects.create(article=article, user=request.user, value=value)
+            rating = ArticleRating.objects.create(article=article, user=request.user, value=value, time=time)
 
         article.rating += value
         article.save()

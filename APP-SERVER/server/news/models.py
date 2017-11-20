@@ -28,4 +28,5 @@ class Article(models.Model):
 class ArticleRating(models.Model):
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
-    value = models.IntegerField()
+    value = models.IntegerField(default=0)
+    time = models.IntegerField(default=0)

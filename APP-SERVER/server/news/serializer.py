@@ -18,7 +18,7 @@ class ArticleSerializer(serializers.ModelSerializer):
 class ArticleRatingSerializer(serializers.ModelSerializer):
     class Meta:
         model = ArticleRating
-        fields = ('value',)
+        fields = ('value', 'time')
 
 class ArticleResultSerializer(serializers.BaseSerializer):
     scores = None
