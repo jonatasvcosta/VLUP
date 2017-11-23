@@ -32,6 +32,7 @@ def register_routes(app):
     from .keywords import bp as kw_bp
     app.register_blueprint(sim_bp, url_prefix='/similarity')
     app.register_blueprint(sw_bp, url_prefix='/similar_words')
+    app.register_blueprint(tr_bp, url_prefix='/translation')
     app.register_blueprint(sy_bp, url_prefix='/synonymous')
     app.register_blueprint(kw_bp, url_prefix='/keywords')
 
