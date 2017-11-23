@@ -1,4 +1,4 @@
-from sqlalchemy import Column, ForeignKey, Integer, Text, String, create_engine
+from sqlalchemy import Column, ForeignKey, Integer, Text, String, DateTime, create_engine
 from sqlalchemy.orm import relationship
 from common.database import Base
 
@@ -16,8 +16,10 @@ class Article(Base):
     title = Column(String(300))
     text = Column(Text())
     url = Column(String(500))
+
+    description = Column(String(500))
+    image_url = Column(String(500))
+    publish_date = Column(DateTime())
+
     website_id = Column(Integer, ForeignKey('news_website.id'))
     website = relationship(Website)
-
-    def should_save(self):
-        return len(self.text) > 140

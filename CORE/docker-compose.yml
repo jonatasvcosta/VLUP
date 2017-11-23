@@ -10,7 +10,7 @@ services:
       - "8000:8000"
     volumes:
       - .:/app:ro
-    command: gunicorn --bind=0.0.0.0:8000 --workers=4 api:app
+    command: gunicorn --bind=0.0.0.0:8000 --workers=2 api:app
   scheduler:
     build: .
     image: "vlup-newscraper:latest"

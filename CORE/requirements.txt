@@ -3,8 +3,12 @@ newspaper3k
 celery
 tenacity
 sqlalchemy
+googletrans
+gunicorn
+flask
 gensim
 numpy
 scipy
-gunicorn
-flask
+file:///wheels/word_forms-1.0-py3-none-any.whl
+langdetect
+tldextract

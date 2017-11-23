@@ -6,6 +6,8 @@ services:
       dockerfile: Dockerfile.dev
     depends_on:
       - "database"
+    external_links:
+      - api:core
     links:
      - "database"
     environment:

@@ -25,8 +25,15 @@ def exception_handler(error):
 
 
 def register_routes(app):
-    from .similarity import similarity_bp
-    app.register_blueprint(similarity_bp, url_prefix='/similarity')
+    from .similarity import bp as sim_bp
+    from .similar_words import bp as sw_bp
+    from .translation import bp as tr_bp
+    from .synonymous import bp as sy_bp
+    from .keywords import bp as kw_bp
+    app.register_blueprint(sim_bp, url_prefix='/similarity')
+    app.register_blueprint(sw_bp, url_prefix='/similar_words')
+    app.register_blueprint(sy_bp, url_prefix='/synonymous')
+    app.register_blueprint(kw_bp, url_prefix='/keywords')
 
 def create_app(app):
     register_routes(app)

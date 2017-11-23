@@ -29,7 +29,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     '.vlup.com.br',
     '.amazonaws.com',
-    'localhost', 
+    'localhost',
     '127.0.0.1',
     'ec2-54-90-253-109.compute-1.amazonaws.com',
     '54.90.253.109',
@@ -85,10 +85,6 @@ WSGI_APPLICATION = 'vlup.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-"""
-PARA SUBIR LOCALMENTE USANDO CONTAINER, DESCOMENTE ABAIXO
-"""
-"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -97,17 +93,6 @@ DATABASES = {
         'PASSWORD': 'password',
         'HOST': 'database',
         'PORT': ''
-    }
-}
-"""
-
-"""
-PARA SUBIR LOCALMENTE USANDO APENAS PYTHON, DESCOMENTE ABAIXO
-"""
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'mydatabase',
     }
 }
 
