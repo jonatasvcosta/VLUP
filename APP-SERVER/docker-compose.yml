@@ -9,9 +9,10 @@ services:
     external_links:
       - api:core
     volumes:
-     - /static
-    #mem_limit: 700m
-    #mem_reservation: 500m
+      - /static
+    cpu_shares: 2048
+    mem_limit: 4000m
+    mem_reservation: 2000m
   reverseproxy:
     image: "nginx:1.11.9-alpine"
     networks:
@@ -24,6 +25,9 @@ services:
       - "vlup"
     volumes:
       - ./reverseproxy:/etc/nginx
+    cpu_shares: 128
+    mem_limit: 100m
+    mem_reservation: 20m
 networks:
   default:
     driver: bridge
