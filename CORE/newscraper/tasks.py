@@ -5,6 +5,7 @@ from common.database import DBSession, initialize_sql
 from .model import Article, Website
 from celery.schedules import crontab
 from .validation import validate_article
+from .parser import extract_publish_date
 
 
 @app.on_after_finalize.connect
@@ -52,7 +53,7 @@ def save_article(article, website):
 
         obj.description = article.meta_description
         obj.image_url = article.top_img
-        obj.publish_date = article.publish_date
+        obj.publish_date = extract_publish_date(article)
 
         obj.website = website
 

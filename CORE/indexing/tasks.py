@@ -10,7 +10,7 @@ from . import PathUtility
 def build_similarity():
     initialize_sql()
 
-    for language in ["pt", "en"]:
+    for language in ["pt", "en", "de"]:
         # Make sure folder exists
         directory = os.path.dirname(PathUtility.SIMILARITY(language))
         if not os.path.exists(directory):
