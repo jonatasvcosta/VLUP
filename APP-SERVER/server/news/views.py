@@ -8,6 +8,7 @@ from rest_framework.response import Response
 from rest_framework.schemas import ManualSchema
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import detail_route, list_route
+from rest_framework.pagination import LimitOffsetPagination
 from .serializer import WebsiteSerializer, ArticleSerializer, ArticleRatingSerializer, ArticleResultSerializer
 from .models import Article, Website, ArticleRating
 from .keywords import get_keywords
@@ -22,6 +23,7 @@ class WebsiteViewSet(viewsets.ModelViewSet):
 class ArticleViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
+    pagination_class = LimitOffsetPagination
     filter_fields = ('website__language',)
 
     @list_route(url_path='home', schema = ManualSchema(fields=[
