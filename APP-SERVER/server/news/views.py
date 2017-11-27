@@ -22,9 +22,16 @@ class WebsiteViewSet(viewsets.ModelViewSet):
 class ArticleViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
-    filter_fields = ('website__language')
+    filter_fields = ('website__language',)
 
-    @list_route(url_path='home')
+    @list_route(url_path='home', schema = ManualSchema(fields=[
+        coreapi.Field(
+            "website__language",
+            required=True,
+            location="query",
+            schema=coreschema.String()
+        )
+    ]))
     def home(self, request):
         queryset = self.filter_queryset(self.get_queryset()).order_by('-publish_date')
 
@@ -37,7 +44,14 @@ class ArticleViewSet(viewsets.ReadOnlyModelViewSet):
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
 
-    @list_route(url_path='trending_topics')
+    @list_route(url_path='trending_topics', schema = ManualSchema(fields=[
+        coreapi.Field(
+            "website__language",
+            required=True,
+            location="query",
+            schema=coreschema.String()
+        )
+    ]))
     def trending_topics(self, request):
         queryset = self.filter_queryset(self.get_queryset()).order_by('-publish_date')[:20]
 
@@ -78,7 +92,6 @@ class ArticleViewSet(viewsets.ReadOnlyModelViewSet):
         serializer = ArticleSerializer(article)
 
         return Response(serializer.data)
-
 
 
 class ArticleSimilarity(APIView):
