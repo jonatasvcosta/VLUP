@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.timezone import now
 from django.contrib.auth import get_user_model
 
 
@@ -20,7 +21,7 @@ class Article(models.Model):
 
     description = models.CharField(max_length=500, default='')
     image_url = models.URLField(max_length=500, null=True)
-    publish_date = models.DateTimeField(null=True)
+    publish_date = models.DateTimeField(default=now)
 
     website = models.ForeignKey(Website, on_delete=models.CASCADE)
 
