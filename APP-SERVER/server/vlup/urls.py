@@ -24,6 +24,5 @@ urlpatterns = [
     url(r'^translation/', include('translation.urls')),
     url(r'^synonymous/', include('synonymous.urls')),
     url(r'^similar_words/', include('similar_words.urls')),
-    url(r'^short_lessons/', include('short_lessons.urls')),
     url(r'^docs/', get_swagger_view(title='Vlup API'))
 ]
