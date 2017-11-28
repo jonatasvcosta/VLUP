@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'authentication',
     'news',
-    'translation'
+    'translation',
+    'short_lessons',
 ]
 
 MIDDLEWARE = [
@@ -117,6 +118,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
     ),
+    'PAGE_SIZE': 50
 }
 
 

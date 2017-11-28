@@ -7,7 +7,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.schemas import ManualSchema
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.decorators import detail_route
+from rest_framework.decorators import detail_route, list_route
+from rest_framework.pagination import LimitOffsetPagination
 from .serializer import WebsiteSerializer, ArticleSerializer, ArticleRatingSerializer, ArticleResultSerializer
 from .models import Article, Website, ArticleRating
 from .keywords import get_keywords
@@ -22,6 +23,52 @@ class WebsiteViewSet(viewsets.ModelViewSet):
 class ArticleViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
+    pagination_class = LimitOffsetPagination
+    filter_fields = ('website__language',)
+
+    @list_route(url_path='home', schema = ManualSchema(fields=[
+        coreapi.Field(
+            "website__language",
+            required=True,
+            location="query",
+            schema=coreschema.String()
+        )
+    ]))
+    def home(self, request):
+        queryset = self.filter_queryset(self.get_queryset()).order_by('-publish_date')
+
+        page = self.paginate_queryset(queryset)
+
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+
+    @list_route(url_path='trending_topics', schema = ManualSchema(fields=[
+        coreapi.Field(
+            "website__language",
+            required=True,
+            location="query",
+            schema=coreschema.String()
+        )
+    ]))
+    def trending_topics(self, request):
+        queryset = self.filter_queryset(self.get_queryset()).order_by('-publish_date')[:20]
+
+        language = queryset.first().website.language
+
+        trending_keywords = get_keywords(queryset.values_list('id', flat=True), language, limit=20)
+
+        keywords_frequency = defaultdict(int)
+        for article in trending_keywords:
+            for keyword in article['keywords']:
+                keywords_frequency[keyword] += 1
+
+        sorted_keywords = [keyword for keyword, _ in sorted(keywords_frequency.items(), key=lambda x: x[1], reverse=True)]
+
+        return Response(sorted_keywords)
 
     @detail_route(methods=['post'], permission_classes=[IsAuthenticated], url_path='rate', serializer_class=ArticleRatingSerializer)
     def rate_article(self, request, pk=None):
@@ -47,7 +94,6 @@ class ArticleViewSet(viewsets.ReadOnlyModelViewSet):
         serializer = ArticleSerializer(article)
 
         return Response(serializer.data)
-
 
 
 class ArticleSimilarity(APIView):

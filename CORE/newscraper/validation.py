@@ -1,13 +1,13 @@
 import langdetect
 import logging
 import tldextract
-from .common.database import DBSession
+from common.database import DBSession
 from .model import Article
 from urllib.parse import urlparse, urlunparse
 
 log = logging.getLogger(__name__)
 
-def validate_article(article, website):
+def validate_article(article, website, article_id=None):
 
     if len(article.text) < 140:
         log.debug("{} text is too short".format(get_article_url(article)))
@@ -30,7 +30,7 @@ def validate_article(article, website):
     # Se website começa tem um subdominio específico, então restringe a esse subdomínio
     # Motivo: alguns sites usam subdomínios como categorias, outros usam como jornais separados.
     website_parsed = tldextract.extract(website.url)
-    article_parsed= tldextract.extract(get_article_url(article))
+    article_parsed = tldextract.extract(get_article_url(article))
 
     if website_parsed[1:] != article_parsed[1:]:
         # Domínios diferentes
@@ -47,9 +47,13 @@ def validate_article(article, website):
     http = set_url_scheme(get_article_url(article), 'http')
     https = set_url_scheme(get_article_url(article), 'https')
 
-    dup = DBSession.query(Article).filter( (Article.url == http) | (Article.url == https) ).first()
+    if article_id is None:
+        dup = DBSession.query(Article).filter( (Article.url == http) | (Article.url == https) ).first()
+    else:
+        dup = DBSession.query(Article).filter(Article.id != article_id).filter( (Article.url == http) | (Article.url == https) ).first()
 
     if dup is not None:
+        log.debug("{} duplicate found with id {}".format(get_article_url(article), dup.id))
         return False
 
     return True

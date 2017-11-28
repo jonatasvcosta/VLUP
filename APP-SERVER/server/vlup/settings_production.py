@@ -28,7 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     '.vlup.com.br',
     '.amazonaws.com',
-    'localhost', 
+    'localhost',
     '127.0.0.1',
     'ec2-54-90-253-109.compute-1.amazonaws.com',
     '54.90.253.109',
@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'authentication',
     'news',
-    'translation'
+    'translation',
+    'short_lessons',
 ]
 
 MIDDLEWARE = [
@@ -117,6 +118,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
     ),
+    'PAGE_SIZE': 50
 }
 
 

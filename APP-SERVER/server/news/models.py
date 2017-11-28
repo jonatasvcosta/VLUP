@@ -1,10 +1,11 @@
 from django.db import models
+from django.utils.timezone import now
 from django.contrib.auth import get_user_model
 
 
 class Website(models.Model):
     name = models.CharField(max_length=255)
-    language = models.CharField(max_length=15, default="")
+    language = models.CharField(max_length=15, default="", db_index=True)
     description = models.CharField(max_length=300, default="")
     image_url = models.URLField(max_length=500, default="")
     url = models.URLField(max_length=500)
@@ -20,7 +21,7 @@ class Article(models.Model):
 
     description = models.CharField(max_length=500, default='')
     image_url = models.URLField(max_length=500, null=True)
-    publish_date = models.DateTimeField(null=True)
+    publish_date = models.DateTimeField(default=now, db_index=True)
 
     website = models.ForeignKey(Website, on_delete=models.CASCADE)
 

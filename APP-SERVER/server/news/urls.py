@@ -8,6 +8,6 @@ router.register(r'article', ArticleViewSet)
 
 urlpatterns = [
     url(r'', include(router.urls)),
-    url(r'article/similarity', ArticleSimilarity.as_view()),
-    url(r'article/vocabulary', Vocabulary.as_view()),
+    url(r'article/similarity/', ArticleSimilarity.as_view()),
+    url(r'article/vocabulary/', Vocabulary.as_view()),
 ]
