@@ -38,9 +38,9 @@ services:
     volumes:
       - .:/app:ro
       - ./data:/app/data
-    command: celery -A common.celery worker --loglevel=info
+    command: celery -A common.celery worker --loglevel=info --concurrency 2
     cpu_shares: 512
-    mem_limit: 4000m
+    mem_limit: 4500m
     mem_reservation: 2000m
   broker:
     image: "rabbitmq:management-alpine"
