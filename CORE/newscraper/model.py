@@ -21,5 +21,7 @@ class Article(Base):
     image_url = Column(String(500))
     publish_date = Column(DateTime())
 
+    rating = Column(Integer, default=0)
+
     website_id = Column(Integer, ForeignKey('news_website.id'))
     website = relationship(Website)
