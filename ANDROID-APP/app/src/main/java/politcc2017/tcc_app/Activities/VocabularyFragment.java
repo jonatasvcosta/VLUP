@@ -124,13 +124,8 @@ public class VocabularyFragment extends Fragment{
         if(this.listener != null) listener.onMessageSent("VOCABULARY_FRAGMENT", SqlHelper.RULE_CHECK_SIMILAR_WORDS);
         trendingTopicsRecyclerView.setVisibility(View.GONE);
         final ArrayList<String> words = new ArrayList<>();
-        ArrayList<Integer> count = new ArrayList<>();
-        HashMap<String, String> params = new HashMap<String, String>();
-        params.put("original_text", word);
         String locale = SharedPreferencesHelper.getString(SharedPreferencesHelper.LEARNING_LANGUAGE_LOCALE, getContext());
-        params.put("original_language", locale);
-        params.put("final_language", locale);
-        ServerRequestHelper.postAuthorizedJSONRequest(getContext(),  endpoint, new JSONObject(params), new Response.Listener<JSONObject>() {
+        ServerRequestHelper.getAuthorizedJSONRequest(getContext(),  endpoint+"?original_text="+word+"&original_language="+locale+"&final_language="+locale, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 if(response != null && response.length() > 0){
@@ -178,11 +173,6 @@ public class VocabularyFragment extends Fragment{
                     wordsRecyclerView.setAdapter(mAdapter);
                 }
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
         });
     }
 
@@ -217,26 +207,24 @@ public class VocabularyFragment extends Fragment{
         //load words from server base on category
         if(category == null || category.equals("")) return;
         mData.clearAllCells();
-        ArrayList<String> words = new ArrayList<>();
+        final ArrayList<String> words = new ArrayList<>();
         ArrayList<Integer> count = new ArrayList<>();
-        if(category.equals("turismo")) {
-            words.add("travel");
-            words.add("map");
-            words.add("guide");
-            count.add(20);
-            count.add(3);
-            count.add(2);
-        }
-        else if(category.equals("ti")){
-            words.add("programming");
-            words.add("algorithm");
-            count.add(20);
-            count.add(312);
-        }
-        mData.addStringsToAllCells(GenericData.VOCABULARY_WORD, words);
-        mData.addIntegersToAllCells(GenericData.VOCABULARY_COUNT, count);
-        mAdapter.notifyDataSetChanged();
-        wordsRecyclerView.setAdapter(mAdapter);
+        String locale = SharedPreferencesHelper.getString(SharedPreferencesHelper.LEARNING_LANGUAGE_LOCALE, getContext());
+        ServerRequestHelper.getAuthorizedJSONArrayRequest(getContext(), ServerConstants.VOCABULARY_ENDPOINT+"?query="+category+"&language="+locale, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                if(response == null) return;
+                for(int i = 0; i < response.length(); i++){
+                    try {
+                        words.add(response.get(i).toString());
+                    } catch (JSONException e) {}
+                }
+                mData.addStringsToAllCells(GenericData.VOCABULARY_WORD, words);
+                //mData.addIntegersToAllCells(GenericData.VOCABULARY_COUNT, count);
+                mAdapter.notifyDataSetChanged();
+                wordsRecyclerView.setAdapter(mAdapter);
+            }
+        });
     }
 
     private void SetSuggestionList(){
