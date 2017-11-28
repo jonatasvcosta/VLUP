@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'authentication',
     'news',
-    'translation'
+    'translation',
+    'short_lessons',
 ]
 
 MIDDLEWARE = [
