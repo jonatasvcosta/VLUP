@@ -55,7 +55,10 @@ public class MainActivitiesActivity extends BaseActivity implements FragmentList
             public void onTabSelected(final TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
                 if(tab.getPosition() == POS_HOME_TAB) setActivityTitle(getResString(R.string.home_activity_title));
-                if(tab.getPosition() == POS_VOCABULARY_TAB) setActivityTitle(getResString(R.string.vocabulary_activity_title));
+                if(tab.getPosition() == POS_VOCABULARY_TAB){
+                    setActivityTitle(getResString(R.string.vocabulary_activity_title));
+                    if(!setupSimilarWords) vocabularyFragment.loadTrendingTopics();
+                }
                 if(tab.getPosition() == POS_NEWS_TAB) setActivityTitle(getResString(R.string.news_activity_title));
                 setupActionBarIcons(tab.getPosition());
             }
@@ -88,16 +91,16 @@ public class MainActivitiesActivity extends BaseActivity implements FragmentList
             }
             else if(defaultActivity != null && defaultActivity.equals("HOME_ACTIVITY")) viewPager.setCurrentItem(POS_HOME_TAB);
             if(similarWords != null && similarWords.length() > 0){
-                viewPager.setCurrentItem(POS_VOCABULARY_TAB);
                 setupSimilarWords = true;
                 this.similarWord = similarWords;
                 this.synonymWord = "";
+                viewPager.setCurrentItem(POS_VOCABULARY_TAB);
             }
             if(synonymWords != null && synonymWords.length() > 0){
-                viewPager.setCurrentItem(POS_VOCABULARY_TAB);
                 setupSimilarWords = true;
                 this.similarWord = "";
                 this.synonymWord = synonymWords;
+                viewPager.setCurrentItem(POS_VOCABULARY_TAB);
             }
         }
     }

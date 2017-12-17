@@ -28,6 +28,7 @@ import java.util.ArrayList;
 
 import politcc2017.tcc_app.Activities.Bookshelf.BookshelfActivity;
 import politcc2017.tcc_app.Common.ResourcesHelper;
+import politcc2017.tcc_app.Components.CustomButton;
 import politcc2017.tcc_app.Components.CustomCard;
 import politcc2017.tcc_app.Components.CustomSearchToolbar;
 import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.SqlHelper;
@@ -50,9 +51,11 @@ public class NewsFragment extends Fragment{
     private RecyclerView trendingRecyclerView, newsRecyclerView;
     private FloatingActionsMenu ratingMenu;
     private GenericAdapter mAdapter;
+    private GenericData newsData;
     private FloatingActionButton addBookshelfFAB, rateGoodFAB, rateMediumFAB, rateBadFAB, fabRatedGood, fabRatedMedium, fabRatedBad;
     private FragmentListener listener;
     private long referenceTime;
+    private CustomButton backBtn;
 
     public NewsFragment() {
         // Required empty public constructor
@@ -103,6 +106,7 @@ public class NewsFragment extends Fragment{
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         mSearchToolbar.registerRecyclerViewScrollListener(trendingRecyclerView, displayMetrics.heightPixels);
+        backBtn = (CustomButton) v.findViewById(R.id.news_detail_return_btn);
         if(listener != null) listener.onMessageSent("NEWS_FRAGMENT", "READY");
         return v;
     }
@@ -122,9 +126,21 @@ public class NewsFragment extends Fragment{
         data.addStringsToAllCells(GenericData.TRENDING_TOPIC, topics);
     }
 
+    private void detailNewsCard(int position){
+        String title = newsData.getValue(position).get(GenericData.CUSTOM_CARD_TITLE).toString();
+        String content = newsData.getValue(position).get(GenericData.CUSTOM_CARD_CONTENT).toString();
+        String categories = newsData.getValue(position).get(GenericData.CUSTOM_CARD_CATEGORIES).toString();
+        String votes = newsData.getValue(position).get(GenericData.CUSTOM_CARD_VOTES).toString();
+        mNewsCard.setTitle(title);
+        mNewsCard.setContent(content);
+        mNewsCard.setUnlimitedLines();
+        mNewsCard.setCategory(categories);
+        mNewsCard.setVotes(votes);
+    }
+
     private void populateData(JSONArray response){
         if(response == null || response.length() == 0) return;
-        GenericData data = new GenericData();
+        newsData = new GenericData();
         ArrayList<String> titles = new ArrayList<>();
         ArrayList<String> texts = new ArrayList<>();
         ArrayList<String> cardType = new ArrayList<>();
@@ -144,15 +160,15 @@ public class NewsFragment extends Fragment{
                 String url = news.getString("url");
             } catch (JSONException e) {}
         }
-        data.addStringsToAllCells(GenericData.CUSTOM_CARD_TITLE, titles);
-        data.addStringsToAllCells(GenericData.CUSTOM_CARD_CONTENT, texts);
-        data.addStringsToAllCells(GenericData.CUSTOM_CARD_TYPE, cardType);
-        data.addStringsToAllCells(GenericData.CUSTOM_CARD_CATEGORIES, categories);
-        data.addStringsToAllCells(GenericData.CUSTOM_CARD_VOTES, votes);
-        GenericAdapter newsAdapter = new GenericAdapter(data, ViewHolderType.HOME_CARD_VIEW_HOLDER, getContext());
+        newsData.addStringsToAllCells(GenericData.CUSTOM_CARD_TITLE, titles);
+        newsData.addStringsToAllCells(GenericData.CUSTOM_CARD_CONTENT, texts);
+        newsData.addStringsToAllCells(GenericData.CUSTOM_CARD_TYPE, cardType);
+        newsData.addStringsToAllCells(GenericData.CUSTOM_CARD_CATEGORIES, categories);
+        newsData.addStringsToAllCells(GenericData.CUSTOM_CARD_VOTES, votes);
+        final GenericAdapter newsAdapter = new GenericAdapter(newsData, ViewHolderType.HOME_CARD_VIEW_HOLDER, getContext());
         newsRecyclerView.setAdapter(newsAdapter);
         newsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mAdapter.RegisterClickListener(new CellClickListener() {
+        newsAdapter.RegisterClickListener(new CellClickListener() {
             @Override
             public void onClick(View v, int position) {
 
@@ -165,7 +181,18 @@ public class NewsFragment extends Fragment{
 
             @Override
             public void onClick(String message, int position) {
-
+                detailNewsCard(position);
+                mNewsCard.setVisibility(View.VISIBLE);
+                newsRecyclerView.setVisibility(View.GONE);
+                backBtn.setVisibility(View.VISIBLE);
+                backBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        backBtn.setVisibility(View.GONE);
+                        mNewsCard.setVisibility(View.GONE);
+                        newsRecyclerView.setVisibility(View.VISIBLE);
+                    }
+                });
             }
 
             @Override

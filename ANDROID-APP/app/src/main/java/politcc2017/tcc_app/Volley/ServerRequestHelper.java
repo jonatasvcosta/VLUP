@@ -45,23 +45,20 @@ public class ServerRequestHelper {
     }
 
     public static void getWordTranslation(final Context c, String finalLanguage, String originalLanguage, String word, final Response.Listener<String> listener){
-        HashMap<String, String> params = new HashMap<String, String>();
-        params.put(ServerConstants.ORIGINAL_TEXT_KEY, word);
-        params.put(ServerConstants.ORIGINAL_LANGUAGE_KEY, originalLanguage);
-        params.put(ServerConstants.FINAL_LANGUAGE_KEY, finalLanguage);
         final String[] translation = new String[]{word};
-        postAuthorizedJSONRequest(c, ServerConstants.TRANSLATION_ENDPOINT, new JSONObject(params) ,new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    translation[0] = response.get(ServerConstants.TRANSLATED_TEXT_KEY).toString();
-                    listener.onResponse(translation[0]);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    listener.onResponse(translation[0]);
-                }
-            }
-        });
+        getAuthorizedJSONRequest(c, ServerConstants.TRANSLATION_ENDPOINT+"?"+ServerConstants.ORIGINAL_TEXT_KEY+"="+word+"&"+ServerConstants.ORIGINAL_LANGUAGE_KEY+"="+originalLanguage+"&"+ServerConstants.FINAL_LANGUAGE_KEY+"="+finalLanguage
+                , null,new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            translation[0] = response.get(ServerConstants.TRANSLATED_TEXT_KEY).toString();
+                            listener.onResponse(translation[0]);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            listener.onResponse(translation[0]);
+                        }
+                    }
+                });
     }
 
     public static void getString(Context c, String url, final String defaultString, final Response.Listener<String> responseListener){
@@ -99,6 +96,7 @@ public class ServerRequestHelper {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                String msg = new String(error.networkResponse.data);
                 VolleyLog.e("Error: ", error.getMessage());
                 if(errorListener != null) errorListener.onErrorResponse(error);
             }
@@ -141,6 +139,7 @@ public class ServerRequestHelper {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        String msg = new String(error.networkResponse.data);
                         VolleyLog.e("Error: ", error.getMessage());
                     }
                 });

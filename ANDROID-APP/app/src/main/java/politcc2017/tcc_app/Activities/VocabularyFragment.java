@@ -43,7 +43,8 @@ public class VocabularyFragment extends Fragment{
     private CustomSearchToolbar mSearchToolbar;
     private RecyclerView wordsRecyclerView, trendingTopicsRecyclerView;
     private GenericAdapter mAdapter, trendingAdapter;
-    private GenericData mData, trendingData;
+    private GenericData mData;
+    private GenericData trendingData;
     private FragmentListener listener;
 
     public VocabularyFragment() {
@@ -73,13 +74,10 @@ public class VocabularyFragment extends Fragment{
         trendingTopicsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         trendingTopicsRecyclerView.setVisibility(View.VISIBLE);
         mData = new GenericData();
-        trendingData = new GenericData();
-        loadTrendingTopics(trendingData);
         trendingAdapter = new GenericAdapter(trendingData, ViewHolderType.TRENDING_TOPICS_VIEW_HOLDER, getContext());
         wordsRecyclerView.setAdapter(mAdapter);
         mAdapter = new GenericAdapter(mData, ViewHolderType.VOCABULARY_WORD_VIEW_HOLDER,getContext());
         setupListeners();
-        trendingTopicsRecyclerView.setAdapter(trendingAdapter);
         //setActivityTitle(getResString(R.string.vocabulary_activity_title));
 
         SetSuggestionList();
@@ -98,15 +96,53 @@ public class VocabularyFragment extends Fragment{
         mSearchToolbar.setSuggestionText(input);
     }
 
-    private void loadTrendingTopics(GenericData data){
-        //call server here
-        ArrayList<String> topics = new ArrayList<>();
-        topics.add("Politics");
-        topics.add("Refugees");
-        topics.add("Global warming");
-        topics.add("North Korea");
-        topics.add("G5");
-        data.addStringsToAllCells(GenericData.TRENDING_TOPIC, topics);
+    public void loadTrendingTopics(){
+        if(trendingData != null) return; //topics already loaded
+        trendingData = new GenericData();
+        String locale = SharedPreferencesHelper.getString(SharedPreferencesHelper.LEARNING_LANGUAGE_LOCALE, getContext());
+        ServerRequestHelper.getAuthorizedJSONArrayRequest(getContext(), ServerConstants.TRENDING_TOPICS_ENDPOINT + "?website__language="+locale, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                ArrayList<String> topics = new ArrayList<>();
+                if(response == null) return;
+                for(int i = 0; i < response.length(); i++){
+                    try {
+                        topics.add(response.get(i).toString());
+                    } catch (JSONException e) {}
+                }
+                trendingData.addStringsToAllCells(GenericData.TRENDING_TOPIC, topics);
+                trendingAdapter = new GenericAdapter(trendingData, ViewHolderType.TRENDING_TOPICS_VIEW_HOLDER, getContext());
+                trendingTopicsRecyclerView.setAdapter(trendingAdapter);
+                trendingAdapter.RegisterClickListener(new CellClickListener() {
+                    @Override
+                    public void onClick(View v, int position) {
+
+                    }
+
+                    @Override
+                    public void onClick(ImageView v, String link) {
+
+                    }
+
+                    @Override
+                    public void onClick(String message, int position) {
+                        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+                        mSearchToolbar.setSuggestionText(message);
+                        loadWords(message);
+                    }
+
+                    @Override
+                    public void onLinkClick(String link) {
+
+                    }
+
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                });
+            }
+        });
     }
 
     public void loadSynonymWordsFromServer(String word){
@@ -119,18 +155,13 @@ public class VocabularyFragment extends Fragment{
 
     public void loadWordsListFromServer(String word, final String endpoint, final String keyRefence){
         if(word == null || word.length() == 0) return;
-        mSearchToolbar.setSuggestionText(word);
+        mSearchToolbar.setNonSearchableSuggestionText(word);
         wordsRecyclerView.setVisibility(View.VISIBLE);
         if(this.listener != null) listener.onMessageSent("VOCABULARY_FRAGMENT", SqlHelper.RULE_CHECK_SIMILAR_WORDS);
         trendingTopicsRecyclerView.setVisibility(View.GONE);
         final ArrayList<String> words = new ArrayList<>();
-        ArrayList<Integer> count = new ArrayList<>();
-        HashMap<String, String> params = new HashMap<String, String>();
-        params.put("original_text", word);
         String locale = SharedPreferencesHelper.getString(SharedPreferencesHelper.LEARNING_LANGUAGE_LOCALE, getContext());
-        params.put("original_language", locale);
-        params.put("final_language", locale);
-        ServerRequestHelper.postAuthorizedJSONRequest(getContext(),  endpoint, new JSONObject(params), new Response.Listener<JSONObject>() {
+        ServerRequestHelper.getAuthorizedJSONRequest(getContext(),  endpoint+"?original_text="+word+"&original_language="+locale+"&final_language="+locale, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 if(response != null && response.length() > 0){
@@ -178,11 +209,6 @@ public class VocabularyFragment extends Fragment{
                     wordsRecyclerView.setAdapter(mAdapter);
                 }
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
         });
     }
 
@@ -217,26 +243,24 @@ public class VocabularyFragment extends Fragment{
         //load words from server base on category
         if(category == null || category.equals("")) return;
         mData.clearAllCells();
-        ArrayList<String> words = new ArrayList<>();
+        final ArrayList<String> words = new ArrayList<>();
         ArrayList<Integer> count = new ArrayList<>();
-        if(category.equals("turismo")) {
-            words.add("travel");
-            words.add("map");
-            words.add("guide");
-            count.add(20);
-            count.add(3);
-            count.add(2);
-        }
-        else if(category.equals("ti")){
-            words.add("programming");
-            words.add("algorithm");
-            count.add(20);
-            count.add(312);
-        }
-        mData.addStringsToAllCells(GenericData.VOCABULARY_WORD, words);
-        mData.addIntegersToAllCells(GenericData.VOCABULARY_COUNT, count);
-        mAdapter.notifyDataSetChanged();
-        wordsRecyclerView.setAdapter(mAdapter);
+        String locale = SharedPreferencesHelper.getString(SharedPreferencesHelper.LEARNING_LANGUAGE_LOCALE, getContext());
+        ServerRequestHelper.getAuthorizedJSONArrayRequest(getContext(), ServerConstants.VOCABULARY_ENDPOINT+"?query="+category+"&language="+locale, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                if(response == null) return;
+                for(int i = 0; i < response.length(); i++){
+                    try {
+                        words.add(response.get(i).toString());
+                    } catch (JSONException e) {}
+                }
+                mData.addStringsToAllCells(GenericData.VOCABULARY_WORD, words);
+                //mData.addIntegersToAllCells(GenericData.VOCABULARY_COUNT, count);
+                mAdapter.notifyDataSetChanged();
+                wordsRecyclerView.setAdapter(mAdapter);
+            }
+        });
     }
 
     private void SetSuggestionList(){
@@ -268,34 +292,6 @@ public class VocabularyFragment extends Fragment{
             @Override
             public void onClick(String message, int position) {
                 WordContextDialog.launchDialog(getActivity(), message);
-            }
-
-            @Override
-            public void onLinkClick(String link) {
-
-            }
-
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-        trendingAdapter.RegisterClickListener(new CellClickListener() {
-            @Override
-            public void onClick(View v, int position) {
-
-            }
-
-            @Override
-            public void onClick(ImageView v, String link) {
-
-            }
-
-            @Override
-            public void onClick(String message, int position) {
-                Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-                mSearchToolbar.setSuggestionText(message);
-                loadWords(message);
             }
 
             @Override

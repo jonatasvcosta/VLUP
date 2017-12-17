@@ -38,9 +38,12 @@
             android:paddingBottom="@dimen/margin_medium"/>
         <ScrollView
             android:layout_width="match_parent"
-            android:paddingRight="@dimen/margin_medium"
-            android:paddingLeft="@dimen/margin_medium"
             android:layout_height="match_parent">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:gravity="center_horizontal"
+                android:layout_height="wrap_content">
             <politcc2017.tcc_app.Components.CustomCard
                 android:id="@+id/activity_news_cell"
                 android:layout_width="match_parent"
@@ -48,6 +51,12 @@
                 android:paddingBottom="100dp"
                 android:visibility="gone"
                 android:layout_height="wrap_content"/>
+            <politcc2017.tcc_app.Components.CustomButton
+                android:id="@+id/news_detail_return_btn"
+                android:visibility="gone"
+                style="@style/FullWidthButton"
+                android:text="@string/return_btn_text"/>
+            </LinearLayout>
         </ScrollView>
     </LinearLayout>
     <com.getbase.floatingactionbutton.FloatingActionButton
