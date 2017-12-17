@@ -43,7 +43,8 @@ public class VocabularyFragment extends Fragment{
     private CustomSearchToolbar mSearchToolbar;
     private RecyclerView wordsRecyclerView, trendingTopicsRecyclerView;
     private GenericAdapter mAdapter, trendingAdapter;
-    private GenericData mData, trendingData;
+    private GenericData mData;
+    private GenericData trendingData;
     private FragmentListener listener;
 
     public VocabularyFragment() {
@@ -73,13 +74,10 @@ public class VocabularyFragment extends Fragment{
         trendingTopicsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         trendingTopicsRecyclerView.setVisibility(View.VISIBLE);
         mData = new GenericData();
-        trendingData = new GenericData();
-        loadTrendingTopics(trendingData);
         trendingAdapter = new GenericAdapter(trendingData, ViewHolderType.TRENDING_TOPICS_VIEW_HOLDER, getContext());
         wordsRecyclerView.setAdapter(mAdapter);
         mAdapter = new GenericAdapter(mData, ViewHolderType.VOCABULARY_WORD_VIEW_HOLDER,getContext());
         setupListeners();
-        trendingTopicsRecyclerView.setAdapter(trendingAdapter);
         //setActivityTitle(getResString(R.string.vocabulary_activity_title));
 
         SetSuggestionList();
@@ -98,15 +96,53 @@ public class VocabularyFragment extends Fragment{
         mSearchToolbar.setSuggestionText(input);
     }
 
-    private void loadTrendingTopics(GenericData data){
-        //call server here
-        ArrayList<String> topics = new ArrayList<>();
-        topics.add("Politics");
-        topics.add("Refugees");
-        topics.add("Global warming");
-        topics.add("North Korea");
-        topics.add("G5");
-        data.addStringsToAllCells(GenericData.TRENDING_TOPIC, topics);
+    public void loadTrendingTopics(){
+        if(trendingData != null) return; //topics already loaded
+        trendingData = new GenericData();
+        String locale = SharedPreferencesHelper.getString(SharedPreferencesHelper.LEARNING_LANGUAGE_LOCALE, getContext());
+        ServerRequestHelper.getAuthorizedJSONArrayRequest(getContext(), ServerConstants.TRENDING_TOPICS_ENDPOINT + "?website__language="+locale, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                ArrayList<String> topics = new ArrayList<>();
+                if(response == null) return;
+                for(int i = 0; i < response.length(); i++){
+                    try {
+                        topics.add(response.get(i).toString());
+                    } catch (JSONException e) {}
+                }
+                trendingData.addStringsToAllCells(GenericData.TRENDING_TOPIC, topics);
+                trendingAdapter = new GenericAdapter(trendingData, ViewHolderType.TRENDING_TOPICS_VIEW_HOLDER, getContext());
+                trendingTopicsRecyclerView.setAdapter(trendingAdapter);
+                trendingAdapter.RegisterClickListener(new CellClickListener() {
+                    @Override
+                    public void onClick(View v, int position) {
+
+                    }
+
+                    @Override
+                    public void onClick(ImageView v, String link) {
+
+                    }
+
+                    @Override
+                    public void onClick(String message, int position) {
+                        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+                        mSearchToolbar.setSuggestionText(message);
+                        loadWords(message);
+                    }
+
+                    @Override
+                    public void onLinkClick(String link) {
+
+                    }
+
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                });
+            }
+        });
     }
 
     public void loadSynonymWordsFromServer(String word){
@@ -119,7 +155,7 @@ public class VocabularyFragment extends Fragment{
 
     public void loadWordsListFromServer(String word, final String endpoint, final String keyRefence){
         if(word == null || word.length() == 0) return;
-        mSearchToolbar.setSuggestionText(word);
+        mSearchToolbar.setNonSearchableSuggestionText(word);
         wordsRecyclerView.setVisibility(View.VISIBLE);
         if(this.listener != null) listener.onMessageSent("VOCABULARY_FRAGMENT", SqlHelper.RULE_CHECK_SIMILAR_WORDS);
         trendingTopicsRecyclerView.setVisibility(View.GONE);
@@ -256,34 +292,6 @@ public class VocabularyFragment extends Fragment{
             @Override
             public void onClick(String message, int position) {
                 WordContextDialog.launchDialog(getActivity(), message);
-            }
-
-            @Override
-            public void onLinkClick(String link) {
-
-            }
-
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-        trendingAdapter.RegisterClickListener(new CellClickListener() {
-            @Override
-            public void onClick(View v, int position) {
-
-            }
-
-            @Override
-            public void onClick(ImageView v, String link) {
-
-            }
-
-            @Override
-            public void onClick(String message, int position) {
-                Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
-                mSearchToolbar.setSuggestionText(message);
-                loadWords(message);
             }
 
             @Override
