@@ -15,15 +15,24 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.android.volley.Response;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Hashtable;
 
 import politcc2017.tcc_app.Activities.BaseActivity;
+import politcc2017.tcc_app.Components.Helpers.SharedPreferencesHelper;
 import politcc2017.tcc_app.Components.Listeners.CellClickListener;
 import politcc2017.tcc_app.Components.RecyclerView.Adapters.GenericAdapter;
 import politcc2017.tcc_app.Components.RecyclerView.Data.GenericData;
 import politcc2017.tcc_app.Components.RecyclerView.ViewHolders.ViewHolderType;
 import politcc2017.tcc_app.R;
+import politcc2017.tcc_app.Volley.ServerConstants;
+import politcc2017.tcc_app.Volley.ServerRequestHelper;
 
 public class BeAProFragment extends Fragment{
 
@@ -60,36 +69,74 @@ public class BeAProFragment extends Fragment{
     }
 
     private void PopulateRecyclerView(){
-        GenericData data = getDataFromServer();
-        GenericAdapter mAdapter = new GenericAdapter(data, ViewHolderType.CUSTOM_CARD_VIEW_HOLDER);
-        mAdapter.RegisterClickListener(new CellClickListener() {
+        String locale = SharedPreferencesHelper.getString(SharedPreferencesHelper.LEARNING_LANGUAGE_LOCALE, getContext());
+        ServerRequestHelper.getAuthorizedJSONArrayRequest(getContext(), ServerConstants.CLASSES_LIST_ENDPOINT+"?final_language="+locale, null, new Response.Listener<JSONArray>() {
             @Override
-            public void onClick(View v, int position) {
+            public void onResponse(JSONArray response) {
+                if(response == null || response.length() == 0) return;
+                data = new GenericData();
+                ArrayList<String> titles = new ArrayList<>();
+                ArrayList<String> descriptions = new ArrayList<>();
+                ArrayList<String> categories = new ArrayList<>();
+                ArrayList<String> votes = new ArrayList<>();
+                ArrayList<String> movieURL = new ArrayList<>();
 
-            }
+                for(int i = 0; i < response.length(); i++){
+                    try {
+                        JSONObject miniclass = response.getJSONObject(i);
+                        String title = miniclass.getString("title");
+                        String vote = miniclass.getString("votes");
+                        String url = miniclass.getString("video_url");
+                        String tags = miniclass.getString("tags");
+                        String content = miniclass.getString("content");
+                        if(url.toLowerCase().equals("empty")) url = "";
+                        titles.add(title);
+                        descriptions.add(content);
+                        categories.add(tags);
+                        votes.add(vote);
+                        movieURL.add(url);
 
-            @Override
-            public void onClick(ImageView v, String link) {
+                    } catch (JSONException e) {}
+                }
 
-            }
+                data.addStringsToAllCells(GenericData.CUSTOM_CARD_TITLE, titles);
+                data.addStringsToAllCells(GenericData.CUSTOM_CARD_CONTENT, descriptions);
+                data.addStringsToAllCells(GenericData.CUSTOM_CARD_CATEGORIES, categories);
+                data.addStringsToAllCells(GenericData.CUSTOM_CARD_VOTES, votes);
+                data.addStringsToAllCells(GenericData.CUSTOM_CARD_URL, movieURL);
 
-            @Override
-            public void onClick(String message, int position) {
-                HandleCellClicks(message, position);
-            }
+                GenericAdapter mAdapter = new GenericAdapter(data, ViewHolderType.CUSTOM_CARD_VIEW_HOLDER);
+                mAdapter.RegisterClickListener(new CellClickListener() {
+                    @Override
+                    public void onClick(View v, int position) {
 
-            @Override
-            public void onLinkClick(String link) {
+                    }
 
-            }
+                    @Override
+                    public void onClick(ImageView v, String link) {
 
-            @Override
-            public void onClick(View view) {
+                    }
 
+                    @Override
+                    public void onClick(String message, int position) {
+                        HandleCellClicks(message, position);
+                    }
+
+                    @Override
+                    public void onLinkClick(String link) {
+
+                    }
+
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                });
+                mRecyclerView.setAdapter(mAdapter);
+                mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             }
         });
-        mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
     }
 
     private void HandleCellClicks(String message, int position){
@@ -108,43 +155,6 @@ public class BeAProFragment extends Fragment{
         if(content.containsKey(GenericData.CUSTOM_CARD_VOTES)) i.putExtra(GenericData.CUSTOM_CARD_VOTES, content.get(GenericData.CUSTOM_CARD_VOTES).toString());
         if(content.containsKey(GenericData.CUSTOM_CARD_URL)) i.putExtra(GenericData.CUSTOM_CARD_URL, content.get(GenericData.CUSTOM_CARD_URL).toString());
         startActivity(i);
-    }
-
-    private GenericData getDataFromServer(){
-        data = new GenericData(); //replace with proper call to server
-        ArrayList<String> titles = new ArrayList<>();
-        titles.add("Expressões Linguísticas");
-        titles.add("Lista de filmes legais");
-        titles.add("Nice song");
-        titles.add("Learn german!");
-        ArrayList<String> descriptions = new ArrayList<>();
-        descriptions.add("<blockquote>Express&otilde;es&nbsp;Lingu&iacute;sticas:</blockquote></p><ul><li>Enfiar o p&eacute; na jaca - exagerar</li></ul><ul><li>Botar pra quebrar&nbsp;- exagerar</li></ul><ul><li>Badernar&nbsp;- fazer bagun&ccedil;a</li></ul><ul><li>Encher a cara - embriagar-se</li></ul><ul><li>Ir para o&nbsp;olho da rua - ser demitido</li></ul><ul><li>Enfiar o p&eacute; na jaca - exagerar</li></ul><ul><li>Botar pra quebrar&nbsp;- exagerar</li></ul><ul><li>Badernar&nbsp;- fazer bagun&ccedil;a</li></ul><ul><li>Encher a cara - embriagar-se</li></ul><ul><li>Ir para o&nbsp;olho da rua - ser demitido</li></ul><ul><li>Enfiar o p&eacute; na jaca - exagerar</li></ul><ul><li>Botar pra quebrar&nbsp;- exagerar</li></ul><ul><li>Badernar&nbsp;- fazer bagun&ccedil;a</li></ul><ul><li>Encher a cara - embriagar-se</li></ul><ul><li>Ir para o&nbsp;olho da rua - ser demitido</li></ul><ul><li>Enfiar o p&eacute; na jaca - exagerar</li></ul><ul><li>Botar pra quebrar&nbsp;- exagerar</li></ul><ul><li>Badernar&nbsp;- fazer bagun&ccedil;a</li></ul><ul><li>Encher a cara - embriagar-se</li></ul><ul><li>Ir para o&nbsp;olho da rua - ser demitido</li></ul><ul><li>Enfiar o p&eacute; na jaca - exagerar</li></ul><ul><li>Botar pra quebrar&nbsp;- exagerar</li></ul><ul><li>Badernar&nbsp;- fazer bagun&ccedil;a</li></ul><ul><li>Encher a cara - embriagar-se</li></ul><ul><li>Ir para o&nbsp;olho da rua - ser demitido</li></ul><ul><li>Enfiar o p&eacute; na jaca - exagerar</li></ul><ul><li>Botar pra quebrar&nbsp;- exagerar</li></ul><ul><li>Badernar&nbsp;- fazer bagun&ccedil;a</li></ul><ul><li>Encher a cara - embriagar-se</li></ul><ul><li>Ir para o&nbsp;olho da rua - ser demitido</li></ul><ul><li>Enfiar o p&eacute; na jaca - exagerar</li></ul><ul><li>Botar pra quebrar&nbsp;- exagerar</li></ul><ul><li>Badernar&nbsp;- fazer bagun&ccedil;a</li></ul><ul><li>Encher a cara - embriagar-se</li></ul><ul><li>Ir para o&nbsp;olho da rua - ser demitido</li></ul><ul><li>Enfiar o p&eacute; na jaca - exagerar</li></ul><ul><li>Botar pra quebrar&nbsp;- exagerar</li></ul><ul><li>Badernar&nbsp;- fazer bagun&ccedil;a</li></ul><ul><li>Encher a cara - embriagar-se</li></ul><ul><li>Ir para o&nbsp;olho da rua - ser demitido</li></ul>");
-        descriptions.add("<blockquote>Blah b</blockquote><u>List</u>:<br><br><ul><li>a</li></ul><ul><li>b</li></ul><ul><li>c</li></ul><ul><li>d</li></ul>");
-        descriptions.add("Check this video!");
-        descriptions.add("Check this video!");
-        ArrayList<String> categories = new ArrayList<>();
-        categories.add("expressões, linguagem popular");
-        categories.add("filmes");
-        categories.add("songs");
-        categories.add("video classes");
-        ArrayList<String> votes = new ArrayList<>();
-        votes.add("#1221");
-        votes.add("#3");
-        votes.add("#998");
-        votes.add("#7");
-        ArrayList<String> movieURL = new ArrayList<>();
-        movieURL.add("");
-        movieURL.add("");
-        movieURL.add(getValidatedInput("https://www.youtube.com/watch?v=w9j3-ghRjBs"));
-        movieURL.add(getValidatedInput("https://www.youtube.com/watch?v=tPEE9ZwTmy0"));
-
-        data.addStringsToAllCells(GenericData.CUSTOM_CARD_TITLE, titles);
-        data.addStringsToAllCells(GenericData.CUSTOM_CARD_CONTENT, descriptions);
-        data.addStringsToAllCells(GenericData.CUSTOM_CARD_CATEGORIES, categories);
-        data.addStringsToAllCells(GenericData.CUSTOM_CARD_VOTES, votes);
-        data.addStringsToAllCells(GenericData.CUSTOM_CARD_URL, movieURL);
-
-        return data;
     }
 
     private String getValidatedInput(final String input){
