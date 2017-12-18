@@ -144,7 +144,7 @@ public class ServerRequestHelper {
                     }
                 });
 
-        request_json.setRetryPolicy(new DefaultRetryPolicy(15000,
+        request_json.setRetryPolicy(new DefaultRetryPolicy(40000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
