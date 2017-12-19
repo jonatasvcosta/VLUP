@@ -24,11 +24,12 @@ public class ServerConstants {
     public static final String TRANSLATION_ENDPOINT = "translation/";
     public static final String VOCABULARY_ENDPOINT = "news/article/vocabulary";
     public static final String TRENDING_TOPICS_ENDPOINT = "news/article/trending_topics";
+    public static final String CLASSES_LIST_ENDPOINT = "short_lessons/short_lessons";
     public static final String SYNONYM_ENDPOINT = "synonymous/";
     public static final String SIMILAR_WORDS_ENDPOINT = "similar_words/";
     public static final String WEBSITES_LIST_ENDPOINT = "news/websites/";
     public static final String NEWS_SEARCH_ENDPOINT = "news/article/similarity";
-
+    public static final String NEWS_HOME_ENDPOINT = "news/article/home";
     public static final String USERNAME_KEY = "username";
     public static final String PASSWORD_KEY = "password";
     public static final String EMAIL_KEY = "email";

@@ -49,7 +49,7 @@ public class BookshelfActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.activity_bookshelf);
-        language = SharedPreferencesHelper.getString(SharedPreferencesHelper.LOCALE_KEY, getApplicationContext());
+        language = SharedPreferencesHelper.getString(SharedPreferencesHelper.LEARNING_LANGUAGE_LOCALE, getApplicationContext());
         Inquiry.newInstance(this, SqlHelper.DATABASE).build();
         setActivityTitle(getResString(R.string.bookshelf_activity_title));
         initialBDSetup();
@@ -237,8 +237,8 @@ public class BookshelfActivity extends BaseActivity {
                         int offset;
                         for(offset = 1; offset < categories.length && !categories[offset].header; offset++);
                         Inquiry.get(getApplicationContext()).insert(BookshelfTexts.class).values(new BookshelfTexts[]{new BookshelfTexts(offset+position, textToAdd, language)}).run();
-                        Toast.makeText(getApplicationContext(), getResString(R.string.bookshelf_text_added), Toast.LENGTH_SHORT).show();
                         onBackPressed();
+                        Toast.makeText(getApplicationContext(), getResString(R.string.bookshelf_text_added), Toast.LENGTH_SHORT).show();
                     }
                     String type = "";
                     if(textType.contains(position)) type = "text";

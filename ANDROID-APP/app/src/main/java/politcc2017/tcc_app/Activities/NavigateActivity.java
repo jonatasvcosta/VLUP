@@ -173,7 +173,7 @@ public class NavigateActivity extends BaseActivity implements View.OnClickListen
 
     private void SetSuggestionListData(){
         String languageQuery = "?language="+SharedPreferencesHelper.getString(SharedPreferencesHelper.LEARNING_LANGUAGE_LOCALE, getApplicationContext());
-        ServerRequestHelper.getAuthorizedJSONArrayRequest(getApplicationContext(), ServerConstants.WEBSITES_LIST_ENDPOINT+languageQuery, null, new Response.Listener<JSONArray>() {
+        ServerRequestHelper.getAuthorizedJSONArrayRequest2(getApplicationContext(), ServerConstants.WEBSITES_LIST_ENDPOINT+languageQuery, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 PopulateRecyclerView(response);

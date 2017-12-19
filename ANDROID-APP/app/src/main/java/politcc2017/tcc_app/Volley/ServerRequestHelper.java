@@ -125,6 +125,30 @@ public class ServerRequestHelper {
         AppSingleton.getInstance(c).addToRequestQueue(request_json, ServerConstants.JSON_TAG + relativeURL);
     }
 
+    public static void getAuthorizedJSONArrayRequest2(Context c, String relativeURL, JSONArray params, final Response.Listener<JSONArray> listener){
+        final MaterialDialog loading = DialogHelper.ProgressDialog(c, c.getResources().getString(R.string.dialog_loading_title));
+        CustomJsonArrayRequest request_json = new CustomJsonArrayRequest(ServerToken, Request.Method.GET, ServerConstants.BASE_URL + relativeURL, params,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        listener.onResponse(response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        String msg = new String(error.networkResponse.data);
+                        VolleyLog.e("Error: ", error.getMessage());
+                    }
+                });
+
+        request_json.setRetryPolicy(new DefaultRetryPolicy(40000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        AppSingleton.getInstance(c).addToRequestQueue(request_json, ServerConstants.JSON_TAG + relativeURL);
+    }
+
     public static void getAuthorizedJSONArrayRequest(Context c, String relativeURL, JSONArray params, final Response.Listener<JSONArray> listener){
         final MaterialDialog loading = DialogHelper.ProgressDialog(c, c.getResources().getString(R.string.dialog_loading_title));
         loading.show();
@@ -144,7 +168,7 @@ public class ServerRequestHelper {
                     }
                 });
 
-        request_json.setRetryPolicy(new DefaultRetryPolicy(15000,
+        request_json.setRetryPolicy(new DefaultRetryPolicy(40000,
                 DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 

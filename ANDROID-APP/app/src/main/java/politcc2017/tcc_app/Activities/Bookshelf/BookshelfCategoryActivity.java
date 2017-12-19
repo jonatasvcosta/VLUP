@@ -205,7 +205,7 @@ public class BookshelfCategoryActivity extends BaseActivity {
     private ArrayList<String> loadCategoryTexts(){
         ArrayList<String> textsList = new ArrayList<>();
         BookshelfTexts[] texts = Inquiry.get(this)
-                .select(BookshelfTexts.class).where("id = ? and language = ?", categoryID, language)
+                .select(BookshelfTexts.class).where("id = ?", categoryID)
                 .all();
         if(texts != null)
             for(int i = 0; i < texts.length; i++){

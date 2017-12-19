@@ -12,7 +12,13 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.android.volley.Response;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import politcc2017.tcc_app.Activities.BaseActivity;
@@ -21,6 +27,8 @@ import politcc2017.tcc_app.Components.Helpers.SQLiteHelper.SqlHelper;
 import politcc2017.tcc_app.Components.Listeners.FragmentListener;
 import politcc2017.tcc_app.Components.WordContextDialog;
 import politcc2017.tcc_app.R;
+import politcc2017.tcc_app.Volley.ServerConstants;
+import politcc2017.tcc_app.Volley.ServerRequestHelper;
 
 /**
  * Created by Jonatas on 06/04/2017.
@@ -54,7 +62,10 @@ public class MainActivitiesActivity extends BaseActivity implements FragmentList
             @Override
             public void onTabSelected(final TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
-                if(tab.getPosition() == POS_HOME_TAB) setActivityTitle(getResString(R.string.home_activity_title));
+                if(tab.getPosition() == POS_HOME_TAB){
+                    setActivityTitle(getResString(R.string.home_activity_title));
+                    homeFragment.PopulateRecyclerView();
+                }
                 if(tab.getPosition() == POS_VOCABULARY_TAB){
                     setActivityTitle(getResString(R.string.vocabulary_activity_title));
                     if(!setupSimilarWords) vocabularyFragment.loadTrendingTopics();
@@ -89,7 +100,10 @@ public class MainActivitiesActivity extends BaseActivity implements FragmentList
                     newsText = text;
                 }
             }
-            else if(defaultActivity != null && defaultActivity.equals("HOME_ACTIVITY")) viewPager.setCurrentItem(POS_HOME_TAB);
+            else if(defaultActivity != null && defaultActivity.equals("HOME_ACTIVITY")){
+                viewPager.setCurrentItem(POS_HOME_TAB);
+                getToken();
+            }
             if(similarWords != null && similarWords.length() > 0){
                 setupSimilarWords = true;
                 this.similarWord = similarWords;
@@ -103,6 +117,25 @@ public class MainActivitiesActivity extends BaseActivity implements FragmentList
                 viewPager.setCurrentItem(POS_VOCABULARY_TAB);
             }
         }
+    }
+
+    protected void getToken(){
+        HashMap<String, String> params = new HashMap<String, String>();
+
+        params.put(ServerConstants.USERNAME_KEY, "root");
+        params.put(ServerConstants.PASSWORD_KEY, "vluptcc");
+        ServerRequestHelper.postJSONRequest(getApplicationContext(), ServerConstants.AUTHENTICATION_ENDPOINT, params, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    token = response.get(ServerConstants.TOKEN_KEY).toString();
+                    WordContextDialog.SetToken(token);
+                    homeFragment.PopulateRecyclerView();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     private void setupActionBarIcons(final int position){
