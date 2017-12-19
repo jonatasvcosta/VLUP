@@ -184,10 +184,12 @@ public class NewsFragment extends Fragment{
                 detailNewsCard(position);
                 mNewsCard.setVisibility(View.VISIBLE);
                 newsRecyclerView.setVisibility(View.GONE);
+                ratingMenu.setVisibility(View.VISIBLE);
                 backBtn.setVisibility(View.VISIBLE);
                 backBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        ratingMenu.setVisibility(View.GONE);
                         backBtn.setVisibility(View.GONE);
                         mNewsCard.setVisibility(View.GONE);
                         newsRecyclerView.setVisibility(View.VISIBLE);
