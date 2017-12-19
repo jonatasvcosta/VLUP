@@ -162,7 +162,19 @@ public class HomeFragment extends Fragment{
 
                     @Override
                     public void onClick(String message, int position) {
-                        HandleCellClicks(message, position);
+                        if(message.equals("cardlayout")){
+                            try {
+                                if (data.getValue(position).get(GenericData.CUSTOM_CARD_TYPE).toString().equals(GenericData.NEWS))
+                                    startClassNewsActivity(position);
+                                if (data.getValue(position).get(GenericData.CUSTOM_CARD_TYPE).toString().equals(GenericData.MINI_CLASS))
+                                    startClassDetailActivity(position);
+                                if (data.getValue(position).get(GenericData.CUSTOM_CARD_TYPE).toString().equals(GenericData.LINK))
+                                    startClassNavigation(position);
+                                if (data.getValue(position).get(GenericData.CUSTOM_CARD_TYPE).toString().equals(GenericData.TRENDING_WORDS))
+                                    startClassVocabulary(position);
+                            }
+                            catch (Exception e){}
+                        }
                     }
 
                     @Override
@@ -182,14 +194,7 @@ public class HomeFragment extends Fragment{
 
     }
 
-    private void HandleCellClicks(String message, int position){
-        if(message.equals("cardlayout")){
-            if(data.getValue(position).get(GenericData.CUSTOM_CARD_TYPE).toString().equals(GenericData.NEWS)) startClassNewsActivity(position);
-            if(data.getValue(position).get(GenericData.CUSTOM_CARD_TYPE).toString().equals(GenericData.MINI_CLASS)) startClassDetailActivity(position);
-            if(data.getValue(position).get(GenericData.CUSTOM_CARD_TYPE).toString().equals(GenericData.LINK)) startClassNavigation(position);
-            if(data.getValue(position).get(GenericData.CUSTOM_CARD_TYPE).toString().equals(GenericData.TRENDING_WORDS)) startClassVocabulary(position);
-        }
-    }
+
 
     private void startClassVocabulary(int position){
         Hashtable content = data.getValue(position);
